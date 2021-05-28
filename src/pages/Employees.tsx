@@ -1,6 +1,5 @@
 import PageHeader from '../components/PageHeader';
 import PageLayout from '../components/PageLayout';
-import Navigation from '../components/Navigation';
 
 const Employees = () => {
   return (
