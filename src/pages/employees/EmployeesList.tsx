@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import EmployeesListHeader from './EmployeesListHeader';
 
-const EmployeesListStyle = styled.div``;
+const EmployeesListStyle = styled.div`
+  padding: 16px;
+`;
 
 interface Props {
   data: any[];

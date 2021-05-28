@@ -2,10 +2,9 @@ import styled from 'styled-components';
 import Navigation from './Navigation';
 
 const PageLayoutStyle = styled.div`
-  height: calc(100vh - 120px - 24px);
+  height: 100vh;
   display: grid;
   grid-template-columns: 280px 1fr;
-  padding: 12px 0;
 `;
 
 interface Props {
