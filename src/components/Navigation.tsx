@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import {
-  Collapse,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@material-ui/core';
+import { Collapse } from '@material-ui/core';
 import Logo from '../assets/logo.svg';
 
 const navigationsItems = [
   { id: 1, label: 'Pracownicy', link: '/pracownicy' },
-  { id: 2, label: 'Wnioski', link: '/wnioski' },
+  {
+    id: 2,
+    label: 'Wnioski',
+    link: '/wnioski',
+    children: [
+      { id: '2a', label: 'Szkoleniowe', link: '/wnioski-szkoleniowe' },
+      { id: '6b', label: 'Dodatkowe', link: '/wnioski-dodatkowe' },
+    ],
+  },
   { id: 3, label: 'Szkolenia', link: '/szkolenia' },
   { id: 4, label: 'Szkolenia wewnętrzne', link: '/szkolenia-wewnetrzne' },
   { id: 5, label: 'Ankiety', link: '/ankiety' },
@@ -42,7 +44,7 @@ const NavigationStyle = styled.div`
   }
 
   .divider {
-    height: 16px;
+    height: 24px;
     width: 280px;
     background-color: white;
   }
@@ -57,15 +59,22 @@ const NavigationStyle = styled.div`
       background-color: rgba(118, 45, 45, 0.2);
     }
   }
+
+  .sub-label {
+    padding-left: 36px;
+  }
 `;
 
 const Navigation = () => {
   const [firmyOpen, setFirmyOpen] = useState(false);
+  const [wnioskiOpen, setWnioskiOpen] = useState(false);
 
   const getCloseFn = (label: string) => {
     switch (label) {
       case 'Firma':
         return { open: firmyOpen, setOpen: setFirmyOpen };
+      case 'Wnioski':
+        return { open: wnioskiOpen, setOpen: setWnioskiOpen };
       default:
         return { open: false, setOpen: () => {} };
     }
@@ -96,13 +105,15 @@ const Navigation = () => {
               in={getCloseFn(item.label).open}
               timeout="auto"
               unmountOnExit
+              className="collapse-element"
             >
-              <List component="div" disablePadding>
-                <ListItem button>
-                  <ListItemIcon></ListItemIcon>
-                  <ListItemText primary="Starred" />
-                </ListItem>
-              </List>
+              {item.children.map((children) => (
+                <div key={item.id}>
+                  <NavLink className="navLink-item" to={children.link}>
+                    <p className="sub-label">{children.label}</p>
+                  </NavLink>
+                </div>
+              ))}
             </Collapse>
           )}
         </div>
