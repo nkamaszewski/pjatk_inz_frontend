@@ -17,11 +17,13 @@ const NavigationStyle = styled.div`
   background-color: #c4c4c4;
 
   .navLink-item {
+    display: block;
     font-size: 24px;
     padding: 16px 8px;
-    a {
-      text-decoration: none;
-      color: black;
+    text-decoration: none;
+    color: black;
+    &:hover {
+      background-color: rgba(118, 45, 45, 0.2);
     }
   }
 `;
@@ -30,9 +32,9 @@ const Navigation = () => {
   return (
     <NavigationStyle>
       {navigationsItems.map((item) => (
-        <div key={item.id} className="navLink-item">
-          <NavLink to={item.link}>{item.label}</NavLink>
-        </div>
+        <NavLink key={item.id} className="navLink-item" to={item.link}>
+          {item.label}
+        </NavLink>
       ))}
     </NavigationStyle>
   );

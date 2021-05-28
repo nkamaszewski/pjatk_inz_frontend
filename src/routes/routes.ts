@@ -1,4 +1,4 @@
-import Employees from '../pages/Employees';
+import Employees from '../pages/employees/Employees';
 
 export interface RouteType {
   Component: Function;
