@@ -11,21 +11,50 @@ const navigationsItems = [
     label: 'Wnioski',
     link: '/wnioski',
     children: [
-      { id: '2a', label: 'Szkoleniowe', link: '/wnioski-szkoleniowe' },
-      { id: '6b', label: 'Dodatkowe', link: '/wnioski-dodatkowe' },
+      { id: '2a', label: 'Szkoleniowe', link: '/wnioski/wnioski-szkoleniowe' },
+      { id: '6b', label: 'Dodatkowe', link: '/wnioski/wnioski-dodatkowe' },
     ],
   },
-  { id: 3, label: 'Szkolenia', link: '/szkolenia' },
-  { id: 4, label: 'Szkolenia wewnętrzne', link: '/szkolenia-wewnetrzne' },
+  {
+    id: 3,
+    label: 'Szkolenia',
+    link: '/szkolenia',
+    children: [
+      { id: '3a', label: 'Studia', link: '/szkolenia/szkolenia/studia' },
+      { id: '3b', label: 'Kursy', link: '/szkolenia/szkolenia/kursy' },
+      {
+        id: '3c',
+        label: 'Szkolenia wewnętrzne',
+        link: '/szkolenia/szkolenia-wewnetrzne',
+      },
+      { id: '3d', label: 'Inne', link: '/szkolenia/inne' },
+      { id: '3e', label: 'Organizatorzy', link: '/szkolenia/organizatorzy' },
+      { id: '3f', label: 'Szkoleniowcy', link: '/szkolenia/szkoleniowcy' },
+    ],
+  },
+  {
+    id: 4,
+    label: 'Szkolenia wewnętrzne',
+    link: '/szkolenia-wewnetrzne',
+    children: [
+      { id: '4a', label: 'Sale', link: '/szkolenia-wewnetrzne/sale' },
+      { id: '4b', label: 'Grupy', link: '/szkolenia-wewnetrzne/grupy' },
+      {
+        id: '4c',
+        label: 'Harmonogram',
+        link: '/szkolenia-wewnetrzne/harmonogram',
+      },
+    ],
+  },
   { id: 5, label: 'Ankiety', link: '/ankiety' },
   {
     id: 6,
     label: 'Firma',
     link: '/firma',
     children: [
-      { id: '6a', label: 'Dane Firmy', link: '/dane-firmy' },
-      { id: '6b', label: 'Piony - wydziały', link: '/piony-wydzialy' },
-      { id: '6c', label: 'Stanowiska', link: '/stanowiska' },
+      { id: '6a', label: 'Dane Firmy', link: '/firma/dane-firmy' },
+      { id: '6b', label: 'Piony - wydziały', link: '/firma/piony-wydzialy' },
+      { id: '6c', label: 'Stanowiska', link: '/firma/stanowiska' },
     ],
   },
   { id: 7, label: 'Moje konto', link: '/moje-konto' },
@@ -68,6 +97,8 @@ const NavigationStyle = styled.div`
 const Navigation = () => {
   const [firmyOpen, setFirmyOpen] = useState(false);
   const [wnioskiOpen, setWnioskiOpen] = useState(false);
+  const [szkoleniaOpen, setSzkoleniaOpen] = useState(false);
+  const [szkoleniaWewnetrzneOpen, setSzkoleniaWewnetrzneOpen] = useState(false);
 
   const getCloseFn = (label: string) => {
     switch (label) {
@@ -75,6 +106,13 @@ const Navigation = () => {
         return { open: firmyOpen, setOpen: setFirmyOpen };
       case 'Wnioski':
         return { open: wnioskiOpen, setOpen: setWnioskiOpen };
+      case 'Szkolenia':
+        return { open: szkoleniaOpen, setOpen: setSzkoleniaOpen };
+      case 'Szkolenia wewnętrzne':
+        return {
+          open: szkoleniaWewnetrzneOpen,
+          setOpen: setSzkoleniaWewnetrzneOpen,
+        };
       default:
         return { open: false, setOpen: () => {} };
     }
