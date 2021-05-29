@@ -1,11 +1,11 @@
 import PageHeader from '../../components/PageHeader';
 
-const Workshops = () => {
+const CompanyData = () => {
   return (
     <div>
-      <PageHeader title="Szkolenia" />
+      <PageHeader title="Firma dane" />
     </div>
   );
 };
 
-export default Workshops;
+export default CompanyData;

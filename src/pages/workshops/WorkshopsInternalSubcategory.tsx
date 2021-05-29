@@ -1,6 +1,6 @@
 import PageHeader from '../../components/PageHeader';
 
-const WorkshopsInternal = () => {
+const WorkshopsInternalSubcategory = () => {
   return (
     <div>
       <PageHeader title="Szkolenia wewnętrzne" />
@@ -8,4 +8,4 @@ const WorkshopsInternal = () => {
   );
 };
 
-export default WorkshopsInternal;
+export default WorkshopsInternalSubcategory;

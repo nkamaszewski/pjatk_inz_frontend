@@ -9,7 +9,7 @@ const navigationsItems = [
   {
     id: 2,
     label: 'Wnioski',
-    link: '/wnioski',
+    link: '/wnioski/wnioski-szkoleniowe',
     children: [
       { id: '2a', label: 'Szkoleniowe', link: '/wnioski/wnioski-szkoleniowe' },
       { id: '6b', label: 'Dodatkowe', link: '/wnioski/wnioski-dodatkowe' },
@@ -18,10 +18,10 @@ const navigationsItems = [
   {
     id: 3,
     label: 'Szkolenia',
-    link: '/szkolenia',
+    link: '/szkolenia/studia',
     children: [
-      { id: '3a', label: 'Studia', link: '/szkolenia/szkolenia/studia' },
-      { id: '3b', label: 'Kursy', link: '/szkolenia/szkolenia/kursy' },
+      { id: '3a', label: 'Studia', link: '/szkolenia/studia' },
+      { id: '3b', label: 'Kursy', link: '/szkolenia/kursy' },
       {
         id: '3c',
         label: 'Szkolenia wewnętrzne',
@@ -35,7 +35,7 @@ const navigationsItems = [
   {
     id: 4,
     label: 'Szkolenia wewnętrzne',
-    link: '/szkolenia-wewnetrzne',
+    link: '/szkolenia-wewnetrzne/sale',
     children: [
       { id: '4a', label: 'Sale', link: '/szkolenia-wewnetrzne/sale' },
       { id: '4b', label: 'Grupy', link: '/szkolenia-wewnetrzne/grupy' },
@@ -50,7 +50,7 @@ const navigationsItems = [
   {
     id: 6,
     label: 'Firma',
-    link: '/firma',
+    link: '/firma/dane-firmy',
     children: [
       { id: '6a', label: 'Dane Firmy', link: '/firma/dane-firmy' },
       { id: '6b', label: 'Piony - wydziały', link: '/firma/piony-wydzialy' },
