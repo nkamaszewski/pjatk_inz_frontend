@@ -7,7 +7,12 @@ const Router = () => {
     <PageLayout>
       <Switch>
         {routes.map(({ path, Component }: RouteType) => (
-          <Route key={path.toString()} exact path={path} children={Component} />
+          <Route
+            key={path.toString()}
+            exact
+            path={path}
+            children={<Component />}
+          />
         ))}
         <Redirect to={'/pracownicy'} />
       </Switch>

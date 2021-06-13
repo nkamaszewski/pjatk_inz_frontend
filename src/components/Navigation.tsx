@@ -12,7 +12,7 @@ const navigationsItems = [
     link: '/wnioski/wnioski-szkoleniowe',
     children: [
       { id: '2a', label: 'Szkoleniowe', link: '/wnioski/wnioski-szkoleniowe' },
-      { id: '6b', label: 'Dodatkowe', link: '/wnioski/wnioski-dodatkowe' },
+      { id: '2b', label: 'Dodatkowe', link: '/wnioski/wnioski-dodatkowe' },
     ],
   },
   {
@@ -145,10 +145,10 @@ const Navigation = () => {
               unmountOnExit
               className="collapse-element"
             >
-              {item.children.map((children) => (
-                <div key={item.id}>
-                  <NavLink className="navLink-item" to={children.link}>
-                    <p className="sub-label">{children.label}</p>
+              {item.children.map((child) => (
+                <div key={child.id}>
+                  <NavLink className="navLink-item" to={child.link}>
+                    <p className="sub-label">{child.label}</p>
                   </NavLink>
                 </div>
               ))}
