@@ -51,6 +51,7 @@ const CompanyDataDepartments = () => {
       </div>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <DepartmentDivisionFieldset
+          divisions={divisions}
           closeDrawer={() => setIsOpen(false)}
           fetchDivisionsDepartments={fetchDivisionsDepartments}
         />
