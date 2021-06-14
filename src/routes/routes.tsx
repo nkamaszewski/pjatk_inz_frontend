@@ -1,5 +1,5 @@
 import CompanyData from '../pages/company/CompanyData';
-import CompanyDataDepartments from '../pages/company/CompanyDataDepartments';
+import CompanyDataDepartments from '../pages/company/CompanyDataDepartments/CompanyDataDepartments';
 import CompanyDataProffesions from '../pages/company/CompanyDataProffesions';
 import DocumentsAdditional from '../pages/documents/DocumentsAdditional';
 import DocumentsWorkshop from '../pages/documents/DocumentsWorkshop';
