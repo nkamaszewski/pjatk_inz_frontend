@@ -2,16 +2,20 @@ import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { EmployeeDTO } from '../../types/DTO/Employee';
 
+// TODO: do usuniecia po implementacji serwerowej
+export const MOCK_EMPLOYEE = [
+  { IdPerson: '1', Pesel: 1111111111 },
+  { IdPerson: '2', Pesel: 2222222222 },
+];
+
 interface Props {
   value: string;
   onChange: Function;
 }
 
 const EmployeeSelect = ({ value, onChange }: Props) => {
-  const [employees, setEmployees]: [EmployeeDTO[], Function] = useState([
-    { IdPerson: '1', Pesel: 1111111111 },
-    { IdPerson: '2', Pesel: 2222222222 },
-  ]);
+  const [employees, setEmployees]: [EmployeeDTO[], Function] =
+    useState(MOCK_EMPLOYEE);
 
   useEffect(() => {
     // TODO: jak powstanie employment na serwerze tutaj dodac zapytanie serwerowe

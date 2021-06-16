@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 const EmploymentListHeaderStyle = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 20%);
   background-color: rgba(196, 196, 196, 0.25);
   font-size: 28px;
   padding: 16px;
@@ -10,7 +8,7 @@ const EmploymentListHeaderStyle = styled.div`
 
 const EmploymentListHeader = () => {
   return (
-    <EmploymentListHeaderStyle>
+    <EmploymentListHeaderStyle className="grid-employment">
       <p>Nazwisko</p>
       <p>Imię</p>
       <p>Pion</p>

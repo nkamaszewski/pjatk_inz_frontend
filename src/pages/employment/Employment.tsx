@@ -4,12 +4,14 @@ import { Drawer, Fab } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { getEmployments } from '../../api/apiRoutes';
 import PageHeader from '../../components/PageHeader';
-import { EmploymentDTO } from '../../types/DTO/Employment';
+import { EmploymentListDTO } from '../../types/DTO/Employment';
 import EmploymentFieldset from './EmploymentFieldset';
 import EmploymentList from './EmploymentList';
 
 const Employment = () => {
-  const [employees, setEmployees]: [EmploymentDTO[], Function] = useState([]);
+  const [employees, setEmployees]: [EmploymentListDTO[], Function] = useState(
+    []
+  );
   const [isOpen, setIsOpen] = useState(false);
 
   const fetchEmployments = () => {
