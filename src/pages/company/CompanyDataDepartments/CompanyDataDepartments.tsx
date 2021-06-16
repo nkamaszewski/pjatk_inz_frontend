@@ -10,14 +10,7 @@ import { Division } from '../../../types/DTO/Division';
 import DataDepartmentsList from './DataDepartmentsList';
 import DepartmentDivisionFieldset from './DepartmentDivisionFieldset';
 
-const CompanyDataDepartmentsStyle = styled.div`
-  .toolbar {
-    padding: 36px;
-    width: calc(100% - 72px);
-    display: flex;
-    flex-direction: row-reverse;
-  }
-`;
+const CompanyDataDepartmentsStyle = styled.div``;
 
 const CompanyDataDepartments = () => {
   const [divisions, setDivisions]: [Division[], Function] = useState([]);
@@ -44,7 +37,7 @@ const CompanyDataDepartments = () => {
   return (
     <CompanyDataDepartmentsStyle>
       <PageHeader title="Firma piony wydziały" />
-      <div className="toolbar">
+      <div className="toolbar--global">
         <Fab color="primary" aria-label="add" onClick={() => setIsOpen(true)}>
           <FontAwesomeIcon icon={faPlus} />
         </Fab>

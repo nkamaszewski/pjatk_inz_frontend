@@ -1,6 +1,6 @@
 import CompanyData from '../pages/company/CompanyData';
 import CompanyDataDepartments from '../pages/company/CompanyDataDepartments/CompanyDataDepartments';
-import CompanyDataProffesions from '../pages/company/CompanyDataProffesions';
+import CompanyDataPositions from '../pages/company/CompanyDataPositions/CompanyDataPositions';
 import DocumentsAdditional from '../pages/documents/DocumentsAdditional';
 import DocumentsWorkshop from '../pages/documents/DocumentsWorkshop';
 import Employees from '../pages/employees/Employees';
@@ -43,6 +43,6 @@ export const routes: RouteType[] = [
   { Component: Polls, path: '/ankiety' },
   { Component: CompanyData, path: '/firma/dane-firmy' },
   { Component: CompanyDataDepartments, path: '/firma/piony-wydzialy' },
-  { Component: CompanyDataProffesions, path: '/firma/stanowiska' },
+  { Component: CompanyDataPositions, path: '/firma/stanowiska' },
   { Component: UserAccount, path: '/moje-konto' },
 ];
