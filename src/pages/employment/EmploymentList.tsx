@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { EmploymentDTO } from '../../types/DTO/Employment';
 import EmploymentListHeader from './EmploymentListHeader';
 
 const EmploymentListStyle = styled.div`
@@ -6,10 +7,10 @@ const EmploymentListStyle = styled.div`
 `;
 
 interface Props {
-  data: any[];
+  employees: EmploymentDTO[];
 }
 
-const EmploymentList = ({ data }: Props) => {
+const EmploymentList = ({ employees }: Props) => {
   return (
     <EmploymentListStyle>
       <EmploymentListHeader />
