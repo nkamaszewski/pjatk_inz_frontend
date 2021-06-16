@@ -1,7 +1,7 @@
 import { Divider } from '@material-ui/core';
 import styled from 'styled-components';
-import { Department } from '../../../types/DTO/Department';
-import { Division } from '../../../types/DTO/Division';
+import { DepartmentDTO } from '../../../types/DTO/Department';
+import { DivisionDTO } from '../../../types/DTO/Division';
 
 const DataDepartmentsListStyle = styled.div`
   padding: 24px;
@@ -12,8 +12,8 @@ const DataDepartmentsListStyle = styled.div`
 `;
 
 interface Props {
-  divisions: Division[];
-  departments: Department[];
+  divisions: DivisionDTO[];
+  departments: DepartmentDTO[];
 }
 
 const DataDepartmentsList = ({ divisions, departments }: Props) => {

@@ -1,13 +1,13 @@
 import { Divider } from '@material-ui/core';
 import styled from 'styled-components';
-import { Position } from '../../../types/DTO/Position';
+import { PositionDTO } from '../../../types/DTO/Position';
 
 const PositionsListStyle = styled.div`
   padding: 24px;
 `;
 
 interface Props {
-  positions: Position[];
+  positions: PositionDTO[];
 }
 
 const PositionsList = ({ positions }: Props) => {

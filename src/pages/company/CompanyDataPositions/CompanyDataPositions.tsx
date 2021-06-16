@@ -5,14 +5,14 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getPositions } from '../../../api/apiRoutes';
 import PageHeader from '../../../components/PageHeader';
-import { Position } from '../../../types/DTO/Position';
+import { PositionDTO } from '../../../types/DTO/Position';
 import PositionFieldset from './PositionFieldset';
 import PositionsList from './PositionsList';
 
 const CompanyDataPositionsStyle = styled.div``;
 
 const CompanyDataPositions = () => {
-  const [positions, setPositions]: [Position[], Function] = useState([]);
+  const [positions, setPositions]: [PositionDTO[], Function] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const fetchPositions = () => {

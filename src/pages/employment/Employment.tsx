@@ -1,25 +1,30 @@
 import { useEffect, useState } from 'react';
 import { getEmployments } from '../../api/apiRoutes';
 import PageHeader from '../../components/PageHeader';
-import EmployeesList from './EmploymentList';
+import { EmploymentDTO } from '../../types/DTO/Employment';
+import EmploymentList from './EmploymentList';
 
 const Employment = () => {
-  const [emp, setEmp] = useState([]);
+  const [emps, setEmps]: [EmploymentDTO[], Function] = useState([]);
 
-  useEffect(() => {
+  const fetchEmployments = () => {
     try {
       getEmployments().then((res) => {
-        setEmp(res.data);
+        setEmps(res.data);
       });
     } catch (e) {
       console.error(e);
     }
+  };
+
+  useEffect(() => {
+    fetchEmployments();
   }, []);
 
   return (
     <div>
       <PageHeader title="Pracownicy" />
-      <EmployeesList data={emp} />
+      <EmploymentList data={emps} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-export interface Position {
+export interface PositionDTO {
   IdPosition: string;
   Name: string;
 }

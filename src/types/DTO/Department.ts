@@ -1,8 +1,8 @@
-import { Division } from './Division';
+import { DivisionDTO } from './Division';
 
-export interface Department {
+export interface DepartmentDTO {
   IdDepartment: string;
   IdDivision: string;
   Name: string;
-  departmentsDivision: Division;
+  departmentsDivision: DivisionDTO;
 }

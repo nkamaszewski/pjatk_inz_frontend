@@ -1,7 +1,7 @@
 import { Tab, Tabs } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Division } from '../../../types/DTO/Division';
+import { DivisionDTO } from '../../../types/DTO/Division';
 import DepartmentContent from './DepartmentContent';
 import DivisionContent from './DivisionContent';
 
@@ -18,7 +18,7 @@ const DepartmentDivisionFieldsetStyle = styled.div`
 `;
 
 interface Props {
-  divisions: Division[];
+  divisions: DivisionDTO[];
   closeDrawer: Function;
   fetchDivisionsDepartments: Function;
 }

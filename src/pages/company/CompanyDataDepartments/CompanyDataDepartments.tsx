@@ -5,16 +5,18 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getDepartments, getDivisions } from '../../../api/apiRoutes';
 import PageHeader from '../../../components/PageHeader';
-import { Department } from '../../../types/DTO/Department';
-import { Division } from '../../../types/DTO/Division';
+import { DepartmentDTO } from '../../../types/DTO/Department';
+import { DivisionDTO } from '../../../types/DTO/Division';
 import DataDepartmentsList from './DataDepartmentsList';
 import DepartmentDivisionFieldset from './DepartmentDivisionFieldset';
 
 const CompanyDataDepartmentsStyle = styled.div``;
 
 const CompanyDataDepartments = () => {
-  const [divisions, setDivisions]: [Division[], Function] = useState([]);
-  const [departments, setDepartments]: [Department[], Function] = useState([]);
+  const [divisions, setDivisions]: [DivisionDTO[], Function] = useState([]);
+  const [departments, setDepartments]: [DepartmentDTO[], Function] = useState(
+    []
+  );
   const [isOpen, setIsOpen] = useState(false);
 
   const fetchDivisionsDepartments = () => {

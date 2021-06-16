@@ -1,4 +1,4 @@
-export interface Division {
+export interface DivisionDTO {
   IdDivision: string;
   Name: string;
 }

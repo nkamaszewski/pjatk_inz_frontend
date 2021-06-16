@@ -9,7 +9,7 @@ import {
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postDepartment } from '../../../api/apiRoutes';
-import { Division } from '../../../types/DTO/Division';
+import { DivisionDTO } from '../../../types/DTO/Division';
 
 const DepartmentContentStyle = styled.div`
   padding: 24px 0;
@@ -18,7 +18,7 @@ const DepartmentContentStyle = styled.div`
 `;
 
 interface Props {
-  divisions: Division[];
+  divisions: DivisionDTO[];
   closeDrawer: Function;
   fetchDivisionsDepartments: Function;
 }
