@@ -3,8 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Drawer, Fab } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { getPositions } from '../../../api/apiRoutes';
 import PageHeader from '../../../components/PageHeader';
 import { Position } from '../../../types/DTO/Position';
+import PositionFieldset from './PositionFieldset';
+import PositionsList from './PositionsList';
 
 const CompanyDataPositionsStyle = styled.div``;
 
@@ -12,21 +15,18 @@ const CompanyDataPositions = () => {
   const [positions, setPositions]: [Position[], Function] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  const fetchDivisionsDepartments = () => {
+  const fetchPositions = () => {
     try {
-      // getDivisions().then((res) => {
-      //   setDivisions(res.data);
-      // });
-      // getDepartments().then((res) => {
-      //   setDepartments(res.data);
-      // });
+      getPositions().then((res) => {
+        setPositions(res.data);
+      });
     } catch (e) {
       console.error(e);
     }
   };
 
   useEffect(() => {
-    fetchDivisionsDepartments();
+    fetchPositions();
   }, []);
 
   return (
@@ -38,13 +38,12 @@ const CompanyDataPositions = () => {
         </Fab>
       </div>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        {/* <DepartmentDivisionFieldset
-          divisions={divisions}
+        <PositionFieldset
           closeDrawer={() => setIsOpen(false)}
-          fetchDivisionsDepartments={fetchDivisionsDepartments}
-        /> */}
+          fetchPositions={fetchPositions}
+        />
       </Drawer>
-      {/* <DataDepartmentsList divisions={divisions} departments={departments} /> */}
+      <PositionsList positions={positions} />
     </CompanyDataPositionsStyle>
   );
 };
