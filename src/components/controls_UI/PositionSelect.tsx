@@ -1,22 +1,20 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { getDepartments } from '../../api/apiRoutes';
-import { DepartmentDTO } from '../../types/DTO/Department';
+import { getPositions } from '../../api/apiRoutes';
+import { PositionDTO } from '../../types/DTO/Position';
 
 interface Props {
   value: string;
   onChange: Function;
 }
 
-const DepartmentSelect = ({ value, onChange }: Props) => {
-  const [departments, setDepartments]: [DepartmentDTO[], Function] = useState(
-    []
-  );
+const PositionSelect = ({ value, onChange }: Props) => {
+  const [positions, setPositions]: [PositionDTO[], Function] = useState([]);
 
   useEffect(() => {
     try {
-      getDepartments().then((res) => {
-        setDepartments(res.data);
+      getPositions().then((res) => {
+        setPositions(res.data);
       });
     } catch (e) {
       console.error(e);
@@ -29,14 +27,16 @@ const DepartmentSelect = ({ value, onChange }: Props) => {
 
   return (
     <FormControl fullWidth>
-      <InputLabel>Wydział</InputLabel>
+      <InputLabel>Stanowisko</InputLabel>
       <Select value={value} onChange={handleSelectChange}>
-        {departments.map((department) => (
-          <MenuItem value={department.IdDepartment}>{department.Name}</MenuItem>
+        {positions.map((position) => (
+          <MenuItem key={position.IdPosition} value={position.IdPosition}>
+            {position.Name}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
   );
 };
 
-export default DepartmentSelect;
+export default PositionSelect;

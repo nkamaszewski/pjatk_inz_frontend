@@ -33,9 +33,10 @@ const EmployeeSelect = ({ value, onChange }: Props) => {
       <InputLabel>Pracownik</InputLabel>
       <Select value={value} onChange={handleSelectChange}>
         {employees.map((employee, index) => (
-          <MenuItem value={employee.IdPerson}>{`Leon Testowy_${
-            index + 1
-          }, PESEL: ${employee.Pesel}`}</MenuItem>
+          <MenuItem
+            key={employee.IdPerson}
+            value={employee.IdPerson}
+          >{`Leon Testowy_${index + 1}, PESEL: ${employee.Pesel}`}</MenuItem>
         ))}
       </Select>
     </FormControl>
