@@ -3,7 +3,7 @@ import CompanyDataDepartments from '../pages/company/CompanyDataDepartments/Comp
 import CompanyDataPositions from '../pages/company/CompanyDataPositions/CompanyDataPositions';
 import DocumentsAdditional from '../pages/documents/DocumentsAdditional';
 import DocumentsWorkshop from '../pages/documents/DocumentsWorkshop';
-import Employees from '../pages/employees/Employees';
+import Employment from '../pages/employment/Employment';
 import Polls from '../pages/polls/Polls';
 import UserAccount from '../pages/userAccount/UserAccount';
 import WorkshopsInternalGroups from '../pages/Workshop internal/WorkshopsInternalGroups';
@@ -22,7 +22,7 @@ export interface RouteType {
 }
 
 export const routes: RouteType[] = [
-  { Component: Employees, path: '/pracownicy' },
+  { Component: Employment, path: '/pracownicy' },
   { Component: DocumentsWorkshop, path: '/wnioski/wnioski-szkoleniowe' },
   { Component: DocumentsAdditional, path: '/wnioski/wnioski-dodatkowe' },
   { Component: WorkshopsStudy, path: '/szkolenia/studia' },

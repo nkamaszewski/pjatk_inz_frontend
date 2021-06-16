@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postDepartment, postDivision } from '../../../api/apiRoutes';
+import { postDepartment } from '../../../api/apiRoutes';
 import { Division } from '../../../types/DTO/Division';
 
 const DepartmentContentStyle = styled.div`

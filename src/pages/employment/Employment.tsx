@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getEmployments } from '../../api/apiRoutes';
 import PageHeader from '../../components/PageHeader';
-import EmployeesList from './EmployeesList';
+import EmployeesList from './EmploymentList';
 
-const Employees = () => {
+const Employment = () => {
   const [emp, setEmp] = useState([]);
 
   useEffect(() => {
@@ -24,4 +24,4 @@ const Employees = () => {
   );
 };
 
-export default Employees;
+export default Employment;
