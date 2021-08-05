@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Drawer, Fab } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getPositions } from '../../../api/apiRoutes';
+import { getPositions } from '../../../api/Position';
 import PageHeader from '../../../components/PageHeader';
 import { PositionDTO } from '../../../types/DTO/Position';
 import PositionFieldset from './PositionFieldset';

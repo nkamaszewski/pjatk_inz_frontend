@@ -2,7 +2,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Drawer, Fab } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-import { getEmployments } from '../../api/apiRoutes';
+import { getEmployments } from '../../api/Employment';
 import PageHeader from '../../components/PageHeader';
 import { EmploymentListDTO } from '../../types/DTO/Employment';
 import EmploymentFieldset from './EmploymentFieldset';

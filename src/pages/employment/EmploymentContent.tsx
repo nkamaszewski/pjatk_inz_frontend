@@ -1,9 +1,9 @@
 import { Button, TextField } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postEmployment } from '../../api/apiRoutes';
+import { postEmployment } from '../../api/Employment';
 import DepartmentSelect from '../../components/controls_UI/DepartmentSelect';
-import EmployeeSelect from '../../components/controls_UI/EmployeeSelect';
+import PersonSelect from '../../components/controls_UI/PersonSelect';
 import PositionSelect from '../../components/controls_UI/PositionSelect';
 
 const EmploymentContentStyle = styled.div`
@@ -75,7 +75,7 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
 
       <PositionSelect value={selectedPosition} onChange={setSelectedPosition} />
 
-      <EmployeeSelect value={selectedEmployee} onChange={setSelectedEmployee} />
+      <PersonSelect value={selectedEmployee} onChange={setSelectedEmployee} />
 
       <Button
         disabled={

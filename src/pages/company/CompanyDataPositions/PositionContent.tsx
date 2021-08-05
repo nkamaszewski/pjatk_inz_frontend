@@ -1,7 +1,7 @@
 import { Button, TextField } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postPosition } from '../../../api/apiRoutes';
+import { postPosition } from '../../../api/Position';
 
 const PositionContentStyle = styled.div`
   padding: 24px 0;

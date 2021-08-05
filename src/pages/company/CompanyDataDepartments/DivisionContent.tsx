@@ -1,7 +1,7 @@
 import { Button, TextField } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postDivision } from '../../../api/apiRoutes';
+import { postDivision } from '../../../api/Division';
 
 const DivisionContentStyle = styled.div`
   padding: 24px 0;

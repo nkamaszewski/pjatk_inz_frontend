@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { getPositions } from '../../api/apiRoutes';
+import { getPositions } from '../../api/Position';
 import { PositionDTO } from '../../types/DTO/Position';
 
 interface Props {

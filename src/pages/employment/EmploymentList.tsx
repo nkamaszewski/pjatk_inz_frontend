@@ -1,8 +1,7 @@
 import Card from '@material-ui/core/Card';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getDivisions } from '../../api/apiRoutes';
-import { MOCK_EMPLOYEE } from '../../components/controls_UI/EmployeeSelect';
+import { getDivisions } from '../../api/Division';
 import { DivisionDTO } from '../../types/DTO/Division';
 import { EmploymentListDTO } from '../../types/DTO/Employment';
 import EmploymentListHeader from './EmploymentListHeader';
@@ -26,7 +25,6 @@ interface Props {
 }
 
 const EmploymentList = ({ employees }: Props) => {
-  const [persons, setPersons] = useState(MOCK_EMPLOYEE);
   const [divisions, setDivisions] = useState([]);
 
   useEffect(() => {
