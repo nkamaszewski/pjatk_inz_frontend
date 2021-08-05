@@ -1,8 +1,7 @@
 import { Button, TextField } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postCoach } from '../../../api/Coach';
-import PersonSelect from '../../../components/controls_UI/PersonSelect';
+import StudyModeSelect from '../../../components/controls_UI/StudyModeSelect';
 import UniuversitySelect from '../../../components/controls_UI/UniuversitySelect';
 
 const StudyContentStyle = styled.div`
@@ -19,6 +18,7 @@ interface Props {
 const StudyContent = ({ closeDrawer, fetchStudies }: Props) => {
   const [fieldOfStudy, setFieldOfStudy] = useState('');
   const [universitetId, setUniversitetId] = useState('');
+  const [studyModeId, setStudyModeId] = useState('');
 
   const handleOnSave = () => {
     // try {
@@ -54,6 +54,8 @@ const StudyContent = ({ closeDrawer, fetchStudies }: Props) => {
       />
 
       <UniuversitySelect value={universitetId} onChange={setUniversitetId} />
+
+      <StudyModeSelect value={studyModeId} onChange={setStudyModeId} />
 
       <Button
         disabled={!Boolean(fieldOfStudy)}
