@@ -1,6 +1,7 @@
 import { Button, TextField } from '@material-ui/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { getEmployee, postEmployee } from '../../api/Employee';
 import { postEmployment } from '../../api/Employment';
 import DepartmentSelect from '../../components/controls_UI/DepartmentSelect';
 import PersonSelect from '../../components/controls_UI/PersonSelect';
@@ -22,16 +23,39 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
   const [dateTo, setDateTo] = useState('2021-12-01');
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const [selectedPosition, setSelectedPosition] = useState('');
-  const [selectedEmployee, setSelectedEmployee] = useState('');
+  const [selectedPerson, setSelectedPerson] = useState('');
+  const [pesel, setPesel] = useState(0);
+
+  const [showPesel, setShowPesel] = useState(false);
+
+  useEffect(() => {
+    if (selectedPerson) {
+      try {
+        getEmployee(selectedPerson).then((res) => {
+          if (!res.data.length) {
+            setShowPesel(true);
+          }
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, [selectedPerson]);
 
   const handleOnSave = () => {
     try {
+      if (showPesel) {
+        postEmployee({
+          IdPerson: selectedPerson,
+          Pesel: pesel,
+        });
+      }
       postEmployment({
         DateFrom: dateFrom,
         DateTo: dateTo,
         IdDepartment: selectedDepartment,
         IdPosition: selectedPosition,
-        IdPerson: selectedEmployee,
+        IdPerson: selectedPerson,
       }).then(() => fetchEmployments());
     } catch (e) {
       console.error(e);
@@ -43,6 +67,10 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
   const handleDateChange = (e: any) => {
     const setterFn = e.target.name === dateFrom ? setDateFrom : setDateTo;
     setterFn(e.target.value);
+  };
+
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPesel(Number(event.target.value));
   };
 
   return (
@@ -75,15 +103,29 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
 
       <PositionSelect value={selectedPosition} onChange={setSelectedPosition} />
 
-      <PersonSelect value={selectedEmployee} onChange={setSelectedEmployee} />
+      <PersonSelect value={selectedPerson} onChange={setSelectedPerson} />
+
+      {showPesel && (
+        <TextField
+          label="Pesel"
+          name="pesel"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          value={pesel}
+          onChange={handleOnChange}
+        />
+      )}
 
       <Button
         disabled={
-          !Boolean(dateFrom) &&
-          !Boolean(dateTo) &&
-          !Boolean(selectedDepartment) &&
-          !Boolean(selectedPosition) &&
-          !Boolean(selectedEmployee)
+          !Boolean(dateFrom) ||
+          !Boolean(dateTo) ||
+          !Boolean(selectedDepartment) ||
+          !Boolean(selectedPosition) ||
+          !Boolean(selectedPerson) ||
+          (showPesel && !Boolean(pesel))
         }
         variant="contained"
         color="primary"
