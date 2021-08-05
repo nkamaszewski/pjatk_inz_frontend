@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   FormControl,
   InputLabel,
@@ -107,10 +106,6 @@ const PersonSelect = ({ value, onChange }: Props) => {
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
         <DialogTitle>Dodaj osobę do bazy danych</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
           <TextField
             autoFocus
             value={person.FirstName}
