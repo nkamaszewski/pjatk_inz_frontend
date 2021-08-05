@@ -25,15 +25,16 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
   const [selectedPosition, setSelectedPosition] = useState('');
   const [selectedPerson, setSelectedPerson] = useState('');
   const [pesel, setPesel] = useState(0);
+  const [password, setPassword] = useState('');
 
-  const [showPesel, setShowPesel] = useState(false);
+  const [showEmployeeConfig, setShowEmployeeConfig] = useState(false);
 
   useEffect(() => {
     if (selectedPerson) {
       try {
         getEmployee(selectedPerson).then((res) => {
           if (!res.data.length) {
-            setShowPesel(true);
+            setShowEmployeeConfig(true);
           }
         });
       } catch (e) {
@@ -44,10 +45,11 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
 
   const handleOnSave = () => {
     try {
-      if (showPesel) {
+      if (showEmployeeConfig) {
         postEmployee({
           IdPerson: selectedPerson,
           Pesel: pesel,
+          Password: password,
         });
       }
       postEmployment({
@@ -69,13 +71,18 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
     setterFn(e.target.value);
   };
 
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnPeselChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPesel(Number(event.target.value));
+  };
+  const handleOnPasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPassword(event.target.value);
   };
 
   return (
     <EmploymentContentStyle>
-      <h3>Dodaj pracownika</h3>
+      <h3>Dodaj zatrudnienie</h3>
       <TextField
         label="Data od"
         name="dateFrom"
@@ -105,17 +112,29 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
 
       <PersonSelect value={selectedPerson} onChange={setSelectedPerson} />
 
-      {showPesel && (
-        <TextField
-          label="Pesel"
-          name="pesel"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          value={pesel}
-          onChange={handleOnChange}
-        />
+      {showEmployeeConfig && (
+        <>
+          <TextField
+            label="Pesel"
+            name="pesel"
+            type="number"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={pesel}
+            onChange={handleOnPeselChange}
+          />
+          <TextField
+            label="Hasło"
+            name="password"
+            type="password"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={password}
+            onChange={handleOnPasswordChange}
+          />
+        </>
       )}
 
       <Button
@@ -125,7 +144,8 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
           !Boolean(selectedDepartment) ||
           !Boolean(selectedPosition) ||
           !Boolean(selectedPerson) ||
-          (showPesel && !Boolean(pesel))
+          (showEmployeeConfig && !Boolean(pesel)) ||
+          (showEmployeeConfig && !Boolean(password))
         }
         variant="contained"
         color="primary"
