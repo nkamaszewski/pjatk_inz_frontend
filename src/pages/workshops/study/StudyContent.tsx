@@ -1,6 +1,7 @@
 import { Button, TextField } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
+import GraduateDegreeSelect from '../../../components/controls_UI/GraduateDegreeSelect';
 import StudyModeSelect from '../../../components/controls_UI/StudyModeSelect';
 import UniuversitySelect from '../../../components/controls_UI/UniuversitySelect';
 
@@ -19,6 +20,7 @@ const StudyContent = ({ closeDrawer, fetchStudies }: Props) => {
   const [fieldOfStudy, setFieldOfStudy] = useState('');
   const [universitetId, setUniversitetId] = useState('');
   const [studyModeId, setStudyModeId] = useState('');
+  const [graduateDegreeId, setGraduateDegreeId] = useState('');
 
   const handleOnSave = () => {
     // try {
@@ -56,6 +58,11 @@ const StudyContent = ({ closeDrawer, fetchStudies }: Props) => {
       <UniuversitySelect value={universitetId} onChange={setUniversitetId} />
 
       <StudyModeSelect value={studyModeId} onChange={setStudyModeId} />
+
+      <GraduateDegreeSelect
+        value={graduateDegreeId}
+        onChange={setGraduateDegreeId}
+      />
 
       <Button
         disabled={!Boolean(fieldOfStudy)}
