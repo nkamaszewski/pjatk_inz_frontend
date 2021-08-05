@@ -9,7 +9,7 @@ import CoachListHeader from './CoachListHeader';
 const CoachListStyle = styled.div`
   padding: 16px;
 
-  .grid-employment {
+  .grid-coach {
     display: grid;
     grid-template-columns: 20% 20% 1fr;
   }
@@ -35,7 +35,7 @@ const CoachList = ({ coaches }: Props) => {
     } catch (e) {
       console.error(e);
     }
-  }, []);
+  }, [coaches]);
 
   const getPersonDisplayData = (coach: CoachDTO) => {
     const person = persons.find(

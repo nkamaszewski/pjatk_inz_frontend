@@ -8,7 +8,7 @@ const CoachListHeaderStyle = styled.div`
 
 const CoachListHeader = () => {
   return (
-    <CoachListHeaderStyle className="grid-employment">
+    <CoachListHeaderStyle className="grid-coach">
       <p>Imię</p>
       <p>Nazwisko</p>
       <p>Tytuł zawodowy</p>

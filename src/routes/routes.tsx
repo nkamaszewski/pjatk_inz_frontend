@@ -14,7 +14,7 @@ import WorkshopsCourses from '../pages/workshops/WorkshopsCourses';
 import WorkshopsInternalSubcategory from '../pages/workshops/WorkshopsInternalSubcategory';
 import WorkshopsOrganizators from '../pages/workshops/WorkshopsOrganizators';
 import WorkshopsOthers from '../pages/workshops/WorkshopsOthers';
-import WorkshopsStudy from '../pages/workshops/WorkshopsStudy';
+import WorkshopsStudy from '../pages/workshops/study/WorkshopsStudy';
 
 export interface RouteType {
   Component: Function;
