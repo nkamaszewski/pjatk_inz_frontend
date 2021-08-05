@@ -10,11 +10,11 @@ import WorkshopsInternalGroups from '../pages/Workshop internal/WorkshopsInterna
 import WorkshopsInternalRoom from '../pages/Workshop internal/WorkshopsInternalRoom';
 import WorkshopsInternalSchedule from '../pages/Workshop internal/WorkshopsInternalSchedule';
 import WorkshopsCoaches from '../pages/workshops/Coaches/WorkshopsCoaches';
-import WorkshopsCourses from '../pages/workshops/WorkshopsCourses';
 import WorkshopsInternalSubcategory from '../pages/workshops/WorkshopsInternalSubcategory';
 import WorkshopsOrganizators from '../pages/workshops/WorkshopsOrganizators';
 import WorkshopsOthers from '../pages/workshops/WorkshopsOthers';
 import WorkshopsStudy from '../pages/workshops/study/WorkshopsStudy';
+import WorkshopsTraining from '../pages/workshops/Training/WorkshopsTraining';
 
 export interface RouteType {
   Component: Function;
@@ -26,7 +26,7 @@ export const routes: RouteType[] = [
   { Component: DocumentsWorkshop, path: '/wnioski/wnioski-szkoleniowe' },
   { Component: DocumentsAdditional, path: '/wnioski/wnioski-dodatkowe' },
   { Component: WorkshopsStudy, path: '/szkolenia/studia' },
-  { Component: WorkshopsCourses, path: '/szkolenia/kursy' },
+  { Component: WorkshopsTraining, path: '/szkolenia/kursy' },
   {
     Component: WorkshopsInternalSubcategory,
     path: '/szkolenia/szkolenia-wewnetrzne',
