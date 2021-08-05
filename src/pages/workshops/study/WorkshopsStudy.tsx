@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { getStudies } from '../../../api/Study';
 import PageHeader from '../../../components/PageHeader';
 import StudyFieldset from './StudyFieldset';
+import StudyList from './StudyList';
 
 const WorkshopsStudy = () => {
   const [studies, setStudies] = useState([]);
@@ -38,7 +39,7 @@ const WorkshopsStudy = () => {
           fetchStudies={fetchStudies}
         />
       </Drawer>
-      {/* <CoachList coaches={coaches} /> */}
+      <StudyList studies={studies} />
     </div>
   );
 };
