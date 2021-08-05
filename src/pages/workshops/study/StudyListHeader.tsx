@@ -10,6 +10,10 @@ const StudyListHeader = () => {
   return (
     <StudyListHeaderStyle className="grid-coach">
       <p>Kierunek</p>
+      <p>Uczelnia</p>
+      <p>Miasto</p>
+      <p>Tryb</p>
+      <p>Poziom</p>
     </StudyListHeaderStyle>
   );
 };

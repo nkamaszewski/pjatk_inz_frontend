@@ -8,7 +8,7 @@ const StudyListStyle = styled.div`
 
   .grid-coach {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(5, 20%);
   }
 
   .row {
@@ -47,6 +47,10 @@ const StudyList = ({ studies }: Props) => {
         return (
           <Card key={study.IdEducation} className="grid-coach row">
             <p>{study.FieldOfStudy}</p>
+            <p>{study.studyUniversity.Name}</p>
+            <p>{study.studyUniversity.City}</p>
+            <p>{study.studysStudyMode.Name}</p>
+            <p>{study.studysGraduateDegree.Name}</p>
           </Card>
         );
       })}
