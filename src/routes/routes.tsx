@@ -9,12 +9,12 @@ import UserAccount from '../pages/userAccount/UserAccount';
 import WorkshopsInternalGroups from '../pages/Workshop internal/WorkshopsInternalGroups';
 import WorkshopsInternalRoom from '../pages/Workshop internal/WorkshopsInternalRoom';
 import WorkshopsInternalSchedule from '../pages/Workshop internal/WorkshopsInternalSchedule';
+import WorkshopsCoaches from '../pages/workshops/Coaches/WorkshopsCoaches';
 import WorkshopsCourses from '../pages/workshops/WorkshopsCourses';
 import WorkshopsInternalSubcategory from '../pages/workshops/WorkshopsInternalSubcategory';
 import WorkshopsOrganizators from '../pages/workshops/WorkshopsOrganizators';
 import WorkshopsOthers from '../pages/workshops/WorkshopsOthers';
 import WorkshopsStudy from '../pages/workshops/WorkshopsStudy';
-import WorkshopsTrainers from '../pages/workshops/WorkshopsTrainers';
 
 export interface RouteType {
   Component: Function;
@@ -33,7 +33,7 @@ export const routes: RouteType[] = [
   },
   { Component: WorkshopsOthers, path: '/szkolenia/inne' },
   { Component: WorkshopsOrganizators, path: '/szkolenia/organizatorzy' },
-  { Component: WorkshopsTrainers, path: '/szkolenia/szkoleniowcy' },
+  { Component: WorkshopsCoaches, path: '/szkolenia/szkoleniowcy' },
   { Component: WorkshopsInternalRoom, path: '/szkolenia-wewnetrzne/sale' },
   { Component: WorkshopsInternalGroups, path: '/szkolenia-wewnetrzne/grupy' },
   {
