@@ -8,7 +8,7 @@ import Polls from '../pages/polls/Polls';
 import UserAccount from '../pages/userAccount/UserAccount';
 import WorkshopsInternalGroups from '../pages/Workshop internal/groups/WorkshopsInternalGroups';
 import WorkshopsInternalRoom from '../pages/Workshop internal/rooms/WorkshopsInternalRoom';
-import WorkshopsInternalSchedule from '../pages/Workshop internal/WorkshopsInternalSchedule';
+import WorkshopsInternalMeeting from '../pages/Workshop internal/meeting/WorkshopsInternalMeeting';
 import WorkshopsCoaches from '../pages/workshops/Coaches/WorkshopsCoaches';
 import WorkshopsInternalSubcategory from '../pages/workshops/WorkshopsInternalSubcategory';
 import WorkshopsOrganizators from '../pages/workshops/WorkshopsOrganizators';
@@ -37,7 +37,7 @@ export const routes: RouteType[] = [
   { Component: WorkshopsInternalRoom, path: '/szkolenia-wewnetrzne/sale' },
   { Component: WorkshopsInternalGroups, path: '/szkolenia-wewnetrzne/grupy' },
   {
-    Component: WorkshopsInternalSchedule,
+    Component: WorkshopsInternalMeeting,
     path: '/szkolenia-wewnetrzne/harmonogram',
   },
   { Component: Polls, path: '/ankiety' },
