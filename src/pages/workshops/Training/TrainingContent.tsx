@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { postEducation } from '../../../api/Education';
 import { postTraining } from '../../../api/Training';
+import CompanySelect from '../../../components/controls_UI/CompanySelect';
 import TopicSelect from '../../../components/controls_UI/TopicSelect';
 
 const TrainingContentStyle = styled.div`
@@ -62,6 +63,8 @@ const TrainingContent = ({ closeDrawer, fetchTrainings }: Props) => {
       <h3>Dodaj Kurs</h3>
 
       <TopicSelect value={idTopic} onChange={setIdTopic} />
+
+      <CompanySelect value={idCompany} onChange={setIdCompany} />
 
       <TextField
         label="Cena"
