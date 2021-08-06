@@ -1,3 +1,6 @@
+import { faSitemap } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -6,6 +9,7 @@ import { getPersons } from '../../api/Person';
 import { DivisionDTO } from '../../types/DTO/Division';
 import { EmploymentListDTO } from '../../types/DTO/Employment';
 import { PersonDTO } from '../../types/DTO/Person';
+import EmployeeDetailsFieldset from './EmployeeDetailsFieldset';
 import EmploymentListHeader from './EmploymentListHeader';
 
 const EmploymentListStyle = styled.div`
@@ -13,7 +17,7 @@ const EmploymentListStyle = styled.div`
 
   .grid-employment {
     display: grid;
-    grid-template-columns: repeat(5, 20%);
+    grid-template-columns: repeat(5, 1fr) 44px;
   }
 
   .row {
@@ -29,6 +33,8 @@ interface Props {
 const EmploymentList = ({ employees }: Props) => {
   const [divisions, setDivisions] = useState([]);
   const [persons, setPersons] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [person, setPerson] = useState({} as PersonDTO);
 
   useEffect(() => {
     try {
@@ -69,10 +75,24 @@ const EmploymentList = ({ employees }: Props) => {
             <p>{person.LastName}</p>
             <p>{getDivisionName(employee)}</p>
             <p>{employee.employmentsDepartment.Name}</p>
-            <p>trzeba dorobic na serwerze</p>
+            <p>{employee.emplymentPosition.Name}</p>
+            <Button
+              onClick={() => {
+                setPerson(person);
+                setIsOpen(true);
+              }}
+            >
+              <FontAwesomeIcon icon={faSitemap} />
+            </Button>
           </Card>
         );
       })}
+      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
+        <EmployeeDetailsFieldset
+          closeDrawer={() => setIsOpen(false)}
+          person={person}
+        />
+      </Drawer>
     </EmploymentListStyle>
   );
 };

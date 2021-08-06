@@ -1,3 +1,5 @@
+import { PositionDTO } from './Position';
+
 export interface EmploymentDTO {
   IdEmployment: string;
   DateFrom: Date;
@@ -17,4 +19,5 @@ export interface EmploymentListDTO {
     IdDivision: string;
     Name: string;
   };
+  emplymentPosition: PositionDTO;
 }
