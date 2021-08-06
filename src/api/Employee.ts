@@ -5,7 +5,7 @@ export const getEmployees = () =>
   axios.get(`http://localhost:3000/api/employees/`);
 
 export const getEmployee = (id: string) =>
-  axios.get(`http://localhost:3000/api/employees/`, { params: { empId: id } });
+  axios.get(`http://localhost:3000/api/employees/${id}`);
 
 export const postEmployee = (employee: {
   IdPerson: string;
