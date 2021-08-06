@@ -9,7 +9,7 @@ const MeetingListStyle = styled.div`
 
   .grid-meeting {
     display: grid;
-    grid-template-columns: 1fr 300px 300px;
+    grid-template-columns: 300px 300px;
   }
 
   .row {
@@ -28,9 +28,8 @@ const MeetingList = ({ meetings }: Props) => {
       <MeetingListHeader />
       {meetings.map((meeting) => (
         <Card key={meeting.IdMeeting} className="grid-meeting row">
-          <p>{meeting.Date}</p>
-          <p>{meeting.HourFrom}</p>
-          <p>{meeting.HourTo}</p>
+          <p>{meeting.From}</p>
+          <p>{meeting.To}</p>
         </Card>
       ))}
     </MeetingListStyle>

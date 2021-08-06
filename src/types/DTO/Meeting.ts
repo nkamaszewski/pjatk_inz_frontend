@@ -1,8 +1,7 @@
 export interface MeetingDTO {
   IdMeeting: string;
-  Date: Date;
-  HourFrom: number;
-  HourTo: number;
+  From: Date;
+  To: Date;
   IdGroup: string;
   IdRoom: string;
 }

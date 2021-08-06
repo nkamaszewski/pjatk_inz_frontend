@@ -1,6 +1,11 @@
+import { faSitemap } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { GroupDTO } from '../../../types/DTO/Group';
+import GroupDetailsFieldset from './GroupDetailsFieldset';
 import GroupListHeader from './GroupListHeader';
 
 const GroupListStyle = styled.div`
@@ -8,7 +13,7 @@ const GroupListStyle = styled.div`
 
   .grid-group {
     display: grid;
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 300px 44px;
   }
 
   .row {
@@ -22,6 +27,8 @@ interface Props {
 }
 
 const GroupList = ({ groups }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [group, setGroup] = useState({} as GroupDTO);
   return (
     <GroupListStyle>
       <GroupListHeader />
@@ -29,8 +36,22 @@ const GroupList = ({ groups }: Props) => {
         <Card key={group.IdGroup} className="grid-group row">
           <p>{group.Name}</p>
           <p>{group.NumberOfPerson}</p>
+          <Button
+            onClick={() => {
+              setGroup(group);
+              setIsOpen(true);
+            }}
+          >
+            <FontAwesomeIcon icon={faSitemap} />
+          </Button>
         </Card>
       ))}
+      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
+        <GroupDetailsFieldset
+          closeDrawer={() => setIsOpen(false)}
+          group={group}
+        />
+      </Drawer>
     </GroupListStyle>
   );
 };

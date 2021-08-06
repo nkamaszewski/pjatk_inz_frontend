@@ -17,18 +17,16 @@ interface Props {
 }
 
 const MeetingContent = ({ closeDrawer, fetchMeetings }: Props) => {
-  const [date, setDate] = useState(new Date());
-  const [hourFrom, setHourFrom] = useState(0);
-  const [hourTo, setHourTo] = useState(0);
+  const [from, setFrom] = useState(new Date());
+  const [to, setTo] = useState(new Date());
   const [idGroup, setIdGroup] = useState('');
   const [idRoom, setIdRoom] = useState('');
 
   const handleOnSave = () => {
     try {
       postMeeting({
-        Date: date,
-        HourFrom: hourFrom,
-        HourTo: hourTo,
+        From: from,
+        To: to,
         IdGroup: idGroup,
         IdRoom: idRoom,
       }).then(() => fetchMeetings());
@@ -39,42 +37,29 @@ const MeetingContent = ({ closeDrawer, fetchMeetings }: Props) => {
     }
   };
 
-  const handleDateChange = (e: any) => {
-    setDate(e.target.value);
-  };
-
   return (
     <MeetingContentStyle>
       <h3>Dodaj Spotkanie</h3>
       <TextField
-        label="Data"
+        label="Od"
         type="date"
         InputLabelProps={{
           shrink: true,
         }}
-        value={date}
-        onChange={handleDateChange}
-      />
-      <TextField
-        label="Od godziny"
-        type="number"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={hourTo}
+        value={from}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setHourTo(Number(event.target.value))
+          setFrom(new Date(event.target.value))
         }
       />
       <TextField
-        label="Do godziny"
-        type="number"
+        label="Do"
+        type="date"
         InputLabelProps={{
           shrink: true,
         }}
-        value={hourFrom}
+        value={to}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setHourFrom(Number(event.target.value))
+          setTo(new Date(event.target.value))
         }
       />
 

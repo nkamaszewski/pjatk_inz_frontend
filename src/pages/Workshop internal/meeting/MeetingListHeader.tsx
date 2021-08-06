@@ -9,9 +9,8 @@ const GroupListHeaderStyle = styled.div`
 const GroupListHeader = () => {
   return (
     <GroupListHeaderStyle className="grid-meeting">
-      <p>Data</p>
-      <p>Od godziny</p>
-      <p>Do godziny</p>
+      <p>Od</p>
+      <p>Do</p>
     </GroupListHeaderStyle>
   );
 };
