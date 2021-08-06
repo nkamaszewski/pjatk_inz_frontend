@@ -1,4 +1,4 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button, Switch, TextField } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postEducation } from '../../../api/Education';
@@ -11,6 +11,12 @@ const TrainingContentStyle = styled.div`
   padding: 24px 0;
   display: grid;
   grid-row-gap: 16px;
+
+  .switch-btn {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
 `;
 
 interface Props {
@@ -59,6 +65,10 @@ const TrainingContent = ({ closeDrawer, fetchTrainings }: Props) => {
     }));
   };
 
+  const handleDateChange = (e: any) => {
+    setDateFrom(e.target.value);
+  };
+
   return (
     <TrainingContentStyle>
       <h3>Dodaj Kurs</h3>
@@ -68,6 +78,27 @@ const TrainingContent = ({ closeDrawer, fetchTrainings }: Props) => {
       <CompanySelect value={idCompany} onChange={setIdCompany} />
 
       <CoachSelect value={idPerson} onChange={setIdPerson} />
+
+      <div className="switch-btn">
+        <p>Szkolenie wewnętrzne: </p>
+        <Switch
+          checked={internal}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setInternal(event.target.checked)
+          }
+          color="primary"
+        />
+      </div>
+      <TextField
+        label="Data od"
+        name="dateFrom"
+        type="date"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        value={dateFrom}
+        onChange={handleDateChange}
+      />
 
       <TextField
         label="Cena"
