@@ -15,11 +15,11 @@ import {
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getTopics, postTopic } from '../../api/Training';
-import { TopicDTO } from '../../types/DTO/Topic';
-import SubjectSelect from './SubjectSelect';
+import { getCoaches, postCoach } from '../../api/Coach';
+import { CoachDTO } from '../../types/DTO/Coach';
+import PersonSelect from './PersonSelect';
 
-const TopicSelectStyle = styled.div`
+const CoachSelectStyle = styled.div`
   display: grid;
   grid-template-columns: 1fr 48px;
 `;
@@ -29,73 +29,71 @@ interface Props {
   onChange: Function;
 }
 
-const EMPTY_TOPIC = {
-  IdTopic: '',
-  Topic: '',
-  IdSubject: '',
-} as TopicDTO;
+const EMPTY_COACH = {
+  IdPerson: '',
+  JobTitle: '',
+  coachPerson: {},
+} as CoachDTO;
 
-const TopicSelect = ({ value, onChange }: Props) => {
-  const [topics, setTopics]: [TopicDTO[], Function] = useState([]);
+const CoachSelect = ({ value, onChange }: Props) => {
+  const [coaches, setCoaches]: [CoachDTO[], Function] = useState([]);
   const [addingMode, setAddingMode] = useState(false);
-  const [topic, setTopic] = useState(EMPTY_TOPIC);
+  const [coach, setCoach] = useState(EMPTY_COACH);
 
-  const fetchTopics = () => {
+  const fetchCoaches = () => {
     try {
-      getTopics().then((res) => {
-        setTopics(res.data);
+      getCoaches().then((res) => {
+        setCoaches(res.data);
       });
     } catch (e) {
       console.error(e);
     }
   };
 
-  useEffect(fetchTopics, []);
+  useEffect(fetchCoaches, []);
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTopic((prevTopic) => ({
-      ...prevTopic,
+    setCoach((prevCoach) => ({
+      ...prevCoach,
       [event.target.name]: event.target.value,
     }));
   };
 
   const handleOnCancel = () => {
     setAddingMode(false);
-    setTopic(EMPTY_TOPIC);
+    setCoach(EMPTY_COACH);
   };
 
   const handleOnConfirm = () => {
     try {
-      postTopic({ Topic: topic.Topic, IdSubject: topic.IdSubject }).then(
-        (res) => {
-          setAddingMode(false);
-          fetchTopics();
-          onChange(res.data.IdTopic);
-        }
-      );
+      postCoach(coach).then((res) => {
+        setAddingMode(false);
+        fetchCoaches();
+        onChange(res.data.IdPerson);
+      });
     } catch (e) {
       console.error(e);
     } finally {
-      setTopic(EMPTY_TOPIC);
+      setCoach(EMPTY_COACH);
     }
   };
   return (
-    <TopicSelectStyle>
+    <CoachSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Temat</InputLabel>
+        <InputLabel>Szkoleniowiec</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {topics.map((top) => (
-            <MenuItem key={top.IdTopic} value={top.IdTopic}>
-              {top.Topic}
+          {coaches.map((c) => (
+            <MenuItem key={c.IdPerson} value={c.IdPerson}>
+              {`${c.coachPerson.FirstName} ${c.coachPerson.LastName} ${c.JobTitle}`}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-      <Tooltip title="dodaj temat szkolenia">
+      <Tooltip title="dodaj szkoleniowca">
         <Button
           onClick={() => {
             setAddingMode(true);
@@ -105,24 +103,24 @@ const TopicSelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Dodaj temat szkolenia do bazy danych</DialogTitle>
+        <DialogTitle>Dodaj szkoleniowca do bazy danych</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
-            value={topic.Topic}
+            value={coach.JobTitle}
             onChange={handleOnChange}
             margin="dense"
-            name="Topic"
-            label="Nazwa"
+            name="JobTitle"
+            label="Tytuł naukowy"
             type="text"
             fullWidth
           />
-          <SubjectSelect
-            value={topic.IdSubject}
+          <PersonSelect
+            value={coach.IdPerson}
             onChange={(value: string) => {
-              setTopic((prevTopic) => ({
-                ...prevTopic,
-                IdSubject: value,
+              setCoach((prevCoach) => ({
+                ...prevCoach,
+                IdPerson: value,
               }));
             }}
           />
@@ -136,8 +134,8 @@ const TopicSelect = ({ value, onChange }: Props) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </TopicSelectStyle>
+    </CoachSelectStyle>
   );
 };
 
-export default TopicSelect;
+export default CoachSelect;

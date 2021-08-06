@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { postEducation } from '../../../api/Education';
 import { postTraining } from '../../../api/Training';
+import CoachSelect from '../../../components/controls_UI/CoachSelect';
 import CompanySelect from '../../../components/controls_UI/CompanySelect';
 import TopicSelect from '../../../components/controls_UI/TopicSelect';
 
@@ -65,6 +66,8 @@ const TrainingContent = ({ closeDrawer, fetchTrainings }: Props) => {
       <TopicSelect value={idTopic} onChange={setIdTopic} />
 
       <CompanySelect value={idCompany} onChange={setIdCompany} />
+
+      <CoachSelect value={idPerson} onChange={setIdPerson} />
 
       <TextField
         label="Cena"
