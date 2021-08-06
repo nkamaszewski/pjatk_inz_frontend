@@ -7,7 +7,7 @@ import Employment from '../pages/employment/Employment';
 import Polls from '../pages/polls/Polls';
 import UserAccount from '../pages/userAccount/UserAccount';
 import WorkshopsInternalGroups from '../pages/Workshop internal/WorkshopsInternalGroups';
-import WorkshopsInternalRoom from '../pages/Workshop internal/WorkshopsInternalRoom';
+import WorkshopsInternalRoom from '../pages/Workshop internal/rooms/WorkshopsInternalRoom';
 import WorkshopsInternalSchedule from '../pages/Workshop internal/WorkshopsInternalSchedule';
 import WorkshopsCoaches from '../pages/workshops/Coaches/WorkshopsCoaches';
 import WorkshopsInternalSubcategory from '../pages/workshops/WorkshopsInternalSubcategory';
