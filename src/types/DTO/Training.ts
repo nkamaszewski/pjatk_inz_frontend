@@ -1,3 +1,6 @@
+import { CompanyDTO } from './Company';
+import { TopicDTO } from './Topic';
+
 export interface TrainingDTO {
   IdEducation: string;
   IdTopic: string;
@@ -5,4 +8,6 @@ export interface TrainingDTO {
   IdPerson: string;
   Internal: boolean;
   DateFrom: Date;
+  trainingTopic: TopicDTO;
+  trainingCompany: CompanyDTO;
 }
