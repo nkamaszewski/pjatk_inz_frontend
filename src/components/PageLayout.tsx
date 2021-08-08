@@ -1,5 +1,8 @@
 import styled from 'styled-components';
+import { NotificationContext } from '../contexts/NotificationContext';
+import useNotification from '../hooks/useNotification';
 import Navigation from './Navigation';
+import SnackbarNotification from './SnackbarNotification';
 
 const PageLayoutStyle = styled.div`
   height: 100vh;
@@ -12,13 +15,18 @@ interface Props {
 }
 
 const PageLayout = ({ children }: Props) => {
+  const notification = useNotification();
+
   return (
-    <PageLayoutStyle>
-      <nav>
-        <Navigation />
-      </nav>
-      <div>{children}</div>
-    </PageLayoutStyle>
+    <NotificationContext.Provider value={notification}>
+      <SnackbarNotification />
+      <PageLayoutStyle>
+        <nav>
+          <Navigation />
+        </nav>
+        <div>{children}</div>
+      </PageLayoutStyle>
+    </NotificationContext.Provider>
   );
 };
 
