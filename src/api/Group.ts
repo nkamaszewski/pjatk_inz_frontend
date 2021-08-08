@@ -7,3 +7,6 @@ export const postGroup = (group: {
   NumberOfPerson: number;
   IdEducation: string;
 }) => axios.post('http://localhost:3000/api/groups/', group);
+
+export const deleteGroup = (id: string) =>
+  axios.delete(`http://localhost:3000/api/groups/${id}`);

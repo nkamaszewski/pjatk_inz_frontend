@@ -1,7 +1,10 @@
 import { Snackbar, SnackbarContent } from '@material-ui/core';
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { NotificationContext } from '../contexts/NotificationContext';
+import {
+  NotificationContext,
+  SnackbarVariant,
+} from '../contexts/NotificationContext';
 
 const SnackbarMessageStyle = styled.div`
   display: flex;
@@ -10,6 +13,17 @@ const SnackbarMessageStyle = styled.div`
 
 const SnackbarNotification = () => {
   const notificationCtx = useContext(NotificationContext);
+
+  const getSnackbarClass = (variant: SnackbarVariant): string => {
+    switch (variant) {
+      case SnackbarVariant.success:
+        return 'success--background';
+      case SnackbarVariant.error:
+        return 'secondary--background';
+      default:
+        return 'success--background';
+    }
+  };
 
   return (
     <Snackbar
@@ -20,6 +34,7 @@ const SnackbarNotification = () => {
       open={notificationCtx.snackbar.open}
     >
       <SnackbarContent
+        className={getSnackbarClass(notificationCtx.snackbar.variant)}
         message={
           <SnackbarMessageStyle>
             <p>{notificationCtx.snackbar.message}</p>

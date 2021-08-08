@@ -40,7 +40,7 @@ const WorkshopsInternalGroups = () => {
           fetchGroups={fetchGroups}
         />
       </Drawer>
-      <GroupList groups={groups} />
+      <GroupList groups={groups} fetchGroups={fetchGroups} />
     </div>
   );
 };
