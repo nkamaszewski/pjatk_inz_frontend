@@ -1,9 +1,8 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Divider } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 import { useContext } from 'react';
 import styled from 'styled-components';
 import { deletePosition } from '../../../api/Position';
+import DeleteBtn from '../../../components/DeleteBtn';
 import { NotificationContext } from '../../../contexts/NotificationContext';
 import {
   createSnackbarError,
@@ -49,9 +48,7 @@ const PositionsList = ({ positions, fetchPositions }: Props) => {
         <div key={position.IdPosition}>
           <div className="row-content">
             <h3>{position.Name}</h3>
-            <Button onClick={() => handleDeleteItem(position.IdPosition)}>
-              <FontAwesomeIcon className="secondary--color" icon={faTrash} />
-            </Button>
+            <DeleteBtn onClick={() => handleDeleteItem(position.IdPosition)} />
           </div>
           <Divider />
         </div>
