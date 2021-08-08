@@ -43,7 +43,7 @@ const CompanyDataPositions = () => {
           fetchPositions={fetchPositions}
         />
       </Drawer>
-      <PositionsList positions={positions} />
+      <PositionsList positions={positions} fetchPositions={fetchPositions} />
     </CompanyDataPositionsStyle>
   );
 };

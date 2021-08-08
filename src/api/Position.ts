@@ -5,3 +5,6 @@ export const getPositions = () =>
 
 export const postPosition = (position: { Name: string }) =>
   axios.post('http://localhost:3000/api/positions/', position);
+
+export const deletePosition = (id: string) =>
+  axios.delete(`http://localhost:3000/api/positions/${id}`);
