@@ -27,4 +27,8 @@ export const GlobalStyle = styled.div`
   .success--color {
     color: #0d924f;
   }
+
+  .default--icon-color {
+    color: rgba(0, 0, 0, 0.26);
+  }
 `;

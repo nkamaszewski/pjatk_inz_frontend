@@ -1,4 +1,4 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Tooltip } from '@material-ui/core';
 
@@ -6,14 +6,14 @@ interface Props {
   onClick: Function;
 }
 
-const DeleteBtn = ({ onClick }: Props) => {
+const EditBtn = ({ onClick }: Props) => {
   return (
-    <Tooltip title="usuń">
+    <Tooltip title="edytuj">
       <Button onClick={onClick as any}>
-        <FontAwesomeIcon className="secondary--color" icon={faTrash} />
+        <FontAwesomeIcon className="default--icon-color" icon={faEdit} />
       </Button>
     </Tooltip>
   );
 };
 
-export default DeleteBtn;
+export default EditBtn;
