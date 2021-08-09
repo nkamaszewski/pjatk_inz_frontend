@@ -43,7 +43,10 @@ const Polls = () => {
           fetchQuestionnaireOffers={fetchQuestionnaireOffers}
         />
       </Drawer>
-      <PollsList questionnaireOffers={polls} fetchQuestionnaireOffers={fetchQuestionnaireOffers} />
+      <PollsList
+        questionnaireOffers={polls}
+        fetchQuestionnaireOffers={fetchQuestionnaireOffers}
+      />
     </PollsStyle>
   );
 };

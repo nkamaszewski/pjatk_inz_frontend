@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { QuestionnaireOffer } from '../../types/DTO/QuestionnaireOffer';
 import PollsContent from './PollsContent';
 
-
 const QuestionnaireOfferFieldsetStyle = styled.div`
   padding: 24px;
   width: 600px;
@@ -24,7 +23,7 @@ const PollsFieldset = ({
       <PollsContent
         closeDrawer={closeDrawer}
         fetchQuestionnaireOffers={fetchQuestionnaireOffers}
-        editQuestionnaireOffer={editQuestionnaireOffer}
+        editOffer={null}
       />
     </QuestionnaireOfferFieldsetStyle>
   );
