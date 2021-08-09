@@ -57,7 +57,7 @@ const PositionContent = ({
 
   return (
     <PositionContentStyle>
-      <h3>Dodaj stanowisko</h3>
+      <h3>{editPosition ? 'Edytuj' : 'Dodaj'} stanowisko</h3>
       <TextField
         fullWidth
         label="Nazwa"

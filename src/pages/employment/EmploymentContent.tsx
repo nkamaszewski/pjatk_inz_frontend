@@ -31,15 +31,15 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
 
   useEffect(() => {
     if (selectedPerson) {
-      try {
-        getEmployee(selectedPerson).then((res) => {
-          if (!res.data.length) {
+      getEmployee(selectedPerson)
+        .then((res) => {
+          if (res.status === 404) {
             setShowEmployeeConfig(true);
           }
+        })
+        .catch((e) => {
+          setShowEmployeeConfig(true);
         });
-      } catch (e) {
-        console.error(e);
-      }
     }
   }, [selectedPerson]);
 
