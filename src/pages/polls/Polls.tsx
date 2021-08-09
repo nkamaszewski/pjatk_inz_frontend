@@ -1,10 +1,50 @@
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Drawer, Fab } from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { getQuestionnaireOffers } from '../../api/QuestionnaireOffer';
 import PageHeader from '../../components/PageHeader';
+import { QuestionnaireOffer } from '../../types/DTO/QuestionnaireOffer';
+import PollsFieldset from './PollsFieldset';
+import PollsList from './PollsList';
+
+const PollsStyle = styled.div``;
 
 const Polls = () => {
+  const [polls, setPolls]: [QuestionnaireOffer[], Function] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const fetchQuestionnaireOffers = () => {
+    try {
+      getQuestionnaireOffers().then((res) => {
+        setPolls(res.data);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchQuestionnaireOffers();
+  }, []);
+
   return (
-    <div>
-      <PageHeader title="Ankiety" />
-    </div>
+    <PollsStyle>
+      <PageHeader title="Wnioski propozycje szkoleń" />
+      <div className="toolbar--global">
+        <Fab color="primary" aria-label="add" onClick={() => setIsOpen(true)}>
+          <FontAwesomeIcon icon={faPlus} />
+        </Fab>
+      </div>
+      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
+        <PollsFieldset
+          closeDrawer={() => setIsOpen(false)}
+          fetchQuestionnaireOffers={fetchQuestionnaireOffers}
+        />
+      </Drawer>
+      <PollsList questionnaireOffers={polls} fetchQuestionnaireOffers={fetchQuestionnaireOffers} />
+    </PollsStyle>
   );
 };
 
