@@ -1,6 +1,7 @@
 import { Divider, Drawer } from '@material-ui/core';
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
+import { deleteOffer } from '../../api/Offers';
 import { deleteQuestionnaireOffer } from '../../api/QuestionnaireOffer';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
@@ -9,6 +10,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
 } from '../../hooks/useNotification';
+import { OfferDTO } from '../../types/DTO/Offer';
 import { QuestionnaireOffer } from '../../types/DTO/QuestionnaireOffer';
 import PollsFieldset from './PollsFieldset';
 
@@ -17,7 +19,17 @@ const PollsListStyle = styled.div`
 
   .row-content {
     display: grid;
-    grid-template-columns: 1fr 56px 56px;
+    grid-template-columns: 1fr 56px;
+  }
+
+  .subrow {
+    display: grid;
+    grid-template-columns: 240px 100px 1fr 56px 56px;
+    padding: 16px;
+  }
+
+  .subheader {
+    color: rgba(0, 0, 0, 0.56);
   }
 `;
 
@@ -30,10 +42,7 @@ const PollsList = ({
   questionnaireOffers,
   fetchQuestionnaireOffers,
 }: Props) => {
-  const [editQuestionnaireOffer, setEditQuestionnaireOffer]: [
-    QuestionnaireOffer | null,
-    Function
-  ] = useState(null);
+  const [editOffer, setEditOffer]: [OfferDTO | null, Function] = useState(null);
   const notificationCtx = useContext(NotificationContext);
 
   const handleDeleteItem = async (id: string) => {
@@ -49,33 +58,60 @@ const PollsList = ({
     }
   };
 
-  const handleCloseDrawer = () => setEditQuestionnaireOffer(null);
+  const handleDeleteOffer = async (id: string) => {
+    try {
+      await deleteOffer(id);
+      notificationCtx.setSnackbar(createSnackbarSuccess('Usunięto ofertę!'));
+      fetchQuestionnaireOffers();
+    } catch (e) {
+      console.error(e);
+      notificationCtx.setSnackbar(
+        createSnackbarError('Nie udało się usunąć oferty!')
+      );
+    }
+  };
+
+  const handleCloseDrawer = () => setEditOffer(null);
 
   return (
     <PollsListStyle>
-      {/* <Drawer
+      <Drawer
         anchor="right"
-        open={Boolean(editQuestionnaireOffer)}
+        open={Boolean(editOffer)}
         onClose={handleCloseDrawer}
       >
         <PollsFieldset
           closeDrawer={handleCloseDrawer}
           fetchQuestionnaireOffers={fetchQuestionnaireOffers}
-          editQuestionnaireOffer={editQuestionnaireOffer}
+          editOffer={editOffer}
         />
-      </Drawer> */}
+      </Drawer>
       {questionnaireOffers.map((questionnaireoffer) => (
         <div key={questionnaireoffer.IdQuestionnaireOffer}>
           <div className="row-content">
             <h3>{questionnaireoffer.Year}</h3>
-            <EditBtn
-              onClick={() => setEditQuestionnaireOffer(questionnaireoffer)}
-            />
+
             <DeleteBtn
               onClick={() =>
                 handleDeleteItem(questionnaireoffer.IdQuestionnaireOffer)
               }
             />
+            <div>
+              <header className="subrow subheader">
+                <p>Temat</p>
+                <p>Cena</p>
+                <p>Link</p>
+              </header>
+              {questionnaireoffer.questionnaireOfferOffer.map((offer) => (
+                <div className="subrow">
+                  <p>{offer.Topic}</p>
+                  <p>{offer.Price}</p>
+                  <p>{offer.Link}</p>
+                  <EditBtn onClick={() => setEditOffer(offer)} />
+                  <DeleteBtn onClick={() => handleDeleteOffer(offer.IdOffer)} />
+                </div>
+              ))}
+            </div>
           </div>
           <Divider />
         </div>
