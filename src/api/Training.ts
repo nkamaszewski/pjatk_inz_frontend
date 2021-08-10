@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { TrainingDTO } from '../types/DTO/Training';
 
 export const getTrainings = () =>
   axios.get('http://localhost:3000/api/trainings');

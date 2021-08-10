@@ -28,6 +28,10 @@ const PollsListStyle = styled.div`
     padding: 16px;
   }
 
+  .subrow-hover:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
   .subheader {
     color: rgba(0, 0, 0, 0.56);
   }
@@ -104,7 +108,7 @@ const PollsList = ({
                 <p>Link</p>
               </header>
               {questionnaireoffer.questionnaireOfferOffer.map((offer) => (
-                <div className="subrow">
+                <div className="subrow subrow-hover">
                   <p>{offer.Topic}</p>
                   <p>{offer.Price}</p>
                   <p>{offer.Link}</p>

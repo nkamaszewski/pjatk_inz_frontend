@@ -40,8 +40,8 @@ const TrainingSelect = ({ value, onChange }: Props) => {
         <Select value={value} onChange={handleSelectChange}>
           {trainings.map((training) => (
             <MenuItem
-              key={training.IdPerson}
-              value={training.IdPerson}
+              key={training.trainingEducation.IdEducation}
+              value={training.trainingEducation.IdEducation}
             >{`${training.trainingTopic.Topic}, organizator: ${training.trainingCompany.Name}`}</MenuItem>
           ))}
         </Select>
