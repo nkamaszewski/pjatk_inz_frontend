@@ -5,14 +5,14 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getQuestionnaireOffers } from '../../api/QuestionnaireOffer';
 import PageHeader from '../../components/PageHeader';
-import { QuestionnaireOffer } from '../../types/DTO/QuestionnaireOffer';
+import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
 import PollsFieldset from './PollsFieldset';
 import PollsList from './PollsList';
 
 const PollsStyle = styled.div``;
 
 const Polls = () => {
-  const [polls, setPolls]: [QuestionnaireOffer[], Function] = useState([]);
+  const [polls, setPolls]: [QuestionnaireOfferDTO[], Function] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const fetchQuestionnaireOffers = () => {
@@ -41,6 +41,7 @@ const Polls = () => {
         <PollsFieldset
           closeDrawer={() => setIsOpen(false)}
           fetchQuestionnaireOffers={fetchQuestionnaireOffers}
+          polls={polls}
         />
       </Drawer>
       <PollsList

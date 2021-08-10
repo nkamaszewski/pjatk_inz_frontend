@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import { postOffer, updateOffer } from '../../api/Offers';
 import QuestionnaireOfferSelect from '../../components/controls_UI/QuestionnaireOfferSelect';
 import { NotificationContext } from '../../contexts/NotificationContext';
-import { createSnackbarSuccess } from '../../hooks/useNotification';
+import {
+  createSnackbarError,
+  createSnackbarSuccess,
+} from '../../hooks/useNotification';
 import { OfferDTO } from '../../types/DTO/Offer';
-import { QuestionnaireOffer } from '../../types/DTO/QuestionnaireOffer';
+import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
 
 const PollsContentStyle = styled.div`
   padding: 24px 0;
@@ -18,12 +21,14 @@ interface Props {
   closeDrawer: Function;
   fetchQuestionnaireOffers: Function;
   editOffer?: OfferDTO | null;
+  polls: QuestionnaireOfferDTO[];
 }
 
 const PollsContent = ({
   closeDrawer,
   fetchQuestionnaireOffers,
   editOffer,
+  polls,
 }: Props) => {
   const [questionnaireOfferId, setQuestionnaireOfferId] = useState(
     editOffer?.IdQuestionnaireOffer ?? ''
@@ -45,6 +50,16 @@ const PollsContent = ({
   };
 
   const handleOnSave = async () => {
+    const poll = polls.find(
+      (p) => p.IdQuestionnaireOffer === questionnaireOfferId
+    );
+    if (poll && poll.questionnaireOfferOffer.length > 3) {
+      notificationCtx.setSnackbar(
+        createSnackbarError('Nie udało się utworzyć ankiety')
+      );
+      return closeDrawer();
+    }
+
     try {
       if (editOffer) {
         await updateOffer({
@@ -78,7 +93,7 @@ const PollsContent = ({
 
   return (
     <PollsContentStyle>
-      <h3>Dodaj ankietę</h3>
+      <h3>{editOffer ? 'Edytuj' : 'Dodaj'} ankietę</h3>
       <QuestionnaireOfferSelect
         value={questionnaireOfferId}
         onChange={setQuestionnaireOfferId}

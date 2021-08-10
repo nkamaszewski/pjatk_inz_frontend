@@ -24,8 +24,12 @@ const useNotification = () => {
     useState(EMPTY_SNACKBAR);
 
   useEffect(() => {
-    setTimeout(() => setSnackbar(EMPTY_SNACKBAR), 3000);
-  });
+    if (snackbar.open)
+      setTimeout(
+        () => setSnackbar({ ...snackbar, open: false, message: '' }),
+        3000
+      );
+  }, [snackbar]);
 
   return { snackbar, setSnackbar };
 };

@@ -11,7 +11,7 @@ import {
   createSnackbarSuccess,
 } from '../../hooks/useNotification';
 import { OfferDTO } from '../../types/DTO/Offer';
-import { QuestionnaireOffer } from '../../types/DTO/QuestionnaireOffer';
+import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
 import PollsFieldset from './PollsFieldset';
 
 const PollsListStyle = styled.div`
@@ -34,7 +34,7 @@ const PollsListStyle = styled.div`
 `;
 
 interface Props {
-  questionnaireOffers: QuestionnaireOffer[];
+  questionnaireOffers: QuestionnaireOfferDTO[];
   fetchQuestionnaireOffers: Function;
 }
 
@@ -84,6 +84,7 @@ const PollsList = ({
           closeDrawer={handleCloseDrawer}
           fetchQuestionnaireOffers={fetchQuestionnaireOffers}
           editOffer={editOffer}
+          polls={questionnaireOffers}
         />
       </Drawer>
       {questionnaireOffers.map((questionnaireoffer) => (

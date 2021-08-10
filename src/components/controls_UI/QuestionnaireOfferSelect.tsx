@@ -19,7 +19,7 @@ import {
   getQuestionnaireOffers,
   postQuestionnaireOffer,
 } from '../../api/QuestionnaireOffer';
-import { QuestionnaireOffer } from '../../types/DTO/QuestionnaireOffer';
+import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
 
 const EmployeeSelectStyle = styled.div`
   display: grid;
@@ -33,11 +33,11 @@ interface Props {
 
 const EMPTY_QUESTIONNAIRE_OFFER = {
   Year: 0,
-} as QuestionnaireOffer;
+} as QuestionnaireOfferDTO;
 
 const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
   const [questionnaireOffers, setQuestionnaireOffers]: [
-    QuestionnaireOffer[],
+    QuestionnaireOfferDTO[],
     Function
   ] = useState([]);
   const [addingMode, setAddingMode] = useState(false);

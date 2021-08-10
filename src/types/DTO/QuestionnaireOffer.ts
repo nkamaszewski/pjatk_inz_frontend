@@ -1,6 +1,6 @@
 import { OfferDTO } from './Offer';
 
-export interface QuestionnaireOffer {
+export interface QuestionnaireOfferDTO {
   IdQuestionnaireOffer: string;
   Year: number;
   IdPerson: string;
