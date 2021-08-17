@@ -168,7 +168,12 @@ const NavigationStyle = styled.div`
     &:hover {
       color: ${({ theme }) => theme.primaryHover};
       background-color: rgba(0, 0, 0, 0.1);
+      cursor: pointer;
     }
+  }
+
+  .navLink-item-active {
+    color: ${({ theme }) => theme.primaryHover};
   }
 
   .sub-label {
@@ -181,6 +186,16 @@ const NavigationStyle = styled.div`
     grid-template-columns: 42px 1fr 42px;
   }
 `;
+
+const FakeNavItem = ({
+  children,
+  className,
+  to,
+}: {
+  children: JSX.Element;
+  className: string;
+  to: string;
+}) => <div className={className}>{children}</div>;
 
 const Navigation = () => {
   const [firmyOpen, setFirmyOpen] = useState(false);
@@ -211,51 +226,62 @@ const Navigation = () => {
     <NavigationStyle theme={theme}>
       <img src={theme.logoSrc} alt="logo" className="logo" />
 
-      {navigationsItems.map((item) => (
-        <div key={item.id}>
-          <NavLink className="navLink-item" to={item.link}>
-            <div
-              className="main-level-navLink"
-              onClick={() =>
-                getCloseFn(item.label).setOpen(
-                  (prevState: boolean) => !prevState
-                )
-              }
+      {navigationsItems.map((item) => {
+        const Component = item.children ? FakeNavItem : NavLink;
+        return (
+          <div key={item.id}>
+            <Component
+              className="navLink-item"
+              to={item.link}
+              activeClassName="navLink-item-active"
             >
-              {item.icon ? <FontAwesomeIcon icon={item.icon} /> : <span />}
-              {item.label}
-              {item.children && (
-                <FontAwesomeIcon
-                  icon={
-                    getCloseFn(item.label).open ? faChevronUp : faChevronDown
-                  }
-                />
-              )}
-            </div>
-          </NavLink>
-          {item.children && (
-            <Collapse
-              in={getCloseFn(item.label).open}
-              timeout="auto"
-              unmountOnExit
-              className="collapse-element"
-            >
-              {item.children.map((child) => (
-                <div key={child.id} className="sub-label">
-                  <NavLink className="navLink-item child-item" to={child.link}>
-                    {child.icon ? (
-                      <FontAwesomeIcon icon={child.icon} />
-                    ) : (
-                      <span />
-                    )}
-                    <p>{child.label}</p>
-                  </NavLink>
-                </div>
-              ))}
-            </Collapse>
-          )}
-        </div>
-      ))}
+              <div
+                className="main-level-navLink"
+                onClick={() =>
+                  getCloseFn(item.label).setOpen(
+                    (prevState: boolean) => !prevState
+                  )
+                }
+              >
+                {item.icon ? <FontAwesomeIcon icon={item.icon} /> : <span />}
+                {item.label}
+                {item.children && (
+                  <FontAwesomeIcon
+                    icon={
+                      getCloseFn(item.label).open ? faChevronUp : faChevronDown
+                    }
+                  />
+                )}
+              </div>
+            </Component>
+            {item.children && (
+              <Collapse
+                in={getCloseFn(item.label).open}
+                timeout="auto"
+                unmountOnExit
+                className="collapse-element"
+              >
+                {item.children.map((child) => (
+                  <div key={child.id} className="sub-label">
+                    <NavLink
+                      className="navLink-item child-item"
+                      to={child.link}
+                      activeClassName="navLink-item-active"
+                    >
+                      {child.icon ? (
+                        <FontAwesomeIcon icon={child.icon} />
+                      ) : (
+                        <span />
+                      )}
+                      <p>{child.label}</p>
+                    </NavLink>
+                  </div>
+                ))}
+              </Collapse>
+            )}
+          </div>
+        );
+      })}
     </NavigationStyle>
   );
 };
