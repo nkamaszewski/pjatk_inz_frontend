@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Drawer, Fab } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { getEmployments } from '../../api/Employment';
+import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import { EmploymentListDTO } from '../../types/DTO/Employment';
 import EmploymentFieldset from './EmploymentFieldset';
@@ -31,11 +32,7 @@ const Employment = () => {
   return (
     <div>
       <PageHeader title="Pracownicy" />
-      <div className="toolbar--global">
-        <Fab color="primary" aria-label="add" onClick={() => setIsOpen(true)}>
-          <FontAwesomeIcon icon={faPlus} />
-        </Fab>
-      </div>
+      <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <EmploymentFieldset
           closeDrawer={() => setIsOpen(false)}
