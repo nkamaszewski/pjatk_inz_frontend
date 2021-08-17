@@ -157,6 +157,7 @@ const NavigationStyle = styled.div`
     width: 240px;
     height: 74px;
     padding: 8px;
+    border-radius: 10px;
   }
 
   .navLink-item {
