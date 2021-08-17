@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Collapse } from '@material-ui/core';
-import Logo from '../assets/logo.svg';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 const navigationsItems = [
   { id: 1, label: 'Pracownicy', link: '/pracownicy' },
@@ -63,29 +63,22 @@ const navigationsItems = [
 const NavigationStyle = styled.div`
   height: 100%;
   width: 280px;
-  background-color: #c4c4c4;
+  background-color: ${({ theme }) => theme.primaryBackground};
 
   .logo {
-    height: 76px;
-    width: 280px;
-    background-color: #b9cacd;
-    padding: 22px;
-  }
-
-  .divider {
-    height: 24px;
-    width: 280px;
-    background-color: white;
+    width: 240px;
+    height: 74px;
+    padding: 8px;
   }
 
   .navLink-item {
     display: block;
-    font-size: 24px;
+    font-size: 16px;
     padding: 16px 8px;
     text-decoration: none;
-    color: black;
+    color: ${({ theme }) => theme.primaryColor};
     &:hover {
-      background-color: rgba(118, 45, 45, 0.2);
+      color: ${({ theme }) => theme.primaryHover};
     }
   }
 
@@ -99,6 +92,7 @@ const Navigation = () => {
   const [wnioskiOpen, setWnioskiOpen] = useState(false);
   const [szkoleniaOpen, setSzkoleniaOpen] = useState(false);
   const [szkoleniaWewnetrzneOpen, setSzkoleniaWewnetrzneOpen] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const getCloseFn = (label: string) => {
     switch (label) {
@@ -119,11 +113,8 @@ const Navigation = () => {
   };
 
   return (
-    <NavigationStyle>
-      <div className="logo">
-        <img src={Logo} alt="logo" />
-      </div>
-      <div className="divider" />
+    <NavigationStyle theme={theme}>
+      <img src={theme.logoSrc} alt="logo" className="logo" />
 
       {navigationsItems.map((item) => (
         <div key={item.id}>
