@@ -7,6 +7,7 @@ export interface ThemeState {
   primaryColor: string;
   primaryHover: string;
   listHeaderBackground: string;
+  error: string;
 }
 
 interface ThemeAction {
@@ -26,6 +27,7 @@ export const dark_theme: ThemeState = {
   primaryColor: '#edf2f4',
   primaryHover: '#F7BF50',
   listHeaderBackground: '#caf0f8',
+  error: '#f0504a',
 };
 export const light_theme: ThemeState = {
   themeName: 'light',
@@ -34,6 +36,7 @@ export const light_theme: ThemeState = {
   primaryColor: '#2b2d42',
   primaryHover: '#edf2f4',
   listHeaderBackground: '#fde2e4',
+  error: '#f0504a',
 };
 
 const initialState: ThemeState = dark_theme;

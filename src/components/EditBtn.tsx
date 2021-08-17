@@ -10,7 +10,7 @@ const EditBtn = ({ onClick }: Props) => {
   return (
     <Tooltip title="edytuj">
       <Button onClick={onClick as any}>
-        <FontAwesomeIcon className="default--icon-color" icon={faEdit} />
+        <FontAwesomeIcon className="g-primary-color" icon={faEdit} />
       </Button>
     </Tooltip>
   );

@@ -11,7 +11,7 @@ function App() {
   return (
     <ThemeContext.Provider value={themeProps}>
       <MaterialUITheme theme={themeProps.theme}>
-        <GlobalStyle>
+        <GlobalStyle theme={themeProps.theme}>
           <BrowserRouter>
             <Router />
           </BrowserRouter>

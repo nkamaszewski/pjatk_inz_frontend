@@ -10,7 +10,7 @@ const DeleteBtn = ({ onClick }: Props) => {
   return (
     <Tooltip title="usuń">
       <Button onClick={onClick as any}>
-        <FontAwesomeIcon className="secondary--color" icon={faTrash} />
+        <FontAwesomeIcon className="g-error-color" icon={faTrash} />
       </Button>
     </Tooltip>
   );

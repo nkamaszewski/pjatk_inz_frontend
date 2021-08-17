@@ -82,7 +82,7 @@ const EmploymentList = ({ employees }: Props) => {
                 setIsOpen(true);
               }}
             >
-              <FontAwesomeIcon icon={faSitemap} />
+              <FontAwesomeIcon className="g-primary-color" icon={faSitemap} />
             </Button>
           </Card>
         );
