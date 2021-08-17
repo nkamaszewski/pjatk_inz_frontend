@@ -1,6 +1,4 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Drawer, Fab } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { getEmployments } from '../../api/Employment';
 import AddFab from '../../components/AddFab';

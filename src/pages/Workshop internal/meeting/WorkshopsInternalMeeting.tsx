@@ -1,8 +1,7 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Drawer, Fab } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { getMeetings } from '../../../api/Meeting';
+import AddFab from '../../../components/AddFab';
 import PageHeader from '../../../components/PageHeader';
 import { MeetingDTO } from '../../../types/DTO/Meeting';
 import MeetingFieldset from './MeetingFieldset';
@@ -29,11 +28,7 @@ const WorkshopsInternalMeeting = () => {
   return (
     <div>
       <PageHeader title="Harmonogram" />
-      <div className="toolbar--global">
-        <Fab color="primary" aria-label="add" onClick={() => setIsOpen(true)}>
-          <FontAwesomeIcon icon={faPlus} />
-        </Fab>
-      </div>
+      <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <MeetingFieldset
           closeDrawer={() => setIsOpen(false)}

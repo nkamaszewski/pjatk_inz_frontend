@@ -1,9 +1,8 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Drawer, Fab } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getApplicationsFor } from '../../../api/Application';
+import AddFab from '../../../components/AddFab';
 import PageHeader from '../../../components/PageHeader';
 import { ApplicationForDTO } from '../../../types/DTO/ApplicationFor';
 import WorkshopFieldset from './WorkshopFieldset';
@@ -33,11 +32,7 @@ const Workshop = () => {
   return (
     <WorkshopStyle>
       <PageHeader title="Wnioski propozycje szkoleń" />
-      <div className="toolbar--global">
-        <Fab color="primary" aria-label="add" onClick={() => setIsOpen(true)}>
-          <FontAwesomeIcon icon={faPlus} />
-        </Fab>
-      </div>
+      <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <WorkshopFieldset
           closeDrawer={() => setIsOpen(false)}

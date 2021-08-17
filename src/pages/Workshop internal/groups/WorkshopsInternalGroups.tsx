@@ -1,8 +1,7 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Drawer, Fab } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { getGroups } from '../../../api/Group';
+import AddFab from '../../../components/AddFab';
 import PageHeader from '../../../components/PageHeader';
 import { GroupDTO } from '../../../types/DTO/Group';
 import GroupFieldset from './GroupFieldset';
@@ -29,11 +28,7 @@ const WorkshopsInternalGroups = () => {
   return (
     <div>
       <PageHeader title="Grupy" />
-      <div className="toolbar--global">
-        <Fab color="primary" aria-label="add" onClick={() => setIsOpen(true)}>
-          <FontAwesomeIcon icon={faPlus} />
-        </Fab>
-      </div>
+      <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <GroupFieldset
           closeDrawer={() => setIsOpen(false)}

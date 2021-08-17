@@ -1,10 +1,9 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Drawer, Fab } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getDepartments } from '../../../api/Department';
 import { getDivisions } from '../../../api/Division';
+import AddFab from '../../../components/AddFab';
 import PageHeader from '../../../components/PageHeader';
 import { DepartmentDTO } from '../../../types/DTO/Department';
 import { DivisionDTO } from '../../../types/DTO/Division';
@@ -40,11 +39,7 @@ const CompanyDataDepartments = () => {
   return (
     <CompanyDataDepartmentsStyle>
       <PageHeader title="Firma piony wydziały" />
-      <div className="toolbar--global">
-        <Fab color="primary" aria-label="add" onClick={() => setIsOpen(true)}>
-          <FontAwesomeIcon icon={faPlus} />
-        </Fab>
-      </div>
+      <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <DepartmentDivisionFieldset
           divisions={divisions}

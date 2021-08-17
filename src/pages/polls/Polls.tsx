@@ -1,9 +1,8 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Drawer, Fab } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getQuestionnaireOffers } from '../../api/QuestionnaireOffer';
+import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
 import PollsFieldset from './PollsFieldset';
@@ -32,11 +31,7 @@ const Polls = () => {
   return (
     <PollsStyle>
       <PageHeader title="Wnioski propozycje szkoleń" />
-      <div className="toolbar--global">
-        <Fab color="primary" aria-label="add" onClick={() => setIsOpen(true)}>
-          <FontAwesomeIcon icon={faPlus} />
-        </Fab>
-      </div>
+      <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <PollsFieldset
           closeDrawer={() => setIsOpen(false)}

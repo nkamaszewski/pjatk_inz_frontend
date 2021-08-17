@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const EmploymentListHeaderStyle = styled.div`
-  background-color: rgba(196, 196, 196, 0.25);
+  background-color: #caf0f8;
   font-size: 28px;
   padding: 16px;
 `;
