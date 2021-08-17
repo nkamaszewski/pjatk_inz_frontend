@@ -3,61 +3,149 @@ import { NavLink } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { Collapse } from '@material-ui/core';
 import { ThemeContext } from '../contexts/ThemeContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faAddressCard,
+  faBuilding,
+  faChalkboardTeacher,
+  faChevronDown,
+  faChevronUp,
+  faDatabase,
+  faDivide,
+  faHistory,
+  faPersonBooth,
+  faPoll,
+  faPollH,
+  faSchool,
+  faUniversity,
+  faUserCircle,
+  faUserFriends,
+  faUsers,
+  faUsersCog,
+  faUserTie,
+  faWindowRestore,
+  IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
 
-const navigationsItems = [
-  { id: 1, label: 'Pracownicy', link: '/pracownicy' },
+interface NavigationItem {
+  id: string;
+  label: string;
+  link: string;
+  icon?: IconDefinition;
+  children?: NavigationItem[];
+}
+
+const navigationsItems: NavigationItem[] = [
+  { id: '1', label: 'Pracownicy', link: '/pracownicy', icon: faUsers },
   {
-    id: 2,
+    id: '2',
     label: 'Wnioski',
     link: '/wnioski/wnioski-szkoleniowe',
     children: [
-      { id: '2a', label: 'Szkoleniowe', link: '/wnioski/wnioski-szkoleniowe' },
-      { id: '2b', label: 'Dodatkowe', link: '/wnioski/wnioski-dodatkowe' },
+      {
+        id: '2a',
+        label: 'Szkoleniowe',
+        link: '/wnioski/wnioski-szkoleniowe',
+        icon: faChalkboardTeacher,
+      },
+      {
+        id: '2b',
+        label: 'Dodatkowe',
+        link: '/wnioski/wnioski-dodatkowe',
+        icon: faPoll,
+      },
     ],
   },
   {
-    id: 3,
+    id: '3',
     label: 'Szkolenia',
     link: '/szkolenia/studia',
     children: [
-      { id: '3a', label: 'Studia', link: '/szkolenia/studia' },
-      { id: '3b', label: 'Kursy', link: '/szkolenia/kursy' },
+      {
+        id: '3a',
+        label: 'Studia',
+        link: '/szkolenia/studia',
+        icon: faUniversity,
+      },
+      { id: '3b', label: 'Kursy', link: '/szkolenia/kursy', icon: faSchool },
       {
         id: '3c',
         label: 'Szkolenia wewnętrzne',
         link: '/szkolenia/szkolenia-wewnetrzne',
+        icon: faBuilding,
       },
-      { id: '3d', label: 'Inne', link: '/szkolenia/inne' },
-      { id: '3e', label: 'Organizatorzy', link: '/szkolenia/organizatorzy' },
-      { id: '3f', label: 'Szkoleniowcy', link: '/szkolenia/szkoleniowcy' },
+      {
+        id: '3d',
+        label: 'Inne',
+        link: '/szkolenia/inne',
+        icon: faWindowRestore,
+      },
+      {
+        id: '3e',
+        label: 'Organizatorzy',
+        link: '/szkolenia/organizatorzy',
+        icon: faUserFriends,
+      },
+      {
+        id: '3f',
+        label: 'Szkoleniowcy',
+        link: '/szkolenia/szkoleniowcy',
+        icon: faUserTie,
+      },
     ],
   },
   {
-    id: 4,
+    id: '4',
     label: 'Szkolenia wewnętrzne',
     link: '/szkolenia-wewnetrzne/sale',
     children: [
-      { id: '4a', label: 'Sale', link: '/szkolenia-wewnetrzne/sale' },
-      { id: '4b', label: 'Grupy', link: '/szkolenia-wewnetrzne/grupy' },
+      {
+        id: '4a',
+        label: 'Sale',
+        link: '/szkolenia-wewnetrzne/sale',
+        icon: faPersonBooth,
+      },
+      {
+        id: '4b',
+        label: 'Grupy',
+        link: '/szkolenia-wewnetrzne/grupy',
+        icon: faUsersCog,
+      },
       {
         id: '4c',
         label: 'Harmonogram',
         link: '/szkolenia-wewnetrzne/harmonogram',
+        icon: faHistory,
       },
     ],
   },
-  { id: 5, label: 'Ankiety', link: '/ankiety' },
+  { id: '5', label: 'Ankiety', link: '/ankiety', icon: faPollH },
   {
-    id: 6,
+    id: '6',
     label: 'Firma',
     link: '/firma/dane-firmy',
     children: [
-      { id: '6a', label: 'Dane Firmy', link: '/firma/dane-firmy' },
-      { id: '6b', label: 'Piony - wydziały', link: '/firma/piony-wydzialy' },
-      { id: '6c', label: 'Stanowiska', link: '/firma/stanowiska' },
+      {
+        id: '6a',
+        label: 'Dane Firmy',
+        link: '/firma/dane-firmy',
+        icon: faDatabase,
+      },
+      {
+        id: '6b',
+        label: 'Piony - wydziały',
+        link: '/firma/piony-wydzialy',
+        icon: faDivide,
+      },
+      {
+        id: '6c',
+        label: 'Stanowiska',
+        link: '/firma/stanowiska',
+        icon: faAddressCard,
+      },
     ],
   },
-  { id: 7, label: 'Moje konto', link: '/moje-konto' },
+  { id: '7', label: 'Moje konto', link: '/moje-konto', icon: faUserCircle },
 ];
 
 const NavigationStyle = styled.div`
@@ -79,11 +167,18 @@ const NavigationStyle = styled.div`
     color: ${({ theme }) => theme.primaryColor};
     &:hover {
       color: ${({ theme }) => theme.primaryHover};
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 
   .sub-label {
-    padding-left: 36px;
+    padding-left: 42px;
+  }
+
+  .main-level-navLink,
+  .child-item {
+    display: grid;
+    grid-template-columns: 42px 1fr 42px;
   }
 `;
 
@@ -119,15 +214,24 @@ const Navigation = () => {
       {navigationsItems.map((item) => (
         <div key={item.id}>
           <NavLink className="navLink-item" to={item.link}>
-            <span
+            <div
+              className="main-level-navLink"
               onClick={() =>
                 getCloseFn(item.label).setOpen(
                   (prevState: boolean) => !prevState
                 )
               }
             >
+              {item.icon ? <FontAwesomeIcon icon={item.icon} /> : <span />}
               {item.label}
-            </span>
+              {item.children && (
+                <FontAwesomeIcon
+                  icon={
+                    getCloseFn(item.label).open ? faChevronUp : faChevronDown
+                  }
+                />
+              )}
+            </div>
           </NavLink>
           {item.children && (
             <Collapse
@@ -137,9 +241,14 @@ const Navigation = () => {
               className="collapse-element"
             >
               {item.children.map((child) => (
-                <div key={child.id}>
-                  <NavLink className="navLink-item" to={child.link}>
-                    <p className="sub-label">{child.label}</p>
+                <div key={child.id} className="sub-label">
+                  <NavLink className="navLink-item child-item" to={child.link}>
+                    {child.icon ? (
+                      <FontAwesomeIcon icon={child.icon} />
+                    ) : (
+                      <span />
+                    )}
+                    <p>{child.label}</p>
                   </NavLink>
                 </div>
               ))}
