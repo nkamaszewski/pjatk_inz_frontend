@@ -1,7 +1,8 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeState } from './hooks/useTheme';
 
-const theme = createMuiTheme({
+const muiThemeDark = createMuiTheme({
   palette: {
     primary: {
       main: '#023047',
@@ -12,8 +13,30 @@ const theme = createMuiTheme({
   },
 });
 
-const MaterialUITheme = ({ children }: { children: JSX.Element }) => {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+const muiThemeLight = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#ffafcc',
+    },
+    // secondary: {
+    //   main: green[500],
+    // },
+  },
+});
+
+interface Props {
+  children: JSX.Element;
+  theme: ThemeState;
+}
+
+const MaterialUITheme = ({ children, theme }: Props) => {
+  return (
+    <ThemeProvider
+      theme={theme.themeName === 'dark' ? muiThemeDark : muiThemeLight}
+    >
+      {children}
+    </ThemeProvider>
+  );
 };
 
 export default MaterialUITheme;

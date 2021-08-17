@@ -10,7 +10,7 @@ function App() {
   const themeProps = useTheme();
   return (
     <ThemeContext.Provider value={themeProps}>
-      <MaterialUITheme>
+      <MaterialUITheme theme={themeProps.theme}>
         <GlobalStyle>
           <BrowserRouter>
             <Router />
