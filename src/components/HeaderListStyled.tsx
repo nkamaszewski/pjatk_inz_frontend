@@ -4,7 +4,7 @@ import { ThemeContext } from '../contexts/ThemeContext';
 
 const HeaderListStyle = styled.div`
   background-color: ${(p) => p.theme.listHeaderBackground};
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   padding: 16px;
 `;

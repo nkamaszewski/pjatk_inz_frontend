@@ -1,20 +1,20 @@
 import CompanyData from '../pages/company/CompanyData';
-import CompanyDataDepartments from '../pages/company/CompanyDataDepartments/CompanyDataDepartments';
-import CompanyDataPositions from '../pages/company/CompanyDataPositions/CompanyDataPositions';
+import CompanyDataDepartments from '../pages/CompanyDataDepartments/CompanyDataDepartments';
+import CompanyDataPositions from '../pages/CompanyDataPositions/CompanyDataPositions';
 import DocumentsAdditional from '../pages/documents/DocumentsAdditional';
 import DocumentsWorkshop from '../pages/documents/DocumentsWorkshop/DocumentsWorkshop';
 import Employment from '../pages/employment/Employment';
 import Polls from '../pages/polls/Polls';
 import UserAccount from '../pages/userAccount/UserAccount';
-import WorkshopsInternalGroups from '../pages/Workshop internal/groups/WorkshopsInternalGroups';
-import WorkshopsInternalRoom from '../pages/Workshop internal/rooms/WorkshopsInternalRoom';
-import WorkshopsInternalMeeting from '../pages/Workshop internal/meeting/WorkshopsInternalMeeting';
-import WorkshopsCoaches from '../pages/workshops/Coaches/WorkshopsCoaches';
+import WorkshopsInternalGroups from '../pages/groups/WorkshopsInternalGroups';
+import WorkshopsInternalRoom from '../pages/rooms/WorkshopsInternalRoom';
+import WorkshopsInternalMeeting from '../pages/meeting/WorkshopsInternalMeeting';
+import WorkshopsCoaches from '../pages/Coaches/WorkshopsCoaches';
 import WorkshopsInternalSubcategory from '../pages/workshops/WorkshopsInternalSubcategory';
 import WorkshopsOrganizators from '../pages/workshops/WorkshopsOrganizators';
 import WorkshopsOthers from '../pages/workshops/WorkshopsOthers';
-import WorkshopsStudy from '../pages/workshops/study/WorkshopsStudy';
-import WorkshopsTraining from '../pages/workshops/Training/WorkshopsTraining';
+import WorkshopsStudy from '../pages/study/WorkshopsStudy';
+import WorkshopsTraining from '../pages/Training/WorkshopsTraining';
 
 export interface RouteType {
   Component: Function;
