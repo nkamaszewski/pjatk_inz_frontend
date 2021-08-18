@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { ThemeContext } from '../contexts/ThemeContext';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 const HeaderListStyle = styled.div`
   background-color: ${(p) => p.theme.listHeaderBackground};

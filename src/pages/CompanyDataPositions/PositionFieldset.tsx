@@ -1,12 +1,8 @@
 import styled from 'styled-components';
 import HeaderFieldset from '../../components/HeaderFieldset';
+import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { PositionDTO } from '../../types/DTO/Position';
 import PositionContent from './PositionContent';
-
-const PositionFieldsetStyle = styled.div`
-  padding: 0 24px;
-  width: 600px;
-`;
 
 interface Props {
   closeDrawer: () => void;
@@ -20,7 +16,7 @@ const PositionFieldset = ({
   editPosition,
 }: Props) => {
   return (
-    <PositionFieldsetStyle>
+    <FieldsetStyled>
       <HeaderFieldset
         title={`${editPosition ? 'Edytuj' : 'Dodaj'} stanowisko`}
         closeDrawer={closeDrawer}
@@ -31,7 +27,7 @@ const PositionFieldset = ({
         fetchPositions={fetchPositions}
         editPosition={editPosition}
       />
-    </PositionFieldsetStyle>
+    </FieldsetStyled>
   );
 };
 

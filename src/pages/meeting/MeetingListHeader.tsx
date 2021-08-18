@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import HeaderListStyled from '../../components/HeaderListStyled';
+import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
 const GroupListHeader = () => {
   return (

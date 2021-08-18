@@ -1,4 +1,4 @@
-import HeaderListStyled from '../../components/HeaderListStyled';
+import HeaderListStyled from '../../components/styled/HeaderListStyled';
 const CoachListHeader = () => {
   return (
     <HeaderListStyled className="grid-coach">

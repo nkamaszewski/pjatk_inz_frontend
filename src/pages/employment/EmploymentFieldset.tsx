@@ -1,24 +1,22 @@
-import styled from 'styled-components';
+import HeaderFieldset from '../../components/HeaderFieldset';
+import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import EmploymentContent from './EmploymentContent';
 
-const EmploymentFieldsetStyle = styled.div`
-  padding: 24px;
-  width: 600px;
-`;
-
 interface Props {
-  closeDrawer: Function;
+  closeDrawer: () => void;
   fetchEmployments: Function;
 }
 
 const EmploymentFieldset = ({ closeDrawer, fetchEmployments }: Props) => {
   return (
-    <EmploymentFieldsetStyle>
+    <FieldsetStyled>
+      <HeaderFieldset title={`Dodaj zatrudnienie`} closeDrawer={closeDrawer} />
+
       <EmploymentContent
         closeDrawer={closeDrawer}
         fetchEmployments={fetchEmployments}
       />
-    </EmploymentFieldsetStyle>
+    </FieldsetStyled>
   );
 };
 

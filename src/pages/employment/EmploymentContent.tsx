@@ -82,7 +82,6 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
 
   return (
     <EmploymentContentStyle>
-      <h3>Dodaj zatrudnienie</h3>
       <TextField
         label="Data od"
         name="dateFrom"
