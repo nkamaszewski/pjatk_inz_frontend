@@ -41,7 +41,6 @@ const RoomContent = ({ closeDrawer, fetchRooms }: Props) => {
 
   return (
     <RoomContentStyle>
-      <h3>Dodaj Salę</h3>
       <TextField
         label="Nazwa"
         type="text"

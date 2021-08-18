@@ -93,7 +93,6 @@ const PollsContent = ({
 
   return (
     <PollsContentStyle>
-      <h3>{editOffer ? 'Edytuj' : 'Dodaj'} ankietę</h3>
       <QuestionnaireOfferSelect
         value={questionnaireOfferId}
         onChange={setQuestionnaireOfferId}

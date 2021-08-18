@@ -1,21 +1,18 @@
-import styled from 'styled-components';
+import HeaderFieldset from '../../components/HeaderFieldset';
+import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import RoomContent from './RoomContent';
 
-const RoomFieldsetStyle = styled.div`
-  padding: 24px;
-  width: 600px;
-`;
-
 interface Props {
-  closeDrawer: Function;
+  closeDrawer: () => void;
   fetchRooms: Function;
 }
 
 const RoomFieldset = ({ closeDrawer, fetchRooms }: Props) => {
   return (
-    <RoomFieldsetStyle>
+    <FieldsetStyled>
+      <HeaderFieldset title={`Dodaj Salę`} closeDrawer={closeDrawer} />
       <RoomContent closeDrawer={closeDrawer} fetchRooms={fetchRooms} />
-    </RoomFieldsetStyle>
+    </FieldsetStyled>
   );
 };
 

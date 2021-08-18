@@ -1,10 +1,10 @@
 import { Drawer } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getApplicationsFor } from '../../../api/Application';
-import AddFab from '../../../components/AddFab';
-import PageHeader from '../../../components/PageHeader';
-import { ApplicationForDTO } from '../../../types/DTO/ApplicationFor';
+import { getApplicationsFor } from '../../api/Application';
+import AddFab from '../../components/AddFab';
+import PageHeader from '../../components/PageHeader';
+import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
 import WorkshopFieldset from './WorkshopFieldset';
 import WorkshopList from './WorkshopList';
 

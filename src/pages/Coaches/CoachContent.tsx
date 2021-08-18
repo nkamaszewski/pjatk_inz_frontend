@@ -40,8 +40,6 @@ const CoachContent = ({ closeDrawer, fetchCoaches }: Props) => {
 
   return (
     <CoachContentStyle>
-      <h3>Dodaj Szkoleniowca</h3>
-
       <PersonSelect value={selectedPerson} onChange={setSelectedPerson} />
       <TextField
         label="Tytuł zawodowy"

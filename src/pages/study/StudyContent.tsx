@@ -65,7 +65,6 @@ const StudyContent = ({ closeDrawer, fetchStudies }: Props) => {
 
   return (
     <StudyContentStyle>
-      <h3>Dodaj Studia</h3>
       <TextField
         label="Kierunek studiów"
         name="fieldOfStudy"

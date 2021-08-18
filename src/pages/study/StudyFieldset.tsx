@@ -1,21 +1,17 @@
-import styled from 'styled-components';
+import HeaderFieldset from '../../components/HeaderFieldset';
+import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import StudyContent from './StudyContent';
-
-const StudyFieldsetStyle = styled.div`
-  padding: 24px;
-  width: 600px;
-`;
-
 interface Props {
-  closeDrawer: Function;
+  closeDrawer: () => void;
   fetchStudies: Function;
 }
 
 const StudyFieldset = ({ closeDrawer, fetchStudies }: Props) => {
   return (
-    <StudyFieldsetStyle>
+    <FieldsetStyled>
+      <HeaderFieldset title={`Dodaj Studia`} closeDrawer={closeDrawer} />
       <StudyContent closeDrawer={closeDrawer} fetchStudies={fetchStudies} />
-    </StudyFieldsetStyle>
+    </FieldsetStyled>
   );
 };
 

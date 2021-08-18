@@ -1,15 +1,15 @@
 import { Divider, Drawer } from '@material-ui/core';
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { deleteApplicationsFor } from '../../../api/Application';
-import DeleteBtn from '../../../components/DeleteBtn';
-import EditBtn from '../../../components/EditBtn';
-import { NotificationContext } from '../../../contexts/NotificationContext';
+import { deleteApplicationsFor } from '../../api/Application';
+import DeleteBtn from '../../components/DeleteBtn';
+import EditBtn from '../../components/EditBtn';
+import { NotificationContext } from '../../contexts/NotificationContext';
 import {
   createSnackbarError,
   createSnackbarSuccess,
-} from '../../../hooks/useNotification';
-import { ApplicationForDTO } from '../../../types/DTO/ApplicationFor';
+} from '../../hooks/useNotification';
+import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
 import WorkshopFieldset from './WorkshopFieldset';
 import PollsFieldset from './WorkshopFieldset';
 

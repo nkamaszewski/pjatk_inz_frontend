@@ -1,14 +1,10 @@
-import styled from 'styled-components';
-import { ApplicationForDTO } from '../../../types/DTO/ApplicationFor';
+import HeaderFieldset from '../../components/HeaderFieldset';
+import FieldsetStyled from '../../components/styled/FieldsetStyled';
+import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
 import WorkshopContent from './WorkshopContent';
 
-const WorkshopFieldsetStyle = styled.div`
-  padding: 24px;
-  width: 600px;
-`;
-
 interface Props {
-  closeDrawer: Function;
+  closeDrawer: () => void;
   fetchApplications: Function;
   editApplicationFor?: ApplicationForDTO | null;
 }
@@ -19,13 +15,17 @@ const WorkshopFieldset = ({
   editApplicationFor,
 }: Props) => {
   return (
-    <WorkshopFieldsetStyle>
+    <FieldsetStyled>
+      <HeaderFieldset
+        title={`${editApplicationFor ? 'Edytuj' : 'Dodaj'} wniosek`}
+        closeDrawer={closeDrawer}
+      />
       <WorkshopContent
         closeDrawer={closeDrawer}
         fetchApplications={fetchApplications}
         editApplicationFor={editApplicationFor}
       />
-    </WorkshopFieldsetStyle>
+    </FieldsetStyled>
   );
 };
 

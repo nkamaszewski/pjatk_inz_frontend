@@ -1,15 +1,11 @@
-import styled from 'styled-components';
+import HeaderFieldset from '../../components/HeaderFieldset';
+import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { OfferDTO } from '../../types/DTO/Offer';
 import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
 import PollsContent from './PollsContent';
 
-const QuestionnaireOfferFieldsetStyle = styled.div`
-  padding: 24px;
-  width: 600px;
-`;
-
 interface Props {
-  closeDrawer: Function;
+  closeDrawer: () => void;
   fetchQuestionnaireOffers: Function;
   editOffer?: OfferDTO | null;
   polls: QuestionnaireOfferDTO[];
@@ -22,14 +18,18 @@ const PollsFieldset = ({
   polls,
 }: Props) => {
   return (
-    <QuestionnaireOfferFieldsetStyle>
+    <FieldsetStyled>
+      <HeaderFieldset
+        title={`${editOffer ? 'Edytuj' : 'Dodaj'} ankietę`}
+        closeDrawer={closeDrawer}
+      />
       <PollsContent
         closeDrawer={closeDrawer}
         fetchQuestionnaireOffers={fetchQuestionnaireOffers}
         editOffer={editOffer}
         polls={polls}
       />
-    </QuestionnaireOfferFieldsetStyle>
+    </FieldsetStyled>
   );
 };
 

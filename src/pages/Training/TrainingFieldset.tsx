@@ -1,24 +1,21 @@
-import styled from 'styled-components';
+import HeaderFieldset from '../../components/HeaderFieldset';
+import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import TrainingContent from './TrainingContent';
 
-const TrainingFieldsetStyle = styled.div`
-  padding: 24px;
-  width: 600px;
-`;
-
 interface Props {
-  closeDrawer: Function;
+  closeDrawer: () => void;
   fetchTrainings: Function;
 }
 
 const TrainingFieldset = ({ closeDrawer, fetchTrainings }: Props) => {
   return (
-    <TrainingFieldsetStyle>
+    <FieldsetStyled>
+      <HeaderFieldset title={`Dodaj Kurs`} closeDrawer={closeDrawer} />
       <TrainingContent
         closeDrawer={closeDrawer}
         fetchTrainings={fetchTrainings}
       />
-    </TrainingFieldsetStyle>
+    </FieldsetStyled>
   );
 };
 

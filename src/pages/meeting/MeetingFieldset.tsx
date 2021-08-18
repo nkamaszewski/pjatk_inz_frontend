@@ -1,21 +1,18 @@
-import styled from 'styled-components';
+import HeaderFieldset from '../../components/HeaderFieldset';
+import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import MeetingContent from './MeetingContent';
 
-const MeetingFieldsetStyle = styled.div`
-  padding: 24px;
-  width: 600px;
-`;
-
 interface Props {
-  closeDrawer: Function;
+  closeDrawer: () => void;
   fetchMeetings: Function;
 }
 
 const MeetingFieldset = ({ closeDrawer, fetchMeetings }: Props) => {
   return (
-    <MeetingFieldsetStyle>
+    <FieldsetStyled>
+      <HeaderFieldset title={`Dodaj spotkanie`} closeDrawer={closeDrawer} />
       <MeetingContent closeDrawer={closeDrawer} fetchMeetings={fetchMeetings} />
-    </MeetingFieldsetStyle>
+    </FieldsetStyled>
   );
 };
 

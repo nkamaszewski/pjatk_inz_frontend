@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import {
   postApplicationsFor,
   updateApplicationsFor,
-} from '../../../api/Application';
-import StudySelect from '../../../components/controls_UI/StudySelect';
-import TrainingSelect from '../../../components/controls_UI/TrainingSelect';
-import { NotificationContext } from '../../../contexts/NotificationContext';
-import { createSnackbarSuccess } from '../../../hooks/useNotification';
-import { ApplicationForDTO } from '../../../types/DTO/ApplicationFor';
+} from '../../api/Application';
+import StudySelect from '../../components/controls_UI/StudySelect';
+import TrainingSelect from '../../components/controls_UI/TrainingSelect';
+import { NotificationContext } from '../../contexts/NotificationContext';
+import { createSnackbarSuccess } from '../../hooks/useNotification';
+import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
 
 const WorkshopContentStyle = styled.div`
   padding: 24px 0;
@@ -74,7 +74,6 @@ const WorkshopContent = ({
 
   return (
     <WorkshopContentStyle>
-      <h3>{editApplicationFor ? 'Edytuj' : 'Dodaj'} wniosek</h3>
       <div className="switch-btn">
         <p>Wniosek dotyczy studiów? </p>
         <Switch

@@ -1,21 +1,18 @@
-import styled from 'styled-components';
+import HeaderFieldset from '../../components/HeaderFieldset';
+import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import CoachContent from './CoachContent';
 
-const EmploymentFieldsetStyle = styled.div`
-  padding: 24px;
-  width: 600px;
-`;
-
 interface Props {
-  closeDrawer: Function;
+  closeDrawer: () => void;
   fetchCoaches: Function;
 }
 
 const CoachFieldset = ({ closeDrawer, fetchCoaches }: Props) => {
   return (
-    <EmploymentFieldsetStyle>
+    <FieldsetStyled>
+      <HeaderFieldset title={`Dodaj Szkoleniowca`} closeDrawer={closeDrawer} />
       <CoachContent closeDrawer={closeDrawer} fetchCoaches={fetchCoaches} />
-    </EmploymentFieldsetStyle>
+    </FieldsetStyled>
   );
 };
 

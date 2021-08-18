@@ -1,21 +1,18 @@
-import styled from 'styled-components';
+import HeaderFieldset from '../../components/HeaderFieldset';
+import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import GroupContent from './GroupContent';
 
-const GroupFieldsetStyle = styled.div`
-  padding: 24px;
-  width: 600px;
-`;
-
 interface Props {
-  closeDrawer: Function;
+  closeDrawer: () => void;
   fetchGroups: Function;
 }
 
 const GroupFieldset = ({ closeDrawer, fetchGroups }: Props) => {
   return (
-    <GroupFieldsetStyle>
+    <FieldsetStyled>
+      <HeaderFieldset title={`Dodaj grupę`} closeDrawer={closeDrawer} />
       <GroupContent closeDrawer={closeDrawer} fetchGroups={fetchGroups} />
-    </GroupFieldsetStyle>
+    </FieldsetStyled>
   );
 };
 

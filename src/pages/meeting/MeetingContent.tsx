@@ -39,7 +39,6 @@ const MeetingContent = ({ closeDrawer, fetchMeetings }: Props) => {
 
   return (
     <MeetingContentStyle>
-      <h3>Dodaj Spotkanie</h3>
       <TextField
         label="Od"
         type="date"

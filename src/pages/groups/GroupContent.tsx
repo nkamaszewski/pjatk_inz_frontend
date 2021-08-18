@@ -36,7 +36,6 @@ const GroupContent = ({ closeDrawer, fetchGroups }: Props) => {
 
   return (
     <GroupContentStyle>
-      <h3>Dodaj grupę</h3>
       <TextField
         label="Nazwa"
         type="text"

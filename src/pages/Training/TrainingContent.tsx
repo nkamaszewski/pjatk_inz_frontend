@@ -71,8 +71,6 @@ const TrainingContent = ({ closeDrawer, fetchTrainings }: Props) => {
 
   return (
     <TrainingContentStyle>
-      <h3>Dodaj Kurs</h3>
-
       <TopicSelect value={idTopic} onChange={setIdTopic} />
 
       <CompanySelect value={idCompany} onChange={setIdCompany} />

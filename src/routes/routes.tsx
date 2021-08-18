@@ -2,7 +2,7 @@ import CompanyData from '../pages/company/CompanyData';
 import CompanyDataDepartments from '../pages/CompanyDataDepartments/CompanyDataDepartments';
 import CompanyDataPositions from '../pages/CompanyDataPositions/CompanyDataPositions';
 import DocumentsAdditional from '../pages/documents/DocumentsAdditional';
-import DocumentsWorkshop from '../pages/documents/DocumentsWorkshop/DocumentsWorkshop';
+import DocumentsWorkshop from '../pages/DocumentsWorkshop/DocumentsWorkshop';
 import Employment from '../pages/employment/Employment';
 import Polls from '../pages/polls/Polls';
 import UserAccount from '../pages/userAccount/UserAccount';
