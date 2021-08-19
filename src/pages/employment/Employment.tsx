@@ -37,7 +37,10 @@ const Employment = () => {
           fetchEmployments={fetchEmployments}
         />
       </Drawer>
-      <EmploymentList employees={employees} />
+      <EmploymentList
+        employees={employees}
+        fetchEmployments={fetchEmployments}
+      />
     </div>
   );
 };

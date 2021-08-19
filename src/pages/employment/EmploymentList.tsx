@@ -1,11 +1,13 @@
 import { faSitemap } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Drawer } from '@material-ui/core';
+import { Button, Drawer, Tooltip } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getDivisions } from '../../api/Division';
+import { deleteEmployment } from '../../api/Employment';
 import { getPersons } from '../../api/Person';
+import DeleteBtn from '../../components/DeleteBtn';
 import { DivisionDTO } from '../../types/DTO/Division';
 import { EmploymentListDTO } from '../../types/DTO/Employment';
 import { PersonDTO } from '../../types/DTO/Person';
@@ -17,7 +19,7 @@ const EmploymentListStyle = styled.div`
 
   .grid-employment {
     display: grid;
-    grid-template-columns: repeat(5, 1fr) 44px;
+    grid-template-columns: repeat(5, 1fr) 44px 44px;
   }
 
   .row {
@@ -28,9 +30,10 @@ const EmploymentListStyle = styled.div`
 
 interface Props {
   employees: EmploymentListDTO[];
+  fetchEmployments: () => void;
 }
 
-const EmploymentList = ({ employees }: Props) => {
+const EmploymentList = ({ employees, fetchEmployments }: Props) => {
   const [divisions, setDivisions] = useState([]);
   const [persons, setPersons] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -64,6 +67,15 @@ const EmploymentList = ({ employees }: Props) => {
     return person ?? ({} as PersonDTO);
   };
 
+  const deleteEmployee = async (id: string) => {
+    try {
+      await deleteEmployment(id);
+      fetchEmployments();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <EmploymentListStyle>
       <EmploymentListHeader />
@@ -76,14 +88,17 @@ const EmploymentList = ({ employees }: Props) => {
             <p>{getDivisionName(employee)}</p>
             <p>{employee.employmentsDepartment.Name}</p>
             <p>{employee.emplymentPosition.Name}</p>
-            <Button
-              onClick={() => {
-                setPerson(person);
-                setIsOpen(true);
-              }}
-            >
-              <FontAwesomeIcon className="g-primary-color" icon={faSitemap} />
-            </Button>
+            <DeleteBtn onClick={() => deleteEmployee(employee.IdEmployment)} />
+            <Tooltip title="grupa">
+              <Button
+                onClick={() => {
+                  setPerson(person);
+                  setIsOpen(true);
+                }}
+              >
+                <FontAwesomeIcon className="g-primary-color" icon={faSitemap} />
+              </Button>
+            </Tooltip>
           </Card>
         );
       })}

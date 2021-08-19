@@ -43,22 +43,23 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
     }
   }, [selectedPerson]);
 
-  const handleOnSave = () => {
+  const handleOnSave = async () => {
     try {
       if (showEmployeeConfig) {
-        postEmployee({
+        await postEmployee({
           IdPerson: selectedPerson,
           Pesel: pesel,
           Password: password,
         });
       }
-      postEmployment({
+      await postEmployment({
         DateFrom: dateFrom,
         DateTo: dateTo,
         IdDepartment: selectedDepartment,
         IdPosition: selectedPosition,
         IdPerson: selectedPerson,
-      }).then(() => fetchEmployments());
+      });
+      fetchEmployments();
     } catch (e) {
       console.error(e);
     } finally {

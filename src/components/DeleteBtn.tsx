@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Tooltip } from '@material-ui/core';
 
 interface Props {
-  onClick: Function;
+  onClick: () => void;
 }
 
 const DeleteBtn = ({ onClick }: Props) => {

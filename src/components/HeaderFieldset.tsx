@@ -1,6 +1,6 @@
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Tooltip } from '@material-ui/core';
+import { Button, Divider, Tooltip } from '@material-ui/core';
 import { useContext } from 'react';
 import styled from 'styled-components';
 import { ThemeContext } from '../contexts/ThemeContext';
@@ -9,17 +9,14 @@ const HeaderFieldsetStyle = styled.div`
   display: grid;
   grid-template-columns: 1fr 56px;
   grid-column-gap: 16px;
-  h4 {
-    background-color: ${(p) => p.theme.primaryBackground};
-    color: ${(p) => p.theme.primaryColor};
-    padding: 16px;
+  h3 {
+    color: ${(p) => p.theme.primaryBackground};
     border-radius: 5px;
     margin: 22px 0;
   }
 
   .cancel-btn {
     height: 48px;
-    margin: 22px 0;
   }
 `;
 
@@ -34,7 +31,10 @@ const HeaderFieldset = ({ title, className, closeDrawer }: Props) => {
   const handleCancel = () => closeDrawer();
   return (
     <HeaderFieldsetStyle theme={theme} className={className}>
-      <h4>{title}</h4>
+      <div>
+        <h3>{title}</h3>
+        <Divider />
+      </div>
       <Tooltip title="anuluj">
         <Button className="cancel-btn" color="primary" onClick={handleCancel}>
           <FontAwesomeIcon className="g-primary-color" icon={faWindowClose} />
