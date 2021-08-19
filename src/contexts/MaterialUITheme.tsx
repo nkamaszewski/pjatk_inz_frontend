@@ -15,7 +15,7 @@ const muiThemeDark = createMuiTheme({
 const muiThemeLight = createMuiTheme({
   palette: {
     primary: {
-      main: '#ffafcc',
+      main: '#bbdefb',
     },
     // secondary: {
     //   main: green[500],

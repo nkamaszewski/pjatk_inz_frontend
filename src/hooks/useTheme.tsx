@@ -32,10 +32,10 @@ export const dark_theme: ThemeState = {
 export const light_theme: ThemeState = {
   themeName: 'light',
   logoSrc: '/images/logoLight2.JPG',
-  primaryBackground: '#ffafcc',
+  primaryBackground: '#bbdefb',
   primaryColor: '#2b2d42',
-  primaryHover: '#edf2f4',
-  listHeaderBackground: '#fde2e4',
+  primaryHover: '#dd1c1a',
+  listHeaderBackground: '#bbdefb',
   error: '#f0504a',
 };
 
