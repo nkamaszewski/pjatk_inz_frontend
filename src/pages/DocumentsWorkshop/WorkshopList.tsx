@@ -1,17 +1,16 @@
 import { Divider, Drawer } from '@material-ui/core';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteApplicationsFor } from '../../api/Application';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
-import { NotificationContext } from '../../contexts/NotificationContext';
 import {
   createSnackbarError,
   createSnackbarSuccess,
-} from '../../hooks/useNotification';
+  useSnackbar,
+} from '../../contexts/NotificationContext';
 import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
 import WorkshopFieldset from './WorkshopFieldset';
-import PollsFieldset from './WorkshopFieldset';
 
 const WorkshopListStyle = styled.div`
   padding: 24px;
@@ -32,18 +31,16 @@ const WorkshopList = ({ applications, fetchApplications }: Props) => {
     ApplicationForDTO | null,
     Function
   ] = useState(null);
-  const notificationCtx = useContext(NotificationContext);
+  const { setSnackbar } = useSnackbar();
 
   const handleDeleteItem = async (id: string) => {
     try {
       await deleteApplicationsFor(id);
-      notificationCtx.setSnackbar(createSnackbarSuccess('Usunięto wniosek!'));
+      setSnackbar(createSnackbarSuccess('Usunięto wniosek!'));
       fetchApplications();
     } catch (e) {
       console.error(e);
-      notificationCtx.setSnackbar(
-        createSnackbarError('Nie udało się usunąć wniosku!')
-      );
+      setSnackbar(createSnackbarError('Nie udało się usunąć wniosku!'));
     }
   };
 

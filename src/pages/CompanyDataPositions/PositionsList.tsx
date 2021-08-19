@@ -1,14 +1,14 @@
 import { Divider, Drawer } from '@material-ui/core';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { deletePosition } from '../../api/Position';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
-import { NotificationContext } from '../../contexts/NotificationContext';
 import {
   createSnackbarError,
   createSnackbarSuccess,
-} from '../../hooks/useNotification';
+  useSnackbar,
+} from '../../contexts/NotificationContext';
 import { PositionDTO } from '../../types/DTO/Position';
 import PositionFieldset from './PositionFieldset';
 
@@ -29,20 +29,16 @@ interface Props {
 const PositionsList = ({ positions, fetchPositions }: Props) => {
   const [editPosition, setEditPosition]: [PositionDTO | null, Function] =
     useState(null);
-  const notificationCtx = useContext(NotificationContext);
+  const { setSnackbar } = useSnackbar();
 
   const handleDeleteItem = async (id: string) => {
     try {
       await deletePosition(id);
-      notificationCtx.setSnackbar(
-        createSnackbarSuccess('Usunięto stanowisko!')
-      );
+      setSnackbar(createSnackbarSuccess('Usunięto stanowisko!'));
       fetchPositions();
     } catch (e) {
       console.error(e);
-      notificationCtx.setSnackbar(
-        createSnackbarError('Nie udało się usunąć stanowiska!')
-      );
+      setSnackbar(createSnackbarError('Nie udało się usunąć stanowiska!'));
     }
   };
 

@@ -1,5 +1,5 @@
 import { Button, Switch } from '@material-ui/core';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   postApplicationsFor,
@@ -7,8 +7,10 @@ import {
 } from '../../api/Application';
 import StudySelect from '../../components/controls_UI/StudySelect';
 import TrainingSelect from '../../components/controls_UI/TrainingSelect';
-import { NotificationContext } from '../../contexts/NotificationContext';
-import { createSnackbarSuccess } from '../../hooks/useNotification';
+import {
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
 import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
 
 const WorkshopContentStyle = styled.div`
@@ -31,8 +33,7 @@ const WorkshopContent = ({
   const [isStudy, setIsStudy] = useState(false);
   const [idEducation, setIdEducation] = useState('');
   const [compability, setCompability] = useState(false);
-
-  const notificationCtx = useContext(NotificationContext);
+  const { setSnackbar } = useSnackbar();
 
   useEffect(() => {
     setIdEducation('');
@@ -49,9 +50,7 @@ const WorkshopContent = ({
           Compability: compability,
           IdPerson: '1',
         });
-        notificationCtx.setSnackbar(
-          createSnackbarSuccess('Wniosek został wyedytowany')
-        );
+        setSnackbar(createSnackbarSuccess('Wniosek został wyedytowany'));
       } else {
         await postApplicationsFor({
           DateOfSubmission: new Date(),
@@ -60,9 +59,7 @@ const WorkshopContent = ({
           Compability: compability,
           IdPerson: '1',
         });
-        notificationCtx.setSnackbar(
-          createSnackbarSuccess('Wniosek został dodany')
-        );
+        setSnackbar(createSnackbarSuccess('Wniosek został dodany'));
       }
     } catch (e) {
       console.error(e);

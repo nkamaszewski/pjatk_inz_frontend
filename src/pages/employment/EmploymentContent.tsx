@@ -6,8 +6,10 @@ import { postEmployment, updateEmployment } from '../../api/Employment';
 import DepartmentSelect from '../../components/controls_UI/DepartmentSelect';
 import PersonSelect from '../../components/controls_UI/PersonSelect';
 import PositionSelect from '../../components/controls_UI/PositionSelect';
-import { createSnackbarSuccess } from '../../hooks/useNotification';
-import useSnackbar from '../../hooks/useSnackbar';
+import {
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
 import { EmploymentDTO } from '../../types/DTO/Employment';
 
 const EmploymentContentStyle = styled.div`

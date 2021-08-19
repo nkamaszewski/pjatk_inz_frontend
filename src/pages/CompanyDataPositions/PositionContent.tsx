@@ -1,9 +1,11 @@
 import { Button, TextField } from '@material-ui/core';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { postPosition, updatePosition } from '../../api/Position';
-import { NotificationContext } from '../../contexts/NotificationContext';
-import { createSnackbarSuccess } from '../../hooks/useNotification';
+import {
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
 import { PositionDTO } from '../../types/DTO/Position';
 
 const PositionContentStyle = styled.div`
@@ -24,7 +26,7 @@ const PositionContent = ({
   editPosition,
 }: Props) => {
   const [name, setName] = useState(editPosition?.Name ?? '');
-  const notificationCtx = useContext(NotificationContext);
+  const { setSnackbar } = useSnackbar();
 
   const handleOnNameChange = (e: any) => {
     e.persist();
@@ -38,14 +40,10 @@ const PositionContent = ({
           IdPosition: editPosition.IdPosition,
           Name: name,
         });
-        notificationCtx.setSnackbar(
-          createSnackbarSuccess('Stanowisko zostało wyedytowane')
-        );
+        setSnackbar(createSnackbarSuccess('Stanowisko zostało wyedytowane'));
       } else {
         await postPosition({ Name: name });
-        notificationCtx.setSnackbar(
-          createSnackbarSuccess('Stanowisko zostało dodane')
-        );
+        setSnackbar(createSnackbarSuccess('Stanowisko zostało dodane'));
       }
     } catch (e) {
       console.error(e);

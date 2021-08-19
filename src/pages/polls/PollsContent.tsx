@@ -1,13 +1,13 @@
 import { Button, TextField } from '@material-ui/core';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { postOffer, updateOffer } from '../../api/Offers';
 import QuestionnaireOfferSelect from '../../components/controls_UI/QuestionnaireOfferSelect';
-import { NotificationContext } from '../../contexts/NotificationContext';
 import {
   createSnackbarError,
   createSnackbarSuccess,
-} from '../../hooks/useNotification';
+  useSnackbar,
+} from '../../contexts/NotificationContext';
 import { OfferDTO } from '../../types/DTO/Offer';
 import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
 
@@ -37,7 +37,7 @@ const PollsContent = ({
   const [link, setLink] = useState(editOffer?.Link ?? '');
   const [price, setPrice] = useState(editOffer?.Price ?? 0);
 
-  const notificationCtx = useContext(NotificationContext);
+  const { setSnackbar } = useSnackbar();
 
   const handleOnTopicChange = (e: any) => {
     setTopic(e.target.value);
@@ -54,9 +54,7 @@ const PollsContent = ({
       (p) => p.IdQuestionnaireOffer === questionnaireOfferId
     );
     if (poll && poll.questionnaireOfferOffer.length > 3) {
-      notificationCtx.setSnackbar(
-        createSnackbarError('Nie udało się utworzyć ankiety')
-      );
+      setSnackbar(createSnackbarError('Nie udało się utworzyć ankiety'));
       return closeDrawer();
     }
 
@@ -69,9 +67,7 @@ const PollsContent = ({
           Price: price,
           IdQuestionnaireOffer: editOffer.IdQuestionnaireOffer,
         });
-        notificationCtx.setSnackbar(
-          createSnackbarSuccess('Ankieta została wyedytowana')
-        );
+        setSnackbar(createSnackbarSuccess('Ankieta została wyedytowana'));
       } else {
         await postOffer({
           Topic: topic,
@@ -79,9 +75,7 @@ const PollsContent = ({
           Price: price,
           IdQuestionnaireOffer: questionnaireOfferId,
         });
-        notificationCtx.setSnackbar(
-          createSnackbarSuccess('Abkieta została dodana')
-        );
+        setSnackbar(createSnackbarSuccess('Abkieta została dodana'));
       }
     } catch (e) {
       console.error(e);

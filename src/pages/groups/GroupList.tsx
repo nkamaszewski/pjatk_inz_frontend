@@ -2,15 +2,15 @@ import { faSitemap } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteGroup } from '../../api/Group';
 import DeleteBtn from '../../components/DeleteBtn';
-import { NotificationContext } from '../../contexts/NotificationContext';
 import {
   createSnackbarError,
   createSnackbarSuccess,
-} from '../../hooks/useNotification';
+  useSnackbar,
+} from '../../contexts/NotificationContext';
 import { GroupDTO } from '../../types/DTO/Group';
 import GroupDetailsFieldset from './GroupDetailsFieldset';
 import GroupListHeader from './GroupListHeader';
@@ -37,18 +37,16 @@ interface Props {
 const GroupList = ({ groups, fetchGroups }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [group, setGroup] = useState({} as GroupDTO);
-  const notificationCtx = useContext(NotificationContext);
+  const { setSnackbar } = useSnackbar();
 
   const handleDeleteItem = async (id: string) => {
     try {
       await deleteGroup(id);
-      notificationCtx.setSnackbar(createSnackbarSuccess('Usunięto grupę!'));
+      setSnackbar(createSnackbarSuccess('Usunięto grupę!'));
       fetchGroups();
     } catch (e) {
       console.error(e);
-      notificationCtx.setSnackbar(
-        createSnackbarError('Nie udało się usunąć grupy!')
-      );
+      setSnackbar(createSnackbarError('Nie udało się usunąć grupy!'));
     }
   };
 

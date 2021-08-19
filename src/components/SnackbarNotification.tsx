@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {
   NotificationContext,
   SnackbarVariant,
+  useSnackbar,
 } from '../contexts/NotificationContext';
 
 const SnackbarMessageStyle = styled.div`
@@ -12,7 +13,7 @@ const SnackbarMessageStyle = styled.div`
 `;
 
 const SnackbarNotification = () => {
-  const notificationCtx = useContext(NotificationContext);
+  const { snackbar } = useSnackbar();
 
   const getSnackbarClass = (variant: SnackbarVariant): string => {
     switch (variant) {
@@ -31,13 +32,13 @@ const SnackbarNotification = () => {
         vertical: 'bottom',
         horizontal: 'right',
       }}
-      open={notificationCtx.snackbar.open}
+      open={snackbar.open}
     >
       <SnackbarContent
-        className={getSnackbarClass(notificationCtx.snackbar.variant)}
+        className={getSnackbarClass(snackbar.variant)}
         message={
           <SnackbarMessageStyle>
-            <p>{notificationCtx.snackbar.message}</p>
+            <p>{snackbar.message}</p>
           </SnackbarMessageStyle>
         }
       />

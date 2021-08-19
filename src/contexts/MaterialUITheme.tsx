@@ -1,5 +1,5 @@
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { ThemeState } from './hooks/useTheme';
+import { ThemeState } from '../hooks/useTheme';
 
 const muiThemeDark = createMuiTheme({
   palette: {
