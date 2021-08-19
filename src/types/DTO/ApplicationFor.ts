@@ -3,6 +3,6 @@ export interface ApplicationForDTO {
   DateOfSubmission: Date;
   IdEducation: string;
   IdStatus: string;
-  Compability: boolean;
+  Compatibility: boolean;
   IdPerson: string;
 }

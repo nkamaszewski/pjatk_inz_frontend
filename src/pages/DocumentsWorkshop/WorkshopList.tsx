@@ -17,7 +17,8 @@ const WorkshopListStyle = styled.div`
 
   .row-content {
     display: grid;
-    grid-template-columns: 1fr 56px;
+    grid-template-columns: 240px 1fr 56px 56px;
+    padding: 8px;
   }
 `;
 
@@ -60,13 +61,19 @@ const WorkshopList = ({ applications, fetchApplications }: Props) => {
         />
       </Drawer>
       {applications.map((application) => (
-        <div className="row-content" key={application.IdApplicationFor}>
-          <p>{application.DateOfSubmission}</p>
-          <p>{application.Compability}</p>
-          <EditBtn onClick={() => setEditApplicationFor(application)} />
-          <DeleteBtn
-            onClick={() => handleDeleteItem(application.IdApplicationFor)}
-          />
+        <div key={application.IdApplicationFor}>
+          <div className="row-content">
+            <p>{application.DateOfSubmission}</p>
+            <p>
+              {application.Compatibility
+                ? 'wniosek poprawny'
+                : 'wniosek niepoprawny'}
+            </p>
+            <EditBtn onClick={() => setEditApplicationFor(application)} />
+            <DeleteBtn
+              onClick={() => handleDeleteItem(application.IdApplicationFor)}
+            />
+          </div>
           <Divider />
         </div>
       ))}

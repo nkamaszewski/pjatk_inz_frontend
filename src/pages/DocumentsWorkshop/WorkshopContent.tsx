@@ -32,7 +32,7 @@ const WorkshopContent = ({
 }: Props) => {
   const [isStudy, setIsStudy] = useState(false);
   const [idEducation, setIdEducation] = useState('');
-  const [compability, setCompability] = useState(false);
+  const [compatibility, setCompatibility] = useState(false);
   const { setSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const WorkshopContent = ({
           DateOfSubmission: editApplicationFor.DateOfSubmission,
           IdEducation: idEducation,
           IdStatus: editApplicationFor.IdStatus,
-          Compability: compability,
+          Compatibility: compatibility,
           IdPerson: '1',
         });
         setSnackbar(createSnackbarSuccess('Wniosek został wyedytowany'));
@@ -56,7 +56,7 @@ const WorkshopContent = ({
           DateOfSubmission: new Date(),
           IdEducation: idEducation,
           IdStatus: '1',
-          Compability: compability,
+          Compatibility: compatibility,
           IdPerson: '1',
         });
         setSnackbar(createSnackbarSuccess('Wniosek został dodany'));
@@ -91,9 +91,9 @@ const WorkshopContent = ({
       <div className="switch-btn">
         <p>Czy poprawny? </p>
         <Switch
-          checked={compability}
+          checked={compatibility}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setCompability(event.target.checked)
+            setCompatibility(event.target.checked)
           }
           color="primary"
         />
