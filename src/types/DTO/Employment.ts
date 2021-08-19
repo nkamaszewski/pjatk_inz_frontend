@@ -21,3 +21,22 @@ export interface EmploymentListDTO {
   };
   emplymentPosition: PositionDTO;
 }
+
+export const mapEmploymentListDTOtoEmploymentDTO = ({
+  IdEmployment,
+  IdPerson,
+  DateFrom,
+  DateTo,
+  employmentsDepartment: { IdDepartment },
+  emplymentPosition: { IdPosition },
+}: EmploymentListDTO) => {
+  const empDTO: EmploymentDTO = {
+    IdEmployment,
+    DateFrom,
+    DateTo,
+    IdDepartment,
+    IdPosition,
+    IdPerson,
+  };
+  return empDTO;
+};

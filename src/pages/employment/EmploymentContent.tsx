@@ -2,10 +2,13 @@ import { Button, TextField } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getEmployee, postEmployee } from '../../api/Employee';
-import { postEmployment } from '../../api/Employment';
+import { postEmployment, updateEmployment } from '../../api/Employment';
 import DepartmentSelect from '../../components/controls_UI/DepartmentSelect';
 import PersonSelect from '../../components/controls_UI/PersonSelect';
 import PositionSelect from '../../components/controls_UI/PositionSelect';
+import { createSnackbarSuccess } from '../../hooks/useNotification';
+import useSnackbar from '../../hooks/useSnackbar';
+import { EmploymentDTO } from '../../types/DTO/Employment';
 
 const EmploymentContentStyle = styled.div`
   padding: 24px 0;
@@ -16,18 +19,33 @@ const EmploymentContentStyle = styled.div`
 interface Props {
   closeDrawer: Function;
   fetchEmployments: Function;
+  editEmployee?: EmploymentDTO | null;
 }
 
-const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
-  const [dateFrom, setDateFrom] = useState('2021-01-01');
-  const [dateTo, setDateTo] = useState('2021-12-01');
-  const [selectedDepartment, setSelectedDepartment] = useState('');
-  const [selectedPosition, setSelectedPosition] = useState('');
-  const [selectedPerson, setSelectedPerson] = useState('');
+const EmploymentContent = ({
+  closeDrawer,
+  fetchEmployments,
+  editEmployee,
+}: Props) => {
+  //TODO: formatowanie czasu, nie dziala edycja
+  const [dateFrom, setDateFrom] = useState(
+    editEmployee?.DateFrom ?? new Date()
+  );
+  const [dateTo, setDateTo] = useState(editEmployee?.DateTo ?? new Date());
+  const [selectedDepartment, setSelectedDepartment] = useState(
+    editEmployee?.IdDepartment ?? ''
+  );
+  const [selectedPosition, setSelectedPosition] = useState(
+    editEmployee?.IdPosition ?? ''
+  );
+  const [selectedPerson, setSelectedPerson] = useState(
+    editEmployee?.IdPerson ?? ''
+  );
   const [pesel, setPesel] = useState(0);
   const [password, setPassword] = useState('');
 
   const [showEmployeeConfig, setShowEmployeeConfig] = useState(false);
+  const { setSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (selectedPerson) {
@@ -45,6 +63,7 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
 
   const handleOnSave = async () => {
     try {
+      // new person
       if (showEmployeeConfig) {
         await postEmployee({
           IdPerson: selectedPerson,
@@ -52,23 +71,41 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
           Password: password,
         });
       }
-      await postEmployment({
-        DateFrom: dateFrom,
-        DateTo: dateTo,
-        IdDepartment: selectedDepartment,
-        IdPosition: selectedPosition,
-        IdPerson: selectedPerson,
-      });
-      fetchEmployments();
+      // edit emplyment
+      if (editEmployee) {
+        const empDTO: EmploymentDTO = {
+          IdEmployment: editEmployee.IdEmployment,
+          DateFrom: dateFrom,
+          DateTo: dateTo,
+          IdDepartment: selectedDepartment,
+          IdPosition: selectedPosition,
+          IdPerson: selectedPerson,
+        };
+        await updateEmployment(empDTO);
+        setSnackbar(createSnackbarSuccess('Edytowano zatrudnienie'));
+      }
+      // new Employment
+      else {
+        await postEmployment({
+          DateFrom: dateFrom,
+          DateTo: dateTo,
+          IdDepartment: selectedDepartment,
+          IdPosition: selectedPosition,
+          IdPerson: selectedPerson,
+        });
+        fetchEmployments();
+        setSnackbar(createSnackbarSuccess('Dodano zatrudnienie'));
+      }
     } catch (e) {
       console.error(e);
+      setSnackbar(createSnackbarSuccess('Operacja nie udała się'));
     } finally {
       closeDrawer();
     }
   };
 
   const handleDateChange = (e: any) => {
-    const setterFn = e.target.name === dateFrom ? setDateFrom : setDateTo;
+    const setterFn = e.target.name === 'dateFrom' ? setDateFrom : setDateTo;
     setterFn(e.target.value);
   };
 
@@ -80,7 +117,7 @@ const EmploymentContent = ({ closeDrawer, fetchEmployments }: Props) => {
   ) => {
     setPassword(event.target.value);
   };
-
+  console.log(editEmployee);
   return (
     <EmploymentContentStyle>
       <TextField

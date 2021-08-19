@@ -8,10 +8,16 @@ import { getDivisions } from '../../api/Division';
 import { deleteEmployment } from '../../api/Employment';
 import { getPersons } from '../../api/Person';
 import DeleteBtn from '../../components/DeleteBtn';
+import EditBtn from '../../components/EditBtn';
 import { DivisionDTO } from '../../types/DTO/Division';
-import { EmploymentListDTO } from '../../types/DTO/Employment';
+import {
+  EmploymentDTO,
+  EmploymentListDTO,
+  mapEmploymentListDTOtoEmploymentDTO,
+} from '../../types/DTO/Employment';
 import { PersonDTO } from '../../types/DTO/Person';
 import EmployeeDetailsFieldset from './EmployeeDetailsFieldset';
+import EmploymentFieldset from './EmploymentFieldset';
 import EmploymentListHeader from './EmploymentListHeader';
 
 const EmploymentListStyle = styled.div`
@@ -19,7 +25,7 @@ const EmploymentListStyle = styled.div`
 
   .grid-employment {
     display: grid;
-    grid-template-columns: repeat(5, 1fr) 44px 44px;
+    grid-template-columns: repeat(5, 1fr) repeat(3, 44px);
   }
 
   .row {
@@ -38,6 +44,7 @@ const EmploymentList = ({ employees, fetchEmployments }: Props) => {
   const [persons, setPersons] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [person, setPerson] = useState({} as PersonDTO);
+  const [editEmployee, setEditEmployee] = useState<EmploymentDTO | null>(null);
 
   useEffect(() => {
     try {
@@ -76,6 +83,8 @@ const EmploymentList = ({ employees, fetchEmployments }: Props) => {
     }
   };
 
+  const handleCloseDrawer = () => setEditEmployee(null);
+
   return (
     <EmploymentListStyle>
       <EmploymentListHeader />
@@ -88,6 +97,11 @@ const EmploymentList = ({ employees, fetchEmployments }: Props) => {
             <p>{getDivisionName(employee)}</p>
             <p>{employee.employmentsDepartment.Name}</p>
             <p>{employee.emplymentPosition.Name}</p>
+            <EditBtn
+              onClick={() =>
+                setEditEmployee(mapEmploymentListDTOtoEmploymentDTO(employee))
+              }
+            />
             <DeleteBtn onClick={() => deleteEmployee(employee.IdEmployment)} />
             <Tooltip title="grupa">
               <Button
@@ -102,6 +116,17 @@ const EmploymentList = ({ employees, fetchEmployments }: Props) => {
           </Card>
         );
       })}
+      <Drawer
+        anchor="right"
+        open={Boolean(editEmployee)}
+        onClose={handleCloseDrawer}
+      >
+        <EmploymentFieldset
+          closeDrawer={handleCloseDrawer}
+          fetchEmployments={fetchEmployments}
+          editEmployee={editEmployee}
+        />
+      </Drawer>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <EmployeeDetailsFieldset
           closeDrawer={() => setIsOpen(false)}
