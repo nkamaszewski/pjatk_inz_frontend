@@ -9,27 +9,31 @@ import {
   createSnackbarSuccess,
   useSnackbar,
 } from '../../contexts/NotificationContext';
-import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
+import { ApplicationForListDTO } from '../../types/DTO/ApplicationFor';
 import WorkshopFieldset from './WorkshopFieldset';
+import WorkshopListHeader from './WorkshopListHeader';
 
 const WorkshopListStyle = styled.div`
   padding: 24px;
 
-  .row-content {
+  .grid-workshop {
     display: grid;
-    grid-template-columns: 240px 1fr 56px 56px;
-    padding: 8px;
+    grid-template-columns: 240px 1fr 200px 56px 56px;
+  }
+
+  .row {
+    padding: 16px;
   }
 `;
 
 interface Props {
-  applications: ApplicationForDTO[];
+  applications: ApplicationForListDTO[];
   fetchApplications: Function;
 }
 
 const WorkshopList = ({ applications, fetchApplications }: Props) => {
   const [editApplicationFor, setEditApplicationFor]: [
-    ApplicationForDTO | null,
+    ApplicationForListDTO | null,
     Function
   ] = useState(null);
   const { setSnackbar } = useSnackbar();
@@ -60,15 +64,19 @@ const WorkshopList = ({ applications, fetchApplications }: Props) => {
           editApplicationFor={editApplicationFor}
         />
       </Drawer>
+      <WorkshopListHeader />
       {applications.map((application) => (
         <div key={application.IdApplicationFor}>
-          <div className="row-content">
-            <p>{application.DateOfSubmission}</p>
+          <div className="grid-workshop row">
+            <p>
+              {new Date(application.DateOfSubmission)?.toLocaleDateString()}
+            </p>
             <p>
               {application.Compatibility
                 ? 'wniosek poprawny'
                 : 'wniosek niepoprawny'}
             </p>
+            <p>{application.applicationForStatus.Name}</p>
             <EditBtn onClick={() => setEditApplicationFor(application)} />
             <DeleteBtn
               onClick={() => handleDeleteItem(application.IdApplicationFor)}
