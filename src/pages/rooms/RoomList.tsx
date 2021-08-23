@@ -11,6 +11,10 @@ const RoomListStyle = styled.div`
     grid-template-columns: 25% repeat(5, 15%);
   }
 
+  .item-centered {
+    justify-self: center;
+  }
+
   .row {
     padding: 16px;
     margin: 4px 0;
@@ -28,11 +32,11 @@ const RoomList = ({ rooms }: Props) => {
       {rooms.map((room) => (
         <Card key={room.IdRoom} className="grid-room row">
           <p>{room.Name}</p>
-          <p>{room.Area}</p>
-          <p>{room.CapacitySet1}</p>
-          <p>{room.CapacitySet2}</p>
-          <p>{room.CapacitySet3}</p>
-          <p>{room.CapacitySet4}</p>
+          <p>{room.Area} m2</p>
+          <p className="item-centered">{room.CapacitySet1 ?? '---'}</p>
+          <p className="item-centered">{room.CapacitySet2 ?? '---'}</p>
+          <p className="item-centered">{room.CapacitySet3 ?? '---'}</p>
+          <p className="item-centered">{room.CapacitySet4 ?? '---'}</p>
         </Card>
       ))}
     </RoomListStyle>
