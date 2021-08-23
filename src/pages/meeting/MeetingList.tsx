@@ -1,6 +1,5 @@
 import Card from '@material-ui/core/Card';
 import styled from 'styled-components';
-import { GroupDTO } from '../../types/DTO/Group';
 import { MeetingDTO } from '../../types/DTO/Meeting';
 import MeetingListHeader from './MeetingListHeader';
 

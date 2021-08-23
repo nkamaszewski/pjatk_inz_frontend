@@ -11,10 +11,17 @@ import {
 } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getEmployeeGroup, postEmployeeGroup } from '../../api/EmployeeGroup';
-
-import { getGroups } from '../../api/Group';
+import {
+  deleteEmployeeGroup,
+  getEmployeeGroup,
+  postEmployeeGroup,
+} from '../../api/EmployeeGroup';
 import GroupSelect from '../../components/controls_UI/GroupSelect';
+import DeleteBtn from '../../components/DeleteBtn';
+import {
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
 import { EmployeeGroupDTO } from '../../types/DTO/EmployeeGroup';
 import { PersonDTO } from '../../types/DTO/Person';
 
@@ -26,11 +33,11 @@ const EmployeeDetailsFieldsetStyle = styled.div`
     grid-template-columns: 1fr auto;
   }
 
-  .row {
+  .grid-group {
     padding: 16px;
     margin: 4px 0;
     display: grid;
-    grid-template-columns: 200px 200px;
+    grid-template-columns: 200px 1fr 56px;
   }
 `;
 
@@ -44,6 +51,7 @@ const EmployeeDetailsFieldset = ({ closeDrawer, person }: Props) => {
     useState([]);
   const [addingMode, setAddingMode] = useState(false);
   const [idGroup, setIdGroup] = useState('');
+  const { setSnackbar } = useSnackbar();
 
   const fetchEmployeeGroup = () => {
     try {
@@ -83,6 +91,16 @@ const EmployeeDetailsFieldset = ({ closeDrawer, person }: Props) => {
     }
   };
 
+  const handleDeleteItem = async (id: string) => {
+    try {
+      await deleteEmployeeGroup(id);
+      fetchEmployeeGroup();
+      setSnackbar(createSnackbarSuccess('usunięto przypisanie do grupy'));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <EmployeeDetailsFieldsetStyle>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
@@ -111,10 +129,15 @@ const EmployeeDetailsFieldset = ({ closeDrawer, person }: Props) => {
           <FontAwesomeIcon icon={faPlus} />
         </Fab>
       </div>
+      <header className="grid-group">
+        <p>Nazwa</p>
+        <p>Liczność</p>
+      </header>
       {employeeGroup.map((eg) => (
-        <Card key={eg.IdEmployeeGroup} className="grid-group row">
+        <Card key={eg.IdEmployeeGroup} className="grid-group">
           <p>{eg.employeeGroupGroup.Name}</p>
           <p>{eg.employeeGroupGroup.NumberOfPerson}</p>
+          <DeleteBtn onClick={() => handleDeleteItem(eg.IdEmployeeGroup)} />
         </Card>
       ))}
     </EmployeeDetailsFieldsetStyle>

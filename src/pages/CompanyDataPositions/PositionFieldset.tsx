@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { PositionDTO } from '../../types/DTO/Position';

@@ -1,11 +1,6 @@
 import { Snackbar, SnackbarContent } from '@material-ui/core';
-import { useContext } from 'react';
 import styled from 'styled-components';
-import {
-  NotificationContext,
-  SnackbarVariant,
-  useSnackbar,
-} from '../contexts/NotificationContext';
+import { SnackbarVariant, useSnackbar } from '../contexts/NotificationContext';
 
 const SnackbarMessageStyle = styled.div`
   display: flex;
