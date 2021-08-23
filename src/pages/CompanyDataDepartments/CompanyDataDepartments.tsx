@@ -47,7 +47,11 @@ const CompanyDataDepartments = () => {
           fetchDivisionsDepartments={fetchDivisionsDepartments}
         />
       </Drawer>
-      <DataDepartmentsList divisions={divisions} departments={departments} />
+      <DataDepartmentsList
+        divisions={divisions}
+        departments={departments}
+        fetchDivisionsDepartments={fetchDivisionsDepartments}
+      />
     </CompanyDataDepartmentsStyle>
   );
 };
