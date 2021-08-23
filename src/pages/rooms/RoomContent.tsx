@@ -1,7 +1,12 @@
 import { Button, TextField } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postRoom } from '../../api/Room';
+import { postRoom, updateRoom } from '../../api/Room';
+import {
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
+import { RoomDTO } from '../../types/DTO/Room';
 
 const RoomContentStyle = styled.div`
   padding: 24px 0;
@@ -12,27 +17,40 @@ const RoomContentStyle = styled.div`
 interface Props {
   closeDrawer: Function;
   fetchRooms: Function;
+  editRoom?: RoomDTO | null;
 }
 
-const RoomContent = ({ closeDrawer, fetchRooms }: Props) => {
-  const [name, setName] = useState('');
-  const [area, setArea] = useState(0);
-  const [capacitySet1, setCapacitySet1] = useState(0);
-  const [capacitySet2, setCapacitySet2] = useState(0);
-  const [capacitySet3, setCapacitySet3] = useState(0);
-  const [capacitySet4, setCapacitySet4] = useState(0);
+const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
+  const [name, setName] = useState(editRoom?.Name ?? '');
+  const [area, setArea] = useState(editRoom?.Area ?? 0);
+  const [capacitySet1, setCapacitySet1] = useState(editRoom?.CapacitySet1 ?? 0);
+  const [capacitySet2, setCapacitySet2] = useState(editRoom?.CapacitySet2 ?? 0);
+  const [capacitySet3, setCapacitySet3] = useState(editRoom?.CapacitySet3 ?? 0);
+  const [capacitySet4, setCapacitySet4] = useState(editRoom?.CapacitySet4 ?? 0);
+  const { setSnackbar } = useSnackbar();
 
-  const handleOnSave = () => {
+  const handleOnSave = async () => {
+    const newRoom = {
+      Name: name,
+      Area: area,
+      CapacitySet1: capacitySet1,
+      CapacitySet2: capacitySet2,
+      CapacitySet3: capacitySet3,
+      CapacitySet4: capacitySet4,
+    };
     try {
-      postRoom({
-        Name: name,
-        Area: area,
-        CapacitySet1: capacitySet1,
-        CapacitySet2: capacitySet2,
-        CapacitySet3: capacitySet3,
-        CapacitySet4: capacitySet4,
-      }).then(() => fetchRooms());
+      if (editRoom) {
+        await updateRoom({
+          IdRoom: editRoom.IdRoom,
+          ...newRoom,
+        });
+      } else {
+        await postRoom(newRoom);
+        fetchRooms();
+        setSnackbar(createSnackbarSuccess('Dodano salę'));
+      }
     } catch (e) {
+      setSnackbar(createSnackbarSuccess('Operacja nie powiodła się!'));
       console.error(e);
     } finally {
       closeDrawer();

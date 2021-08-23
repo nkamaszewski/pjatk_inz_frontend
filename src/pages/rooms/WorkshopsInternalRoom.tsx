@@ -35,7 +35,7 @@ const WorkshopsInternalRoom = () => {
           fetchRooms={fetchRooms}
         />
       </Drawer>
-      <RoomList rooms={rooms} />
+      <RoomList rooms={rooms} fetchRooms={fetchRooms} />
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { EmployeeDTO } from '../types/DTO/Employee';
 
 export const getEmployees = () =>
   axios.get(`http://localhost:3000/api/employees/`);
