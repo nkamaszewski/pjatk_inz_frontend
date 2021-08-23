@@ -6,7 +6,6 @@ import { ThemeContext } from '../contexts/ThemeContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faAddressCard,
-  faBuilding,
   faChalkboardTeacher,
   faChevronDown,
   faChevronUp,
@@ -68,12 +67,6 @@ const navigationsItems: NavigationItem[] = [
         icon: faUniversity,
       },
       { id: '3b', label: 'Kursy', link: '/szkolenia/kursy', icon: faSchool },
-      {
-        id: '3c',
-        label: 'Szkolenia wewnętrzne',
-        link: '/szkolenia/szkolenia-wewnetrzne',
-        icon: faBuilding,
-      },
       {
         id: '3d',
         label: 'Inne',

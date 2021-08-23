@@ -82,7 +82,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
         }
       />
       <TextField
-        label="Ilość miejsc 1"
+        label="Ustawienie kinowe"
         type="number"
         InputLabelProps={{
           shrink: true,
@@ -93,7 +93,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
         }
       />
       <TextField
-        label="Ilość miejsc 2"
+        label="Ustawienie 'U'"
         type="number"
         InputLabelProps={{
           shrink: true,
@@ -104,7 +104,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
         }
       />
       <TextField
-        label="Ilość miejsc 3"
+        label="Ustawienie 'U' bez stołu"
         type="number"
         InputLabelProps={{
           shrink: true,
@@ -115,7 +115,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
         }
       />
       <TextField
-        label="Ilość miejsc 4"
+        label="Ustawienie szkolne"
         type="number"
         InputLabelProps={{
           shrink: true,
