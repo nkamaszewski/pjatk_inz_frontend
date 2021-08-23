@@ -1,6 +1,7 @@
 import { Divider, Drawer } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { deleteDepartment } from '../../api/Department';
 import { deleteDivision } from '../../api/Division';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
@@ -11,6 +12,7 @@ import {
 } from '../../contexts/NotificationContext';
 import { DepartmentDTO } from '../../types/DTO/Department';
 import { DivisionDTO } from '../../types/DTO/Division';
+import DepartmentFieldset from './DepartmentFieldset';
 import DivisionFieldset from './DivisionFieldset';
 
 const DataDepartmentsListStyle = styled.div`
@@ -19,6 +21,10 @@ const DataDepartmentsListStyle = styled.div`
   .grid-list {
     display: grid;
     grid-template-columns: 1fr 56px 56px;
+  }
+
+  .department-list {
+    padding-right: 132px;
   }
 
   p {
@@ -39,8 +45,11 @@ const DataDepartmentsList = ({
 }: Props) => {
   const [editDivision, setEditDivision]: [DivisionDTO | null, Function] =
     useState(null);
+  const [editDepartment, setEditDepartment]: [DepartmentDTO | null, Function] =
+    useState(null);
   const { setSnackbar } = useSnackbar();
-  const handleCloseDrawer = () => setEditDivision(null);
+  const handleCloseDivisionDrawer = () => setEditDivision(null);
+  const handleCloseDepartmentDrawer = () => setEditDepartment(null);
   const handleDeleteDivision = async (id: string) => {
     try {
       await deleteDivision(id);
@@ -50,17 +59,38 @@ const DataDepartmentsList = ({
       setSnackbar(createSnackbarError('nie udało się usunąć pionu!'));
     }
   };
+  const handleDeleteDepartment = async (id: string) => {
+    try {
+      await deleteDepartment(id);
+      fetchDivisionsDepartments();
+      setSnackbar(createSnackbarSuccess('usunięto wydział'));
+    } catch (e) {
+      setSnackbar(createSnackbarError('nie udało się usunąć wydziału!'));
+    }
+  };
   return (
     <DataDepartmentsListStyle>
       <Drawer
         anchor="right"
         open={Boolean(editDivision)}
-        onClose={handleCloseDrawer}
+        onClose={handleCloseDivisionDrawer}
       >
         <DivisionFieldset
-          closeDrawer={handleCloseDrawer}
+          closeDrawer={handleCloseDivisionDrawer}
           fetchDivisionsDepartments={fetchDivisionsDepartments}
           editDivision={editDivision}
+        />
+      </Drawer>
+      <Drawer
+        anchor="right"
+        open={Boolean(editDepartment)}
+        onClose={handleCloseDepartmentDrawer}
+      >
+        <DepartmentFieldset
+          closeDrawer={handleCloseDepartmentDrawer}
+          fetchDivisionsDepartments={fetchDivisionsDepartments}
+          editDepartment={editDepartment}
+          divisions={divisions}
         />
       </Drawer>
       {divisions.map((division) => (
@@ -77,7 +107,15 @@ const DataDepartmentsList = ({
               (department) => department.IdDivision === division.IdDivision
             )
             .map((department) => (
-              <p key={department.IdDepartment}>{department.Name}</p>
+              <div className="grid-list department-list">
+                <p key={department.IdDepartment}>{department.Name}</p>
+                <EditBtn onClick={() => setEditDepartment(department)} />
+                <DeleteBtn
+                  onClick={() =>
+                    handleDeleteDepartment(department.IdDepartment)
+                  }
+                />
+              </div>
             ))}
           <Divider />
         </div>

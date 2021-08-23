@@ -47,7 +47,7 @@ const DivisionContent = ({
       } else {
         await postDivision(newDivision);
         fetchDivisionsDepartments();
-        setSnackbar(createSnackbarSuccess('usunięto pion'));
+        setSnackbar(createSnackbarSuccess('dodano pion'));
       }
     } catch (e) {
       console.error(e);

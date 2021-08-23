@@ -8,7 +8,13 @@ import {
 } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postDepartment } from '../../api/Department';
+import { postDepartment, updateDepartment } from '../../api/Department';
+import {
+  createSnackbarError,
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
+import { DepartmentDTO } from '../../types/DTO/Department';
 import { DivisionDTO } from '../../types/DTO/Division';
 
 const DepartmentContentStyle = styled.div`
@@ -21,15 +27,20 @@ interface Props {
   divisions: DivisionDTO[];
   closeDrawer: Function;
   fetchDivisionsDepartments: Function;
+  editDepartment?: DepartmentDTO | null;
 }
 
 const DepartmentContent = ({
   divisions,
   closeDrawer,
   fetchDivisionsDepartments,
+  editDepartment,
 }: Props) => {
-  const [name, setName] = useState('');
-  const [selectedDivision, setSelectedDivision] = useState('');
+  const [name, setName] = useState(editDepartment?.Name ?? '');
+  const [selectedDivision, setSelectedDivision] = useState(
+    editDepartment?.IdDivision ?? ''
+  );
+  const { setSnackbar } = useSnackbar();
 
   const handleOnNameChange = (e: any) => {
     e.persist();
@@ -40,13 +51,24 @@ const DepartmentContent = ({
     setSelectedDivision(event.target.value as string);
   };
 
-  const handleOnSave = () => {
+  const handleOnSave = async () => {
+    const newDepartment = { Name: name, IdDivision: selectedDivision };
     try {
-      postDepartment({ Name: name, IdDivision: selectedDivision }).then(() =>
-        fetchDivisionsDepartments()
-      );
+      if (editDepartment) {
+        await updateDepartment({
+          IdDepartment: editDepartment.IdDepartment,
+          ...newDepartment,
+        });
+        fetchDivisionsDepartments();
+        setSnackbar(createSnackbarSuccess('edytowano wydział'));
+      } else {
+        await postDepartment(newDepartment);
+        fetchDivisionsDepartments();
+        setSnackbar(createSnackbarSuccess('dodano wydział'));
+      }
     } catch (e) {
       console.error(e);
+      setSnackbar(createSnackbarError('Operacja nie powiodła się!'));
     } finally {
       closeDrawer();
     }
