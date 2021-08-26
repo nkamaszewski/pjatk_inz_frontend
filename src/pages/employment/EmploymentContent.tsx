@@ -7,6 +7,7 @@ import DepartmentSelect from '../../components/controls_UI/DepartmentSelect';
 import PersonSelect from '../../components/controls_UI/PersonSelect';
 import PositionSelect from '../../components/controls_UI/PositionSelect';
 import {
+  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../contexts/NotificationContext';
@@ -95,12 +96,12 @@ const EmploymentContent = ({
           IdPosition: selectedPosition,
           IdPerson: selectedPerson,
         });
-        fetchEmployments();
         setSnackbar(createSnackbarSuccess('Dodano zatrudnienie'));
       }
+      fetchEmployments();
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarSuccess('Operacja nie udała się'));
+      setSnackbar(createSnackbarError('Operacja nie udała się'));
     } finally {
       closeDrawer();
     }

@@ -1,6 +1,8 @@
 import { Drawer } from '@material-ui/core';
 import { useEffect, useState } from 'react';
+import { getDivisions } from '../../api/Division';
 import { getEmployments } from '../../api/Employment';
+import { getPersons } from '../../api/Person';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import { EmploymentListDTO } from '../../types/DTO/Employment';
@@ -11,7 +13,29 @@ const Employment = () => {
   const [employees, setEmployees]: [EmploymentListDTO[], Function] = useState(
     []
   );
+  const [divisions, setDivisions] = useState([]);
+  const [persons, setPersons] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  const fetchDivisions = () => {
+    try {
+      getDivisions().then((res) => {
+        setDivisions(res.data);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const fetchPersons = () => {
+    try {
+      getPersons().then((res) => {
+        setPersons(res.data);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const fetchEmployments = () => {
     try {
@@ -23,8 +47,14 @@ const Employment = () => {
     }
   };
 
-  useEffect(() => {
+  const fetchEmploymentsWithPersonsAndDivisions = () => {
+    fetchPersons();
+    fetchDivisions();
     fetchEmployments();
+  };
+
+  useEffect(() => {
+    fetchEmploymentsWithPersonsAndDivisions();
   }, []);
 
   return (
@@ -34,12 +64,14 @@ const Employment = () => {
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <EmploymentFieldset
           closeDrawer={() => setIsOpen(false)}
-          fetchEmployments={fetchEmployments}
+          fetchEmployments={fetchEmploymentsWithPersonsAndDivisions}
         />
       </Drawer>
       <EmploymentList
         employees={employees}
-        fetchEmployments={fetchEmployments}
+        divisions={divisions}
+        persons={persons}
+        fetchEmployments={fetchEmploymentsWithPersonsAndDivisions}
       />
     </div>
   );

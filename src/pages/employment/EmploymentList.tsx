@@ -36,28 +36,20 @@ const EmploymentListStyle = styled.div`
 
 interface Props {
   employees: EmploymentListDTO[];
+  divisions: DivisionDTO[];
+  persons: PersonDTO[];
   fetchEmployments: () => void;
 }
 
-const EmploymentList = ({ employees, fetchEmployments }: Props) => {
-  const [divisions, setDivisions] = useState([]);
-  const [persons, setPersons] = useState([]);
+const EmploymentList = ({
+  employees,
+  divisions,
+  persons,
+  fetchEmployments,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [person, setPerson] = useState({} as PersonDTO);
   const [editEmployee, setEditEmployee] = useState<EmploymentDTO | null>(null);
-
-  useEffect(() => {
-    try {
-      getDivisions().then((res) => {
-        setDivisions(res.data);
-      });
-      getPersons().then((res) => {
-        setPersons(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
 
   const getDivisionName = (employee: EmploymentListDTO) => {
     const div = divisions.find(
