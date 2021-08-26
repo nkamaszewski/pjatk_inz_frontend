@@ -6,6 +6,12 @@ export const getStudies = () => axios.get('http://localhost:3000/api/studies');
 export const postStudy = (study: StudyDTO) =>
   axios.post('http://localhost:3000/api/studies/', study);
 
+export const deleteStudy = (id: string) =>
+  axios.delete(`http://localhost:3000/api/studies/${id}`);
+
+export const updateStudy = (study: StudyDTO) =>
+  axios.put(`http://localhost:3000/api/studies/${study.IdEducation}`, study);
+
 export const getStudyModes = () =>
   axios.get('http://localhost:3000/api/studymodess');
 

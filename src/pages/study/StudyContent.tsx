@@ -1,11 +1,17 @@
 import { Button, TextField } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postEducation } from '../../api/Education';
-import { postStudy } from '../../api/Study';
+import { postEducation, updateEducation } from '../../api/Education';
+import { postStudy, updateStudy } from '../../api/Study';
 import GraduateDegreeSelect from '../../components/controls_UI/GraduateDegreeSelect';
 import StudyModeSelect from '../../components/controls_UI/StudyModeSelect';
 import UniuversitySelect from '../../components/controls_UI/UniuversitySelect';
+import {
+  createSnackbarError,
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
+import { StudiesListDTO } from '../../types/DTO/Study';
 
 const StudyContentStyle = styled.div`
   padding: 24px 0;
@@ -16,32 +22,57 @@ const StudyContentStyle = styled.div`
 interface Props {
   closeDrawer: Function;
   fetchStudies: Function;
+  editStudy?: StudiesListDTO | null;
 }
 
-const StudyContent = ({ closeDrawer, fetchStudies }: Props) => {
-  const [fieldOfStudy, setFieldOfStudy] = useState('');
-  const [universitetId, setUniversitetId] = useState('');
-  const [studyModeId, setStudyModeId] = useState('');
-  const [graduateDegreeId, setGraduateDegreeId] = useState('');
+const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
+  const [fieldOfStudy, setFieldOfStudy] = useState(
+    editStudy?.FieldOfStudy ?? ''
+  );
+  const [universitetId, setUniversitetId] = useState(
+    editStudy?.IdUniversity ?? ''
+  );
+  const [studyModeId, setStudyModeId] = useState(editStudy?.IdStudyMode ?? '');
+  const [graduateDegreeId, setGraduateDegreeId] = useState(
+    editStudy?.studysGraduateDegree.IdGraduateDegree ?? ''
+  );
   const [education, setEducation] = useState({
-    Price: 0,
-    PriceAccommodation: 0,
-    PriceTransit: 0,
+    Price: editStudy?.studyEducation.Price ?? 0,
+    PriceAccommodation: editStudy?.studyEducation.PriceAccommodation ?? 0,
+    PriceTransit: editStudy?.studyEducation.PriceTransit ?? 0,
   });
+  const { setSnackbar } = useSnackbar();
 
-  const handleOnSave = () => {
+  const handleOnSave = async () => {
     try {
-      postEducation(education).then((res) => {
-        const { IdEducation } = res.data;
-        postStudy({
+      if (editStudy) {
+        await updateEducation({
+          IdEducation: editStudy.IdEducation,
+          ...education,
+        });
+        await updateStudy({
+          IdEducation: editStudy.IdEducation,
+          FieldOfStudy: fieldOfStudy,
+          IdUniversity: universitetId,
+          IdStudyMode: studyModeId,
+          IdGraduateDegree: graduateDegreeId,
+        });
+        setSnackbar(createSnackbarSuccess('Studia zostały wyedytowane'));
+      } else {
+        const response = await postEducation(education);
+        const { IdEducation } = response.data;
+        await postStudy({
           IdEducation,
           FieldOfStudy: fieldOfStudy,
           IdUniversity: universitetId,
           IdStudyMode: studyModeId,
           IdGraduateDegree: graduateDegreeId,
-        }).then(() => fetchStudies());
-      });
+        });
+        setSnackbar(createSnackbarSuccess('Dodano studia'));
+      }
+      fetchStudies();
     } catch (e) {
+      setSnackbar(createSnackbarError('Operacja nie powiodła się!'));
       console.error(e);
     } finally {
       closeDrawer();

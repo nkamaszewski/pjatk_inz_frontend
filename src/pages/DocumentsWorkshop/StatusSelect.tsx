@@ -8,8 +8,8 @@ interface IStatus {
 
 const STATUSES: IStatus[] = [
   { id: 'all', title: 'wszystkie' },
-  { id: 1, title: 'poprawne' },
-  { id: 2, title: 'niepoprawne' },
+  { id: 1, title: 'złożony' },
+  { id: 2, title: 'zatwierdzony' },
 ];
 
 interface Props {

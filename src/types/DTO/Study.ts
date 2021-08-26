@@ -1,3 +1,4 @@
+import { EducationDTO } from './Education';
 import { GraduateDegreeDTO } from './GraduateDegree';
 import { StudyModeDTO } from './StudyMode';
 import { UniversitetDTO } from './Universitet';
@@ -19,4 +20,5 @@ export interface StudiesListDTO {
   studyUniversity: UniversitetDTO;
   studysStudyMode: StudyModeDTO;
   studysGraduateDegree: GraduateDegreeDTO;
+  studyEducation: EducationDTO;
 }

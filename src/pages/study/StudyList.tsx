@@ -1,6 +1,17 @@
+import { Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { deleteStudy } from '../../api/Study';
+import DeleteBtn from '../../components/DeleteBtn';
+import EditBtn from '../../components/EditBtn';
+import {
+  createSnackbarError,
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
 import { StudiesListDTO } from '../../types/DTO/Study';
+import StudyFieldset from './StudyFieldset';
 import StudyListHeader from './StudyListHeader';
 
 const StudyListStyle = styled.div`
@@ -8,7 +19,7 @@ const StudyListStyle = styled.div`
 
   .grid-coach {
     display: grid;
-    grid-template-columns: repeat(5, 20%);
+    grid-template-columns: 120px 1fr 120px 80px 100px repeat(2, 56px);
   }
 
   .row {
@@ -19,31 +30,38 @@ const StudyListStyle = styled.div`
 
 interface Props {
   studies: StudiesListDTO[];
+  fetchStudies: () => void;
 }
 
-const StudyList = ({ studies }: Props) => {
-  // useEffect(() => {
-  //   try {
-  //     getPersons().then((res: { data: PersonDTO[] }) => {
-  //       setPersons(res.data);
-  //     });
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // }, [coaches]);
-
-  // const getPersonDisplayData = (coach: CoachDTO) => {
-  //   const person = persons.find(
-  //     (p: PersonDTO) => p.IdPerson === coach.IdPerson
-  //   );
-  //   return person ?? ({} as PersonDTO);
-  // };
-
+const StudyList = ({ studies, fetchStudies }: Props) => {
+  const [editStudy, setEditStudy]: [StudiesListDTO | null, Function] =
+    useState(null);
+  const { setSnackbar } = useSnackbar();
+  const handleCloseDrawer = () => setEditStudy(null);
+  const handleDeleteItem = async (id: string) => {
+    try {
+      await deleteStudy(id);
+      fetchStudies();
+      setSnackbar(createSnackbarSuccess('usunięto studia'));
+    } catch (e) {
+      setSnackbar(createSnackbarError('nie udało się usunąć studiów!'));
+    }
+  };
   return (
     <StudyListStyle>
+      <Drawer
+        anchor="right"
+        open={Boolean(editStudy)}
+        onClose={handleCloseDrawer}
+      >
+        <StudyFieldset
+          closeDrawer={handleCloseDrawer}
+          fetchStudies={fetchStudies}
+          editStudy={editStudy}
+        />
+      </Drawer>
       <StudyListHeader />
       {studies.map((study) => {
-        // const person = getPersonDisplayData(coach);
         return (
           <Card key={study.IdEducation} className="grid-coach row">
             <p>{study.FieldOfStudy}</p>
@@ -51,6 +69,8 @@ const StudyList = ({ studies }: Props) => {
             <p>{study.studyUniversity.City}</p>
             <p>{study.studysStudyMode.Name}</p>
             <p>{study.studysGraduateDegree.Name}</p>
+            <EditBtn onClick={() => setEditStudy(study)} />
+            <DeleteBtn onClick={() => handleDeleteItem(study.IdEducation)} />
           </Card>
         );
       })}

@@ -34,7 +34,7 @@ const WorkshopsStudy = () => {
           fetchStudies={fetchStudies}
         />
       </Drawer>
-      <StudyList studies={studies} />
+      <StudyList studies={studies} fetchStudies={fetchStudies} />
     </div>
   );
 };
