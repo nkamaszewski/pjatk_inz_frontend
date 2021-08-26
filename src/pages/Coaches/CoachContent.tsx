@@ -23,8 +23,10 @@ interface Props {
 }
 
 const CoachContent = ({ closeDrawer, fetchCoaches, editCoach }: Props) => {
-  const [selectedPerson, setSelectedPerson] = useState('');
-  const [jobTitle, setJobTitle] = useState('');
+  const [selectedPerson, setSelectedPerson] = useState(
+    editCoach?.IdPerson ?? ''
+  );
+  const [jobTitle, setJobTitle] = useState(editCoach?.JobTitle ?? '');
   const { setSnackbar } = useSnackbar();
 
   const handleOnSave = async () => {
