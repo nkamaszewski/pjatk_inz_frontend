@@ -3,7 +3,7 @@ import { PersonDTO } from './Person';
 export interface CoachDTO {
   IdPerson: string;
   JobTitle: string;
-  coachPerson: PersonDTO;
+  CoachPerson: PersonDTO;
 }
 
 export interface CoachListDTO {

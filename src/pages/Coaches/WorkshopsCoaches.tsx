@@ -35,7 +35,7 @@ const WorkshopsCoaches = () => {
           fetchCoaches={fetchCoaches}
         />
       </Drawer>
-      <CoachList coaches={coaches} />
+      <CoachList coaches={coaches} fetchCoaches={fetchCoaches} />
     </div>
   );
 };

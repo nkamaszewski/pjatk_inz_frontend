@@ -1,9 +1,17 @@
+import { Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { getPersons } from '../../api/Person';
+import { deleteCoach } from '../../api/Coach';
+import DeleteBtn from '../../components/DeleteBtn';
+import EditBtn from '../../components/EditBtn';
+import {
+  createSnackbarError,
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
 import { CoachDTO } from '../../types/DTO/Coach';
-import { PersonDTO } from '../../types/DTO/Person';
+import CoachFieldset from './CoachFieldset';
 import CoachListHeader from './CoachListHeader';
 
 const CoachListStyle = styled.div`
@@ -11,7 +19,7 @@ const CoachListStyle = styled.div`
 
   .grid-coach {
     display: grid;
-    grid-template-columns: 20% 20% 1fr;
+    grid-template-columns: 20% 20% 1fr repeat(2, 56px);
   }
 
   .row {
@@ -22,41 +30,46 @@ const CoachListStyle = styled.div`
 
 interface Props {
   coaches: CoachDTO[];
+  fetchCoaches: () => void;
 }
 
-const CoachList = ({ coaches }: Props) => {
-  const [persons, setPersons] = useState([] as PersonDTO[]);
-
-  useEffect(() => {
+const CoachList = ({ coaches, fetchCoaches }: Props) => {
+  const [editCoach, setEditCoach]: [CoachDTO | null, Function] = useState(null);
+  const { setSnackbar } = useSnackbar();
+  const handleCloseDrawer = () => setEditCoach(null);
+  const handleDeleteItem = async (id: string) => {
     try {
-      getPersons().then((res: { data: PersonDTO[] }) => {
-        setPersons(res.data);
-      });
+      await deleteCoach(id);
+      fetchCoaches();
+      setSnackbar(createSnackbarSuccess('usunięto szkoleniowca'));
     } catch (e) {
-      console.error(e);
+      setSnackbar(createSnackbarError('nie udało się usunąć szkoleniowca!'));
     }
-  }, [coaches]);
-
-  const getPersonDisplayData = (coach: CoachDTO) => {
-    const person = persons.find(
-      (p: PersonDTO) => p.IdPerson === coach.IdPerson
-    );
-    return person ?? ({} as PersonDTO);
   };
 
   return (
     <CoachListStyle>
+      <Drawer
+        anchor="right"
+        open={Boolean(editCoach)}
+        onClose={handleCloseDrawer}
+      >
+        <CoachFieldset
+          closeDrawer={handleCloseDrawer}
+          fetchCoaches={fetchCoaches}
+          editCoach={editCoach}
+        />
+      </Drawer>
       <CoachListHeader />
-      {coaches.map((coach) => {
-        const person = getPersonDisplayData(coach);
-        return (
-          <Card key={coach.IdPerson} className="grid-coach row">
-            <p>{person.FirstName}</p>
-            <p>{person.LastName}</p>
-            <p>{coach.JobTitle}</p>
-          </Card>
-        );
-      })}
+      {coaches.map((coach) => (
+        <Card key={coach.IdPerson} className="grid-coach row">
+          <p>{coach.CoachPerson.FirstName}</p>
+          <p>{coach.CoachPerson.LastName}</p>
+          <p>{coach.JobTitle}</p>
+          <EditBtn onClick={() => setEditCoach(coach)} />
+          <DeleteBtn onClick={() => handleDeleteItem(coach.IdPerson)} />
+        </Card>
+      ))}
     </CoachListStyle>
   );
 };

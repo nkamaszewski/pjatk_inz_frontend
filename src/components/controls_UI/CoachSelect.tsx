@@ -32,7 +32,7 @@ interface Props {
 const EMPTY_COACH = {
   IdPerson: '',
   JobTitle: '',
-  coachPerson: {},
+  CoachPerson: {},
 } as CoachDTO;
 
 const CoachSelect = ({ value, onChange }: Props) => {
@@ -88,7 +88,7 @@ const CoachSelect = ({ value, onChange }: Props) => {
         <Select value={value} onChange={handleSelectChange}>
           {coaches.map((c) => (
             <MenuItem key={c.IdPerson} value={c.IdPerson}>
-              {`${c.coachPerson.FirstName} ${c.coachPerson.LastName} ${c.JobTitle}`}
+              {`${c.CoachPerson.FirstName} ${c.CoachPerson.LastName} ${c.JobTitle}`}
             </MenuItem>
           ))}
         </Select>

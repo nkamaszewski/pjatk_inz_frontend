@@ -1,8 +1,14 @@
 import { Button, TextField } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postCoach } from '../../api/Coach';
+import { postCoach, updateCoach } from '../../api/Coach';
 import PersonSelect from '../../components/controls_UI/PersonSelect';
+import {
+  createSnackbarError,
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
+import { CoachDTO } from '../../types/DTO/Coach';
 
 const CoachContentStyle = styled.div`
   padding: 24px 0;
@@ -13,19 +19,36 @@ const CoachContentStyle = styled.div`
 interface Props {
   closeDrawer: Function;
   fetchCoaches: Function;
+  editCoach?: CoachDTO | null;
 }
 
-const CoachContent = ({ closeDrawer, fetchCoaches }: Props) => {
+const CoachContent = ({ closeDrawer, fetchCoaches, editCoach }: Props) => {
   const [selectedPerson, setSelectedPerson] = useState('');
   const [jobTitle, setJobTitle] = useState('');
+  const { setSnackbar } = useSnackbar();
 
-  const handleOnSave = () => {
+  const handleOnSave = async () => {
     try {
-      postCoach({
-        IdPerson: selectedPerson,
-        JobTitle: jobTitle,
-      }).then(() => fetchCoaches());
+      if (editCoach) {
+        await updateCoach({ IdPerson: editCoach.IdPerson, JobTitle: jobTitle });
+      } else {
+        await postCoach({
+          IdPerson: selectedPerson,
+          JobTitle: jobTitle,
+        });
+      }
+      setSnackbar(
+        createSnackbarSuccess(
+          `${editCoach ? 'edytowano' : 'dodano'} szkoleniowca`
+        )
+      );
+      fetchCoaches();
     } catch (e) {
+      setSnackbar(
+        createSnackbarError(
+          `nie udało się ${editCoach ? 'wyedytować' : 'dodać'} szkoleniowca`
+        )
+      );
       console.error(e);
     } finally {
       closeDrawer();
