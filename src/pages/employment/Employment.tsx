@@ -55,6 +55,7 @@ const Employment = () => {
 
   useEffect(() => {
     fetchEmploymentsWithPersonsAndDivisions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

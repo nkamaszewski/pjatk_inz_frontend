@@ -2,8 +2,8 @@ import { PositionDTO } from './Position';
 
 export interface EmploymentDTO {
   IdEmployment: string;
-  DateFrom: Date;
-  DateTo: Date;
+  DateFrom: Date | string | null;
+  DateTo: Date | string | null;
   IdDepartment: string;
   IdPosition: string;
   IdPerson: string;

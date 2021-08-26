@@ -11,6 +11,7 @@ import {
   createSnackbarSuccess,
   useSnackbar,
 } from '../../contexts/NotificationContext';
+import { formatDate } from '../../helpers/formatDate';
 import { EmploymentDTO } from '../../types/DTO/Employment';
 
 const EmploymentContentStyle = styled.div`
@@ -31,10 +32,8 @@ const EmploymentContent = ({
   editEmployee,
 }: Props) => {
   //TODO: formatowanie czasu, nie dziala edycja
-  const [dateFrom, setDateFrom] = useState(
-    editEmployee?.DateFrom ?? new Date()
-  );
-  const [dateTo, setDateTo] = useState(editEmployee?.DateTo ?? new Date());
+  const [dateFrom, setDateFrom] = useState(formatDate(editEmployee?.DateFrom));
+  const [dateTo, setDateTo] = useState(formatDate(editEmployee?.DateTo));
   const [selectedDepartment, setSelectedDepartment] = useState(
     editEmployee?.IdDepartment ?? ''
   );
@@ -79,11 +78,12 @@ const EmploymentContent = ({
         const empDTO: EmploymentDTO = {
           IdEmployment: editEmployee.IdEmployment,
           DateFrom: dateFrom,
-          DateTo: dateTo,
+          DateTo: dateTo || null,
           IdDepartment: selectedDepartment,
           IdPosition: selectedPosition,
           IdPerson: selectedPerson,
         };
+
         await updateEmployment(empDTO);
         setSnackbar(createSnackbarSuccess('Edytowano zatrudnienie'));
       }
@@ -91,7 +91,7 @@ const EmploymentContent = ({
       else {
         await postEmployment({
           DateFrom: dateFrom,
-          DateTo: dateTo,
+          DateTo: dateTo || null,
           IdDepartment: selectedDepartment,
           IdPosition: selectedPosition,
           IdPerson: selectedPerson,
@@ -120,7 +120,7 @@ const EmploymentContent = ({
   ) => {
     setPassword(event.target.value);
   };
-  console.log(editEmployee);
+
   return (
     <EmploymentContentStyle>
       <TextField
@@ -180,7 +180,6 @@ const EmploymentContent = ({
       <Button
         disabled={
           !Boolean(dateFrom) ||
-          !Boolean(dateTo) ||
           !Boolean(selectedDepartment) ||
           !Boolean(selectedPosition) ||
           !Boolean(selectedPerson) ||

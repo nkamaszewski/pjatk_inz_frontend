@@ -65,6 +65,7 @@ const GroupDetailsFieldset = ({ closeDrawer, group }: Props) => {
 
   useEffect(() => {
     fetchEmployeeGroup();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleOnCancel = () => {
