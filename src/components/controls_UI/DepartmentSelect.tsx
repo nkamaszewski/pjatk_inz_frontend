@@ -3,20 +3,34 @@ import React, { useEffect, useState } from 'react';
 import { getDepartments } from '../../api/Department';
 import { DepartmentDTO } from '../../types/DTO/Department';
 
+const DEFAULT_DEPARTMENTS: DepartmentDTO[] = [
+  { IdDepartment: 'all', Name: 'Wszystkie' } as DepartmentDTO,
+];
+
 interface Props {
   value: string;
   onChange: Function;
+  name?: string;
+  withAll?: boolean;
 }
 
-const DepartmentSelect = ({ value, onChange }: Props) => {
+const DepartmentSelect = ({
+  value,
+  onChange,
+  name,
+  withAll = false,
+}: Props) => {
   const [departments, setDepartments]: [DepartmentDTO[], Function] = useState(
-    []
+    withAll ? DEFAULT_DEPARTMENTS : []
   );
 
   useEffect(() => {
     try {
       getDepartments().then((res) => {
-        setDepartments(res.data);
+        const newDepartments = res.data;
+        setDepartments(
+          withAll ? DEFAULT_DEPARTMENTS.concat(newDepartments) : res.data
+        );
       });
     } catch (e) {
       console.error(e);
@@ -30,7 +44,7 @@ const DepartmentSelect = ({ value, onChange }: Props) => {
   return (
     <FormControl fullWidth>
       <InputLabel>Wydział</InputLabel>
-      <Select value={value} onChange={handleSelectChange}>
+      <Select value={value} onChange={handleSelectChange} name={name}>
         {departments.map((department) => (
           <MenuItem
             key={department.IdDepartment}

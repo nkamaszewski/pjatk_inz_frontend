@@ -3,19 +3,17 @@ import { useState, useContext } from 'react';
 
 export const ALL = 'all';
 
-export type WorkshopStatus = typeof ALL | '1' | '2';
-
 interface IWorkshopFilters {
-  idstatus: WorkshopStatus;
-  iddepartment: any;
-  iddivision: any;
+  idstatus: string;
+  iddepartment: string;
+  iddivision: string;
 }
 
 const useCreateFilters = () => {
   const [workshopFilters, setWorkFilters] = useState<IWorkshopFilters>({
     idstatus: ALL,
-    iddepartment: null,
-    iddivision: null,
+    iddepartment: ALL,
+    iddivision: ALL,
   });
   return { workshop: { filters: workshopFilters, setFilters: setWorkFilters } };
 };
