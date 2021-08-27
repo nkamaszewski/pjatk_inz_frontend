@@ -31,7 +31,7 @@ const Workshop = () => {
 
   const fetchApplications = () => {
     try {
-      getApplicationsFor().then((res) => {
+      getApplicationsFor(filters).then((res) => {
         setApplications(res.data);
       });
     } catch (e) {
@@ -41,12 +41,12 @@ const Workshop = () => {
 
   useEffect(() => {
     fetchApplications();
-  }, []);
+  }, [filters]);
 
   const handleChangeStatus = (event: React.ChangeEvent<{ value: unknown }>) => {
     setFilters((prev) => ({
       ...prev,
-      status: event.target.value as WorkshopStatus,
+      idstatus: event.target.value as WorkshopStatus,
     }));
   };
 
@@ -56,7 +56,10 @@ const Workshop = () => {
       <AddFab className="page-panel" onClick={() => setIsOpen(true)}>
         <h4>Filtruj:</h4>
         <div className="status-select">
-          <StatusSelect value={filters.status} onChange={handleChangeStatus} />
+          <StatusSelect
+            value={filters.idstatus}
+            onChange={handleChangeStatus}
+          />
         </div>
       </AddFab>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>

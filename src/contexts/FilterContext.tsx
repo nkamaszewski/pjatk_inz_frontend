@@ -1,15 +1,21 @@
 import { createContext, ReactNode } from 'react';
 import { useState, useContext } from 'react';
 
-export type WorkshopStatus = 'all' | 1 | 2;
+export const ALL = 'all';
+
+export type WorkshopStatus = typeof ALL | '1' | '2';
 
 interface IWorkshopFilters {
-  status: WorkshopStatus;
+  idstatus: WorkshopStatus;
+  iddepartment: any;
+  iddivision: any;
 }
 
 const useCreateFilters = () => {
   const [workshopFilters, setWorkFilters] = useState<IWorkshopFilters>({
-    status: 'all',
+    idstatus: ALL,
+    iddepartment: null,
+    iddivision: null,
   });
   return { workshop: { filters: workshopFilters, setFilters: setWorkFilters } };
 };

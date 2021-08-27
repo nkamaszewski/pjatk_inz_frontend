@@ -6,6 +6,7 @@ import { ThemeContext } from './contexts/ThemeContext';
 import MaterialUITheme from './contexts/MaterialUITheme';
 import { NotificationProvider } from './contexts/NotificationContext';
 import { FilterProvider } from './contexts/FilterContext';
+import { DictionaryProvider } from './contexts/DictionaryContext';
 
 interface Props {
   children: ReactNode;
@@ -19,7 +20,9 @@ const AppProviders = ({ children }: Props) => {
         <GlobalStyle theme={themeProps.theme}>
           <NotificationProvider>
             <FilterProvider>
-              <BrowserRouter>{children}</BrowserRouter>
+              <DictionaryProvider>
+                <BrowserRouter>{children}</BrowserRouter>
+              </DictionaryProvider>
             </FilterProvider>
           </NotificationProvider>
         </GlobalStyle>

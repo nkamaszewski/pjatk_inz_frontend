@@ -1,8 +1,20 @@
 import axios from 'axios';
+import { ALL } from '../contexts/FilterContext';
 import { ApplicationForDTO } from '../types/DTO/ApplicationFor';
 
-export const getApplicationsFor = () =>
-  axios.get('http://localhost:3000/api/appfor');
+interface QueryParams {
+  iddepartment: string | null;
+  iddivision: string | null;
+  idstatus: string | null;
+}
+
+export const getApplicationsFor = (
+  params: QueryParams = { iddepartment: null, iddivision: null, idstatus: null }
+) => {
+  let query = params;
+  if (params.idstatus === ALL) query = { ...params, idstatus: null };
+  return axios.get(`http://localhost:3000/api/appfor`, { params: query });
+};
 
 export const postApplicationsFor = (
   application: Omit<ApplicationForDTO, 'IdApplicationFor'>
