@@ -9,19 +9,33 @@ interface IWorkshopFilters {
   iddivision: string;
 }
 
+export interface ITrainingFilters {
+  internal: typeof ALL | '1' | '2' | null;
+}
+
 const useCreateFilters = () => {
   const [workshopFilters, setWorkFilters] = useState<IWorkshopFilters>({
     idstatus: ALL,
     iddepartment: ALL,
     iddivision: ALL,
   });
-  return { workshop: { filters: workshopFilters, setFilters: setWorkFilters } };
+  const [trainingFilters, setTrainingFilters] = useState<ITrainingFilters>({
+    internal: ALL,
+  });
+  return {
+    workshop: { filters: workshopFilters, setFilters: setWorkFilters },
+    training: { filters: trainingFilters, setFilters: setTrainingFilters },
+  };
 };
 
 interface IFilterContext {
   workshop: {
     filters: IWorkshopFilters;
     setFilters: React.Dispatch<React.SetStateAction<IWorkshopFilters>>;
+  };
+  training: {
+    filters: ITrainingFilters;
+    setFilters: React.Dispatch<React.SetStateAction<ITrainingFilters>>;
   };
 }
 

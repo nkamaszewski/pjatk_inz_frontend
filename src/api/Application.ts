@@ -11,10 +11,10 @@ interface QueryParams {
 export const getApplicationsFor = (
   params: QueryParams = { iddepartment: null, iddivision: null, idstatus: null }
 ) => {
-  let query = params;
-  if (params.idstatus === ALL) query = { ...query, idstatus: null };
-  if (params.iddivision === ALL) query = { ...query, iddivision: null };
-  if (params.iddepartment === ALL) query = { ...query, iddepartment: null };
+  let query = { ...params };
+  if (params.idstatus === ALL) query.idstatus = null;
+  if (params.iddivision === ALL) query.iddivision = null;
+  if (params.iddepartment === ALL) query.iddepartment = null;
   return axios.get(`http://localhost:3000/api/appfor`, { params: query });
 };
 

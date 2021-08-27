@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ALL, ITrainingFilters } from '../contexts/FilterContext';
 
 interface TrainingTransfer {
   IdEducation: string;
@@ -10,8 +11,11 @@ interface TrainingTransfer {
   DateTo: Date | string;
 }
 
-export const getTrainings = () =>
-  axios.get('http://localhost:3000/api/trainings');
+export const getTrainings = (params: ITrainingFilters = { internal: null }) => {
+  const query = { ...params };
+  if (query.internal === ALL) query.internal = null;
+  return axios.get('http://localhost:3000/api/trainings', { params: query });
+};
 
 export const postTraining = (training: TrainingTransfer) =>
   axios.post('http://localhost:3000/api/trainings/', training);
