@@ -6,6 +6,7 @@ import {
   updateApplicationsFor,
 } from '../../api/Application';
 import StudySelect from '../../components/controls_UI/StudySelect';
+import SwitchBtn from '../../components/controls_UI/SwitchBtn';
 import TrainingSelect from '../../components/controls_UI/TrainingSelect';
 import {
   createSnackbarSuccess,
@@ -71,16 +72,13 @@ const WorkshopContent = ({
 
   return (
     <WorkshopContentStyle>
-      <div className="switch-btn">
-        <p>Wniosek dotyczy studiów? </p>
-        <Switch
-          checked={isStudy}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setIsStudy(event.target.checked)
-          }
-          color="primary"
-        />
-      </div>
+      <SwitchBtn
+        value={isStudy}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setIsStudy(event.target.checked)
+        }
+        label="Wniosek dotyczy studiów?"
+      />
 
       {isStudy ? (
         <StudySelect value={idEducation} onChange={setIdEducation} />
@@ -88,16 +86,13 @@ const WorkshopContent = ({
         <TrainingSelect value={idEducation} onChange={setIdEducation} />
       )}
 
-      <div className="switch-btn">
-        <p>Czy poprawny? </p>
-        <Switch
-          checked={compatibility}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setCompatibility(event.target.checked)
-          }
-          color="primary"
-        />
-      </div>
+      <SwitchBtn
+        value={compatibility}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setCompatibility(event.target.checked)
+        }
+        label="Czy poprawny?"
+      />
 
       <Button
         // disabled={!Boolean(year)}

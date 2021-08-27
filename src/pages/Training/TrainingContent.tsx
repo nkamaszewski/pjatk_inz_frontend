@@ -5,6 +5,7 @@ import { postEducation, updateEducation } from '../../api/Education';
 import { postTraining, updateTraining } from '../../api/Training';
 import CoachSelect from '../../components/controls_UI/CoachSelect';
 import CompanySelect from '../../components/controls_UI/CompanySelect';
+import SwitchBtn from '../../components/controls_UI/SwitchBtn';
 import TopicSelect from '../../components/controls_UI/TopicSelect';
 import {
   createSnackbarError,
@@ -18,12 +19,6 @@ const TrainingContentStyle = styled.div`
   padding: 24px 0;
   display: grid;
   grid-row-gap: 16px;
-
-  .switch-btn {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-  }
 `;
 
 interface Props {
@@ -123,17 +118,14 @@ const TrainingContent = ({
       <CompanySelect value={idCompany} onChange={setIdCompany} />
 
       <CoachSelect value={idPerson} onChange={setIdPerson} />
+      <SwitchBtn
+        value={internal}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setInternal(event.target.checked)
+        }
+        label="Szkolenie wewnętrzne:"
+      />
 
-      <div className="switch-btn">
-        <p>Szkolenie wewnętrzne: </p>
-        <Switch
-          checked={internal}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setInternal(event.target.checked)
-          }
-          color="primary"
-        />
-      </div>
       <TextField
         label="Data od"
         name="dateFrom"

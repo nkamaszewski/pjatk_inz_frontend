@@ -25,7 +25,7 @@ const DocumentsAdditional = () => {
 
   return (
     <div>
-      <PageHeader title="Sale" />
+      <PageHeader title="Wnioski dodatkowe" />
       <AddFab onClick={() => setIsOpen(true)} />
       {/* <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <RoomFieldset
