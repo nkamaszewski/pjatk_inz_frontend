@@ -1,16 +1,29 @@
 import axios from 'axios';
 
-export const getTrainings = () =>
-  axios.get('http://localhost:3000/api/trainings');
-
-export const postTraining = (training: {
+interface TrainingTransfer {
   IdEducation: string;
   IdTopic: string;
   IdCompany: string;
   IdPerson: string;
   Internal: boolean;
-  DateFrom: Date;
-}) => axios.post('http://localhost:3000/api/trainings/', training);
+  DateFrom: Date | string;
+  DateTo: Date | string;
+}
+
+export const getTrainings = () =>
+  axios.get('http://localhost:3000/api/trainings');
+
+export const postTraining = (training: TrainingTransfer) =>
+  axios.post('http://localhost:3000/api/trainings/', training);
+
+export const deleteTraining = (id: string) =>
+  axios.delete(`http://localhost:3000/api/trainings/${id}`);
+
+export const updateTraining = (training: TrainingTransfer) =>
+  axios.put(
+    `http://localhost:3000/api/trainings/${training.IdEducation}`,
+    training
+  );
 
 export const getTopics = () => axios.get('http://localhost:3000/api/topics');
 

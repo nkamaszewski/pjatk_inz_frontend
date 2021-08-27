@@ -6,6 +6,7 @@ import { TopicDTO } from './Topic';
 export interface TrainingDTO {
   Internal: boolean;
   DateFrom: Date;
+  DateTo: Date;
   trainingTopic: TopicDTO;
   trainingCompany: CompanyDTO;
   trainingEducation: EducationDTO;

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { postRoom, updateRoom } from '../../api/Room';
 import {
+  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../contexts/NotificationContext';
@@ -44,13 +45,14 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
           IdRoom: editRoom.IdRoom,
           ...newRoom,
         });
+        setSnackbar(createSnackbarSuccess('Edytowano salę'));
       } else {
         await postRoom(newRoom);
-        fetchRooms();
         setSnackbar(createSnackbarSuccess('Dodano salę'));
       }
+      fetchRooms();
     } catch (e) {
-      setSnackbar(createSnackbarSuccess('Operacja nie powiodła się!'));
+      setSnackbar(createSnackbarError('Operacja nie powiodła się!'));
       console.error(e);
     } finally {
       closeDrawer();

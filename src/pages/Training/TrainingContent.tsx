@@ -1,11 +1,18 @@
 import { Button, Switch, TextField } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postEducation } from '../../api/Education';
-import { postTraining } from '../../api/Training';
+import { postEducation, updateEducation } from '../../api/Education';
+import { postTraining, updateTraining } from '../../api/Training';
 import CoachSelect from '../../components/controls_UI/CoachSelect';
 import CompanySelect from '../../components/controls_UI/CompanySelect';
 import TopicSelect from '../../components/controls_UI/TopicSelect';
+import {
+  createSnackbarError,
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
+import { formatDate } from '../../helpers/formatDate';
+import { TrainingDTO } from '../../types/DTO/Training';
 
 const TrainingContentStyle = styled.div`
   padding: 24px 0;
@@ -22,34 +29,71 @@ const TrainingContentStyle = styled.div`
 interface Props {
   closeDrawer: Function;
   fetchTrainings: Function;
+  editTraining?: TrainingDTO | null;
 }
 
-const TrainingContent = ({ closeDrawer, fetchTrainings }: Props) => {
-  const [idTopic, setIdTopic] = useState('');
-  const [idCompany, setIdCompany] = useState('');
-  const [idPerson, setIdPerson] = useState('');
-  const [internal, setInternal] = useState(false);
-  const [dateFrom, setDateFrom] = useState(new Date());
+const TrainingContent = ({
+  closeDrawer,
+  fetchTrainings,
+  editTraining,
+}: Props) => {
+  const [idTopic, setIdTopic] = useState(
+    editTraining?.trainingTopic.IdTopic ?? ''
+  );
+  const [idCompany, setIdCompany] = useState(
+    editTraining?.trainingCompany.IdCompany ?? ''
+  );
+  const [idPerson, setIdPerson] = useState(
+    editTraining?.trainingCoach.IdPerson ?? ''
+  );
+  const [internal, setInternal] = useState(editTraining?.Internal ?? false);
+  const [dateFrom, setDateFrom] = useState(
+    formatDate(editTraining?.DateFrom) ?? ''
+  );
+  const [dateTo, setDateTo] = useState(formatDate(editTraining?.DateTo) ?? '');
   const [education, setEducation] = useState({
-    Price: 0,
-    PriceAccommodation: 0,
-    PriceTransit: 0,
+    Price: editTraining?.trainingEducation.Price ?? 0,
+    PriceAccommodation: editTraining?.trainingEducation.PriceAccommodation ?? 0,
+    PriceTransit: editTraining?.trainingEducation.PriceTransit ?? 0,
   });
 
-  const handleOnSave = () => {
+  const { setSnackbar } = useSnackbar();
+
+  const handleOnSave = async () => {
     try {
-      postEducation(education).then((res) => {
-        const { IdEducation } = res.data;
-        postTraining({
+      if (editTraining) {
+        await updateEducation({
+          ...education,
+          IdEducation: editTraining.trainingEducation.IdEducation,
+        });
+
+        await updateTraining({
+          IdEducation: editTraining.trainingEducation.IdEducation,
+          IdTopic: idTopic,
+          IdCompany: idCompany,
+          IdPerson: idPerson,
+          Internal: internal,
+          DateFrom: dateFrom,
+          DateTo: dateTo,
+        });
+        setSnackbar(createSnackbarSuccess('Edytowano Kurs'));
+      } else {
+        const response = await postEducation(education);
+        const { IdEducation } = response.data;
+        await postTraining({
           IdEducation,
           IdTopic: idTopic,
           IdCompany: idCompany,
           IdPerson: idPerson,
           Internal: internal,
           DateFrom: dateFrom,
-        }).then(() => fetchTrainings());
-      });
+          DateTo: dateTo,
+        });
+        setSnackbar(createSnackbarSuccess('Dodano Kurs'));
+      }
+      fetchTrainings();
     } catch (e) {
+      setSnackbar(createSnackbarError('Operacja nie powiodła się!'));
       console.error(e);
     } finally {
       closeDrawer();
@@ -65,8 +109,11 @@ const TrainingContent = ({ closeDrawer, fetchTrainings }: Props) => {
     }));
   };
 
-  const handleDateChange = (e: any) => {
+  const handleDateFromChange = (e: any) => {
     setDateFrom(e.target.value);
+  };
+  const handleDateToChange = (e: any) => {
+    setDateTo(e.target.value);
   };
 
   return (
@@ -95,7 +142,17 @@ const TrainingContent = ({ closeDrawer, fetchTrainings }: Props) => {
           shrink: true,
         }}
         value={dateFrom}
-        onChange={handleDateChange}
+        onChange={handleDateFromChange}
+      />
+      <TextField
+        label="Data do"
+        name="dateTo"
+        type="date"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        value={dateTo}
+        onChange={handleDateToChange}
       />
 
       <TextField
