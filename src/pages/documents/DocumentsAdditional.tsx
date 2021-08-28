@@ -4,6 +4,7 @@ import { getApplicationsForRefund } from '../../api/ApplicationForRefund';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
+import DocumentAdditionalFieldset from './DocumentAdditionalFieldset';
 import DocumentAdditionalList from './DocumentAdditionalList';
 
 const DocumentsAdditional = () => {
@@ -28,12 +29,12 @@ const DocumentsAdditional = () => {
     <div>
       <PageHeader title="Wnioski dodatkowe" />
       <AddFab onClick={() => setIsOpen(true)} />
-      {/* <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        <RoomFieldset
+      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
+        <DocumentAdditionalFieldset
           closeDrawer={() => setIsOpen(false)}
-          fetchRooms={fetchRooms}
+          fetchDocuments={fetchDocuments}
         />
-      </Drawer> */}
+      </Drawer>
       <DocumentAdditionalList
         documents={documents}
         fetchDocuments={fetchDocuments}

@@ -2,6 +2,7 @@ import { Divider, Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { deleteApplicationsForReason } from '../../api/ApplicationForReason';
 import { deleteApplicationsForRefund } from '../../api/ApplicationForRefund';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
@@ -56,6 +57,15 @@ const DocumentAdditionalList = ({ documents, fetchDocuments }: Props) => {
       setSnackbar(createSnackbarError('nie udało się usunąć wniosku!'));
     }
   };
+  const handleDeleteItemDetails = async (id: string) => {
+    try {
+      await deleteApplicationsForReason(id);
+      fetchDocuments();
+      setSnackbar(createSnackbarSuccess('usunięto wniosek'));
+    } catch (e) {
+      setSnackbar(createSnackbarError('nie udało się usunąć wniosku!'));
+    }
+  };
   const getStatusName = (id: string) =>
     statuses.find(({ IdStatus }) => IdStatus === id)?.Name ?? '';
   return (
@@ -68,7 +78,6 @@ const DocumentAdditionalList = ({ documents, fetchDocuments }: Props) => {
         <DocumentAdditionalFieldset
           closeDrawer={handleCloseDrawer}
           fetchDocuments={fetchDocuments}
-          editDocument={editDocument}
         />
       </Drawer>
       <DocumentAdditionalListHeader />
@@ -97,7 +106,9 @@ const DocumentAdditionalList = ({ documents, fetchDocuments }: Props) => {
               <p>{getStatusName(application.IdStatus)}</p>
               <EditBtn onClick={() => setEditDocument(doc)} />
               <DeleteBtn
-                onClick={() => handleDeleteItem(doc.IdApplicationForRefund)}
+                onClick={() =>
+                  handleDeleteItemDetails(application.IdReasonForRefund)
+                }
               />
             </section>
           ))}
