@@ -3,10 +3,9 @@ import HeaderListStyled from '../../components/styled/HeaderListStyled';
 const DocumentAdditionalListHeader = () => {
   return (
     <>
-      <HeaderListStyled className="grid-document">
+      <HeaderListStyled className="grid-header">
         <>
-          <p>Nazwa</p>
-          <p>Status</p>
+          <p>Składający</p>
           <p>Data złożenia</p>
         </>
       </HeaderListStyled>

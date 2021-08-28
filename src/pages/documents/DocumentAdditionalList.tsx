@@ -1,4 +1,4 @@
-import { Drawer } from '@material-ui/core';
+import { Divider, Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -19,9 +19,15 @@ import DocumentAdditionalListHeader from './DocumentAdditionalListHeader';
 const DocumentAdditionalListStyle = styled.div`
   padding: 16px;
 
-  .grid-document {
+  .grid-header {
     display: grid;
-    grid-template-columns: 1fr repeat(2, 140px) 56px 56px;
+    grid-template-columns: 1fr 140px 56px;
+  }
+
+  .grid-doc {
+    display: grid;
+    grid-template-columns: 1fr 140px 56px 56px;
+    padding: 16px 56px;
   }
 
   .row {
@@ -67,22 +73,35 @@ const DocumentAdditionalList = ({ documents, fetchDocuments }: Props) => {
       </Drawer>
       <DocumentAdditionalListHeader />
       {documents.map((doc) => (
-        <>
+        <Card key={doc.IdApplicationForRefund} className="row">
+          <header className="grid-header">
+            <h4>
+              {
+                doc.applicationForRefundApplicationFor.applicationForEmployee
+                  .employeePerson.FirstName
+              }{' '}
+              {
+                doc.applicationForRefundApplicationFor.applicationForEmployee
+                  .employeePerson.LastName
+              }
+            </h4>
+            <h4>{formatDate(doc.DateOfSubmission)}</h4>
+            <DeleteBtn
+              onClick={() => handleDeleteItem(doc.IdApplicationForRefund)}
+            />
+          </header>
+          <Divider />
           {doc.applicationForRefundApplicationForReasons.map((application) => (
-            <Card
-              key={doc.IdApplicationForRefund}
-              className="grid-document row"
-            >
+            <section className="grid-doc">
               <p>{application.applicationForReasonsReasonForRefund.Name}</p>
               <p>{getStatusName(application.IdStatus)}</p>
-              <p>{formatDate(doc.DateOfSubmission)}</p>
               <EditBtn onClick={() => setEditDocument(doc)} />
               <DeleteBtn
                 onClick={() => handleDeleteItem(doc.IdApplicationForRefund)}
               />
-            </Card>
+            </section>
           ))}
-        </>
+        </Card>
       ))}
     </DocumentAdditionalListStyle>
   );
