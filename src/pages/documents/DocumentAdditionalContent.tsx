@@ -6,6 +6,7 @@ import {
   createSnackbarSuccess,
   useSnackbar,
 } from '../../contexts/NotificationContext';
+import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
 import { RoomDTO } from '../../types/DTO/Room';
 
 const DocumentAdditionalContentStyle = styled.div`
@@ -16,21 +17,21 @@ const DocumentAdditionalContentStyle = styled.div`
 
 interface Props {
   closeDrawer: Function;
-  fetchRooms: Function;
-  editRoom?: RoomDTO | null;
+  fetchDocuments: Function;
+  editDocument?: ApplicationForRefundList | null;
 }
 
 const DocumentAdditionalContent = ({
   closeDrawer,
-  fetchRooms,
-  editRoom,
+  fetchDocuments,
+  editDocument,
 }: Props) => {
-  const [name, setName] = useState(editRoom?.Name ?? '');
-  const [area, setArea] = useState(editRoom?.Area ?? 0);
-  const [capacitySet1, setCapacitySet1] = useState(editRoom?.CapacitySet1 ?? 0);
-  const [capacitySet2, setCapacitySet2] = useState(editRoom?.CapacitySet2 ?? 0);
-  const [capacitySet3, setCapacitySet3] = useState(editRoom?.CapacitySet3 ?? 0);
-  const [capacitySet4, setCapacitySet4] = useState(editRoom?.CapacitySet4 ?? 0);
+  const [name, setName] = useState('');
+  const [area, setArea] = useState(0);
+  const [capacitySet1, setCapacitySet1] = useState(0);
+  const [capacitySet2, setCapacitySet2] = useState(0);
+  const [capacitySet3, setCapacitySet3] = useState(0);
+  const [capacitySet4, setCapacitySet4] = useState(0);
   const { setSnackbar } = useSnackbar();
 
   const handleOnSave = async () => {
@@ -42,23 +43,23 @@ const DocumentAdditionalContent = ({
       CapacitySet3: capacitySet3,
       CapacitySet4: capacitySet4,
     };
-    try {
-      if (editRoom) {
-        await updateRoom({
-          IdRoom: editRoom.IdRoom,
-          ...newRoom,
-        });
-      } else {
-        await postRoom(newRoom);
-        fetchRooms();
-        setSnackbar(createSnackbarSuccess('Dodano salę'));
-      }
-    } catch (e) {
-      setSnackbar(createSnackbarSuccess('Operacja nie powiodła się!'));
-      console.error(e);
-    } finally {
-      closeDrawer();
-    }
+    // try {
+    //   if (editRoom) {
+    //     await updateRoom({
+    //       IdRoom: editRoom.IdRoom,
+    //       ...newRoom,
+    //     });
+    //   } else {
+    //     await postRoom(newRoom);
+    //     fetchRooms();
+    //     setSnackbar(createSnackbarSuccess('Dodano salę'));
+    //   }
+    // } catch (e) {
+    //   setSnackbar(createSnackbarSuccess('Operacja nie powiodła się!'));
+    //   console.error(e);
+    // } finally {
+    //   closeDrawer();
+    // }
   };
 
   return (

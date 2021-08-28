@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import { getApplicationsForRefund } from '../../api/ApplicationForRefund';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
-import { ApplicationForRefundDTO } from '../../types/DTO/ApplicationForRefund';
+import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
+import DocumentAdditionalList from './DocumentAdditionalList';
 
 const DocumentsAdditional = () => {
-  const [documents, setDocuments] = useState<ApplicationForRefundDTO[]>([]);
+  const [documents, setDocuments] = useState<ApplicationForRefundList[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const fetchDocuments = () => {
@@ -33,7 +34,10 @@ const DocumentsAdditional = () => {
           fetchRooms={fetchRooms}
         />
       </Drawer> */}
-      {/* <RoomList rooms={rooms} fetchRooms={fetchRooms} /> */}
+      <DocumentAdditionalList
+        documents={documents}
+        fetchDocuments={fetchDocuments}
+      />
     </div>
   );
 };

@@ -2,28 +2,26 @@ import { Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { deleteRoom } from '../../api/Room';
+import { deleteApplicationsForRefund } from '../../api/ApplicationForRefund';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
+import { useDictionary } from '../../contexts/DictionaryContext';
 import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../contexts/NotificationContext';
-import { RoomDTO } from '../../types/DTO/Room';
-import RoomFieldset from './DocumentAdditionalFieldset';
+import { formatDate } from '../../helpers/formatDate';
+import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
+import DocumentAdditionalFieldset from './DocumentAdditionalFieldset';
 import DocumentAdditionalListHeader from './DocumentAdditionalListHeader';
 
 const DocumentAdditionalListStyle = styled.div`
   padding: 16px;
 
-  .grid-room {
+  .grid-document {
     display: grid;
-    grid-template-columns: 1fr repeat(5, 140px) 56px 56px;
-  }
-
-  .item-centered {
-    justify-self: center;
+    grid-template-columns: 1fr repeat(2, 140px) 56px 56px;
   }
 
   .row {
@@ -33,48 +31,58 @@ const DocumentAdditionalListStyle = styled.div`
 `;
 
 interface Props {
-  rooms: RoomDTO[];
-  fetchRooms: () => void;
+  documents: ApplicationForRefundList[];
+  fetchDocuments: () => void;
 }
 
-const DocumentAdditionalList = ({ rooms, fetchRooms }: Props) => {
-  const [editRoom, setEditRoom]: [RoomDTO | null, Function] = useState(null);
+const DocumentAdditionalList = ({ documents, fetchDocuments }: Props) => {
+  const [editDocument, setEditDocument] =
+    useState<ApplicationForRefundList | null>(null);
   const { setSnackbar } = useSnackbar();
-  const handleCloseDrawer = () => setEditRoom(null);
+  const { statuses } = useDictionary();
+  const handleCloseDrawer = () => setEditDocument(null);
   const handleDeleteItem = async (id: string) => {
     try {
-      await deleteRoom(id);
-      fetchRooms();
-      setSnackbar(createSnackbarSuccess('usunięto salę'));
+      await deleteApplicationsForRefund(id);
+      fetchDocuments();
+      setSnackbar(createSnackbarSuccess('usunięto wniosek'));
     } catch (e) {
-      setSnackbar(createSnackbarError('nie udało się usunąć sali!'));
+      setSnackbar(createSnackbarError('nie udało się usunąć wniosku!'));
     }
   };
+  const getStatusName = (id: string) =>
+    statuses.find(({ IdStatus }) => IdStatus === id)?.Name ?? '';
   return (
     <DocumentAdditionalListStyle>
       <Drawer
         anchor="right"
-        open={Boolean(editRoom)}
+        open={Boolean(editDocument)}
         onClose={handleCloseDrawer}
       >
-        <RoomFieldset
+        <DocumentAdditionalFieldset
           closeDrawer={handleCloseDrawer}
-          fetchRooms={fetchRooms}
-          editRoom={editRoom}
+          fetchDocuments={fetchDocuments}
+          editDocument={editDocument}
         />
       </Drawer>
       <DocumentAdditionalListHeader />
-      {rooms.map((room) => (
-        <Card key={room.IdRoom} className="grid-room row">
-          <p>{room.Name}</p>
-          <p>{room.Area} m2</p>
-          <p className="item-centered">{room.CapacitySet1 ?? '---'}</p>
-          <p className="item-centered">{room.CapacitySet2 ?? '---'}</p>
-          <p className="item-centered">{room.CapacitySet3 ?? '---'}</p>
-          <p className="item-centered">{room.CapacitySet4 ?? '---'}</p>
-          <EditBtn onClick={() => setEditRoom(room)} />
-          <DeleteBtn onClick={() => handleDeleteItem(room.IdRoom)} />
-        </Card>
+      {documents.map((doc) => (
+        <>
+          {doc.applicationForRefundApplicationForReasons.map((application) => (
+            <Card
+              key={doc.IdApplicationForRefund}
+              className="grid-document row"
+            >
+              <p>{application.applicationForReasonsReasonForRefund.Name}</p>
+              <p>{getStatusName(application.IdStatus)}</p>
+              <p>{formatDate(doc.DateOfSubmission)}</p>
+              <EditBtn onClick={() => setEditDocument(doc)} />
+              <DeleteBtn
+                onClick={() => handleDeleteItem(doc.IdApplicationForRefund)}
+              />
+            </Card>
+          ))}
+        </>
       ))}
     </DocumentAdditionalListStyle>
   );

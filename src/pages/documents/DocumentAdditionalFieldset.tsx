@@ -1,29 +1,29 @@
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
-import { RoomDTO } from '../../types/DTO/Room';
+import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
 import RoomContent from './DocumentAdditionalContent';
 
 interface Props {
   closeDrawer: () => void;
-  fetchRooms: Function;
-  editRoom?: RoomDTO | null;
+  fetchDocuments: () => void;
+  editDocument?: ApplicationForRefundList | null;
 }
 
 const DocumentAdditionalFieldset = ({
   closeDrawer,
-  fetchRooms,
-  editRoom,
+  fetchDocuments,
+  editDocument,
 }: Props) => {
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editRoom ? 'Edytuj' : 'Dodaj'} salę`}
+        title={`${editDocument ? 'Edytuj' : 'Dodaj'} wniosek`}
         closeDrawer={closeDrawer}
       />
       <RoomContent
         closeDrawer={closeDrawer}
-        fetchRooms={fetchRooms}
-        editRoom={editRoom}
+        fetchDocuments={fetchDocuments}
+        editDocument={editDocument}
       />
     </FieldsetStyled>
   );
