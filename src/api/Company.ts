@@ -15,3 +15,6 @@ export const updateCompany = (company: CompanyDTO) =>
     `http://localhost:3000/api/companies/${company.IdCompany}`,
     company
   );
+
+export const deleteCompany = (id: string) =>
+  axios.delete(`http://localhost:3000/api/companies/${id}`);
