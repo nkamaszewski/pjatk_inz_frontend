@@ -1,6 +1,15 @@
 import axios from 'axios';
+import { ALL } from '../contexts/FilterContext';
 
-export const getGroups = () => axios.get('http://localhost:3000/api/groups/');
+interface QueryParams {
+  active: typeof ALL | '1' | null;
+}
+
+export const getGroups = (params: QueryParams = { active: null }) => {
+  const query: QueryParams = { ...params };
+  if (params.active === ALL) query.active = null;
+  return axios.get('http://localhost:3000/api/groups', { params: query });
+};
 
 export const postGroup = (group: {
   Name: string;

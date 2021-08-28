@@ -12,6 +12,9 @@ interface IWorkshopFilters {
 export interface ITrainingFilters {
   internal: typeof ALL | '1' | '2' | null;
 }
+export interface IGroupFilters {
+  active: typeof ALL | '1';
+}
 
 const useCreateFilters = () => {
   const [workshopFilters, setWorkFilters] = useState<IWorkshopFilters>({
@@ -22,9 +25,13 @@ const useCreateFilters = () => {
   const [trainingFilters, setTrainingFilters] = useState<ITrainingFilters>({
     internal: ALL,
   });
+  const [groupFilters, setGroupFilters] = useState<IGroupFilters>({
+    active: ALL,
+  });
   return {
     workshop: { filters: workshopFilters, setFilters: setWorkFilters },
     training: { filters: trainingFilters, setFilters: setTrainingFilters },
+    group: { filters: groupFilters, setFilters: setGroupFilters },
   };
 };
 
@@ -36,6 +43,10 @@ interface IFilterContext {
   training: {
     filters: ITrainingFilters;
     setFilters: React.Dispatch<React.SetStateAction<ITrainingFilters>>;
+  };
+  group: {
+    filters: IGroupFilters;
+    setFilters: React.Dispatch<React.SetStateAction<IGroupFilters>>;
   };
 }
 

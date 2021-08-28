@@ -11,9 +11,19 @@ import {
 } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getEmployeeGroup, postEmployeeGroup } from '../../api/EmployeeGroup';
+import {
+  deleteEmployeeGroup,
+  getEmployeeGroup,
+  postEmployeeGroup,
+} from '../../api/EmployeeGroup';
 import { getPersons } from '../../api/Person';
 import EmployeeSeelect from '../../components/controls_UI/EmployeeSeelect';
+import DeleteBtn from '../../components/DeleteBtn';
+import {
+  createSnackbarError,
+  createSnackbarSuccess,
+  useSnackbar,
+} from '../../contexts/NotificationContext';
 import { EmployeeGroupDTO } from '../../types/DTO/EmployeeGroup';
 import { GroupDTO } from '../../types/DTO/Group';
 import { PersonDTO } from '../../types/DTO/Person';
@@ -30,7 +40,7 @@ const GroupDetailsFieldsetStyle = styled.div`
     padding: 16px;
     margin: 4px 0;
     display: grid;
-    grid-template-columns: 200px 200px;
+    grid-template-columns: 200px 1fr 56px;
   }
 `;
 
@@ -45,6 +55,7 @@ const GroupDetailsFieldset = ({ closeDrawer, group }: Props) => {
   const [persons, setPersons] = useState([]);
   const [addingMode, setAddingMode] = useState(false);
   const [idPerson, setIdPerson] = useState('');
+  const { setSnackbar } = useSnackbar();
 
   const fetchEmployeeGroup = () => {
     try {
@@ -88,6 +99,16 @@ const GroupDetailsFieldset = ({ closeDrawer, group }: Props) => {
     }
   };
 
+  const handleDeleteItem = async (id: string) => {
+    try {
+      await deleteEmployeeGroup(id);
+      fetchEmployeeGroup();
+      setSnackbar(createSnackbarSuccess('usunięto z grupy'));
+    } catch (e) {
+      setSnackbar(createSnackbarError('nie udało się usunąć z grupy!'));
+    }
+  };
+
   const getPersonDisplayData = (eg: EmployeeGroupDTO) => {
     const person = persons.find(
       (p: PersonDTO) => p.IdPerson === eg.employeeGroupEmployee.IdPerson
@@ -127,6 +148,7 @@ const GroupDetailsFieldset = ({ closeDrawer, group }: Props) => {
           <Card key={eg.IdEmployeeGroup} className="grid-group row">
             <p>{person.FirstName}</p>
             <p>{person.LastName}</p>
+            <DeleteBtn onClick={() => handleDeleteItem(eg.IdEmployeeGroup)} />
           </Card>
         );
       })}
