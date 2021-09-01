@@ -14,11 +14,14 @@ import Organizators from '../pages/organizators/Organizators';
 import WorkshopsOthers from '../pages/workshops/WorkshopsOthers';
 import WorkshopsStudy from '../pages/study/WorkshopsStudy';
 import WorkshopsTraining from '../pages/Training/WorkshopsTraining';
+import LoginPage from '../pages/Login/LoginPage';
 
 export interface RouteType {
   Component: Function;
   path: string | string[];
 }
+
+export const authRoutes = [{ Component: LoginPage, path: '/logowanie' }];
 
 export const routes: RouteType[] = [
   { Component: Employment, path: '/pracownicy' },

@@ -1,22 +1,34 @@
 import { Switch, Route, Redirect } from 'react-router';
-import { routes, RouteType } from './routes/routes';
+import { authRoutes, routes, RouteType } from './routes/routes';
 import PageLayout from './components/PageLayout';
 
 const Router = () => {
+  const loginPath = authRoutes[0].path;
+  const LoginComponent = authRoutes[0].Component;
+
   return (
-    <PageLayout>
-      <Switch>
-        {routes.map(({ path, Component }: RouteType) => (
-          <Route
-            key={path.toString()}
-            exact
-            path={path}
-            children={<Component />}
-          />
-        ))}
-        <Redirect to={'/pracownicy'} />
-      </Switch>
-    </PageLayout>
+    <Switch>
+      {routes.map(({ path, Component }: RouteType) => (
+        <Route
+          key={path.toString()}
+          exact
+          path={path}
+          children={
+            <PageLayout>
+              <Component />
+            </PageLayout>
+          }
+        />
+      ))}
+
+      <Route
+        key={loginPath}
+        exact
+        path={loginPath}
+        children={<LoginComponent />}
+      />
+      <Redirect to={'/pracownicy'} />
+    </Switch>
   );
 };
 
