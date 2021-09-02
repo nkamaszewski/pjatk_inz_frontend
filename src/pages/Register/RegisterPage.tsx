@@ -2,13 +2,13 @@ import { Button } from '@material-ui/core';
 import Lottie from 'react-lottie-player';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import lottieJson from '../../animations/Security.json';
+import lottieJson from '../../animations/CloudComputing.json';
 import CustomFormikTextField from '../../components/controls_UI/formik/CustomFormikTextField';
 import { useAuth } from '../../contexts/AuthProvider';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useFormikLogin } from './useFormikLogin';
 
-const LoginPageStyle = styled.div`
+const RegisterPageStyle = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
@@ -56,25 +56,32 @@ const LoginPageStyle = styled.div`
   }
 `;
 
-const EMPTY_USER_LOGIN = { email: '', password: '' };
+const EMPTY_USER_REGISTER = {
+  firstName: '',
+  lastName: '',
+  phone: '+48 ',
+  email: '',
+  pesel: '',
+  password: '',
+};
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const { theme } = useTheme();
   const history = useHistory();
   const auth = useAuth();
   const formik = useFormikLogin({
-    initialValues: EMPTY_USER_LOGIN,
-    onSubmit: async ({ email, password }) => {
-      const isAuthenticated = await auth.logIn(email, password);
+    initialValues: EMPTY_USER_REGISTER,
+    onSubmit: async (values) => {
+      const isAuthenticated = await auth.register(values);
       if (isAuthenticated) {
         history.push('/pracownicy');
       }
     },
   });
 
-  const handleOnRegister = () => history.push('/rejestracja');
+  const handleOnLogin = () => history.push('/logowanie');
   return (
-    <LoginPageStyle theme={theme}>
+    <RegisterPageStyle theme={theme}>
       <section className="form-section">
         <form
           className="form"
@@ -85,16 +92,49 @@ const LoginPage = () => {
         >
           <div className="header-form">
             <img src={theme.logoSrc} alt="logo" className="logo-img" />
-            <h2>Logowanie</h2>
+            <h2>Zarejestruj się</h2>
           </div>
+          <CustomFormikTextField
+            name="firstName"
+            label="Imię"
+            autoFocus={true}
+            value={formik.values.firstName}
+            onChange={formik.handleChange}
+            error={formik.errors.firstName}
+            touched={formik.touched.firstName}
+          />
+          <CustomFormikTextField
+            name="lastName"
+            label="Nazwisko"
+            value={formik.values.lastName}
+            onChange={formik.handleChange}
+            error={formik.errors.lastName}
+            touched={formik.touched.lastName}
+          />
           <CustomFormikTextField
             name="email"
             label="Email"
-            autoFocus={true}
             value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.errors.email}
             touched={formik.touched.email}
+          />
+          <CustomFormikTextField
+            name="phone"
+            label="Telefon"
+            value={formik.values.phone}
+            onChange={formik.handleChange}
+            error={formik.errors.phone}
+            touched={formik.touched.phone}
+          />
+          <CustomFormikTextField
+            name="pesel"
+            type="number"
+            label="Pesel"
+            value={formik.values.pesel}
+            onChange={formik.handleChange}
+            error={formik.errors.pesel}
+            touched={formik.touched.pesel}
           />
           <CustomFormikTextField
             name="password"
@@ -106,21 +146,21 @@ const LoginPage = () => {
             touched={formik.touched.password}
           />
           <p className="register">
-            Nie masz konta?{' '}
-            <span className="register-link" onClick={handleOnRegister}>
-              Zarejestruj się
+            Masz już konto?
+            <span className="register-link" onClick={handleOnLogin}>
+              Zaloguj się
             </span>
           </p>
           <Button className="submit-btn" type="submit">
-            Zaloguj
+            Zarejestruj
           </Button>
         </form>
       </section>
       <section>
         <Lottie loop animationData={lottieJson} play />
       </section>
-    </LoginPageStyle>
+    </RegisterPageStyle>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

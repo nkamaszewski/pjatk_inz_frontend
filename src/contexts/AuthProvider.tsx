@@ -1,10 +1,20 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { postLogin } from '../api/Login';
+import { postRegister } from '../api/Register';
 
 interface IUser {
   id: string;
   token: string;
+}
+
+export interface IRegisterUser {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  pesel: string;
+  password: string;
 }
 
 const DEFAULT_USER = { id: '', token: '' };
@@ -51,7 +61,25 @@ const useAuthState = () => {
     history.push('/logowanie');
   };
 
-  return { auth, user, logIn, logOut };
+  const register = async (user: IRegisterUser): Promise<boolean> => {
+    try {
+      const response = await postRegister(user);
+      if (response.data.auth) {
+        localStorage.setItem('auth', 'true');
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        setAuth(true);
+        setUser(response.data.user);
+      } else {
+        setDefaultAuth();
+      }
+      return response.data.auth;
+    } catch (e) {
+      console.error(register, e);
+    }
+    return false;
+  };
+
+  return { auth, user, logIn, logOut, register };
 };
 
 interface IAuthContext {
@@ -59,6 +87,7 @@ interface IAuthContext {
   user: { id: string; token: string };
   logIn: (email: string, password: string) => Promise<boolean>;
   logOut: () => void;
+  register: (user: IRegisterUser) => Promise<boolean>;
 }
 
 export const AuthContext = createContext<IAuthContext | undefined>(undefined);

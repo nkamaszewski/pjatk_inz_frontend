@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const FieldStyle = styled.div`
   display: grid;
+  margin: 8px 0;
   .error-message {
     color: red;
   }

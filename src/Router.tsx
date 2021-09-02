@@ -5,8 +5,9 @@ import { useAuth } from './contexts/AuthProvider';
 
 const Router = () => {
   const { auth } = useAuth();
-  const loginPath = authRoutes[0].path;
-  const LoginComponent = authRoutes[0].Component;
+  const [login, register] = authRoutes;
+  const LoginComponent = login.Component;
+  const RegisterComponent = register.Component;
 
   return (
     <Switch>
@@ -26,10 +27,16 @@ const Router = () => {
       )}
 
       <Route
-        key={loginPath}
+        key={login.path}
         exact
-        path={loginPath}
+        path={login.path}
         children={<LoginComponent />}
+      />
+      <Route
+        key={register.path}
+        exact
+        path={register.path}
+        children={<RegisterComponent />}
       />
       <Redirect to={'/logowanie'} />
     </Switch>
