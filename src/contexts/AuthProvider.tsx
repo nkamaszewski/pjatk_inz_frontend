@@ -45,6 +45,8 @@ const useAuthState = () => {
   };
 
   const logOut = () => {
+    setAuth(false);
+    setUser(DEFAULT_USER);
     setDefaultAuth();
     history.push('/logowanie');
   };
