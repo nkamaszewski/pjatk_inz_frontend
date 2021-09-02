@@ -6,6 +6,8 @@ import lottieJson from '../../animations/Security.json';
 import { useFormikLogin } from './useFormikLogin';
 import CustomFormikTextField from '../../components/controls_UI/formik/CustomFormikTextField';
 import { Button } from '@material-ui/core';
+import { useAuth } from '../../contexts/AuthProvider';
+import { useHistory } from 'react-router';
 
 const LoginPageStyle = styled.div`
   display: grid;
@@ -47,9 +49,18 @@ const EMPTY_USER_LOGIN = { email: '', password: '' };
 
 const LoginPage = () => {
   const { theme } = useContext(ThemeContext);
+  const history = useHistory();
+  const auth = useAuth();
   const formik = useFormikLogin({
     initialValues: EMPTY_USER_LOGIN,
-    onSubmit: () => {},
+    onSubmit: async ({ email, password }) => {
+      console.log('onSubmit', email, password);
+
+      const isAuthenticated = await auth.logIn(email, password);
+      if (isAuthenticated) {
+        history.push('/pracownicy');
+      }
+    },
   });
   return (
     <LoginPageStyle theme={theme}>
