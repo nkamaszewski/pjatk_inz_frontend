@@ -1,9 +1,3 @@
-import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { Collapse } from '@material-ui/core';
-import { ThemeContext } from '../contexts/ThemeContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faAddressCard,
   faChalkboardTeacher,
@@ -25,6 +19,12 @@ import {
   faWindowRestore,
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Collapse } from '@material-ui/core';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+import { useTheme } from '../contexts/ThemeContext';
 
 interface NavigationItem {
   id: string;
@@ -196,7 +196,7 @@ const Navigation = () => {
   const [wnioskiOpen, setWnioskiOpen] = useState(false);
   const [szkoleniaOpen, setSzkoleniaOpen] = useState(false);
   const [szkoleniaWewnetrzneOpen, setSzkoleniaWewnetrzneOpen] = useState(false);
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
 
   const getCloseFn = (label: string) => {
     switch (label) {

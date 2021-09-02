@@ -1,9 +1,8 @@
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Divider, Tooltip } from '@material-ui/core';
-import { useContext } from 'react';
 import styled from 'styled-components';
-import { ThemeContext } from '../contexts/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 const HeaderFieldsetStyle = styled.div`
   display: grid;
@@ -27,7 +26,7 @@ interface Props {
 }
 
 const HeaderFieldset = ({ title, className, closeDrawer }: Props) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   const handleCancel = () => closeDrawer();
   return (
     <HeaderFieldsetStyle theme={theme} className={className}>

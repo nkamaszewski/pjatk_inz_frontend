@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { postLogin } from '../api/Login';
 
 interface IUser {
@@ -6,19 +7,23 @@ interface IUser {
   token: string;
 }
 
+const DEFAULT_USER = { id: '', token: '' };
+
+const setDefaultAuth = () => {
+  localStorage.setItem('auth', '');
+  localStorage.setItem('user', JSON.stringify(DEFAULT_USER));
+};
+
 const useAuthState = () => {
-  const [auth, setAuth] = useState<boolean>(false);
-  const [user, setUser] = useState<IUser>({ id: '', token: '' });
-
-  useEffect(() => {
-    const authStoraged = Boolean(localStorage.getItem('auth'));
-    setAuth(authStoraged);
-
-    const userStoraged = localStorage.getItem('user');
-    if (userStoraged) {
-      setUser(JSON.parse(userStoraged));
-    }
-  }, []);
+  const [auth, setAuth] = useState<boolean>(
+    Boolean(localStorage.getItem('auth'))
+  );
+  const [user, setUser] = useState<IUser>(
+    localStorage.getItem('user')
+      ? JSON.parse(localStorage.getItem('user') as string)
+      : DEFAULT_USER
+  );
+  const history = useHistory();
 
   const logIn = async (email: string, password: string): Promise<boolean> => {
     localStorage.clear();
@@ -29,6 +34,8 @@ const useAuthState = () => {
         localStorage.setItem('user', JSON.stringify(response.data.user));
         setAuth(true);
         setUser(response.data.user);
+      } else {
+        setDefaultAuth();
       }
       return response.data.auth;
     } catch (e) {
@@ -37,13 +44,19 @@ const useAuthState = () => {
     return false;
   };
 
-  return { auth, user, logIn };
+  const logOut = () => {
+    setDefaultAuth();
+    history.push('/logowanie');
+  };
+
+  return { auth, user, logIn, logOut };
 };
 
 interface IAuthContext {
   auth: boolean;
   user: { id: string; token: string };
   logIn: (email: string, password: string) => Promise<boolean>;
+  logOut: () => void;
 }
 
 export const AuthContext = createContext<IAuthContext | undefined>(undefined);

@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import styled from 'styled-components';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const HeaderListStyle = styled.div`
   background-color: ${(p) => p.theme.listHeaderBackground};
@@ -15,7 +14,7 @@ interface Props {
 }
 
 const HeaderListStyled = ({ children, className }: Props) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   return (
     <HeaderListStyle theme={theme} className={className}>
       {children}

@@ -1,6 +1,8 @@
+import { ReactNode } from 'react';
 import styled from 'styled-components';
+import { useTheme } from './contexts/ThemeContext';
 
-export const GlobalStyle = styled.div`
+const GlobalStyle = styled.div`
   .toolbar--global {
     padding: 36px;
     width: calc(100% - 72px);
@@ -27,3 +29,12 @@ export const GlobalStyle = styled.div`
     color: #0d924f;
   }
 `;
+
+interface Props {
+  children: ReactNode;
+}
+
+export const GlobalStyleProvider = ({ children }: Props) => {
+  const { theme } = useTheme();
+  return <GlobalStyle theme={theme}>{children}</GlobalStyle>;
+};

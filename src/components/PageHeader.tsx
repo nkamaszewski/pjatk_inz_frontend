@@ -1,7 +1,8 @@
 import { Switch, withStyles } from '@material-ui/core';
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { ThemeContext } from '../contexts/ThemeContext';
+import { ThemeContext, useTheme } from '../contexts/ThemeContext';
+import { LogoutBtn } from './LogoutBtn';
 
 const YellowSwitch = withStyles({
   switchBase: {
@@ -19,7 +20,7 @@ const YellowSwitch = withStyles({
 
 const PageHeaderStyle = styled.div`
   display: grid;
-  grid-template-columns: 1fr 120px 80px;
+  grid-template-columns: 1fr 120px 80px 80px;
   align-items: center;
   background-color: ${({ theme }) => theme.primaryBackground};
   color: ${({ theme }) => theme.primaryColor};
@@ -36,7 +37,7 @@ interface Props {
 }
 
 const PageHeader = ({ title }: Props) => {
-  const { theme, setDarkTheme, setLightTheme } = useContext(ThemeContext);
+  const { theme, setDarkTheme, setLightTheme } = useTheme();
   const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) setDarkTheme();
     else setLightTheme();
@@ -50,6 +51,7 @@ const PageHeader = ({ title }: Props) => {
         onChange={handleThemeChange}
         inputProps={{ 'aria-label': 'secondary checkbox' }}
       />
+      <LogoutBtn />
     </PageHeaderStyle>
   );
 };

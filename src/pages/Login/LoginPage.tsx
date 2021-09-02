@@ -1,13 +1,12 @@
-import { useContext } from 'react';
-import Lottie from 'react-lottie-player';
-import styled from 'styled-components';
-import { ThemeContext } from '../../contexts/ThemeContext';
-import lottieJson from '../../animations/Security.json';
-import { useFormikLogin } from './useFormikLogin';
-import CustomFormikTextField from '../../components/controls_UI/formik/CustomFormikTextField';
 import { Button } from '@material-ui/core';
-import { useAuth } from '../../contexts/AuthProvider';
+import Lottie from 'react-lottie-player';
 import { useHistory } from 'react-router';
+import styled from 'styled-components';
+import lottieJson from '../../animations/Security.json';
+import CustomFormikTextField from '../../components/controls_UI/formik/CustomFormikTextField';
+import { useAuth } from '../../contexts/AuthProvider';
+import { useTheme } from '../../contexts/ThemeContext';
+import { useFormikLogin } from './useFormikLogin';
 
 const LoginPageStyle = styled.div`
   display: grid;
@@ -48,7 +47,7 @@ const LoginPageStyle = styled.div`
 const EMPTY_USER_LOGIN = { email: '', password: '' };
 
 const LoginPage = () => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   const history = useHistory();
   const auth = useAuth();
   const formik = useFormikLogin({
