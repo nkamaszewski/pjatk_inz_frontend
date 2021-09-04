@@ -3,7 +3,8 @@ import Lottie from 'react-lottie-player';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import lottieJson from '../../animations/CloudComputing.json';
-import CustomFormikTextField from '../../components/controls_UI/formik/CustomFormikTextField';
+import FormikPassword from '../../components/controls_UI/formik/FormikPassword';
+import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
 import { useAuth } from '../../contexts/AuthProvider';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useFormikLogin } from './useFormikLogin';
@@ -94,7 +95,7 @@ const RegisterPage = () => {
             <img src={theme.logoSrc} alt="logo" className="logo-img" />
             <h2>Zarejestruj się</h2>
           </div>
-          <CustomFormikTextField
+          <FormikTextField
             name="firstName"
             label="Imię"
             autoFocus={true}
@@ -103,7 +104,7 @@ const RegisterPage = () => {
             error={formik.errors.firstName}
             touched={formik.touched.firstName}
           />
-          <CustomFormikTextField
+          <FormikTextField
             name="lastName"
             label="Nazwisko"
             value={formik.values.lastName}
@@ -111,7 +112,7 @@ const RegisterPage = () => {
             error={formik.errors.lastName}
             touched={formik.touched.lastName}
           />
-          <CustomFormikTextField
+          <FormikTextField
             name="email"
             label="Email"
             value={formik.values.email}
@@ -119,7 +120,7 @@ const RegisterPage = () => {
             error={formik.errors.email}
             touched={formik.touched.email}
           />
-          <CustomFormikTextField
+          <FormikTextField
             name="phone"
             label="Telefon"
             value={formik.values.phone}
@@ -127,7 +128,7 @@ const RegisterPage = () => {
             error={formik.errors.phone}
             touched={formik.touched.phone}
           />
-          <CustomFormikTextField
+          <FormikTextField
             name="pesel"
             type="number"
             label="Pesel"
@@ -136,10 +137,9 @@ const RegisterPage = () => {
             error={formik.errors.pesel}
             touched={formik.touched.pesel}
           />
-          <CustomFormikTextField
+          <FormikPassword
             name="password"
             label="Hasło"
-            type="password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.errors.password}

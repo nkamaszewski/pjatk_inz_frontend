@@ -3,7 +3,8 @@ import Lottie from 'react-lottie-player';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import lottieJson from '../../animations/Security.json';
-import CustomFormikTextField from '../../components/controls_UI/formik/CustomFormikTextField';
+import FormikPassword from '../../components/controls_UI/formik/FormikPassword';
+import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
 import { useAuth } from '../../contexts/AuthProvider';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useFormikLogin } from './useFormikLogin';
@@ -87,7 +88,7 @@ const LoginPage = () => {
             <img src={theme.logoSrc} alt="logo" className="logo-img" />
             <h2>Logowanie</h2>
           </div>
-          <CustomFormikTextField
+          <FormikTextField
             name="email"
             label="Email"
             autoFocus={true}
@@ -96,10 +97,9 @@ const LoginPage = () => {
             error={formik.errors.email}
             touched={formik.touched.email}
           />
-          <CustomFormikTextField
+          <FormikPassword
             name="password"
             label="Hasło"
-            type="password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.errors.password}

@@ -22,7 +22,7 @@ interface Props {
   autoFocus?: boolean;
 }
 
-const CustomFormikTextField = ({
+const FormikTextField = ({
   name,
   value,
   type = 'text',
@@ -52,4 +52,4 @@ const CustomFormikTextField = ({
   );
 };
 
-export default CustomFormikTextField;
+export default FormikTextField;

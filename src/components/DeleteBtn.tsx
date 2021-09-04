@@ -1,6 +1,5 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Tooltip } from '@material-ui/core';
+import { IconBtn } from './IconBtn';
 
 interface Props {
   onClick: () => void;
@@ -8,11 +7,12 @@ interface Props {
 
 const DeleteBtn = ({ onClick }: Props) => {
   return (
-    <Tooltip title="usuń">
-      <Button onClick={onClick as any}>
-        <FontAwesomeIcon className="g-error-color" icon={faTrash} />
-      </Button>
-    </Tooltip>
+    <IconBtn
+      title="usuń"
+      onClick={onClick as any}
+      icon={faTrash}
+      iconClassname="g-error-color"
+    />
   );
 };
 

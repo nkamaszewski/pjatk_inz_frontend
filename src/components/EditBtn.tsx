@@ -1,6 +1,5 @@
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Tooltip } from '@material-ui/core';
+import { IconBtn } from './IconBtn';
 
 interface Props {
   onClick: Function;
@@ -8,11 +7,12 @@ interface Props {
 
 const EditBtn = ({ onClick }: Props) => {
   return (
-    <Tooltip title="edytuj">
-      <Button onClick={onClick as any}>
-        <FontAwesomeIcon className="g-primary-color" icon={faEdit} />
-      </Button>
-    </Tooltip>
+    <IconBtn
+      title="edytuj"
+      onClick={onClick as any}
+      icon={faEdit}
+      iconClassname="g-primary-color"
+    />
   );
 };
 
