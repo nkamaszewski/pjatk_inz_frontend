@@ -5,7 +5,9 @@ import styled from 'styled-components';
 import lottieJson from '../../animations/Security.json';
 import FormikPassword from '../../components/controls_UI/formik/FormikPassword';
 import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
+import { LanguagePanel } from '../../components/LanguagePanel';
 import { useAuth } from '../../contexts/AuthProvider';
+import { useLanguage } from '../../contexts/LanguageProvider';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useFormikLogin } from './useFormikLogin';
 
@@ -14,13 +16,13 @@ const LoginPageStyle = styled.div`
   grid-template-columns: 1fr 1fr;
   height: 100vh;
   .form-section {
+    display: grid;
+    place-items: center;
+    grid-template-rows: 100px 1fr;
     background-color: ${({ theme }) => theme.primaryBackground};
     color: ${({ theme }) => theme.primaryColor};
   }
-  .form-section {
-    display: grid;
-    place-items: center;
-  }
+
   .form {
     color: ${({ theme }) => theme.primaryBackground};
     background-color: ${({ theme }) => theme.primaryColor};
@@ -63,6 +65,16 @@ const LoginPage = () => {
   const { theme } = useTheme();
   const history = useHistory();
   const auth = useAuth();
+  const {
+    language: {
+      schema: {
+        loginPage: {
+          _header: { title },
+          _form,
+        },
+      },
+    },
+  } = useLanguage();
   const formik = useFormikLogin({
     initialValues: EMPTY_USER_LOGIN,
     onSubmit: async ({ email, password }) => {
@@ -77,6 +89,7 @@ const LoginPage = () => {
   return (
     <LoginPageStyle theme={theme}>
       <section className="form-section">
+        <LanguagePanel />
         <form
           className="form"
           onSubmit={(e) => {
@@ -86,11 +99,11 @@ const LoginPage = () => {
         >
           <div className="header-form">
             <img src={theme.logoSrc} alt="logo" className="logo-img" />
-            <h2>Logowanie</h2>
+            <h2>{title}</h2>
           </div>
           <FormikTextField
             name="email"
-            label="Email"
+            label={_form.email}
             autoFocus={true}
             value={formik.values.email}
             onChange={formik.handleChange}
@@ -99,20 +112,20 @@ const LoginPage = () => {
           />
           <FormikPassword
             name="password"
-            label="Hasło"
+            label={_form.password}
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.errors.password}
             touched={formik.touched.password}
           />
           <p className="register">
-            Nie masz konta?{' '}
+            {_form.footer}
             <span className="register-link" onClick={handleOnRegister}>
-              Zarejestruj się
+              {_form.footerLink}
             </span>
           </p>
           <Button className="submit-btn" type="submit">
-            Zaloguj
+            {_form.submitBtn}
           </Button>
         </form>
       </section>

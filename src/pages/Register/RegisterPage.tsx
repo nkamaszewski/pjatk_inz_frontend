@@ -5,7 +5,9 @@ import styled from 'styled-components';
 import lottieJson from '../../animations/CloudComputing.json';
 import FormikPassword from '../../components/controls_UI/formik/FormikPassword';
 import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
+import { LanguagePanel } from '../../components/LanguagePanel';
 import { useAuth } from '../../contexts/AuthProvider';
+import { useLanguage } from '../../contexts/LanguageProvider';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useFormikLogin } from './useFormikLogin';
 
@@ -14,13 +16,13 @@ const RegisterPageStyle = styled.div`
   grid-template-columns: 1fr 1fr;
   height: 100vh;
   .form-section {
+    display: grid;
+    place-items: center;
+    grid-template-rows: 100px 1fr;
     background-color: ${({ theme }) => theme.primaryBackground};
     color: ${({ theme }) => theme.primaryColor};
   }
-  .form-section {
-    display: grid;
-    place-items: center;
-  }
+
   .form {
     color: ${({ theme }) => theme.primaryBackground};
     background-color: ${({ theme }) => theme.primaryColor};
@@ -70,6 +72,16 @@ const RegisterPage = () => {
   const { theme } = useTheme();
   const history = useHistory();
   const auth = useAuth();
+  const {
+    language: {
+      schema: {
+        registerPage: {
+          _header: { title },
+          _form,
+        },
+      },
+    },
+  } = useLanguage();
   const formik = useFormikLogin({
     initialValues: EMPTY_USER_REGISTER,
     onSubmit: async (values) => {
@@ -84,6 +96,7 @@ const RegisterPage = () => {
   return (
     <RegisterPageStyle theme={theme}>
       <section className="form-section">
+        <LanguagePanel />
         <form
           className="form"
           onSubmit={(e) => {
@@ -93,11 +106,11 @@ const RegisterPage = () => {
         >
           <div className="header-form">
             <img src={theme.logoSrc} alt="logo" className="logo-img" />
-            <h2>Zarejestruj się</h2>
+            <h2>{title}</h2>
           </div>
           <FormikTextField
             name="firstName"
-            label="Imię"
+            label={_form.firstName}
             autoFocus={true}
             value={formik.values.firstName}
             onChange={formik.handleChange}
@@ -106,7 +119,7 @@ const RegisterPage = () => {
           />
           <FormikTextField
             name="lastName"
-            label="Nazwisko"
+            label={_form.lastName}
             value={formik.values.lastName}
             onChange={formik.handleChange}
             error={formik.errors.lastName}
@@ -114,7 +127,7 @@ const RegisterPage = () => {
           />
           <FormikTextField
             name="email"
-            label="Email"
+            label={_form.email}
             value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.errors.email}
@@ -122,7 +135,7 @@ const RegisterPage = () => {
           />
           <FormikTextField
             name="phone"
-            label="Telefon"
+            label={_form.phone}
             value={formik.values.phone}
             onChange={formik.handleChange}
             error={formik.errors.phone}
@@ -131,7 +144,7 @@ const RegisterPage = () => {
           <FormikTextField
             name="pesel"
             type="number"
-            label="Pesel"
+            label={_form.TIN}
             value={formik.values.pesel}
             onChange={formik.handleChange}
             error={formik.errors.pesel}
@@ -139,20 +152,20 @@ const RegisterPage = () => {
           />
           <FormikPassword
             name="password"
-            label="Hasło"
+            label={_form.password}
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.errors.password}
             touched={formik.touched.password}
           />
           <p className="register">
-            Masz już konto?
+            {_form.footer}
             <span className="register-link" onClick={handleOnLogin}>
-              Zaloguj się
+              {_form.footerLink}
             </span>
           </p>
           <Button className="submit-btn" type="submit">
-            Zarejestruj
+            {_form.submitBtn}
           </Button>
         </form>
       </section>

@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthProvider';
 import { DictionaryProvider } from './contexts/DictionaryContext';
 import { FilterProvider } from './contexts/FilterContext';
+import { LanguageProvider } from './contexts/LanguageProvider';
 import MaterialUIThemeProvider from './contexts/MaterialUITheme';
 import { NotificationProvider } from './contexts/NotificationContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -21,7 +22,9 @@ const AppProviders = ({ children }: Props) => {
             <AuthProvider>
               <NotificationProvider>
                 <FilterProvider>
-                  <DictionaryProvider>{children}</DictionaryProvider>
+                  <DictionaryProvider>
+                    <LanguageProvider>{children}</LanguageProvider>
+                  </DictionaryProvider>
                 </FilterProvider>
               </NotificationProvider>
             </AuthProvider>

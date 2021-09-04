@@ -49,7 +49,7 @@ function reducer(state: ThemeState, action: ThemeAction) {
     case 'light':
       return light_theme;
     default:
-      throw new Error();
+      throw new Error('theme is not available!');
   }
 }
 
