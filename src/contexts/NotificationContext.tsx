@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import { useEffect, useState, useContext } from 'react';
+import SnackbarNotification from '../components/SnackbarNotification';
 
 export enum SnackbarVariant {
   success = 'success',
@@ -35,6 +36,11 @@ const useNotification = () => {
   const [snackbar, setSnackbar]: [ISnackbar, Function] =
     useState(EMPTY_SNACKBAR);
 
+  const setSuccessSnackbar = (message: string) =>
+    setSnackbar(createSnackbarSuccess(message));
+  const setErrorSnackbar = (message: string) =>
+    setSnackbar(createSnackbarError(message));
+
   useEffect(() => {
     if (snackbar.open)
       setTimeout(
@@ -43,12 +49,14 @@ const useNotification = () => {
       );
   }, [snackbar]);
 
-  return { snackbar, setSnackbar };
+  return { snackbar, setSnackbar, setSuccessSnackbar, setErrorSnackbar };
 };
 
 interface INotificationContext {
   snackbar: ISnackbar;
   setSnackbar: Function;
+  setSuccessSnackbar: (message: string) => void;
+  setErrorSnackbar: (message: string) => void;
 }
 
 export const NotificationContext = createContext<
@@ -63,6 +71,7 @@ export const NotificationProvider = ({
   const notification = useNotification();
   return (
     <NotificationContext.Provider value={notification}>
+      <SnackbarNotification />
       {children}
     </NotificationContext.Provider>
   );

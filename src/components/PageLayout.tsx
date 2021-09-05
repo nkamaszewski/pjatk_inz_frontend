@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import Navigation from './Navigation';
-import SnackbarNotification from './SnackbarNotification';
 
 const PageLayoutStyle = styled.div`
   height: 100vh;
@@ -15,15 +14,12 @@ interface Props {
 
 const PageLayout = ({ children }: Props) => {
   return (
-    <>
-      <SnackbarNotification />
-      <PageLayoutStyle>
-        <nav>
-          <Navigation />
-        </nav>
-        <div>{children}</div>
-      </PageLayoutStyle>
-    </>
+    <PageLayoutStyle>
+      <nav>
+        <Navigation />
+      </nav>
+      <div>{children}</div>
+    </PageLayoutStyle>
   );
 };
 

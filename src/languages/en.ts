@@ -1,6 +1,10 @@
 import { LanguageSchema } from './LanguageSchema';
 
 export const en: LanguageSchema = {
+  auth: {
+    _loginError: 'login or password are incorrect',
+    _registerError: 'Registration failed',
+  },
   loginPage: {
     _header: {
       title: 'Sign in',

@@ -24,8 +24,8 @@ const SnackbarNotification = () => {
   return (
     <Snackbar
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
+        vertical: 'top',
+        horizontal: 'center',
       }}
       open={snackbar.open}
     >

@@ -15,23 +15,23 @@ interface Props {
 
 const AppProviders = ({ children }: Props) => {
   return (
-    <BrowserRouter>
-      <ThemeProvider>
-        <MaterialUIThemeProvider>
-          <GlobalStyleProvider>
-            <AuthProvider>
+    <LanguageProvider>
+      <BrowserRouter>
+        <ThemeProvider>
+          <MaterialUIThemeProvider>
+            <GlobalStyleProvider>
               <NotificationProvider>
-                <FilterProvider>
-                  <DictionaryProvider>
-                    <LanguageProvider>{children}</LanguageProvider>
-                  </DictionaryProvider>
-                </FilterProvider>
+                <AuthProvider>
+                  <FilterProvider>
+                    <DictionaryProvider>{children}</DictionaryProvider>
+                  </FilterProvider>
+                </AuthProvider>
               </NotificationProvider>
-            </AuthProvider>
-          </GlobalStyleProvider>
-        </MaterialUIThemeProvider>
-      </ThemeProvider>
-    </BrowserRouter>
+            </GlobalStyleProvider>
+          </MaterialUIThemeProvider>
+        </ThemeProvider>
+      </BrowserRouter>
+    </LanguageProvider>
   );
 };
 

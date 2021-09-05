@@ -1,4 +1,8 @@
 export interface LanguageSchema {
+  auth: {
+    _loginError: string;
+    _registerError: string;
+  };
   loginPage: {
     _header: {
       title: string;

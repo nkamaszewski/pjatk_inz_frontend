@@ -1,7 +1,9 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { postLogin } from '../api/Login';
 import { postRegister } from '../api/Register';
+import { useLanguage } from './LanguageProvider';
+import { useSnackbar } from './NotificationContext';
 
 interface IUser {
   id: string;
@@ -34,6 +36,14 @@ const useAuthState = () => {
       : DEFAULT_USER
   );
   const history = useHistory();
+  const { setErrorSnackbar } = useSnackbar();
+  const {
+    language: {
+      schema: {
+        auth: { _loginError, _registerError },
+      },
+    },
+  } = useLanguage();
 
   const logIn = async (email: string, password: string): Promise<boolean> => {
     localStorage.clear();
@@ -49,6 +59,7 @@ const useAuthState = () => {
       }
       return response.data.auth;
     } catch (e) {
+      setErrorSnackbar(_loginError);
       console.error('logIn', e);
     }
     return false;
@@ -74,6 +85,7 @@ const useAuthState = () => {
       }
       return response.data.auth;
     } catch (e) {
+      setErrorSnackbar(_registerError);
       console.error(register, e);
     }
     return false;
