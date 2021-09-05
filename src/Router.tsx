@@ -11,7 +11,7 @@ const Router = () => {
 
   return (
     <Switch>
-      {auth && (
+      {auth.user && (
         <PageLayout>
           <>
             {routes.map(({ path, Component }: RouteType) => (

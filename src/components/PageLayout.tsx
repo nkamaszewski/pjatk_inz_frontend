@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import Navigation from './Navigation';
 
 const PageLayoutStyle = styled.div`

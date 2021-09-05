@@ -2,11 +2,12 @@ import { createContext, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { postLogin } from '../api/Login';
 import { postRegister } from '../api/Register';
+import { PersonDTO } from '../types/DTO/Person';
 import { useLanguage } from './LanguageProvider';
 import { useSnackbar } from './NotificationContext';
 
 interface IUser {
-  id: string;
+  user: PersonDTO | null;
   token: string;
 }
 
@@ -19,22 +20,19 @@ export interface IRegisterUser {
   password: string;
 }
 
-const DEFAULT_USER = { id: '', token: '' };
+const DEFAULT_USER = { user: null, token: '' };
 
 const setDefaultAuth = () => {
-  localStorage.setItem('auth', '');
-  localStorage.setItem('user', JSON.stringify(DEFAULT_USER));
+  localStorage.setItem('auth', JSON.stringify(DEFAULT_USER));
 };
 
 const useAuthState = () => {
-  const [auth, setAuth] = useState<boolean>(
-    Boolean(localStorage.getItem('auth'))
-  );
-  const [user, setUser] = useState<IUser>(
-    localStorage.getItem('user')
-      ? JSON.parse(localStorage.getItem('user') as string)
+  const [auth, setAuth] = useState<IUser>(
+    localStorage.getItem('auth')
+      ? JSON.parse(localStorage.getItem('auth') as string)
       : DEFAULT_USER
   );
+
   const history = useHistory();
   const { setErrorSnackbar } = useSnackbar();
   const {
@@ -49,15 +47,13 @@ const useAuthState = () => {
     localStorage.clear();
     try {
       const response = await postLogin({ email, password });
-      if (response.data.auth) {
-        localStorage.setItem('auth', 'true');
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        setAuth(true);
-        setUser(response.data.user);
+      if (response.data.user) {
+        localStorage.setItem('auth', JSON.stringify(response.data.user));
+        setAuth(response.data);
+        return true;
       } else {
         setDefaultAuth();
       }
-      return response.data.auth;
     } catch (e) {
       setErrorSnackbar(_loginError);
       console.error('logIn', e);
@@ -66,8 +62,7 @@ const useAuthState = () => {
   };
 
   const logOut = () => {
-    setAuth(false);
-    setUser(DEFAULT_USER);
+    setAuth(DEFAULT_USER);
     setDefaultAuth();
     history.push('/logowanie');
   };
@@ -75,15 +70,13 @@ const useAuthState = () => {
   const register = async (user: IRegisterUser): Promise<boolean> => {
     try {
       const response = await postRegister(user);
-      if (response.data.auth) {
-        localStorage.setItem('auth', 'true');
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        setAuth(true);
-        setUser(response.data.user);
+      if (response.data.user) {
+        localStorage.setItem('auth', JSON.stringify(response.data.user));
+        setAuth(response.data);
+        return true;
       } else {
         setDefaultAuth();
       }
-      return response.data.auth;
     } catch (e) {
       setErrorSnackbar(_registerError);
       console.error(register, e);
@@ -91,12 +84,11 @@ const useAuthState = () => {
     return false;
   };
 
-  return { auth, user, logIn, logOut, register };
+  return { auth, logIn, logOut, register };
 };
 
 interface IAuthContext {
-  auth: boolean;
-  user: { id: string; token: string };
+  auth: IUser;
   logIn: (email: string, password: string) => Promise<boolean>;
   logOut: () => void;
   register: (user: IRegisterUser) => Promise<boolean>;

@@ -1,7 +1,7 @@
-import { Switch, withStyles } from '@material-ui/core';
-import { useContext } from 'react';
+import { Avatar, Switch, withStyles } from '@material-ui/core';
 import styled from 'styled-components';
-import { ThemeContext, useTheme } from '../contexts/ThemeContext';
+import { useAuth } from '../contexts/AuthProvider';
+import { useTheme } from '../contexts/ThemeContext';
 import { LogoutBtn } from './LogoutBtn';
 
 const YellowSwitch = withStyles({
@@ -20,7 +20,7 @@ const YellowSwitch = withStyles({
 
 const PageHeaderStyle = styled.div`
   display: grid;
-  grid-template-columns: 1fr 120px 80px 80px;
+  grid-template-columns: 1fr 220px 80px;
   align-items: center;
   background-color: ${({ theme }) => theme.primaryBackground};
   color: ${({ theme }) => theme.primaryColor};
@@ -30,6 +30,22 @@ const PageHeaderStyle = styled.div`
   h1 {
     padding-left: 36px;
   }
+
+  .level-1 {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    align-items: center;
+
+    .avatar {
+      background-color: ${({ theme }) => theme.hoverColor};
+    }
+  }
+
+  .level-2 {
+    display: grid;
+    grid-template-columns: 120px 80px;
+    align-items: center;
+  }
 `;
 
 interface Props {
@@ -38,6 +54,9 @@ interface Props {
 
 const PageHeader = ({ title }: Props) => {
   const { theme, setDarkTheme, setLightTheme } = useTheme();
+  const {
+    auth: { user },
+  } = useAuth();
   const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) setDarkTheme();
     else setLightTheme();
@@ -45,12 +64,25 @@ const PageHeader = ({ title }: Props) => {
   return (
     <PageHeaderStyle theme={theme}>
       <h1>{title}</h1>
-      <h4>{`Motyw ${theme.themeName === 'dark' ? 'ciemny' : 'jasny'}`}</h4>
-      <YellowSwitch
-        checked={theme.themeName === 'dark'}
-        onChange={handleThemeChange}
-        inputProps={{ 'aria-label': 'secondary checkbox' }}
-      />
+      <section>
+        <div className="level-1">
+          <Avatar className="avatar">
+            {user?.FirstName.charAt(0)}
+            {user?.LastName.charAt(0)}
+          </Avatar>
+          <p>
+            {user?.FirstName} {user?.LastName}
+          </p>
+        </div>
+        <div className="level-2">
+          <h4>{`Motyw ${theme.themeName === 'dark' ? 'ciemny' : 'jasny'}`}</h4>
+          <YellowSwitch
+            checked={theme.themeName === 'dark'}
+            onChange={handleThemeChange}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />
+        </div>
+      </section>
       <LogoutBtn />
     </PageHeaderStyle>
   );
