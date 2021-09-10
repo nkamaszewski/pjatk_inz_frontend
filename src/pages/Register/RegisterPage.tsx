@@ -9,7 +9,7 @@ import { LanguagePanel } from '../../components/LanguagePanel';
 import { useAuth } from '../../contexts/AuthProvider';
 import { useLanguage } from '../../contexts/LanguageProvider';
 import { useTheme } from '../../contexts/ThemeContext';
-import { useFormikLogin } from './useFormikLogin';
+import { useFormikRegister } from './useFormikRegister';
 
 const RegisterPageStyle = styled.div`
   display: grid;
@@ -82,7 +82,7 @@ const RegisterPage = () => {
       },
     },
   } = useLanguage();
-  const formik = useFormikLogin({
+  const formik = useFormikRegister({
     initialValues: EMPTY_USER_REGISTER,
     onSubmit: async (values) => {
       const isAuthenticated = await auth.register(values);

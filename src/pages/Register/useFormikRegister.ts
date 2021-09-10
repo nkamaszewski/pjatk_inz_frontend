@@ -8,7 +8,7 @@ const UtworSchema = Yup.object().shape({
   password: Yup.string().required('hasło jest wymagane'),
 });
 
-export function useFormikLogin<Values extends FormikValues = FormikValues>({
+export function useFormikRegister<Values extends FormikValues = FormikValues>({
   validateOnChange,
   validateOnBlur,
   validateOnMount,
@@ -17,7 +17,7 @@ export function useFormikLogin<Values extends FormikValues = FormikValues>({
   onSubmit,
   ...rest
 }: FormikConfig<Values>) {
-  const formikUtwor = useFormik({
+  const formikRegister = useFormik({
     validateOnChange,
     validateOnBlur,
     validateOnMount,
@@ -28,5 +28,5 @@ export function useFormikLogin<Values extends FormikValues = FormikValues>({
     validationSchema: UtworSchema,
   });
 
-  return formikUtwor;
+  return formikRegister;
 }

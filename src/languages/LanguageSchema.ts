@@ -31,4 +31,19 @@ export interface LanguageSchema {
       submitBtn: string;
     };
   };
+  userAccountPage: {
+    _header: {
+      title: string;
+    };
+    _form: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      phone: string;
+
+      password: string;
+      switchBtn: string;
+      submitBtn: string;
+    };
+  };
 }

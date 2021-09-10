@@ -33,4 +33,18 @@ export const pl: LanguageSchema = {
       submitBtn: 'ZAREJESTRUJ',
     },
   },
+  userAccountPage: {
+    _header: {
+      title: 'Moje konto',
+    },
+    _form: {
+      firstName: 'Imię',
+      lastName: 'Nazwisko',
+      email: 'Email',
+      phone: 'Telefon',
+      password: 'Hasło',
+      switchBtn: 'Tryb edycji',
+      submitBtn: 'ZAPISZ',
+    },
+  },
 };

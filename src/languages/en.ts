@@ -33,4 +33,18 @@ export const en: LanguageSchema = {
       submitBtn: 'SIGN UP',
     },
   },
+  userAccountPage: {
+    _header: {
+      title: 'My account',
+    },
+    _form: {
+      firstName: 'FirstName',
+      lastName: 'LastName',
+      email: 'Email',
+      phone: 'PHONE',
+      password: 'Password',
+      switchBtn: 'Edit mode',
+      submitBtn: 'SAVE',
+    },
+  },
 };
