@@ -1,7 +1,9 @@
 import { faMailBulk, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Divider } from '@material-ui/core';
+import { updateUser } from 'api/User';
 import { useLanguage } from 'contexts/LanguageProvider';
+import { useSnackbar } from 'contexts/NotificationContext';
 import { useState } from 'react';
 import styled from 'styled-components';
 import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
@@ -34,9 +36,10 @@ const UserAccountPageStyled = styled.div`
 `;
 
 const UserAccountPage = () => {
-  const [userEditModel, setUserEditModel] = useState<PersonDTO | null>(null);
+  const [editMode, setEditMode] = useState(false);
   const {
     auth: { user },
+    modifyUser,
   } = useAuth();
   const {
     language: {
@@ -45,25 +48,29 @@ const UserAccountPage = () => {
       },
     },
   } = useLanguage();
+  const { setSuccessSnackbar, setErrorSnackbar } = useSnackbar();
 
   const formik = useFormikUser({
     initialValues: user ?? ({} as PersonDTO),
     onSubmit: async (values) => {
-      // const isAuthenticated = await auth.register(values);
-      // if (isAuthenticated) {
-      //   history.push('/pracownicy');
-      // }
+      console.log('submit form');
+      try {
+        const response = await updateUser(values);
+        modifyUser(response.data.Person);
+        setSuccessSnackbar(_form.submitSuccess);
+      } catch (e) {
+        console.error('useFormikUser', e);
+        setErrorSnackbar(_form.submitError);
+      }
     },
   });
-
-  const handleOnSave = () => {};
 
   return (
     <UserAccountPageStyled>
       <PageHeader title={_header.title} />
       <div className="form">
         <section className="user-data">
-          {!userEditModel ? (
+          {!editMode ? (
             <>
               <h3>
                 {user?.FirstName} {user?.LastName}
@@ -78,9 +85,14 @@ const UserAccountPage = () => {
               </div>
             </>
           ) : (
-            <>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                formik.handleSubmit(e);
+              }}
+            >
               <FormikTextField
-                name="firstName"
+                name="FirstName"
                 label={_form.firstName}
                 autoFocus={true}
                 value={formik.values.FirstName}
@@ -89,7 +101,7 @@ const UserAccountPage = () => {
                 touched={formik.touched.FirstName}
               />
               <FormikTextField
-                name="lastName"
+                name="LastName"
                 label={_form.lastName}
                 value={formik.values.LastName}
                 onChange={formik.handleChange}
@@ -97,7 +109,7 @@ const UserAccountPage = () => {
                 touched={formik.touched.LastName}
               />
               <FormikTextField
-                name="email"
+                name="Email"
                 label={_form.email}
                 value={formik.values.Email}
                 onChange={formik.handleChange}
@@ -105,28 +117,29 @@ const UserAccountPage = () => {
                 touched={formik.touched.Email}
               />
               <FormikTextField
-                name="phone"
+                name="Phone"
                 label={_form.phone}
                 value={formik.values.Phone}
                 onChange={formik.handleChange}
                 error={formik.errors.Phone}
                 touched={formik.touched.Phone}
               />
+
               <Button
-                onClick={handleOnSave}
                 color="primary"
                 variant="contained"
                 className="save-btn"
+                type="submit"
               >
                 {_form.submitBtn}
               </Button>
-            </>
+            </form>
           )}
         </section>
         <SwitchBtn
-          value={Boolean(userEditModel)}
+          value={editMode}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setUserEditModel(event.target.checked ? user : null)
+            setEditMode(event.target.checked)
           }
           label={_form.switchBtn}
         />

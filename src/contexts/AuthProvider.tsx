@@ -84,7 +84,23 @@ const useAuthState = () => {
     return false;
   };
 
-  return { auth, logIn, logOut, register };
+  const modifyUser = (user: Partial<PersonDTO>) => {
+    setAuth(
+      (prev) =>
+        ({
+          ...prev,
+          user: {
+            IdPerson: prev.user?.IdPerson,
+            FirstName: user.FirstName ?? prev.user?.FirstName,
+            LastName: user.LastName ?? prev.user?.LastName,
+            Email: user.Email ?? prev.user?.Email,
+            Phone: user.Phone ?? prev.user?.Phone,
+          },
+        } as IUser)
+    );
+  };
+
+  return { auth, logIn, logOut, register, modifyUser };
 };
 
 interface IAuthContext {
@@ -92,6 +108,7 @@ interface IAuthContext {
   logIn: (email: string, password: string) => Promise<boolean>;
   logOut: () => void;
   register: (user: IRegisterUser) => Promise<boolean>;
+  modifyUser: (user: Partial<PersonDTO>) => void;
 }
 
 export const AuthContext = createContext<IAuthContext | undefined>(undefined);

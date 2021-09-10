@@ -45,6 +45,8 @@ export const en: LanguageSchema = {
       password: 'Password',
       switchBtn: 'Edit mode',
       submitBtn: 'SAVE',
+      submitSuccess: 'User saved',
+      submitError: 'Error! user not saved',
     },
   },
 };

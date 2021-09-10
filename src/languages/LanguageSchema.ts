@@ -40,10 +40,11 @@ export interface LanguageSchema {
       lastName: string;
       email: string;
       phone: string;
-
       password: string;
       switchBtn: string;
       submitBtn: string;
+      submitSuccess: string;
+      submitError: string;
     };
   };
 }

@@ -45,6 +45,8 @@ export const pl: LanguageSchema = {
       password: 'Hasło',
       switchBtn: 'Tryb edycji',
       submitBtn: 'ZAPISZ',
+      submitSuccess: 'zapisano użytkownika',
+      submitError: 'Błąd! nie udało się zapisać użytkownika',
     },
   },
 };
