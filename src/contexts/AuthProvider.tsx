@@ -48,7 +48,7 @@ const useAuthState = () => {
     try {
       const response = await postLogin({ email, password });
       if (response.data.user) {
-        localStorage.setItem('auth', JSON.stringify(response.data.user));
+        localStorage.setItem('auth', JSON.stringify(response.data));
         setAuth(response.data);
         return true;
       } else {
@@ -71,7 +71,7 @@ const useAuthState = () => {
     try {
       const response = await postRegister(user);
       if (response.data.user) {
-        localStorage.setItem('auth', JSON.stringify(response.data.user));
+        localStorage.setItem('auth', JSON.stringify(response.data));
         setAuth(response.data);
         return true;
       } else {

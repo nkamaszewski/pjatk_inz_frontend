@@ -8,6 +8,7 @@ const Router = () => {
   const [login, register] = authRoutes;
   const LoginComponent = login.Component;
   const RegisterComponent = register.Component;
+  console.log(auth);
 
   return (
     <Switch>
