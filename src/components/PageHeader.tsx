@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { useAuth } from '../contexts/AuthProvider';
 import { useTheme } from '../contexts/ThemeContext';
+import { LanguagePanel } from './LanguagePanel';
 import { LogoutBtn } from './LogoutBtn';
 
 const YellowSwitch = withStyles({
@@ -21,7 +22,7 @@ const YellowSwitch = withStyles({
 
 const PageHeaderStyle = styled.div`
   display: grid;
-  grid-template-columns: 1fr 180px auto 80px;
+  grid-template-columns: 1fr auto 180px auto 80px;
   grid-column-gap: 16px;
   align-items: center;
   background-color: ${({ theme }) => theme.primaryBackground};
@@ -81,7 +82,7 @@ const PageHeader = ({ title }: Props) => {
   return (
     <PageHeaderStyle theme={theme}>
       <h1>{title}</h1>
-
+      <LanguagePanel />
       <div className="level-2">
         <h4>{`Motyw ${theme.themeName === 'dark' ? 'ciemny' : 'jasny'}`}</h4>
         <YellowSwitch

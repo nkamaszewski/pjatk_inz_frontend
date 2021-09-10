@@ -53,7 +53,6 @@ const UserAccountPage = () => {
   const formik = useFormikUser({
     initialValues: user ?? ({} as PersonDTO),
     onSubmit: async (values) => {
-      console.log('submit form');
       try {
         const response = await updateUser(values);
         modifyUser(response.data.Person);
