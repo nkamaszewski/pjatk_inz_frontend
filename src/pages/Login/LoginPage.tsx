@@ -41,7 +41,11 @@ const LoginPageStyle = styled.div`
 
     .register {
       float: left;
-      margin: 22px 0;
+
+      p {
+        font-size: 12px;
+        margin: 16px 0;
+      }
 
       .register-link {
         margin-left: 4px;
@@ -86,6 +90,7 @@ const LoginPage = () => {
   });
 
   const handleOnRegister = () => history.push('/rejestracja');
+  const handleOnRemind = () => history.push('/przypomnij-haslo');
   return (
     <LoginPageStyle theme={theme}>
       <section className="form-section">
@@ -118,12 +123,20 @@ const LoginPage = () => {
             error={formik.errors.password}
             touched={formik.touched.password}
           />
-          <p className="register">
-            {_form.footer}
-            <span className="register-link" onClick={handleOnRegister}>
-              {_form.footerLink}
-            </span>
-          </p>
+          <div className="register">
+            <p>
+              {_form.footer}
+              <span className="register-link" onClick={handleOnRegister}>
+                {_form.footerLink}
+              </span>
+            </p>
+            <p>
+              {_form.footerRemind}
+              <span className="register-link" onClick={handleOnRemind}>
+                {_form.footerRemindLink}
+              </span>
+            </p>
+          </div>
           <Button className="submit-btn" type="submit">
             {_form.submitBtn}
           </Button>

@@ -1,14 +1,13 @@
 import { FormikConfig, FormikValues, useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const UtworSchema = Yup.object().shape({
+const RemindSchema = Yup.object().shape({
   email: Yup.string()
     .required('podanie email / login jest wymagane')
     .email('niepoprawny format email'),
-  password: Yup.string().required('hasło jest wymagane'),
 });
 
-export function useFormikLogin<Values extends FormikValues = FormikValues>({
+export function useFormikRemind<Values extends FormikValues = FormikValues>({
   validateOnChange,
   validateOnBlur,
   validateOnMount,
@@ -17,7 +16,7 @@ export function useFormikLogin<Values extends FormikValues = FormikValues>({
   onSubmit,
   ...rest
 }: FormikConfig<Values>) {
-  const formikLogin = useFormik({
+  const formikRemind = useFormik({
     validateOnChange,
     validateOnBlur,
     validateOnMount,
@@ -25,8 +24,8 @@ export function useFormikLogin<Values extends FormikValues = FormikValues>({
     enableReinitialize,
     onSubmit,
     ...rest,
-    validationSchema: UtworSchema,
+    validationSchema: RemindSchema,
   });
 
-  return formikLogin;
+  return formikRemind;
 }

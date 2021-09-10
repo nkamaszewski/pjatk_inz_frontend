@@ -11,6 +11,19 @@ export interface LanguageSchema {
       email: string;
       password: string;
       footer: string;
+      footerRemind: string;
+      footerLink: string;
+      footerRemindLink: string;
+      submitBtn: string;
+    };
+  };
+  remindPage: {
+    _header: {
+      title: string;
+    };
+    _form: {
+      email: string;
+      footer: string;
       footerLink: string;
       submitBtn: string;
     };

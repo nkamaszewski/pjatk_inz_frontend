@@ -13,7 +13,9 @@ export const en: LanguageSchema = {
       email: 'Email',
       password: 'Password',
       footer: "Haven't account yet?",
+      footerRemind: 'Forgot password?',
       footerLink: 'Register',
+      footerRemindLink: 'Remind me!',
       submitBtn: 'SIGN IN',
     },
   },
@@ -31,6 +33,17 @@ export const en: LanguageSchema = {
       footer: "You've already registered?",
       footerLink: 'Sing in',
       submitBtn: 'SIGN UP',
+    },
+  },
+  remindPage: {
+    _header: {
+      title: 'Reset password',
+    },
+    _form: {
+      email: 'Email',
+      footer: "You've already registered?",
+      footerLink: 'Sing in',
+      submitBtn: 'SEND',
     },
   },
   userAccountPage: {

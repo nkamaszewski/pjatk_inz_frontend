@@ -13,7 +13,9 @@ export const pl: LanguageSchema = {
       email: 'Email',
       password: 'Hasło',
       footer: 'Nie masz konta?',
+      footerRemind: 'Zapomniałeś hasła?',
       footerLink: 'Zarejestruj sie',
+      footerRemindLink: 'Przypomnij',
       submitBtn: 'Zaloguj się',
     },
   },
@@ -31,6 +33,17 @@ export const pl: LanguageSchema = {
       footer: 'Masz już konto?',
       footerLink: 'Zaloguj się',
       submitBtn: 'ZAREJESTRUJ',
+    },
+  },
+  remindPage: {
+    _header: {
+      title: 'Odzyskiwanie hasła',
+    },
+    _form: {
+      email: 'Email',
+      footer: 'Masz już konto?',
+      footerLink: 'Zaloguj się',
+      submitBtn: 'WYŚLIJ',
     },
   },
   userAccountPage: {
