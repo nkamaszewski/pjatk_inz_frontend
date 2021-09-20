@@ -1,7 +1,6 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 
-export const getUniversitets = () =>
-  axios.get('http://localhost:3000/api/universities/');
+export const getUniversitets = () => axiosJWT.get('/universities/');
 
 export const postUniversitet = (universitet: {
   Name: string;
@@ -10,4 +9,4 @@ export const postUniversitet = (universitet: {
   PostalCode: string;
   Street: string;
   Number: number;
-}) => axios.post('http://localhost:3000/api/universities/', universitet);
+}) => axiosJWT.post('/universities/', universitet);

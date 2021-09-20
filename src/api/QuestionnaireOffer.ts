@@ -1,21 +1,21 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 
-export const getQuestionnaireOffers = () => axios.get('http://localhost:3000/api/questoffer/');
+export const getQuestionnaireOffers = () => axiosJWT.get('/questoffer/');
 
 export const postQuestionnaireOffer = (questionnaireoffer: {
   Year: number;
   IdPerson: string;
-  
-}) => axios.post('http://localhost:3000/api/questoffer/', questionnaireoffer);
+}) => axiosJWT.post('/questoffer/', questionnaireoffer);
 
 export const updateQuestionnaireOffer = (questionnaireoffer: {
-    Year: number;
-    IdPerson: string;
-    IdQuestionnaireOffer:string;
-    
-  }) => axios.put( `http://localhost:3000/api/questoffer/${questionnaireoffer.IdQuestionnaireOffer}`,
-    questionnaireoffer);
+  Year: number;
+  IdPerson: string;
+  IdQuestionnaireOffer: string;
+}) =>
+  axiosJWT.put(
+    `/questoffer/${questionnaireoffer.IdQuestionnaireOffer}`,
+    questionnaireoffer
+  );
 
-    export const deleteQuestionnaireOffer = (id: string) =>
-  axios.delete(`http://localhost:3000/api/questoffer/${id}`);
-  
+export const deleteQuestionnaireOffer = (id: string) =>
+  axiosJWT.delete(`/questoffer/${id}`);

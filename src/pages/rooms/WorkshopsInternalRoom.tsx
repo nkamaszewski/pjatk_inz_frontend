@@ -14,6 +14,8 @@ const WorkshopsInternalRoom = () => {
   const fetchRooms = () => {
     try {
       getRooms().then((res) => {
+        console.log(res);
+
         setRooms(res.data);
       });
     } catch (e) {

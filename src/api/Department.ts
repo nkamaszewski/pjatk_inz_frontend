@@ -1,18 +1,14 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 import { DepartmentDTO } from '../types/DTO/Department';
 
-export const getDepartments = () =>
-  axios.get('http://localhost:3000/api/departments/');
+export const getDepartments = () => axiosJWT.get('/departments/');
 
 export const postDepartment = (
   department: Omit<DepartmentDTO, 'IdDepartment'>
-) => axios.post('http://localhost:3000/api/departments/', department);
+) => axiosJWT.post('/departments/', department);
 
 export const deleteDepartment = (id: string) =>
-  axios.delete(`http://localhost:3000/api/departments/${id}`);
+  axiosJWT.delete(`/departments/${id}`);
 
 export const updateDepartment = (department: DepartmentDTO) =>
-  axios.put(
-    `http://localhost:3000/api/departments/${department.IdDepartment}`,
-    department
-  );
+  axiosJWT.put(`/departments/${department.IdDepartment}`, department);

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 import { ALL } from '../contexts/FilterContext';
 import { ApplicationForDTO } from '../types/DTO/ApplicationFor';
 
@@ -15,18 +15,15 @@ export const getApplicationsFor = (
   if (params.idstatus === ALL) query.idstatus = null;
   if (params.iddivision === ALL) query.iddivision = null;
   if (params.iddepartment === ALL) query.iddepartment = null;
-  return axios.get(`http://localhost:3000/api/appfor`, { params: query });
+  return axiosJWT.get(`/appfor`, { params: query });
 };
 
 export const postApplicationsFor = (
   application: Omit<ApplicationForDTO, 'IdApplicationFor'>
-) => axios.post('http://localhost:3000/api/appfor/', application);
+) => axiosJWT.post('/appfor/', application);
 
 export const updateApplicationsFor = (application: ApplicationForDTO) =>
-  axios.put(
-    `http://localhost:3000/api/appfor/${application.IdApplicationFor}`,
-    application
-  );
+  axiosJWT.put(`/appfor/${application.IdApplicationFor}`, application);
 
 export const deleteApplicationsFor = (id: string) =>
-  axios.delete(`http://localhost:3000/api/appfor/${id}`);
+  axiosJWT.delete(`/appfor/${id}`);

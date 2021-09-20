@@ -1,4 +1,3 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 
-export const getReasonsForRefund = () =>
-  axios.get('http://localhost:3000/api/reasforrefund');
+export const getReasonsForRefund = () => axiosJWT.get('/reasforrefund');

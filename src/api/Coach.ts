@@ -1,13 +1,12 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 import { CoachDTO } from '../types/DTO/Coach';
 
-export const getCoaches = () => axios.get('http://localhost:3000/api/coaches/');
+export const getCoaches = () => axiosJWT.get('/coaches/');
 
 export const postCoach = (coach: Omit<CoachDTO, 'CoachPerson'>) =>
-  axios.post('http://localhost:3000/api/coaches/', coach);
+  axiosJWT.post('/coaches/', coach);
 
-export const deleteCoach = (id: string) =>
-  axios.delete(`http://localhost:3000/api/coaches/${id}`);
+export const deleteCoach = (id: string) => axiosJWT.delete(`/coaches/${id}`);
 
 export const updateCoach = (coach: Omit<CoachDTO, 'CoachPerson'>) =>
-  axios.put(`http://localhost:3000/api/coaches/${coach.IdPerson}`, coach);
+  axiosJWT.put(`/coaches/${coach.IdPerson}`, coach);

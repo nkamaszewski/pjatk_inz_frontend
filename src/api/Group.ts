@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 import { ALL } from '../contexts/FilterContext';
 
 interface QueryParams {
@@ -8,14 +8,13 @@ interface QueryParams {
 export const getGroups = (params: QueryParams = { active: null }) => {
   const query: QueryParams = { ...params };
   if (params.active === ALL) query.active = null;
-  return axios.get('http://localhost:3000/api/groups', { params: query });
+  return axiosJWT.get('/groups', { params: query });
 };
 
 export const postGroup = (group: {
   Name: string;
   NumberOfPerson: number;
   IdEducation: string;
-}) => axios.post('http://localhost:3000/api/groups/', group);
+}) => axiosJWT.post('/groups/', group);
 
-export const deleteGroup = (id: string) =>
-  axios.delete(`http://localhost:3000/api/groups/${id}`);
+export const deleteGroup = (id: string) => axiosJWT.delete(`/groups/${id}`);

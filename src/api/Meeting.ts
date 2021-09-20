@@ -1,11 +1,10 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 
-export const getMeetings = () =>
-  axios.get('http://localhost:3000/api/meetings/');
+export const getMeetings = () => axiosJWT.get('/meetings/');
 
 export const postMeeting = (meeting: {
   From: Date;
   To: Date;
   IdGroup: string;
   IdRoom: string;
-}) => axios.post('http://localhost:3000/api/meetings/', meeting);
+}) => axiosJWT.post('/meetings/', meeting);

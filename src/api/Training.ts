@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 import { ALL, ITrainingFilters } from '../contexts/FilterContext';
 
 interface TrainingTransfer {
@@ -14,28 +14,24 @@ interface TrainingTransfer {
 export const getTrainings = (params: ITrainingFilters = { internal: null }) => {
   const query = { ...params };
   if (query.internal === ALL) query.internal = null;
-  return axios.get('http://localhost:3000/api/trainings', { params: query });
+  return axiosJWT.get('/trainings', { params: query });
 };
 
 export const postTraining = (training: TrainingTransfer) =>
-  axios.post('http://localhost:3000/api/trainings/', training);
+  axiosJWT.post('/trainings/', training);
 
 export const deleteTraining = (id: string) =>
-  axios.delete(`http://localhost:3000/api/trainings/${id}`);
+  axiosJWT.delete(`/trainings/${id}`);
 
 export const updateTraining = (training: TrainingTransfer) =>
-  axios.put(
-    `http://localhost:3000/api/trainings/${training.IdEducation}`,
-    training
-  );
+  axiosJWT.put(`/trainings/${training.IdEducation}`, training);
 
-export const getTopics = () => axios.get('http://localhost:3000/api/topics');
+export const getTopics = () => axiosJWT.get('/topics');
 
 export const postTopic = (topic: { Topic: string; IdSubject: string }) =>
-  axios.post('http://localhost:3000/api/topics/', topic);
+  axiosJWT.post('/topics/', topic);
 
-export const getSubjects = () =>
-  axios.get('http://localhost:3000/api/subjects');
+export const getSubjects = () => axiosJWT.get('/subjects');
 
 export const postSubject = (subject: { Subject: string }) =>
-  axios.post('http://localhost:3000/api/subjects/', subject);
+  axiosJWT.post('/subjects/', subject);

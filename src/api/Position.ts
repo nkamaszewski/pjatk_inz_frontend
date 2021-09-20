@@ -1,19 +1,14 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 
-export const getPositions = () =>
-  axios.get('http://localhost:3000/api/positions/');
+export const getPositions = () => axiosJWT.get('/positions/');
 
 export const postPosition = (position: { Name: string }) =>
-  axios.post('http://localhost:3000/api/positions/', position);
+  axiosJWT.post('/positions/', position);
 
 export const deletePosition = (id: string) =>
-  axios.delete(`http://localhost:3000/api/positions/${id}`);
+  axiosJWT.delete(`/positions/${id}`);
 
 export const updatePosition = (position: {
   Name: string;
   IdPosition: string;
-}) =>
-  axios.put(
-    `http://localhost:3000/api/positions/${position.IdPosition}`,
-    position
-  );
+}) => axiosJWT.put(`/positions/${position.IdPosition}`, position);

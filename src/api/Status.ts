@@ -1,3 +1,3 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 
-export const getStatuses = () => axios.get('http://localhost:3000/api/status/');
+export const getStatuses = () => axiosJWT.get('/status/');

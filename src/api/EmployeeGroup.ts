@@ -1,12 +1,11 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 
-export const getEmployeeGroup = () =>
-  axios.get('http://localhost:3000/api/employeegroups/');
+export const getEmployeeGroup = () => axiosJWT.get('/employeegroups/');
 
 export const postEmployeeGroup = (employeeGroup: {
   IdPerson: string;
   IdGroup: string;
-}) => axios.post('http://localhost:3000/api/employeegroups/', employeeGroup);
+}) => axiosJWT.post('/employeegroups/', employeeGroup);
 
 export const deleteEmployeeGroup = (id: string) =>
-  axios.delete(`http://localhost:3000/api/employeegroups/${id}`);
+  axiosJWT.delete(`/employeegroups/${id}`);

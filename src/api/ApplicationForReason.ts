@@ -1,7 +1,6 @@
-import axios from 'axios';
+import { axiosJWT } from 'helpers/tokenAxios';
 
-export const getApplicationsForReason = () =>
-  axios.get('http://localhost:3000/api/appforreasons');
+export const getApplicationsForReason = () => axiosJWT.get('/appforreasons');
 
 export const deleteApplicationsForReason = (id: string) =>
-  axios.delete(`http://localhost:3000/api/appforreasons/${id}`);
+  axiosJWT.delete(`/appforreasons/${id}`);
