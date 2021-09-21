@@ -16,7 +16,8 @@ import WorkshopsStudy from '../pages/study/WorkshopsStudy';
 import WorkshopsTraining from '../pages/Training/WorkshopsTraining';
 import LoginPage from '../pages/Login/LoginPage';
 import RegisterPage from '../pages/Register/RegisterPage';
-import RemindPage from 'pages/Remind/RemindPage';
+import RestorePasswordPage from 'pages/RestorePassword/RestorePasswordPage';
+import ChangePasswordPage from 'pages/changePassword/ChangePasswordPage';
 
 export interface RouteType {
   Component: Function;
@@ -26,7 +27,8 @@ export interface RouteType {
 export const authRoutes = [
   { Component: LoginPage, path: '/logowanie' },
   { Component: RegisterPage, path: '/rejestracja' },
-  { Component: RemindPage, path: '/przypomnij-haslo' },
+  { Component: RestorePasswordPage, path: '/przypomnij-haslo' },
+  { Component: ChangePasswordPage, path: '/zmiana-hasla/:token' },
 ];
 
 export const routes: RouteType[] = [

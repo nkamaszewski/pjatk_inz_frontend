@@ -5,10 +5,11 @@ import { useAuth } from './contexts/AuthProvider';
 
 const Router = () => {
   const { auth } = useAuth();
-  const [login, register, remind] = authRoutes;
+  const [login, register, restore, change] = authRoutes;
   const LoginComponent = login.Component;
   const RegisterComponent = register.Component;
-  const RemindComponent = remind.Component;
+  const RestoreComponent = restore.Component;
+  const ChangeComponent = change.Component;
 
   return (
     <Switch>
@@ -40,10 +41,16 @@ const Router = () => {
         children={<RegisterComponent />}
       />
       <Route
-        key={remind.path}
+        key={restore.path}
         exact
-        path={remind.path}
-        children={<RemindComponent />}
+        path={restore.path}
+        children={<RestoreComponent />}
+      />
+      <Route
+        key={change.path}
+        exact
+        path={change.path}
+        children={<ChangeComponent />}
       />
       <Redirect to={'/logowanie'} />
     </Switch>

@@ -1,8 +1,9 @@
 import { Button } from '@material-ui/core';
+import { postRestore } from 'api/Password';
 import Lottie from 'react-lottie-player';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import lottieJson from '../../animations/Newsletter.json';
+import lottieJson from '../../animations/Secure.json';
 import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
 import { LanguagePanel } from '../../components/LanguagePanel';
 import { useAuth } from '../../contexts/AuthProvider';
@@ -10,7 +11,7 @@ import { useLanguage } from '../../contexts/LanguageProvider';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useFormikRemind } from './useFormikRemind';
 
-const LoginPageStyle = styled.div`
+const ChangePasswordPageStyle = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
@@ -61,7 +62,7 @@ const LoginPageStyle = styled.div`
 
 const EMPTY_USER_LOGIN = { email: '', password: '' };
 
-const LoginPage = () => {
+const ChangePasswordPage = () => {
   const { theme } = useTheme();
   const history = useHistory();
   const auth = useAuth();
@@ -78,6 +79,11 @@ const LoginPage = () => {
   const formik = useFormikRemind({
     initialValues: EMPTY_USER_LOGIN,
     onSubmit: async ({ email }) => {
+      try {
+        postRestore(email);
+      } catch (e) {
+        console.error(e);
+      }
       //   const isAuthenticated = await auth.logIn(email, password);
       //   if (isAuthenticated) {
       //     history.push('/pracownicy');
@@ -87,7 +93,7 @@ const LoginPage = () => {
 
   const handleOnLogin = () => history.push('/logowanie');
   return (
-    <LoginPageStyle theme={theme}>
+    <ChangePasswordPageStyle theme={theme}>
       <section className="form-section">
         <LanguagePanel />
         <form
@@ -102,7 +108,16 @@ const LoginPage = () => {
             <h2>{title}</h2>
           </div>
           <FormikTextField
-            name="email"
+            name="password"
+            label={_form.email}
+            autoFocus={true}
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.errors.email}
+            touched={formik.touched.email}
+          />
+          <FormikTextField
+            name="confirmPassword"
             label={_form.email}
             autoFocus={true}
             value={formik.values.email}
@@ -124,8 +139,8 @@ const LoginPage = () => {
       <section>
         <Lottie loop animationData={lottieJson} play />
       </section>
-    </LoginPageStyle>
+    </ChangePasswordPageStyle>
   );
 };
 
-export default LoginPage;
+export default ChangePasswordPage;
