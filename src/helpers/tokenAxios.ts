@@ -9,7 +9,7 @@ const getToken = () => {
 };
 
 export const axiosJWT = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: process.env.REACT_APP_BASE_SERVER_URL,
 });
 
 axiosJWT.interceptors.request.use(function (config) {
