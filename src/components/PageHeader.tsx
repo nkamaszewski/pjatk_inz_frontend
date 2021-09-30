@@ -1,8 +1,8 @@
 import { Avatar, Switch, withStyles } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { useAuth } from '../contexts/AuthProvider';
-import { useTheme } from '../contexts/ThemeContext';
+import { useAuth } from '../providers/AuthProvider';
+import { useTheme } from '../providers/ThemeContext';
 import { LanguagePanel } from './LanguagePanel';
 import { LogoutBtn } from './LogoutBtn';
 

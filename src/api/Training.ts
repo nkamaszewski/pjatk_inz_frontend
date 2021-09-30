@@ -1,5 +1,5 @@
 import { axiosJWT } from 'helpers/tokenAxios';
-import { ALL, ITrainingFilters } from '../contexts/FilterContext';
+import { ALL, ITrainingFilters } from '../providers/FilterContext';
 
 interface TrainingTransfer {
   IdEducation: string;

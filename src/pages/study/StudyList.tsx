@@ -9,7 +9,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { StudiesListDTO } from '../../types/DTO/Study';
 import StudyFieldset from './StudyFieldset';
 import StudyListHeader from './StudyListHeader';

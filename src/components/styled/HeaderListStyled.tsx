@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../../providers/ThemeContext';
 
 const HeaderListStyle = styled.div`
   background-color: ${(p) => p.theme.listHeaderBackground};

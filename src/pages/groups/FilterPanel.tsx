@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import styled from 'styled-components';
-import { ALL, useFilter } from '../../contexts/FilterContext';
+import { ALL, useFilter } from '../../providers/FilterContext';
 import { ChangeEvent } from '../../types/EventTypes';
 
 const GROUPS_TYPE = [

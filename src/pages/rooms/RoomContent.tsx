@@ -6,7 +6,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { RoomDTO } from '../../types/DTO/Room';
 
 const RoomContentStyle = styled.div`

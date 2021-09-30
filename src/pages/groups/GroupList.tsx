@@ -10,7 +10,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { GroupDTO } from '../../types/DTO/Group';
 import GroupDetailsFieldset from './GroupDetailsFieldset';
 import GroupListHeader from './GroupListHeader';

@@ -2,7 +2,7 @@ import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Divider, Tooltip } from '@material-ui/core';
 import styled from 'styled-components';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../providers/ThemeContext';
 
 const HeaderFieldsetStyle = styled.div`
   display: grid;

@@ -1,5 +1,5 @@
 import { axiosJWT } from 'helpers/tokenAxios';
-import { ALL } from '../contexts/FilterContext';
+import { ALL } from '../providers/FilterContext';
 import { ApplicationForDTO } from '../types/DTO/ApplicationFor';
 
 interface QueryParams {

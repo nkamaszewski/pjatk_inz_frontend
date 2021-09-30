@@ -5,7 +5,7 @@ import { postPosition, updatePosition } from '../../api/Position';
 import {
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { PositionDTO } from '../../types/DTO/Position';
 
 const PositionContentStyle = styled.div`

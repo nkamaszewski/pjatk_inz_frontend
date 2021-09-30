@@ -1,4 +1,4 @@
-import { useFilter } from '../../contexts/FilterContext';
+import { useFilter } from '../../providers/FilterContext';
 import StatusSelect from '../../components/controls_UI/StatusSelect';
 import DepartmentSelect from '../../components/controls_UI/DepartmentSelect';
 import { ChangeEvent } from '../../types/EventTypes';

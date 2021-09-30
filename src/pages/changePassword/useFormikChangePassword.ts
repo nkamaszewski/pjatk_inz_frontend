@@ -1,4 +1,4 @@
-import { useLanguage } from 'contexts/LanguageProvider';
+import { useLanguage } from 'providers/LanguageProvider';
 import { FormikConfig, FormikValues, useFormik } from 'formik';
 import * as Yup from 'yup';
 

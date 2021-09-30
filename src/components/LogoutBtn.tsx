@@ -2,8 +2,8 @@ import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from '@material-ui/core';
 import styled from 'styled-components';
-import { useAuth } from '../contexts/AuthProvider';
-import { useTheme } from '../contexts/ThemeContext';
+import { useAuth } from '../providers/AuthProvider';
+import { useTheme } from '../providers/ThemeContext';
 
 const LogoutBtnStyled = styled.div`
   font-size: 22px;

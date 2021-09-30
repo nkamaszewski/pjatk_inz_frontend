@@ -9,7 +9,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { RoomDTO } from '../../types/DTO/Room';
 import RoomFieldset from './RoomFieldset';
 import RoomListHeader from './RoomListHeader';

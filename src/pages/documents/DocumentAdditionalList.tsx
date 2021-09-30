@@ -6,12 +6,12 @@ import { deleteApplicationsForReason } from '../../api/ApplicationForReason';
 import { deleteApplicationsForRefund } from '../../api/ApplicationForRefund';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
-import { useDictionary } from '../../contexts/DictionaryContext';
+import { useDictionary } from '../../providers/DictionaryContext';
 import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { formatDate } from '../../helpers/formatDate';
 import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
 import DocumentAdditionalFieldset from './DocumentAdditionalFieldset';

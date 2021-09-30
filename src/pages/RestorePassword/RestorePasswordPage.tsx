@@ -1,15 +1,15 @@
 import { Button } from '@material-ui/core';
 import { postRestore } from 'api/Password';
-import { useSnackbar } from 'contexts/NotificationContext';
+import { useSnackbar } from 'providers/NotificationContext';
 import Lottie from 'react-lottie-player';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import lottieJson from '../../animations/Newsletter.json';
 import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
 import { LanguagePanel } from '../../components/LanguagePanel';
-import { useAuth } from '../../contexts/AuthProvider';
-import { useLanguage } from '../../contexts/LanguageProvider';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useAuth } from '../../providers/AuthProvider';
+import { useLanguage } from '../../providers/LanguageProvider';
+import { useTheme } from '../../providers/ThemeContext';
 import { useFormikRestorePassword } from './useFormikRestorePassword';
 
 const RestorePasswordPageStyle = styled.div`

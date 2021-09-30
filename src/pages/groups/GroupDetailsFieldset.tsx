@@ -23,7 +23,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { EmployeeGroupDTO } from '../../types/DTO/EmployeeGroup';
 import { GroupDTO } from '../../types/DTO/Group';
 import { PersonDTO } from '../../types/DTO/Person';

@@ -6,9 +6,9 @@ import lottieJson from '../../animations/Security.json';
 import FormikPassword from '../../components/controls_UI/formik/FormikPassword';
 import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
 import { LanguagePanel } from '../../components/LanguagePanel';
-import { useAuth } from '../../contexts/AuthProvider';
-import { useLanguage } from '../../contexts/LanguageProvider';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useAuth } from '../../providers/AuthProvider';
+import { useLanguage } from '../../providers/LanguageProvider';
+import { useTheme } from '../../providers/ThemeContext';
 import { useFormikLogin } from './useFormikLogin';
 
 const LoginPageStyle = styled.div`

@@ -1,5 +1,5 @@
 import { axiosJWT } from 'helpers/tokenAxios';
-import { ALL } from '../contexts/FilterContext';
+import { ALL } from '../providers/FilterContext';
 
 interface QueryParams {
   active: typeof ALL | '1' | null;

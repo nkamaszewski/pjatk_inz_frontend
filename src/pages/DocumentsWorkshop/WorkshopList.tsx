@@ -8,7 +8,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { ApplicationForListDTO } from '../../types/DTO/ApplicationFor';
 import WorkshopFieldset from './WorkshopFieldset';
 import WorkshopListHeader from './WorkshopListHeader';

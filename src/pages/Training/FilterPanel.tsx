@@ -1,4 +1,4 @@
-import { ALL, useFilter } from '../../contexts/FilterContext';
+import { ALL, useFilter } from '../../providers/FilterContext';
 import { ChangeEvent } from '../../types/EventTypes';
 import styled from 'styled-components';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';

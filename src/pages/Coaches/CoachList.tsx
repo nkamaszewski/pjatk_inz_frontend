@@ -9,7 +9,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { CoachDTO } from '../../types/DTO/Coach';
 import CoachFieldset from './CoachFieldset';
 import CoachListHeader from './CoachListHeader';

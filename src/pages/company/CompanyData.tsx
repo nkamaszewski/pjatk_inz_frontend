@@ -8,7 +8,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { CompanyDTO } from '../../types/DTO/Company';
 
 const CompanyDateStyle = styled.div`

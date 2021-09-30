@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { getTrainings } from '../../api/Training';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
-import { useFilter } from '../../contexts/FilterContext';
+import { useFilter } from '../../providers/FilterContext';
 import { TrainingDTO } from '../../types/DTO/Training';
 import FilterPanel from './FilterPanel';
 import TrainingFieldset from './TrainingFieldset';

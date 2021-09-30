@@ -7,7 +7,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { OfferDTO } from '../../types/DTO/Offer';
 import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
 

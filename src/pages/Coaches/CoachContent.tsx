@@ -7,7 +7,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { CoachDTO } from '../../types/DTO/Coach';
 
 const CoachContentStyle = styled.div`

@@ -9,7 +9,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { DepartmentDTO } from '../../types/DTO/Department';
 import { DivisionDTO } from '../../types/DTO/Division';
 import DepartmentFieldset from './DepartmentFieldset';

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { getApplicationsFor } from '../../api/Application';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
-import { useFilter } from '../../contexts/FilterContext';
+import { useFilter } from '../../providers/FilterContext';
 import { ApplicationForListDTO } from '../../types/DTO/ApplicationFor';
 import FilterPanel from './FilterPanel';
 import WorkshopFieldset from './WorkshopFieldset';

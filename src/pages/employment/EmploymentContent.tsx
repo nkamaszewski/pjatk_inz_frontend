@@ -10,7 +10,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { formatDate } from '../../helpers/formatDate';
 import { EmploymentDTO } from '../../types/DTO/Employment';
 

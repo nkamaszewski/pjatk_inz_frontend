@@ -24,7 +24,7 @@ import { Collapse } from '@material-ui/core';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../providers/ThemeContext';
 
 interface NavigationItem {
   id: string;

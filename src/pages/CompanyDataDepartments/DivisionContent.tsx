@@ -6,7 +6,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { DivisionDTO } from '../../types/DTO/Division';
 
 const DivisionContentStyle = styled.div`

@@ -21,7 +21,7 @@ import DeleteBtn from '../../components/DeleteBtn';
 import {
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { EmployeeGroupDTO } from '../../types/DTO/EmployeeGroup';
 import { PersonDTO } from '../../types/DTO/Person';
 

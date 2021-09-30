@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { getGroups } from '../../api/Group';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
-import { useFilter } from '../../contexts/FilterContext';
+import { useFilter } from '../../providers/FilterContext';
 import { GroupDTO } from '../../types/DTO/Group';
 import FilterPanel from './FilterPanel';
 import GroupFieldset from './GroupFieldset';

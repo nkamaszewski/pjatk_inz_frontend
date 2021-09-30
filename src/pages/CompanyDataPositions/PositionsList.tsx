@@ -8,7 +8,7 @@ import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { PositionDTO } from '../../types/DTO/Position';
 import PositionFieldset from './PositionFieldset';
 

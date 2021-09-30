@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { useDictionary } from '../../contexts/DictionaryContext';
+import { useDictionary } from '../../providers/DictionaryContext';
 import { StatusDTO } from '../../types/DTO/Status';
 
 const DEFAULT_STATUSES: StatusDTO[] = [{ IdStatus: 'all', Name: 'wszystkie' }];

@@ -1,15 +1,15 @@
 import { Button } from '@material-ui/core';
 import { postChangePassword } from 'api/Password';
 import FormikPassword from 'components/controls_UI/formik/FormikPassword';
-import { useSnackbar } from 'contexts/NotificationContext';
+import { useSnackbar } from 'providers/NotificationContext';
 import Lottie from 'react-lottie-player';
 import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import lottieJson from '../../animations/Secure.json';
 import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
 import { LanguagePanel } from '../../components/LanguagePanel';
-import { useLanguage } from '../../contexts/LanguageProvider';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useLanguage } from '../../providers/LanguageProvider';
+import { useTheme } from '../../providers/ThemeContext';
 import { useFormikChangePassword } from './useFormikChangePassword';
 
 const ChangePasswordPageStyle = styled.div`

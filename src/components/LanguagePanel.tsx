@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { useLanguage } from '../contexts/LanguageProvider';
-import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../providers/LanguageProvider';
+import { useTheme } from '../providers/ThemeContext';
 
 const LanguagePanelStyled = styled.div`
   height: 20px;

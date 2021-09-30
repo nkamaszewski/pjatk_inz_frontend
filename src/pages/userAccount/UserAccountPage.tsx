@@ -2,14 +2,14 @@ import { faMailBulk, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Divider } from '@material-ui/core';
 import { updateUser } from 'api/User';
-import { useLanguage } from 'contexts/LanguageProvider';
-import { useSnackbar } from 'contexts/NotificationContext';
+import { useLanguage } from 'providers/LanguageProvider';
+import { useSnackbar } from 'providers/NotificationContext';
 import { useState } from 'react';
 import styled from 'styled-components';
 import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
 import SwitchBtn from '../../components/controls_UI/SwitchBtn';
 import PageHeader from '../../components/PageHeader';
-import { useAuth } from '../../contexts/AuthProvider';
+import { useAuth } from '../../providers/AuthProvider';
 import { PersonDTO } from '../../types/DTO/Person';
 import { useFormikUser } from './useFormikUser';
 

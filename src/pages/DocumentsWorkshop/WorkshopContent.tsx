@@ -11,7 +11,7 @@ import TrainingSelect from '../../components/controls_UI/TrainingSelect';
 import {
   createSnackbarSuccess,
   useSnackbar,
-} from '../../contexts/NotificationContext';
+} from '../../providers/NotificationContext';
 import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
 
 const WorkshopContentStyle = styled.div`

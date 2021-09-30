@@ -1,7 +1,7 @@
 import { Switch, Route, Redirect } from 'react-router';
 import { authRoutes, routes, RouteType } from './routes/routes';
 import PageLayout from './components/PageLayout';
-import { useAuth } from './contexts/AuthProvider';
+import { useAuth } from './providers/AuthProvider';
 
 const Router = () => {
   const { auth } = useAuth();
