@@ -105,7 +105,7 @@ const ChangePasswordPage = () => {
         >
           <div className="header-form">
             <img src={theme.logoSrc} alt="logo" className="logo-img" />
-            <h2>{schema.title}</h2>
+            <h2>{schema.restorePassword}</h2>
           </div>
           <FormikTextField
             name="email"

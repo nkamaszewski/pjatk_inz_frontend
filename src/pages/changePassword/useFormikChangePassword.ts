@@ -5,6 +5,15 @@ const ChangePasswordSchema = Yup.object().shape({
   email: Yup.string()
     .required('podanie email / login jest wymagane')
     .email('niepoprawny format email'),
+  password: Yup.string()
+    .required('hasło jest wymagane')
+    .min(5, 'hasło powinno zawierać co najmniej 5 znaków'),
+  confirmPassword: Yup.string()
+    .required('hasło jest wymagane')
+    .oneOf(
+      [Yup.ref('password')],
+      'hasło i powtórz hasło powinno być takie samo'
+    ),
 });
 
 export function useFormikChangePassword<

@@ -60,7 +60,7 @@ export interface LanguageSchema {
       submitError: string;
     };
   };
-  title: string;
+  restorePassword: string;
   password: string;
   confirmPassword: string;
   confirmAccount: string;
