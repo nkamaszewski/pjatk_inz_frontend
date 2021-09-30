@@ -84,10 +84,6 @@ const ChangePasswordPage = () => {
       } catch (e) {
         console.error(e);
       }
-      //   const isAuthenticated = await auth.logIn(email, password);
-      //   if (isAuthenticated) {
-      //     history.push('/pracownicy');
-      //   }
     },
   });
 

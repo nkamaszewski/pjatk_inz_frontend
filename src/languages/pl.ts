@@ -70,4 +70,11 @@ export const pl: LanguageSchema = {
   login: 'Zaloguj się',
   submit: 'WYŚLIJ',
   changePassword: 'zmień hasło',
+  validation: {
+    loginRequired: 'podanie email / login jest wymagane',
+    emailFormat: 'niepoprawny format email',
+    passwordRequired: 'hasło jest wymagane',
+    passwordFormat: 'hasło powinno zawierać co najmniej 5 znaków',
+    passwordConfirmFormat: 'hasło i powtórz hasło powinno być takie samo',
+  },
 };

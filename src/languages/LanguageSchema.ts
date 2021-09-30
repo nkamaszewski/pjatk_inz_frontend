@@ -60,6 +60,7 @@ export interface LanguageSchema {
       submitError: string;
     };
   };
+  //TODO: refactor the code above
   restorePassword: string;
   password: string;
   confirmPassword: string;
@@ -67,4 +68,11 @@ export interface LanguageSchema {
   login: string;
   submit: string;
   changePassword: string;
+  validation: {
+    loginRequired: string;
+    emailFormat: string;
+    passwordRequired: string;
+    passwordFormat: string;
+    passwordConfirmFormat: string;
+  };
 }

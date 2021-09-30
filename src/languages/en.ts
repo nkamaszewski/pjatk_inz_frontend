@@ -70,4 +70,11 @@ export const en: LanguageSchema = {
   login: 'Sing in',
   submit: 'SEND',
   changePassword: 'change password',
+  validation: {
+    loginRequired: 'email / login is required',
+    emailFormat: 'incorrect email format',
+    passwordRequired: 'password is required',
+    passwordFormat: 'password should contain min 5 chars',
+    passwordConfirmFormat: 'password and confirm password are NOT the same',
+  },
 };
