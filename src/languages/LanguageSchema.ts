@@ -60,4 +60,11 @@ export interface LanguageSchema {
       submitError: string;
     };
   };
+  title: string;
+  password: string;
+  confirmPassword: string;
+  confirmAccount: string;
+  login: string;
+  submit: string;
+  changePassword: string;
 }

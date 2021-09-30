@@ -1,15 +1,16 @@
 import { Button } from '@material-ui/core';
-import { postRestore } from 'api/Password';
+import { postChangePassword } from 'api/Password';
+import FormikPassword from 'components/controls_UI/formik/FormikPassword';
+import { useSnackbar } from 'contexts/NotificationContext';
 import Lottie from 'react-lottie-player';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import styled from 'styled-components';
 import lottieJson from '../../animations/Secure.json';
 import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
 import { LanguagePanel } from '../../components/LanguagePanel';
-import { useAuth } from '../../contexts/AuthProvider';
 import { useLanguage } from '../../contexts/LanguageProvider';
 import { useTheme } from '../../contexts/ThemeContext';
-import { useFormikRemind } from './useFormikRemind';
+import { useFormikChangePassword } from './useFormikChangePassword';
 
 const ChangePasswordPageStyle = styled.div`
   display: grid;
@@ -60,27 +61,26 @@ const ChangePasswordPageStyle = styled.div`
   }
 `;
 
-const EMPTY_USER_LOGIN = { email: '', password: '' };
+const EMPTY_CHANGE_PASSWORD_FORM = {
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
 
 const ChangePasswordPage = () => {
   const { theme } = useTheme();
   const history = useHistory();
-  const auth = useAuth();
+  const { token } = useParams<{ token: string }>();
+  const { setSuccessSnackbar } = useSnackbar();
   const {
-    language: {
-      schema: {
-        remindPage: {
-          _header: { title },
-          _form,
-        },
-      },
-    },
+    language: { schema },
   } = useLanguage();
-  const formik = useFormikRemind({
-    initialValues: EMPTY_USER_LOGIN,
-    onSubmit: async ({ email }) => {
+  const formik = useFormikChangePassword({
+    initialValues: EMPTY_CHANGE_PASSWORD_FORM,
+    onSubmit: async ({ email, password }) => {
       try {
-        postRestore(email);
+        await postChangePassword(email, password, token);
+        setSuccessSnackbar('zmieniono hasło!');
       } catch (e) {
         console.error(e);
       }
@@ -105,34 +105,41 @@ const ChangePasswordPage = () => {
         >
           <div className="header-form">
             <img src={theme.logoSrc} alt="logo" className="logo-img" />
-            <h2>{title}</h2>
+            <h2>{schema.title}</h2>
           </div>
           <FormikTextField
-            name="password"
-            label={_form.email}
+            name="email"
+            label="email"
             autoFocus={true}
             value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.errors.email}
             touched={formik.touched.email}
           />
-          <FormikTextField
-            name="confirmPassword"
-            label={_form.email}
-            autoFocus={true}
-            value={formik.values.email}
+          <FormikPassword
+            name="password"
+            label={schema.password}
+            value={formik.values.password}
             onChange={formik.handleChange}
-            error={formik.errors.email}
-            touched={formik.touched.email}
+            error={formik.errors.password}
+            touched={formik.touched.password}
+          />
+          <FormikPassword
+            name="confirmPassword"
+            label={schema.confirmPassword}
+            value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
+            error={formik.errors.confirmPassword}
+            touched={formik.touched.confirmPassword}
           />
           <p className="register">
-            {_form.footer}
+            {schema.confirmAccount}
             <span className="register-link" onClick={handleOnLogin}>
-              {_form.footerLink}
+              {schema.login}
             </span>
           </p>
           <Button className="submit-btn" type="submit">
-            {_form.submitBtn}
+            {schema.changePassword}
           </Button>
         </form>
       </section>

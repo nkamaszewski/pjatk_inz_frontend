@@ -62,4 +62,12 @@ export const en: LanguageSchema = {
       submitError: 'Error! user not saved',
     },
   },
+  //TODO: refactor the code above
+  title: 'title',
+  password: 'password',
+  confirmPassword: 'confirm password',
+  confirmAccount: "You've already registered?",
+  login: 'Sing in',
+  submit: 'SEND',
+  changePassword: 'change password',
 };

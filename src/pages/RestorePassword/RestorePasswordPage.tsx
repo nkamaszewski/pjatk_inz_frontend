@@ -1,5 +1,6 @@
 import { Button } from '@material-ui/core';
 import { postRestore } from 'api/Password';
+import { useSnackbar } from 'contexts/NotificationContext';
 import Lottie from 'react-lottie-player';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
@@ -65,6 +66,7 @@ const EMPTY_USER_LOGIN = { email: '', password: '' };
 const RestorePasswordPage = () => {
   const { theme } = useTheme();
   const history = useHistory();
+  const { setSuccessSnackbar } = useSnackbar();
   const auth = useAuth();
   const {
     language: {
@@ -80,14 +82,11 @@ const RestorePasswordPage = () => {
     initialValues: EMPTY_USER_LOGIN,
     onSubmit: async ({ email }) => {
       try {
-        postRestore(email);
+        await postRestore(email);
+        setSuccessSnackbar('Link do zmiany hasła został wysłany na maila.');
       } catch (e) {
         console.error(e);
       }
-      //   const isAuthenticated = await auth.logIn(email, password);
-      //   if (isAuthenticated) {
-      //     history.push('/pracownicy');
-      //   }
     },
   });
 

@@ -1,13 +1,15 @@
 import { FormikConfig, FormikValues, useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const RemindSchema = Yup.object().shape({
+const ChangePasswordSchema = Yup.object().shape({
   email: Yup.string()
     .required('podanie email / login jest wymagane')
     .email('niepoprawny format email'),
 });
 
-export function useFormikRemind<Values extends FormikValues = FormikValues>({
+export function useFormikChangePassword<
+  Values extends FormikValues = FormikValues
+>({
   validateOnChange,
   validateOnBlur,
   validateOnMount,
@@ -16,7 +18,7 @@ export function useFormikRemind<Values extends FormikValues = FormikValues>({
   onSubmit,
   ...rest
 }: FormikConfig<Values>) {
-  const formikRemind = useFormik({
+  const formikChangePassword = useFormik({
     validateOnChange,
     validateOnBlur,
     validateOnMount,
@@ -24,8 +26,8 @@ export function useFormikRemind<Values extends FormikValues = FormikValues>({
     enableReinitialize,
     onSubmit,
     ...rest,
-    validationSchema: RemindSchema,
+    validationSchema: ChangePasswordSchema,
   });
 
-  return formikRemind;
+  return formikChangePassword;
 }

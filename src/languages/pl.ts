@@ -62,4 +62,12 @@ export const pl: LanguageSchema = {
       submitError: 'Błąd! nie udało się zapisać użytkownika',
     },
   },
+  //TODO: refactor the code above
+  title: 'tytuł',
+  password: 'hasło',
+  confirmPassword: 'potwierdź hasło',
+  confirmAccount: 'Masz już konto?',
+  login: 'Zaloguj się',
+  submit: 'WYŚLIJ',
+  changePassword: 'zmień hasło',
 };
