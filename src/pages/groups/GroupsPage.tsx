@@ -1,46 +1,31 @@
 import { Drawer } from '@material-ui/core';
-import { useEffect, useState } from 'react';
+import { useLanguage } from 'providers/LanguageProvider';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { getGroups } from '../../api/Group';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
-import { useFilter } from '../../providers/FilterContext';
-import { GroupDTO } from '../../types/DTO/Group';
 import FilterPanel from './FilterPanel';
 import GroupFieldset from './GroupFieldset';
 import GroupList from './GroupList';
+import { useGroups } from './useGroups';
 
-const WorkshopsInternatlGroupsStyle = styled.div`
+const GroupsPageStyled = styled.div`
   .page-panel {
     display: grid;
     grid-template-columns: 1fr auto;
   }
 `;
 
-const WorkshopsInternalGroups = () => {
-  const [groups, setGroups]: [GroupDTO[], Function] = useState([]);
+const GroupsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { groups, fetchGroups } = useGroups();
   const {
-    group: { filters },
-  } = useFilter();
-
-  const fetchGroups = () => {
-    try {
-      getGroups(filters).then((res) => {
-        setGroups(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(() => {
-    fetchGroups();
-  }, [filters]);
+    language: { schema },
+  } = useLanguage();
 
   return (
-    <WorkshopsInternatlGroupsStyle>
-      <PageHeader title="Grupy" />
+    <GroupsPageStyled>
+      <PageHeader title={schema.groups} />
       <AddFab onClick={() => setIsOpen(true)} className="page-panel">
         <FilterPanel />
       </AddFab>
@@ -51,8 +36,8 @@ const WorkshopsInternalGroups = () => {
         />
       </Drawer>
       <GroupList groups={groups} fetchGroups={fetchGroups} />
-    </WorkshopsInternatlGroupsStyle>
+    </GroupsPageStyled>
   );
 };
 
-export default WorkshopsInternalGroups;
+export default GroupsPage;

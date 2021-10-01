@@ -79,6 +79,9 @@ export const en: LanguageSchema = {
   department: 'department',
   division: 'division',
   position: 'position',
+  groups: 'groups',
+  name: 'name',
+  participantsAmount: 'participants amount',
   validation: {
     loginRequired: 'email / login is required',
     emailFormat: 'incorrect email format',

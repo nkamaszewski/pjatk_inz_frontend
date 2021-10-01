@@ -62,12 +62,6 @@ const useCreateTheme = (): IuseTheme => {
   return { theme, setLightTheme, setDarkTheme };
 };
 
-const initContext: IuseTheme = {
-  theme: dark_theme,
-  setDarkTheme: () => {},
-  setLightTheme: () => {},
-};
-
 export const ThemeContext = createContext<IuseTheme | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {

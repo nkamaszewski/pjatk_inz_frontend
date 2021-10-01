@@ -6,7 +6,7 @@ import DocumentsWorkshop from '../pages/DocumentsWorkshop/DocumentsWorkshop';
 import Employment from '../pages/employment/Employment';
 import Polls from '../pages/polls/Polls';
 import UserAccount from '../pages/userAccount/UserAccountPage';
-import WorkshopsInternalGroups from '../pages/groups/WorkshopsInternalGroups';
+import WorkshopsInternalGroups from '../pages/groups/GroupsPage';
 import WorkshopsInternalRoom from '../pages/rooms/WorkshopsInternalRoom';
 import WorkshopsInternalMeeting from '../pages/meeting/WorkshopsInternalMeeting';
 import WorkshopsCoaches from '../pages/Coaches/WorkshopsCoaches';

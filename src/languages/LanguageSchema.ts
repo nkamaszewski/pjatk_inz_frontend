@@ -77,6 +77,9 @@ export interface LanguageSchema {
   department: string;
   division: string;
   position: string;
+  groups: string;
+  name: string;
+  participantsAmount: string;
   validation: {
     loginRequired: string;
     emailFormat: string;
