@@ -1,4 +1,4 @@
-import { Button, Switch, TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postEducation, updateEducation } from '../../api/Education';

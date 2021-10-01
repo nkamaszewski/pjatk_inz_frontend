@@ -1,9 +1,8 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
 import ApplicationForSelect from '../../components/controls_UI/ApplicationForSelect';
 import StatusSelect from '../../components/controls_UI/StatusSelect';
-import { useSnackbar } from '../../providers/NotificationContext';
 import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
 
 const DocumentAdditionalContentStyle = styled.div`
@@ -25,8 +24,8 @@ const DocumentAdditionalContent = ({
 }: Props) => {
   const [idAppFor, setIdAppFor] = useState('');
   const [idStatus, setIdStatus] = useState('');
-  const [appsForReason, setAppsForReason] = useState([]);
-  const { setSnackbar } = useSnackbar();
+  // const [appsForReason, setAppsForReason] = useState([]);
+  // const { setSnackbar } = useSnackbar();
 
   const handleOnSave = async () => {
     // try {

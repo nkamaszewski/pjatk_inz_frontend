@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import lottieJson from '../../animations/Newsletter.json';
 import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
 import { LanguagePanel } from '../../components/LanguagePanel';
-import { useAuth } from '../../providers/AuthProvider';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { useTheme } from '../../providers/ThemeContext';
 import { useFormikRestorePassword } from './useFormikRestorePassword';
@@ -67,7 +66,6 @@ const RestorePasswordPage = () => {
   const { theme } = useTheme();
   const history = useHistory();
   const { setSuccessSnackbar } = useSnackbar();
-  const auth = useAuth();
   const {
     language: {
       schema: {

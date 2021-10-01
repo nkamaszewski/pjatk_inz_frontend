@@ -1,44 +1,26 @@
 import { Drawer } from '@material-ui/core';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { getTrainings } from '../../api/Training';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
-import { useFilter } from '../../providers/FilterContext';
-import { TrainingDTO } from '../../types/DTO/Training';
 import FilterPanel from './FilterPanel';
 import TrainingFieldset from './TrainingFieldset';
 import TrainingList from './TrainingList';
+import { useTrainings } from './useTrainings';
 
-const WorkShopsTrainingStyle = styled.div`
+const TrainingsPageStyled = styled.div`
   .page-panel {
     display: grid;
     grid-template-columns: 1fr auto;
   }
 `;
 
-const WorkshopsTraining = () => {
-  const [trainings, setTrainings] = useState<TrainingDTO[]>([]);
+const TrainingsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    training: { filters },
-  } = useFilter();
+  const { trainings, fetchTrainings } = useTrainings();
 
-  const fetchTrainings = () => {
-    try {
-      getTrainings(filters).then((res) => {
-        setTrainings(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(() => {
-    fetchTrainings();
-  }, [filters]);
   return (
-    <WorkShopsTrainingStyle>
+    <TrainingsPageStyled>
       <PageHeader title="Kursy" />
       <AddFab className="page-panel" onClick={() => setIsOpen(true)}>
         <FilterPanel />
@@ -50,8 +32,8 @@ const WorkshopsTraining = () => {
         />
       </Drawer>
       <TrainingList trainings={trainings} fetchTrainings={fetchTrainings} />
-    </WorkShopsTrainingStyle>
+    </TrainingsPageStyled>
   );
 };
 
-export default WorkshopsTraining;
+export default TrainingsPage;

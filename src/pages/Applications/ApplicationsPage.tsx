@@ -1,46 +1,26 @@
 import { Drawer } from '@material-ui/core';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { getApplicationsFor } from '../../api/Application';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
-import { useFilter } from '../../providers/FilterContext';
-import { ApplicationForListDTO } from '../../types/DTO/ApplicationFor';
 import FilterPanel from './FilterPanel';
+import { useApplications } from './useApplications';
 import WorkshopFieldset from './WorkshopFieldset';
 import WorkshopList from './WorkshopList';
 
-const WorkshopStyle = styled.div`
+const ApplicationsPageStyled = styled.div`
   .page-panel {
     display: grid;
     grid-template-columns: 1fr auto;
   }
 `;
 
-const Workshop = () => {
-  const [applications, setApplications]: [ApplicationForListDTO[], Function] =
-    useState([]);
+const ApplicationsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    workshop: { filters },
-  } = useFilter();
-
-  const fetchApplications = () => {
-    try {
-      getApplicationsFor(filters).then((res) => {
-        setApplications(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(() => {
-    fetchApplications();
-  }, [filters]);
+  const { applications, fetchApplications } = useApplications();
 
   return (
-    <WorkshopStyle>
+    <ApplicationsPageStyled>
       <PageHeader title="Wnioski propozycje szkoleń" />
       <AddFab className="page-panel" onClick={() => setIsOpen(true)}>
         <FilterPanel />
@@ -55,8 +35,8 @@ const Workshop = () => {
         applications={applications}
         fetchApplications={fetchApplications}
       />
-    </WorkshopStyle>
+    </ApplicationsPageStyled>
   );
 };
 
-export default Workshop;
+export default ApplicationsPage;
