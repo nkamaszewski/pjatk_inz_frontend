@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { getDivisions } from '../../api/Division';
 import { getEmployments } from '../../api/Employment';
@@ -16,6 +17,9 @@ const Employment = () => {
   const [divisions, setDivisions] = useState([]);
   const [persons, setPersons] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const {
+    language: { schema },
+  } = useLanguage();
 
   const fetchDivisions = () => {
     try {
@@ -60,7 +64,7 @@ const Employment = () => {
 
   return (
     <div>
-      <PageHeader title="Pracownicy" />
+      <PageHeader title={schema.employees} />
       <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <EmploymentFieldset

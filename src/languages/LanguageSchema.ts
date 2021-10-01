@@ -68,6 +68,15 @@ export interface LanguageSchema {
   login: string;
   submit: string;
   changePassword: string;
+  theme: string;
+  dark: string;
+  light: string;
+  employees: string;
+  lastName: string;
+  firstName: string;
+  department: string;
+  division: string;
+  position: string;
   validation: {
     loginRequired: string;
     emailFormat: string;

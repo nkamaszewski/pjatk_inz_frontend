@@ -1,4 +1,5 @@
 import { Avatar, Switch, withStyles } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { useAuth } from '../providers/AuthProvider';
@@ -72,6 +73,9 @@ const PageHeader = ({ title }: Props) => {
   const {
     auth: { user },
   } = useAuth();
+  const {
+    language: { schema },
+  } = useLanguage();
   const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) setDarkTheme();
     else setLightTheme();
@@ -84,7 +88,9 @@ const PageHeader = ({ title }: Props) => {
       <h1>{title}</h1>
       <LanguagePanel />
       <div className="level-2">
-        <h4>{`Motyw ${theme.themeName === 'dark' ? 'ciemny' : 'jasny'}`}</h4>
+        <h4>{`${schema.theme} ${
+          theme.themeName === 'dark' ? schema.dark : schema.light
+        }`}</h4>
         <YellowSwitch
           checked={theme.themeName === 'dark'}
           onChange={handleThemeChange}

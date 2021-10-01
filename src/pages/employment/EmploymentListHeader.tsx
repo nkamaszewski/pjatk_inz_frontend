@@ -1,14 +1,21 @@
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
 const EmploymentListHeader = () => {
+  const {
+    language: {
+      schema: { lastName, firstName, department, division, position },
+    },
+  } = useLanguage();
+
   return (
     <HeaderListStyled className="grid-employment">
       <>
-        <p>Nazwisko</p>
-        <p>Imię</p>
-        <p>Pion</p>
-        <p>Wydział</p>
-        <p>Stanowisko</p>
+        <p>{lastName}</p>
+        <p>{firstName}</p>
+        <p>{department}</p>
+        <p>{division}</p>
+        <p>{position}</p>
       </>
     </HeaderListStyled>
   );
