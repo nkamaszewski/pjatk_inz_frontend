@@ -22,9 +22,7 @@ const LogoutBtnStyled = styled.div`
   }
 `;
 
-interface Props {}
-
-export const LogoutBtn = ({}: Props) => {
+export const LogoutBtn = () => {
   const { theme } = useTheme();
   const { logOut } = useAuth();
   return (

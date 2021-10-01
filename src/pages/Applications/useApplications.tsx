@@ -22,7 +22,7 @@ export const useApplications = () => {
 
   useEffect(() => {
     fetchApplications();
-  }, [filters]);
+  }, [filters, fetchApplications]);
 
   return { applications, fetchApplications };
 };

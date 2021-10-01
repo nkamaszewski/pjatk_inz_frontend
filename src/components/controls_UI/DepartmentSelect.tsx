@@ -35,7 +35,7 @@ const DepartmentSelect = ({
     } catch (e) {
       console.error(e);
     }
-  }, []);
+  }, [withAll]);
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);

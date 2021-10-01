@@ -18,9 +18,7 @@ const LanguagePanelStyled = styled.div`
   }
 `;
 
-interface Props {}
-
-export const LanguagePanel = ({}: Props) => {
+export const LanguagePanel = () => {
   const { theme } = useTheme();
   const {
     language: { country },
