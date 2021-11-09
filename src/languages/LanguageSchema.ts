@@ -87,4 +87,8 @@ export interface LanguageSchema {
     passwordFormat: string;
     passwordConfirmFormat: string;
   };
+  errorBoundary: {
+    message: string;
+    button: string;
+  };
 }

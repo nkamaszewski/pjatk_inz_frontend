@@ -18,6 +18,7 @@ import LoginPage from '../pages/Login/LoginPage';
 import RegisterPage from '../pages/Register/RegisterPage';
 import RestorePasswordPage from 'pages/RestorePassword/RestorePasswordPage';
 import ChangePasswordPage from 'pages/changePassword/ChangePasswordPage';
+import { PATH } from './paths';
 
 export interface RouteType {
   Component: Function;
@@ -25,30 +26,30 @@ export interface RouteType {
 }
 
 export const authRoutes = [
-  { Component: LoginPage, path: '/logowanie' },
-  { Component: RegisterPage, path: '/rejestracja' },
-  { Component: RestorePasswordPage, path: '/przypomnij-haslo' },
-  { Component: ChangePasswordPage, path: '/zmiana-hasla/:token' },
+  { Component: LoginPage, path: PATH.login },
+  { Component: RegisterPage, path: PATH.register },
+  { Component: RestorePasswordPage, path: PATH.restorePassword },
+  { Component: ChangePasswordPage, path: PATH.changePassword },
 ];
 
 export const routes: RouteType[] = [
-  { Component: Employment, path: '/pracownicy' },
-  { Component: DocumentsWorkshop, path: '/wnioski/wnioski-szkoleniowe' },
-  { Component: DocumentsAdditional, path: '/wnioski/wnioski-dodatkowe' },
-  { Component: WorkshopsStudy, path: '/szkolenia/studia' },
-  { Component: WorkshopsTraining, path: '/szkolenia/kursy' },
-  { Component: WorkshopsOthers, path: '/szkolenia/inne' },
-  { Component: Organizators, path: '/szkolenia/organizatorzy' },
-  { Component: WorkshopsCoaches, path: '/szkolenia/szkoleniowcy' },
-  { Component: WorkshopsInternalRoom, path: '/szkolenia-wewnetrzne/sale' },
-  { Component: WorkshopsInternalGroups, path: '/szkolenia-wewnetrzne/grupy' },
+  { Component: Employment, path: PATH.employment },
+  { Component: DocumentsWorkshop, path: PATH.documentWorkshop },
+  { Component: DocumentsAdditional, path: PATH.documentAdditional },
+  { Component: WorkshopsStudy, path: PATH.workshopStudy },
+  { Component: WorkshopsTraining, path: PATH.workshopTraining },
+  { Component: WorkshopsOthers, path: PATH.workshopOthers },
+  { Component: Organizators, path: PATH.organizators },
+  { Component: WorkshopsCoaches, path: PATH.workshopsCoaches },
+  { Component: WorkshopsInternalRoom, path: PATH.workshopsInternalRoom },
+  { Component: WorkshopsInternalGroups, path: PATH.workshopsInternalGroups },
   {
     Component: WorkshopsInternalMeeting,
-    path: '/szkolenia-wewnetrzne/harmonogram',
+    path: PATH.workshopsInternalMeeting,
   },
-  { Component: Polls, path: '/ankiety' },
-  { Component: CompanyData, path: '/firma/dane-firmy' },
-  { Component: CompanyDataDepartments, path: '/firma/piony-wydzialy' },
-  { Component: CompanyDataPositions, path: '/firma/stanowiska' },
-  { Component: UserAccount, path: '/moje-konto' },
+  { Component: Polls, path: PATH.polls },
+  { Component: CompanyData, path: PATH.companyData },
+  { Component: CompanyDataDepartments, path: PATH.companyDataDepartments },
+  { Component: CompanyDataPositions, path: PATH.companyDataPositions },
+  { Component: UserAccount, path: PATH.userAccount },
 ];

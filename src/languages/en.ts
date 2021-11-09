@@ -89,4 +89,8 @@ export const en: LanguageSchema = {
     passwordFormat: 'password should contain min 5 chars',
     passwordConfirmFormat: 'password and confirm password are NOT the same',
   },
+  errorBoundary: {
+    message: 'Something gone wrong... Relax and return to the app',
+    button: 'Retry!',
+  },
 };

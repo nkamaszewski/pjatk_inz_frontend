@@ -89,4 +89,8 @@ export const pl: LanguageSchema = {
     passwordFormat: 'hasło powinno zawierać co najmniej 5 znaków',
     passwordConfirmFormat: 'hasło i powtórz hasło powinno być takie samo',
   },
+  errorBoundary: {
+    message: 'Coś poszło nie tak... Spokojnie, możesz powrócić do aplikacji.',
+    button: 'Wróć!',
+  },
 };

@@ -8,6 +8,7 @@ import MaterialUIThemeProvider from './providers/MaterialUITheme';
 import { NotificationProvider } from './providers/NotificationContext';
 import { ThemeProvider } from './providers/ThemeContext';
 import { GlobalStyleProvider } from './GlobalStyle';
+import ErrorBoundary from 'pages/errorBoundary/ErrorBoundary';
 
 interface Props {
   children: ReactNode;
@@ -20,13 +21,15 @@ const AppProviders = ({ children }: Props) => {
         <ThemeProvider>
           <MaterialUIThemeProvider>
             <GlobalStyleProvider>
-              <NotificationProvider>
-                <AuthProvider>
-                  <FilterProvider>
-                    <DictionaryProvider>{children}</DictionaryProvider>
-                  </FilterProvider>
-                </AuthProvider>
-              </NotificationProvider>
+              <ErrorBoundary>
+                <NotificationProvider>
+                  <AuthProvider>
+                    <FilterProvider>
+                      <DictionaryProvider>{children}</DictionaryProvider>
+                    </FilterProvider>
+                  </AuthProvider>
+                </NotificationProvider>
+              </ErrorBoundary>
             </GlobalStyleProvider>
           </MaterialUIThemeProvider>
         </ThemeProvider>
