@@ -1,5 +1,5 @@
 import { axiosJWT } from 'helpers/tokenAxios';
-import { MeetingDTO, MeetingDTOShort } from 'types/DTO/Meeting';
+import { MeetingDTOShort } from 'types/DTO/Meeting';
 
 export const getMeetings = () => axiosJWT.get('/meetings/');
 

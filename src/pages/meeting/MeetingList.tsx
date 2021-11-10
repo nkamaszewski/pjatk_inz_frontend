@@ -1,11 +1,17 @@
-import { faSitemap } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '@material-ui/core';
+import { Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import DeleteBtn from 'components/DeleteBtn';
+import EditBtn from 'components/EditBtn';
 import { formatDate } from 'helpers/formatDate';
+import { useDrawer } from 'hooks/useDrawer';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { MeetingDTO } from '../../types/DTO/Meeting';
+import {
+  mapMeetingToShort,
+  MeetingDTO,
+  MeetingDTOShort,
+} from '../../types/DTO/Meeting';
+import MeetingFieldset from './MeetingFieldset';
 import MeetingListHeader from './MeetingListHeader';
 import { useMeetingCRUD } from './useMeetingCRUD';
 
@@ -29,7 +35,9 @@ interface Props {
 }
 
 const MeetingList = ({ meetings, fetchMeetings }: Props) => {
+  const [meeting, setMeeting] = useState<MeetingDTOShort | null>(null);
   const { deleteItem } = useMeetingCRUD();
+  const { open, openDrawer, closeDrawer } = useDrawer();
 
   const handleDeleteMeeting = async (id: string) => {
     await deleteItem(id);
@@ -44,17 +52,24 @@ const MeetingList = ({ meetings, fetchMeetings }: Props) => {
           <p>{formatDate(meeting.To)}</p>
           <p>{meeting.meetingGroup.Name}</p>
           <p>{meeting.meetingRoom.Name}</p>
-          <Button
+          <EditBtn
             onClick={() => {
-              // setGroup(group);
-              // setIsOpen(true);
+              setMeeting(mapMeetingToShort(meeting));
+              openDrawer();
             }}
-          >
-            <FontAwesomeIcon className="primary--color" icon={faSitemap} />
-          </Button>
+          />
+
           <DeleteBtn onClick={() => handleDeleteMeeting(meeting.IdMeeting)} />
         </Card>
       ))}
+
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
+        <MeetingFieldset
+          closeDrawer={closeDrawer}
+          fetchMeetings={fetchMeetings}
+          meeting={meeting}
+        />
+      </Drawer>
     </MeetingListStyle>
   );
 };

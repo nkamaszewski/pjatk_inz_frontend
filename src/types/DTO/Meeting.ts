@@ -16,3 +16,17 @@ export interface MeetingDTOShort {
   IdGroup: string;
   IdRoom: string;
 }
+
+export const mapMeetingToShort = ({
+  IdMeeting,
+  From,
+  To,
+  meetingGroup,
+  meetingRoom,
+}: MeetingDTO): MeetingDTOShort => ({
+  IdMeeting,
+  From,
+  To,
+  IdGroup: meetingGroup.IdGroup,
+  IdRoom: meetingRoom.IdRoom,
+});

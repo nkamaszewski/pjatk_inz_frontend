@@ -2,9 +2,10 @@ import { Button, TextField } from '@material-ui/core';
 import { formatDate } from 'helpers/formatDate';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postMeeting } from '../../api/Meeting';
+import { MeetingDTOShort } from 'types/DTO/Meeting';
 import GroupSelect from '../../components/controls_UI/GroupSelect';
 import RoomSelect from '../../components/controls_UI/RoomSelect';
+import { useMeetingCRUD } from './useMeetingCRUD';
 
 const MeetingContentStyle = styled.div`
   padding: 24px 0;
@@ -15,27 +16,40 @@ const MeetingContentStyle = styled.div`
 interface Props {
   closeDrawer: Function;
   fetchMeetings: Function;
+  meeting?: MeetingDTOShort | null;
 }
 
-const MeetingContent = ({ closeDrawer, fetchMeetings }: Props) => {
-  const [from, setFrom] = useState(formatDate(new Date()));
-  const [to, setTo] = useState(formatDate(new Date()));
-  const [idGroup, setIdGroup] = useState('');
-  const [idRoom, setIdRoom] = useState('');
+const MeetingContent = ({ closeDrawer, fetchMeetings, meeting }: Props) => {
+  const [from, setFrom] = useState(
+    meeting ? formatDate(meeting.From) : formatDate(new Date())
+  );
+  const [to, setTo] = useState(
+    meeting ? formatDate(meeting.To) : formatDate(new Date())
+  );
+  const [idGroup, setIdGroup] = useState(meeting ? meeting.IdGroup : '');
+  const [idRoom, setIdRoom] = useState(meeting ? meeting.IdRoom : '');
 
-  const handleOnSave = () => {
-    try {
-      postMeeting({
-        From: from,
-        To: to,
+  const { addItem, editItem } = useMeetingCRUD();
+
+  const handleOnSave = async () => {
+    if (meeting) {
+      await editItem({
+        IdMeeting: meeting.IdMeeting,
+        From: from as string,
+        To: to as string,
         IdGroup: idGroup,
         IdRoom: idRoom,
-      }).then(() => fetchMeetings());
-    } catch (e) {
-      console.error(e);
-    } finally {
-      closeDrawer();
+      });
+    } else {
+      await addItem({
+        From: from as string,
+        To: to as string,
+        IdGroup: idGroup,
+        IdRoom: idRoom,
+      });
     }
+    fetchMeetings();
+    closeDrawer();
   };
 
   return (
