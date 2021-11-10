@@ -35,7 +35,7 @@ const WorkshopsInternalMeeting = () => {
           fetchMeetings={fetchMeetings}
         />
       </Drawer>
-      <MeetingList meetings={meetings} />
+      <MeetingList meetings={meetings} fetchMeetings={fetchMeetings} />
     </div>
   );
 };

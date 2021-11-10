@@ -6,6 +6,10 @@ const GroupListHeader = () => {
       <>
         <p>Od</p>
         <p>Do</p>
+        <p>Grupa</p>
+        <p>Sala</p>
+        <p />
+        <p />
       </>
     </HeaderListStyled>
   );

@@ -1,4 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
+import { formatDate } from 'helpers/formatDate';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postMeeting } from '../../api/Meeting';
@@ -17,8 +18,8 @@ interface Props {
 }
 
 const MeetingContent = ({ closeDrawer, fetchMeetings }: Props) => {
-  const [from, setFrom] = useState(new Date());
-  const [to, setTo] = useState(new Date());
+  const [from, setFrom] = useState(formatDate(new Date()));
+  const [to, setTo] = useState(formatDate(new Date()));
   const [idGroup, setIdGroup] = useState('');
   const [idRoom, setIdRoom] = useState('');
 
@@ -47,7 +48,7 @@ const MeetingContent = ({ closeDrawer, fetchMeetings }: Props) => {
         }}
         value={from}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setFrom(new Date(event.target.value))
+          setFrom(event.target.value)
         }
       />
       <TextField
@@ -58,7 +59,7 @@ const MeetingContent = ({ closeDrawer, fetchMeetings }: Props) => {
         }}
         value={to}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setTo(new Date(event.target.value))
+          setTo(event.target.value)
         }
       />
 
