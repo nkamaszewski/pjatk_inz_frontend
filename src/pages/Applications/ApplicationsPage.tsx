@@ -15,7 +15,7 @@ const ApplicationsPageStyled = styled.div`
   }
 `;
 
-const ApplicationsPage = () => {
+export const ApplicationsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { applications, fetchApplications } = useApplications();
 
@@ -38,5 +38,3 @@ const ApplicationsPage = () => {
     </ApplicationsPageStyled>
   );
 };
-
-export default ApplicationsPage;

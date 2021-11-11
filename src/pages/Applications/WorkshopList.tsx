@@ -1,4 +1,5 @@
 import { Divider, Drawer } from '@material-ui/core';
+import { formatDate } from 'helpers/formatDate';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteApplicationsFor } from '../../api/Application';
@@ -68,15 +69,13 @@ const WorkshopList = ({ applications, fetchApplications }: Props) => {
       {applications.map((application) => (
         <div key={application.IdApplicationFor}>
           <div className="grid-workshop row">
-            <p>
-              {new Date(application.DateOfSubmission)?.toLocaleDateString()}
-            </p>
+            <p>{formatDate(application.DateOfSubmission)}</p>
             <p>
               {application.Compatibility
                 ? 'wniosek poprawny'
                 : 'wniosek niepoprawny'}
             </p>
-            <p>{application.applicationForStatus.Name}</p>
+            <p>{application.Status}</p>
             <EditBtn onClick={() => setEditApplicationFor(application)} />
             <DeleteBtn
               onClick={() => handleDeleteItem(application.IdApplicationFor)}

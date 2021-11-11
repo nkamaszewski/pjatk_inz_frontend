@@ -34,13 +34,11 @@ const ApplicationForSelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>Wniosek szkoleniowy</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {appFor.map(
-            ({ IdApplicationFor, applicationForStatus: { Name } }) => (
-              <MenuItem key={IdApplicationFor} value={IdApplicationFor}>
-                {Name}
-              </MenuItem>
-            )
-          )}
+          {appFor.map(({ IdApplicationFor, Status }) => (
+            <MenuItem key={IdApplicationFor} value={IdApplicationFor}>
+              {Status}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </ApplicationForSelectStyle>

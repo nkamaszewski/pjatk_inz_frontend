@@ -4,7 +4,7 @@ export const PATH = {
   restorePassword: '/przypomnij-haslo',
   changePassword: `/zmiana-hasla/:token`,
   employment: '/pracownicy',
-  documentWorkshop: '/wnioski/wnioski-szkoleniowe',
+  applicationsPage: '/wnioski/wnioski-szkoleniowe',
   documentAdditional: '/wnioski/wnioski-dodatkowe',
   workshopStudy: '/szkolenia/studia',
   workshopTraining: '/szkolenia/kursy',

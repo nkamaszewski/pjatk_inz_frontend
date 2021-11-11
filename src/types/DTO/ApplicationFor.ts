@@ -13,8 +13,5 @@ export interface ApplicationForListDTO {
   IdEducation: string;
   IdStatus: string;
   Compatibility: boolean;
-  applicationForStatus: {
-    IdStatus: string;
-    Name: string;
-  };
+  Status: string;
 }

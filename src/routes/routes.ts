@@ -2,7 +2,6 @@ import CompanyData from '../pages/company/CompanyData';
 import CompanyDataDepartments from '../pages/CompanyDataDepartments/CompanyDataDepartments';
 import CompanyDataPositions from '../pages/CompanyDataPositions/CompanyDataPositions';
 import DocumentsAdditional from '../pages/documents/DocumentsAdditional';
-import DocumentsWorkshop from '../pages/Applications/ApplicationsPage';
 import Employment from '../pages/employment/Employment';
 import Polls from '../pages/polls/Polls';
 import UserAccount from '../pages/userAccount/UserAccountPage';
@@ -19,6 +18,7 @@ import RegisterPage from '../pages/Register/RegisterPage';
 import RestorePasswordPage from 'pages/RestorePassword/RestorePasswordPage';
 import ChangePasswordPage from 'pages/changePassword/ChangePasswordPage';
 import { PATH } from './paths';
+import { ApplicationsPage } from 'pages/Applications/ApplicationsPage';
 
 export interface RouteType {
   Component: Function;
@@ -34,7 +34,7 @@ export const authRoutes = [
 
 export const routes: RouteType[] = [
   { Component: Employment, path: PATH.employment },
-  { Component: DocumentsWorkshop, path: PATH.documentWorkshop },
+  { Component: ApplicationsPage, path: PATH.applicationsPage },
   { Component: DocumentsAdditional, path: PATH.documentAdditional },
   { Component: WorkshopsStudy, path: PATH.workshopStudy },
   { Component: WorkshopsTraining, path: PATH.workshopTraining },
