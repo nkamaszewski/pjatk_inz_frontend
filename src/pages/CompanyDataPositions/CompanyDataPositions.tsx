@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getPositions } from '../../api/Position';
@@ -38,7 +39,11 @@ const CompanyDataPositions = () => {
           fetchPositions={fetchPositions}
         />
       </Drawer>
-      <PositionsList positions={positions} fetchPositions={fetchPositions} />
+      {positions.length ? (
+        <PositionsList positions={positions} fetchPositions={fetchPositions} />
+      ) : (
+        <NoData />
+      )}
     </CompanyDataPositionsStyle>
   );
 };

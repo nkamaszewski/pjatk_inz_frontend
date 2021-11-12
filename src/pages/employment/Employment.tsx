@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { getDivisions } from '../../api/Division';
@@ -72,12 +73,16 @@ const Employment = () => {
           fetchEmployments={fetchEmploymentsWithPersonsAndDivisions}
         />
       </Drawer>
-      <EmploymentList
-        employees={employees}
-        divisions={divisions}
-        persons={persons}
-        fetchEmployments={fetchEmploymentsWithPersonsAndDivisions}
-      />
+      {employees.length ? (
+        <EmploymentList
+          employees={employees}
+          divisions={divisions}
+          persons={persons}
+          fetchEmployments={fetchEmploymentsWithPersonsAndDivisions}
+        />
+      ) : (
+        <NoData />
+      )}
     </div>
   );
 };

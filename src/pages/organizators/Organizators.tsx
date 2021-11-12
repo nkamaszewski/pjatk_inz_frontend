@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useEffect, useState } from 'react';
 import { getCompanies } from '../../api/Company';
 import AddFab from '../../components/AddFab';
@@ -35,7 +36,11 @@ const Organizators = () => {
           fetchCompanies={fetchCompanies}
         />
       </Drawer>
-      <CompaniesList companies={companies} fetchCompanies={fetchCompanies} />
+      {companies.length ? (
+        <CompaniesList companies={companies} fetchCompanies={fetchCompanies} />
+      ) : (
+        <NoData />
+      )}
     </div>
   );
 };

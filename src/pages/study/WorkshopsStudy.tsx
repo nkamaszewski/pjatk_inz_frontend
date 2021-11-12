@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useEffect, useState } from 'react';
 import { getStudies } from '../../api/Study';
 import AddFab from '../../components/AddFab';
@@ -34,7 +35,11 @@ const WorkshopsStudy = () => {
           fetchStudies={fetchStudies}
         />
       </Drawer>
-      <StudyList studies={studies} fetchStudies={fetchStudies} />
+      {studies.length ? (
+        <StudyList studies={studies} fetchStudies={fetchStudies} />
+      ) : (
+        <NoData />
+      )}
     </div>
   );
 };

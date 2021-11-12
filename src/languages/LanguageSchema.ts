@@ -91,4 +91,5 @@ export interface LanguageSchema {
     message: string;
     button: string;
   };
+  noContent: string;
 }

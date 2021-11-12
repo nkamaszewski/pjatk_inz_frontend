@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useState } from 'react';
 import styled from 'styled-components';
 import AddFab from '../../components/AddFab';
@@ -31,10 +32,14 @@ export const ApplicationsPage = () => {
           fetchApplications={fetchApplications}
         />
       </Drawer>
-      <WorkshopList
-        applications={applications}
-        fetchApplications={fetchApplications}
-      />
+      {applications.length ? (
+        <WorkshopList
+          applications={applications}
+          fetchApplications={fetchApplications}
+        />
+      ) : (
+        <NoData />
+      )}
     </ApplicationsPageStyled>
   );
 };

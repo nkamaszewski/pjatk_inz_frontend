@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getQuestionnaireOffers } from '../../api/QuestionnaireOffer';
@@ -40,10 +41,14 @@ const Polls = () => {
           polls={polls}
         />
       </Drawer>
-      <PollsList
-        questionnaireOffers={polls}
-        fetchQuestionnaireOffers={fetchQuestionnaireOffers}
-      />
+      {polls.length ? (
+        <PollsList
+          questionnaireOffers={polls}
+          fetchQuestionnaireOffers={fetchQuestionnaireOffers}
+        />
+      ) : (
+        <NoData />
+      )}
     </PollsStyle>
   );
 };

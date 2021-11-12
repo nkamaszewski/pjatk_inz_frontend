@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useEffect, useState } from 'react';
 import { getRooms } from '../../api/Room';
 import AddFab from '../../components/AddFab';
@@ -37,7 +38,11 @@ const WorkshopsInternalRoom = () => {
           fetchRooms={fetchRooms}
         />
       </Drawer>
-      <RoomList rooms={rooms} fetchRooms={fetchRooms} />
+      {rooms.length ? (
+        <RoomList rooms={rooms} fetchRooms={fetchRooms} />
+      ) : (
+        <NoData />
+      )}
     </div>
   );
 };

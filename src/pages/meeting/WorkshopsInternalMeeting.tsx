@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useState } from 'react';
 import styled from 'styled-components';
 import AddFab from '../../components/AddFab';
@@ -31,7 +32,11 @@ const WorkshopsInternalMeeting = () => {
           fetchMeetings={fetchMeetings}
         />
       </Drawer>
-      <MeetingList meetings={meetings} fetchMeetings={fetchMeetings} />
+      {meetings.length ? (
+        <MeetingList meetings={meetings} fetchMeetings={fetchMeetings} />
+      ) : (
+        <NoData />
+      )}
     </WorkshopsInternalMeetingStyled>
   );
 };

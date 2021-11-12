@@ -93,4 +93,5 @@ export const pl: LanguageSchema = {
     message: 'Coś poszło nie tak... Spokojnie, możesz powrócić do aplikacji.',
     button: 'Wróć!',
   },
+  noContent: 'Niestety, nic nie znaleźliśmy...',
 };

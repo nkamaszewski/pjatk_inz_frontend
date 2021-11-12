@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useEffect, useState } from 'react';
 import { getCoaches } from '../../api/Coach';
 import AddFab from '../../components/AddFab';
@@ -35,7 +36,11 @@ const WorkshopsCoaches = () => {
           fetchCoaches={fetchCoaches}
         />
       </Drawer>
-      <CoachList coaches={coaches} fetchCoaches={fetchCoaches} />
+      {coaches.length ? (
+        <CoachList coaches={coaches} fetchCoaches={fetchCoaches} />
+      ) : (
+        <NoData />
+      )}
     </div>
   );
 };

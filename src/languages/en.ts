@@ -93,4 +93,5 @@ export const en: LanguageSchema = {
     message: 'Something gone wrong... Relax and return to the app',
     button: 'Retry!',
   },
+  noContent: 'No data to display...',
 };

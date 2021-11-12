@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useEffect, useState } from 'react';
 import { getApplicationsForRefund } from '../../api/ApplicationForRefund';
 import AddFab from '../../components/AddFab';
@@ -35,10 +36,14 @@ const DocumentsAdditional = () => {
           fetchDocuments={fetchDocuments}
         />
       </Drawer>
-      <DocumentAdditionalList
-        documents={documents}
-        fetchDocuments={fetchDocuments}
-      />
+      {documents.length ? (
+        <DocumentAdditionalList
+          documents={documents}
+          fetchDocuments={fetchDocuments}
+        />
+      ) : (
+        <NoData />
+      )}
     </div>
   );
 };

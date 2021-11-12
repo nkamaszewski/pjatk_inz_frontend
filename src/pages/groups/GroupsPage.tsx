@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -35,7 +36,11 @@ const GroupsPage = () => {
           fetchGroups={fetchGroups}
         />
       </Drawer>
-      <GroupList groups={groups} fetchGroups={fetchGroups} />
+      {groups.length ? (
+        <GroupList groups={groups} fetchGroups={fetchGroups} />
+      ) : (
+        <NoData />
+      )}
     </GroupsPageStyled>
   );
 };

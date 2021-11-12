@@ -1,4 +1,5 @@
 import { Drawer } from '@material-ui/core';
+import { NoData } from 'components/NoData';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getDepartments } from '../../api/Department';
@@ -47,11 +48,15 @@ const CompanyDataDepartments = () => {
           fetchDivisionsDepartments={fetchDivisionsDepartments}
         />
       </Drawer>
-      <DataDepartmentsList
-        divisions={divisions}
-        departments={departments}
-        fetchDivisionsDepartments={fetchDivisionsDepartments}
-      />
+      {divisions.length && departments.length ? (
+        <DataDepartmentsList
+          divisions={divisions}
+          departments={departments}
+          fetchDivisionsDepartments={fetchDivisionsDepartments}
+        />
+      ) : (
+        <NoData />
+      )}
     </CompanyDataDepartmentsStyle>
   );
 };
