@@ -1,34 +1,30 @@
 import { Drawer } from '@material-ui/core';
-import { useEffect, useState } from 'react';
-import { getMeetings } from '../../api/Meeting';
+import { useState } from 'react';
+import styled from 'styled-components';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
-import { MeetingDTO } from '../../types/DTO/Meeting';
+import { FilterPanel } from './FilterPanel';
 import MeetingFieldset from './MeetingFieldset';
 import MeetingList from './MeetingList';
+import { useMeetingList } from './useMeetingList';
+
+const WorkshopsInternalMeetingStyled = styled.div`
+  .page-panel {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+`;
 
 const WorkshopsInternalMeeting = () => {
-  const [meetings, setMeetings]: [MeetingDTO[], Function] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-
-  const fetchMeetings = () => {
-    try {
-      getMeetings().then((res) => {
-        setMeetings(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(() => {
-    fetchMeetings();
-  }, []);
+  const { meetings, fetchMeetings } = useMeetingList();
 
   return (
-    <div>
+    <WorkshopsInternalMeetingStyled>
       <PageHeader title="Harmonogram" />
-      <AddFab onClick={() => setIsOpen(true)} />
+      <AddFab className="page-panel" onClick={() => setIsOpen(true)}>
+        <FilterPanel />
+      </AddFab>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <MeetingFieldset
           closeDrawer={() => setIsOpen(false)}
@@ -36,7 +32,7 @@ const WorkshopsInternalMeeting = () => {
         />
       </Drawer>
       <MeetingList meetings={meetings} fetchMeetings={fetchMeetings} />
-    </div>
+    </WorkshopsInternalMeetingStyled>
   );
 };
 

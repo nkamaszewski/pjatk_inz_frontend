@@ -1,4 +1,4 @@
-import { createContext, ReactNode } from 'react';
+import { createContext, Dispatch, ReactNode, SetStateAction } from 'react';
 import { useState, useContext } from 'react';
 
 export const ALL = 'all';
@@ -9,11 +9,22 @@ interface IWorkshopFilters {
   iddivision: string;
 }
 
+interface FilterSubject<T> {
+  filters: T;
+  setFilters: Dispatch<SetStateAction<T>>;
+  handleSetFilter: ({ name, value }: { name: keyof T; value: unknown }) => void;
+}
+
 export interface ITrainingFilters {
   internal: typeof ALL | '1' | '2' | null;
 }
 export interface IGroupFilters {
   active: typeof ALL | '1';
+}
+
+export interface IMeetingFilters {
+  idGroup: string;
+  idRoom: string;
 }
 
 const useCreateFilters = () => {
@@ -28,26 +39,51 @@ const useCreateFilters = () => {
   const [groupFilters, setGroupFilters] = useState<IGroupFilters>({
     active: ALL,
   });
+  const [meetingFilter, setMeetingFilter] = useState<IMeetingFilters>({
+    idGroup: ALL,
+    idRoom: ALL,
+  });
+
+  const handleSetFilter = <T,>(setFilters: Dispatch<SetStateAction<T>>) => {
+    return ({ name, value }: { name: keyof T; value: unknown }) => {
+      if (name) {
+        setFilters((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      }
+    };
+  };
+
   return {
-    workshop: { filters: workshopFilters, setFilters: setWorkFilters },
-    training: { filters: trainingFilters, setFilters: setTrainingFilters },
-    group: { filters: groupFilters, setFilters: setGroupFilters },
+    workshop: {
+      filters: workshopFilters,
+      setFilters: setWorkFilters,
+      handleSetFilter: handleSetFilter(setWorkFilters),
+    },
+    training: {
+      filters: trainingFilters,
+      setFilters: setTrainingFilters,
+      handleSetFilter: handleSetFilter(setTrainingFilters),
+    },
+    group: {
+      filters: groupFilters,
+      setFilters: setGroupFilters,
+      handleSetFilter: handleSetFilter(setGroupFilters),
+    },
+    meeting: {
+      filters: meetingFilter,
+      setFilters: setMeetingFilter,
+      handleSetFilter: handleSetFilter(setMeetingFilter),
+    },
   };
 };
 
 interface IFilterContext {
-  workshop: {
-    filters: IWorkshopFilters;
-    setFilters: React.Dispatch<React.SetStateAction<IWorkshopFilters>>;
-  };
-  training: {
-    filters: ITrainingFilters;
-    setFilters: React.Dispatch<React.SetStateAction<ITrainingFilters>>;
-  };
-  group: {
-    filters: IGroupFilters;
-    setFilters: React.Dispatch<React.SetStateAction<IGroupFilters>>;
-  };
+  workshop: FilterSubject<IWorkshopFilters>;
+  training: FilterSubject<ITrainingFilters>;
+  group: FilterSubject<IGroupFilters>;
+  meeting: FilterSubject<IMeetingFilters>;
 }
 
 export const FilterContext = createContext<IFilterContext | undefined>(
