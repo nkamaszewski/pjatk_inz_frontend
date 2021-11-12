@@ -87,6 +87,7 @@ const RegisterPage = () => {
     initialValues: EMPTY_USER_REGISTER,
     onSubmit: async (values) => {
       const isAuthenticated = await auth.register(values);
+
       if (isAuthenticated) {
         history.push('/pracownicy');
       }
