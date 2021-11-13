@@ -10,7 +10,7 @@ import WorkshopsInternalRoom from '../pages/rooms/WorkshopsInternalRoom';
 import WorkshopsInternalMeeting from '../pages/meeting/WorkshopsInternalMeeting';
 import WorkshopsCoaches from '../pages/Coaches/WorkshopsCoaches';
 import Organizators from '../pages/organizators/Organizators';
-import WorkshopsOthers from '../pages/workshops/WorkshopsOthers';
+import { WorkshopsOthers } from '../pages/workshopsOther/WorkshopsOthers';
 import WorkshopsStudy from '../pages/study/WorkshopsStudy';
 import WorkshopsTraining from '../pages/Training/TrainingsPage';
 import LoginPage from '../pages/Login/LoginPage';
