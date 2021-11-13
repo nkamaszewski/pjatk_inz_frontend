@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import lottieJson from 'animations/NoData.json';
 import Lottie from 'react-lottie-player';
 import { useLanguage } from 'providers/LanguageProvider';
+import { useDelayRender } from 'hooks/useDelayRender';
 
 const NoDataStyled = styled.div`
   display: flex;
@@ -20,10 +21,16 @@ export const NoData = () => {
       schema: { noContent },
     },
   } = useLanguage();
+
+  const show = useDelayRender();
   return (
     <NoDataStyled>
-      <Lottie className="lottie" loop animationData={lottieJson} play />
-      <h2>{noContent}</h2>
+      {show && (
+        <>
+          <Lottie className="lottie" loop animationData={lottieJson} play />
+          <h2>{noContent}</h2>{' '}
+        </>
+      )}
     </NoDataStyled>
   );
 };
