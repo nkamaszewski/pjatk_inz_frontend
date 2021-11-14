@@ -10,5 +10,5 @@ export interface OtherEducationDTO {
   IdEducation: string;
   Name: string;
   IdCompany: string;
-  OtherEducation: EducationDTO;
+  otherEducationEducation: EducationDTO;
 }

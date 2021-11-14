@@ -29,22 +29,25 @@ export const WorkshopContent = ({
   );
 
   const [education, setEducation] = useState({
-    Price: workshop?.OtherEducation.Price ?? 0,
-    PriceAccommodation: workshop?.OtherEducation.PriceAccommodation ?? 0,
-    PriceTransit: workshop?.OtherEducation.PriceTransit ?? 0,
+    Price: workshop?.otherEducationEducation.Price ?? 0,
+    PriceAccommodation:
+      workshop?.otherEducationEducation.PriceAccommodation ?? 0,
+    PriceTransit: workshop?.otherEducationEducation.PriceTransit ?? 0,
   });
 
-  const { addItem } = useWorkshopCRUD();
+  const { addItem, editItem } = useWorkshopCRUD();
 
   const handleOnSave = async () => {
     if (workshop) {
-      //   await editItem({
-      //     IdMeeting: meeting.IdMeeting,
-      //     From: from as string,
-      //     To: to as string,
-      //     IdGroup: idGroup,
-      //     IdRoom: idRoom,
-      //   });
+      await editItem({
+        IdEducation: workshop.IdEducation,
+        Name,
+        IdCompany,
+        otherEducationEducation: {
+          ...education,
+          IdEducation: workshop.IdEducation,
+        },
+      });
     } else {
       await addItem(
         {

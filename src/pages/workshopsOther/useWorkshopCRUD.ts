@@ -1,15 +1,28 @@
-import { postEducation } from 'api/Education';
-import { postOtherEducation } from 'api/OtherEducation';
+import { postEducation, updateEducation } from 'api/Education';
+import {
+  deleteOtherEducation,
+  getOtherEducation,
+  postOtherEducation,
+  updateOtherEducation,
+} from 'api/OtherEducation';
 import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from 'providers/NotificationContext';
 import { EducationDTO } from 'types/DTO/Education';
-import { OtherEducationListDTO } from 'types/DTO/OtherEducation';
+import {
+  OtherEducationDTO,
+  OtherEducationListDTO,
+} from 'types/DTO/OtherEducation';
 
 export const useWorkshopCRUD = () => {
   const { setSnackbar } = useSnackbar();
+
+  const getItem = async (id: string) => {
+    const response = await getOtherEducation(id);
+    return response.data;
+  };
 
   const addItem = async (
     workshop: Omit<OtherEducationListDTO, 'IdEducation'>,
@@ -26,25 +39,30 @@ export const useWorkshopCRUD = () => {
     }
   };
 
-  // const deleteItem = async (id: string) => {
-  //   try {
-  //     await deleteMeeting(id);
-  //     setSnackbar(createSnackbarSuccess('Usunięto spotkanie!'));
-  //   } catch (e) {
-  //     console.error(e);
-  //     setSnackbar(createSnackbarError('Nie udało się usunąć spotkania!'));
-  //   }
-  // };
+  const deleteItem = async (id: string) => {
+    try {
+      await deleteOtherEducation(id);
+      setSnackbar(createSnackbarSuccess('Usunięto szkolenie!'));
+    } catch (e) {
+      console.error(e);
+      setSnackbar(createSnackbarError('Nie udało się usunąć szkolenia!'));
+    }
+  };
 
-  // const editItem = async (meeting: MeetingDTOShort) => {
-  //   try {
-  //     await updateMeeting(meeting);
-  //     setSnackbar(createSnackbarSuccess('Wyedytowano spotkanie!'));
-  //   } catch (e) {
-  //     console.error(e);
-  //     setSnackbar(createSnackbarError('Nie udało się wydedytować spotkania!'));
-  //   }
-  // };
+  const editItem = async (item: OtherEducationDTO) => {
+    try {
+      await updateEducation(item.otherEducationEducation);
+      await updateOtherEducation({
+        IdEducation: item.IdEducation,
+        Name: item.Name,
+        IdCompany: item.IdCompany,
+      });
+      setSnackbar(createSnackbarSuccess('Szkolenie zostało wyedytowane'));
+    } catch (e) {
+      console.error(e);
+      setSnackbar(createSnackbarError('Nie udało się wydedytować szkolenia!'));
+    }
+  };
 
-  return { addItem };
+  return { getItem, addItem, deleteItem, editItem };
 };

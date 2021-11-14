@@ -8,12 +8,7 @@ import { useWorkshopList } from './useWorkshopsList';
 import WorkshopFieldset from './WorkshopFieldset';
 import { WorkshopsList } from './WorkshopsList';
 
-const WorkshopsOthersStyled = styled.div`
-  .page-panel {
-    display: grid;
-    grid-template-columns: 1fr auto;
-  }
-`;
+const WorkshopsOthersStyled = styled.div``;
 
 export const WorkshopsOthers = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +16,7 @@ export const WorkshopsOthers = () => {
   return (
     <WorkshopsOthersStyled>
       <PageHeader title="Szkolenia inne" />
-      <AddFab className="page-panel" onClick={() => setIsOpen(true)} />
+      <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <WorkshopFieldset
           closeDrawer={() => setIsOpen(false)}

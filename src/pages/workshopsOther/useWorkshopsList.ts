@@ -1,4 +1,4 @@
-import { getOtherEducation } from 'api/OtherEducation';
+import { getOtherEducations } from 'api/OtherEducation';
 import { useCallback, useEffect, useState } from 'react';
 import { OtherEducationListDTO } from 'types/DTO/OtherEducation';
 
@@ -7,7 +7,7 @@ export const useWorkshopList = () => {
 
   const fetchWorkshops = useCallback(() => {
     try {
-      getOtherEducation().then((res) => {
+      getOtherEducations().then((res) => {
         setWorkshops(res.data);
       });
     } catch (e) {
