@@ -9,6 +9,7 @@ import { NotificationProvider } from './providers/NotificationContext';
 import { ThemeProvider } from './providers/ThemeContext';
 import { GlobalStyleProvider } from './GlobalStyle';
 import ErrorBoundary from 'pages/errorBoundary/ErrorBoundary';
+import { LoaderProvider } from 'providers/LoaderProvider';
 
 interface Props {
   children: ReactNode;
@@ -24,9 +25,11 @@ const AppProviders = ({ children }: Props) => {
               <ErrorBoundary>
                 <NotificationProvider>
                   <AuthProvider>
-                    <FilterProvider>
-                      <DictionaryProvider>{children}</DictionaryProvider>
-                    </FilterProvider>
+                    <LoaderProvider>
+                      <FilterProvider>
+                        <DictionaryProvider>{children}</DictionaryProvider>
+                      </FilterProvider>
+                    </LoaderProvider>
                   </AuthProvider>
                 </NotificationProvider>
               </ErrorBoundary>
