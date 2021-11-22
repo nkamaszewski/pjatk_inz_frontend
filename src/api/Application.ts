@@ -18,12 +18,16 @@ export const getApplicationsFor = (
   return axiosJWT.get(`/appfor`, { params: query });
 };
 
+export const getApplicationFor = (id: string) =>
+  axiosJWT.get<ApplicationForDTO>(`/appfor/${id}`);
+
 export const postApplicationsFor = (
-  application: Omit<ApplicationForDTO, 'IdApplicationFor'>
+  application: Omit<ApplicationForDTO, 'IdApplicationFor' | 'IsStudy'>
 ) => axiosJWT.post('/appfor/', application);
 
-export const updateApplicationsFor = (application: ApplicationForDTO) =>
-  axiosJWT.put(`/appfor/${application.IdApplicationFor}`, application);
+export const updateApplicationsFor = (
+  application: Omit<ApplicationForDTO, 'IsStudy'>
+) => axiosJWT.put(`/appfor/${application.IdApplicationFor}`, application);
 
 export const deleteApplicationsFor = (id: string) =>
   axiosJWT.delete(`/appfor/${id}`);

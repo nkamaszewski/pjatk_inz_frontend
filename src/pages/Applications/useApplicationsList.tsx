@@ -3,7 +3,7 @@ import { useFilter } from 'providers/FilterContext';
 import { useCallback, useEffect, useState } from 'react';
 import { ApplicationForListDTO } from 'types/DTO/ApplicationFor';
 
-export const useApplications = () => {
+export const useApplicationsList = () => {
   const [applications, setApplications]: [ApplicationForListDTO[], Function] =
     useState([]);
   const {

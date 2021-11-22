@@ -31,7 +31,7 @@ const Polls = () => {
 
   return (
     <PollsStyle>
-      <PageHeader title="Wnioski propozycje szkoleń" />
+      <PageHeader title="Ankiety" />
       <AddFab onClick={() => setIsOpen(true)} />
 
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>

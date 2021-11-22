@@ -5,6 +5,7 @@ export interface ApplicationForDTO {
   IdStatus: string;
   Compatibility: boolean;
   IdPerson: string;
+  IsStudy: boolean;
 }
 
 export interface ApplicationForListDTO {

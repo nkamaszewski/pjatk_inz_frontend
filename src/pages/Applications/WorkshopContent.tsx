@@ -1,5 +1,7 @@
 import { Button } from '@material-ui/core';
-import { useEffect, useState } from 'react';
+import StatusSelect from 'components/controls_UI/StatusSelect';
+import { useAuth } from 'providers/AuthProvider';
+import { useState } from 'react';
 import styled from 'styled-components';
 import {
   postApplicationsFor,
@@ -31,14 +33,22 @@ const WorkshopContent = ({
   fetchApplications,
   editApplicationFor,
 }: Props) => {
-  const [isStudy, setIsStudy] = useState(false);
-  const [idEducation, setIdEducation] = useState('');
-  const [compatibility, setCompatibility] = useState(false);
+  const [isStudy, setIsStudy] = useState(
+    editApplicationFor ? editApplicationFor.IsStudy : false
+  );
+  const [idEducation, setIdEducation] = useState(
+    editApplicationFor ? editApplicationFor.IdEducation : ''
+  );
+  const [compatibility, setCompatibility] = useState(
+    editApplicationFor ? editApplicationFor.Compatibility : false
+  );
+  const [idStatus, setIdStatus] = useState(
+    editApplicationFor ? editApplicationFor.IdStatus : ''
+  );
   const { setSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    setIdEducation('');
-  }, [isStudy]);
+  const {
+    auth: { user },
+  } = useAuth();
 
   const handleOnSave = async () => {
     try {
@@ -47,18 +57,18 @@ const WorkshopContent = ({
           IdApplicationFor: editApplicationFor.IdApplicationFor,
           DateOfSubmission: editApplicationFor.DateOfSubmission,
           IdEducation: idEducation,
-          IdStatus: editApplicationFor.IdStatus,
+          IdStatus: idStatus,
           Compatibility: compatibility,
-          IdPerson: '1',
+          IdPerson: user?.IdPerson ?? '',
         });
         setSnackbar(createSnackbarSuccess('Wniosek został wyedytowany'));
       } else {
         await postApplicationsFor({
           DateOfSubmission: new Date(),
           IdEducation: idEducation,
-          IdStatus: '1',
+          IdStatus: idStatus,
           Compatibility: compatibility,
-          IdPerson: '1',
+          IdPerson: user?.IdPerson ?? '',
         });
         setSnackbar(createSnackbarSuccess('Wniosek został dodany'));
       }
@@ -74,9 +84,10 @@ const WorkshopContent = ({
     <WorkshopContentStyle>
       <SwitchBtn
         value={isStudy}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setIsStudy(event.target.checked)
-        }
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setIsStudy(event.target.checked);
+          setIdEducation('');
+        }}
         label="Wniosek dotyczy studiów?"
       />
 
@@ -92,6 +103,16 @@ const WorkshopContent = ({
           setCompatibility(event.target.checked)
         }
         label="Czy poprawny?"
+      />
+
+      <StatusSelect
+        value={idStatus}
+        onChange={(
+          event: React.ChangeEvent<{
+            value: unknown;
+            name?: string | undefined;
+          }>
+        ) => setIdStatus(event.target.value as string)}
       />
 
       <Button

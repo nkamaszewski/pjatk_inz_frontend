@@ -1,16 +1,10 @@
 import { Divider, Drawer } from '@material-ui/core';
 import { formatDate } from 'helpers/formatDate';
-import { useState } from 'react';
 import styled from 'styled-components';
-import { deleteApplicationsFor } from '../../api/Application';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
-import {
-  createSnackbarError,
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { ApplicationForListDTO } from '../../types/DTO/ApplicationFor';
+import { useApplication } from './useApplication';
 import WorkshopFieldset from './WorkshopFieldset';
 import WorkshopListHeader from './WorkshopListHeader';
 
@@ -33,34 +27,26 @@ interface Props {
 }
 
 const WorkshopList = ({ applications, fetchApplications }: Props) => {
-  const [editApplicationFor, setEditApplicationFor]: [
-    ApplicationForListDTO | null,
-    Function
-  ] = useState(null);
-  const { setSnackbar } = useSnackbar();
+  const { editApplicationFor, getForEdit, cancelEditing, deleteItem } =
+    useApplication();
 
   const handleDeleteItem = async (id: string) => {
-    try {
-      await deleteApplicationsFor(id);
-      setSnackbar(createSnackbarSuccess('Usunięto wniosek!'));
-      fetchApplications();
-    } catch (e) {
-      console.error(e);
-      setSnackbar(createSnackbarError('Nie udało się usunąć wniosku!'));
-    }
+    await deleteItem(id);
   };
 
-  const handleCloseDrawer = () => setEditApplicationFor(null);
+  const handleClickEdit = async (id: string) => {
+    await getForEdit(id);
+  };
 
   return (
     <WorkshopListStyle>
       <Drawer
         anchor="right"
         open={Boolean(editApplicationFor)}
-        onClose={handleCloseDrawer}
+        onClose={cancelEditing}
       >
         <WorkshopFieldset
-          closeDrawer={handleCloseDrawer}
+          closeDrawer={cancelEditing}
           fetchApplications={fetchApplications}
           editApplicationFor={editApplicationFor}
         />
@@ -76,7 +62,9 @@ const WorkshopList = ({ applications, fetchApplications }: Props) => {
                 : 'wniosek niepoprawny'}
             </p>
             <p>{application.Status}</p>
-            <EditBtn onClick={() => setEditApplicationFor(application)} />
+            <EditBtn
+              onClick={() => handleClickEdit(application.IdApplicationFor)}
+            />
             <DeleteBtn
               onClick={() => handleDeleteItem(application.IdApplicationFor)}
             />
