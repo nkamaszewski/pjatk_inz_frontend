@@ -4,29 +4,33 @@ import { getReasonsForRefund } from '../api/ReasonForRefund';
 import { getStatuses } from '../api/Status';
 import { ReasonForRefundDTO } from '../types/DTO/ReasonForRefund';
 import { StatusDTO } from '../types/DTO/Status';
+import { useAuth } from './AuthProvider';
 
 const useCreateDictionary = () => {
   const [statuses, setStatuses] = useState<StatusDTO[]>([]);
   const [reasonsForRefund, setReasonsForRefund] = useState<
     ReasonForRefundDTO[]
   >([]);
+  const { auth } = useAuth();
 
   useEffect(() => {
-    getStatuses()
-      .then((response) => {
-        setStatuses(response.data);
-      })
-      .catch((e) => {
-        console.error('useCreateDictionary, getStatuses', e);
-      });
-    getReasonsForRefund()
-      .then((response) => {
-        setReasonsForRefund(response.data);
-      })
-      .catch((e) => {
-        console.error('useCreateDictionary, getReasonsForRefund', e);
-      });
-  }, []);
+    if (auth.user) {
+      getStatuses()
+        .then((response) => {
+          setStatuses(response.data);
+        })
+        .catch((e) => {
+          console.error('useCreateDictionary, getStatuses', e);
+        });
+      getReasonsForRefund()
+        .then((response) => {
+          setReasonsForRefund(response.data);
+        })
+        .catch((e) => {
+          console.error('useCreateDictionary, getReasonsForRefund', e);
+        });
+    }
+  }, [auth]);
 
   return { statuses, setStatuses, reasonsForRefund, setReasonsForRefund };
 };

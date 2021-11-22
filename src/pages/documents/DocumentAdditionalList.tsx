@@ -66,6 +66,8 @@ const DocumentAdditionalList = ({ documents, fetchDocuments }: Props) => {
       setSnackbar(createSnackbarError('nie udało się usunąć wniosku!'));
     }
   };
+  console.log('statuses', statuses);
+
   const getStatusName = (id: string) =>
     statuses.find(({ IdStatus }) => IdStatus === id)?.Name ?? '';
   return (
