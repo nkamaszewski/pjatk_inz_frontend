@@ -1,3 +1,4 @@
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { createContext, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { postLogin } from '../api/Login';
@@ -35,10 +36,11 @@ const useAuthState = () => {
 
   const history = useHistory();
   const { setErrorSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
   const {
     language: {
       schema: {
-        auth: { _loginError, _registerError },
+        auth: { _loginError },
       },
     },
   } = useLanguage();
@@ -78,8 +80,7 @@ const useAuthState = () => {
         setDefaultAuth();
       }
     } catch (e) {
-      setErrorSnackbar(_registerError);
-      console.error(register, e);
+      handleHttpError(e);
     }
     return false;
   };

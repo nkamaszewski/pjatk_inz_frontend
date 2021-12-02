@@ -1,5 +1,6 @@
 import { Button } from '@material-ui/core';
 import { postRestore } from 'api/Password';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useSnackbar } from 'providers/NotificationContext';
 import Lottie from 'react-lottie-player';
 import { useHistory } from 'react-router';
@@ -76,14 +77,16 @@ const RestorePasswordPage = () => {
       },
     },
   } = useLanguage();
+  const handleHttpError = useHandleHttpError();
   const formik = useFormikRestorePassword({
     initialValues: EMPTY_USER_LOGIN,
     onSubmit: async ({ email }) => {
       try {
         await postRestore(email);
+
         setSuccessSnackbar('Link do zmiany hasła został wysłany na maila.');
-      } catch (e) {
-        console.error(e);
+      } catch (e: any) {
+        handleHttpError(e);
       }
     },
   });
