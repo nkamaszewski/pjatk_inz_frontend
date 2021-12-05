@@ -2,6 +2,7 @@ import { faSitemap } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Drawer, Tooltip } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
+import { SendInvitationBtn } from 'components/SendInvitationBtn/SendInvitationBtn';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteEmployment } from '../../api/Employment';
@@ -23,7 +24,7 @@ const EmploymentListStyle = styled.div`
 
   .grid-employment {
     display: grid;
-    grid-template-columns: repeat(5, 1fr) repeat(3, 44px);
+    grid-template-columns: repeat(5, 1fr) repeat(4, 44px);
   }
 
   .row {
@@ -87,6 +88,7 @@ const EmploymentList = ({
             <p>{getDivisionName(employee)}</p>
             <p>{employee.employmentsDepartment.Name}</p>
             <p>{employee.emplymentPosition.Name}</p>
+            <SendInvitationBtn email={person.Email} />
             <EditBtn
               onClick={() =>
                 setEditEmployee(mapEmploymentListDTOtoEmploymentDTO(employee))
