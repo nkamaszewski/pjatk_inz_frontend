@@ -5,4 +5,5 @@ export interface EmployeeDTO {
   Pesel: number;
   Password: string;
   employeePerson: PersonDTO;
+  IsActive?: null | boolean;
 }

@@ -4,6 +4,7 @@ import FormikPassword from 'components/controls_UI/formik/FormikPassword';
 import { useSnackbar } from 'providers/NotificationContext';
 import Lottie from 'react-lottie-player';
 import { useHistory, useParams } from 'react-router';
+import { PATH } from 'routes/paths';
 import styled from 'styled-components';
 import lottieJson from '../../animations/Secure.json';
 import { LanguagePanel } from '../../components/LanguagePanel';
@@ -63,8 +64,11 @@ const SetPasswordPage = () => {
     initialValues: EMPTY_CHANGE_PASSWORD_FORM,
     onSubmit: async ({ password }) => {
       try {
-        await postChangePassword('ddd@ddd.pl', password, token);
+        await postChangePassword({ email: null, password, token });
         setSuccessSnackbar('zmieniono hasło!');
+        setTimeout(() => {
+          history.push(PATH.login);
+        }, 2000);
       } catch (e) {
         console.error(e);
       }

@@ -79,7 +79,7 @@ const ChangePasswordPage = () => {
     initialValues: EMPTY_CHANGE_PASSWORD_FORM,
     onSubmit: async ({ email, password }) => {
       try {
-        await postChangePassword(email, password, token);
+        await postChangePassword({ email, password, token });
         setSuccessSnackbar('zmieniono hasło!');
       } catch (e) {
         console.error(e);

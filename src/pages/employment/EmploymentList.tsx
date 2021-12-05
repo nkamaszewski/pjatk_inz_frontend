@@ -88,7 +88,11 @@ const EmploymentList = ({
             <p>{getDivisionName(employee)}</p>
             <p>{employee.employmentsDepartment.Name}</p>
             <p>{employee.emplymentPosition.Name}</p>
-            <SendInvitationBtn email={person.Email} />
+            {person.personEmployee?.IsActive ? (
+              <span />
+            ) : (
+              <SendInvitationBtn email={person.Email} />
+            )}
             <EditBtn
               onClick={() =>
                 setEditEmployee(mapEmploymentListDTOtoEmploymentDTO(employee))
