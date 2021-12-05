@@ -3,6 +3,7 @@ export const PATH = {
   register: '/rejestracja',
   restorePassword: '/przypomnij-haslo',
   changePassword: `/zmiana-hasla/:token`,
+  setPassword: `/utworz-haslo/:token`,
   employment: '/pracownicy',
   applicationsPage: '/wnioski/wnioski-szkoleniowe',
   documentAdditional: '/wnioski/wnioski-dodatkowe',

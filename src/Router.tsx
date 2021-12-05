@@ -5,11 +5,12 @@ import { useAuth } from './providers/AuthProvider';
 
 const Router = () => {
   const { auth } = useAuth();
-  const [login, register, restore, change] = authRoutes;
+  const [login, register, restore, change, setPassword] = authRoutes;
   const LoginComponent = login.Component;
   const RegisterComponent = register.Component;
   const RestoreComponent = restore.Component;
   const ChangeComponent = change.Component;
+  const SetPasswordComponent = setPassword.Component;
 
   return (
     <Switch>
@@ -51,6 +52,12 @@ const Router = () => {
         exact
         path={change.path}
         children={<ChangeComponent />}
+      />
+      <Route
+        key={setPassword.path}
+        exact
+        path={setPassword.path}
+        children={<SetPasswordComponent />}
       />
       <Redirect to={'/logowanie'} />
     </Switch>

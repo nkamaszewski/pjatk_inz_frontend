@@ -64,6 +64,7 @@ export const en: LanguageSchema = {
   },
   //TODO: refactor the code above
   restorePassword: 'Restore password',
+  setPassword: 'Set your password',
   password: 'password',
   confirmPassword: 'confirm password',
   confirmAccount: "You've already registered?",

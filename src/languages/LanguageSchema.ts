@@ -62,6 +62,7 @@ export interface LanguageSchema {
   };
   //TODO: refactor the code above
   restorePassword: string;
+  setPassword: string;
   password: string;
   confirmPassword: string;
   confirmAccount: string;

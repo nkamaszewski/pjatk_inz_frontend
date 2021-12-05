@@ -64,6 +64,7 @@ export const pl: LanguageSchema = {
   },
   //TODO: refactor the code above
   restorePassword: 'Przywróć hasło',
+  setPassword: 'Utwórz hasło',
   password: 'hasło',
   confirmPassword: 'potwierdź hasło',
   confirmAccount: 'Masz już konto?',

@@ -19,6 +19,7 @@ import RestorePasswordPage from 'pages/RestorePassword/RestorePasswordPage';
 import ChangePasswordPage from 'pages/changePassword/ChangePasswordPage';
 import { PATH } from './paths';
 import { ApplicationsPage } from 'pages/Applications/ApplicationsPage';
+import SetPasswordPage from 'pages/SetPassword/SetPasswordPage';
 
 export interface RouteType {
   Component: Function;
@@ -30,6 +31,7 @@ export const authRoutes = [
   { Component: RegisterPage, path: PATH.register },
   { Component: RestorePasswordPage, path: PATH.restorePassword },
   { Component: ChangePasswordPage, path: PATH.changePassword },
+  { Component: SetPasswordPage, path: PATH.setPassword },
 ];
 
 export const routes: RouteType[] = [
