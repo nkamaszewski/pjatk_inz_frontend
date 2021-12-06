@@ -64,6 +64,9 @@ export interface LanguageSchema {
   restorePassword: string;
   setPassword: string;
   password: string;
+  currentPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
   confirmPassword: string;
   confirmAccount: string;
   login: string;

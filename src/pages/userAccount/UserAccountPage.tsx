@@ -1,7 +1,8 @@
 import { faMailBulk, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Divider } from '@material-ui/core';
+import { Button, Divider, Drawer } from '@material-ui/core';
 import { updateUser } from 'api/User';
+import { useDrawer } from 'hooks/useDrawer';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useSnackbar } from 'providers/NotificationContext';
 import { useState } from 'react';
@@ -11,6 +12,7 @@ import SwitchBtn from '../../components/controls_UI/SwitchBtn';
 import PageHeader from '../../components/PageHeader';
 import { useAuth } from '../../providers/AuthProvider';
 import { PersonDTO } from '../../types/DTO/Person';
+import ChangePasswordFieldset from './ChangePasswordFieldset';
 import { useFormikUser } from './useFormikUser';
 
 const UserAccountPageStyled = styled.div`
@@ -33,10 +35,16 @@ const UserAccountPageStyled = styled.div`
       float: right;
     }
   }
+
+  .change-btn {
+    height: 44px;
+    align-self: center;
+  }
 `;
 
 const UserAccountPage = () => {
   const [editMode, setEditMode] = useState(false);
+  const drawer = useDrawer();
   const {
     auth: { user },
     modifyUser,
@@ -142,9 +150,20 @@ const UserAccountPage = () => {
           }
           label={_form.switchBtn}
         />
+        <Button
+          className="change-btn"
+          variant="contained"
+          color="primary"
+          onClick={drawer.openDrawer}
+        >
+          Zmień hasło
+        </Button>
       </div>
       <Divider />
       <section className=""></section>
+      <Drawer anchor="right" open={drawer.open} onClose={drawer.closeDrawer}>
+        <ChangePasswordFieldset closeDrawer={drawer.closeDrawer} />
+      </Drawer>
     </UserAccountPageStyled>
   );
 };
