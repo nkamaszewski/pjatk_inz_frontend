@@ -20,7 +20,7 @@ const MeetingListStyle = styled.div`
 
   .grid-meeting {
     display: grid;
-    grid-template-columns: 300px 1fr 200px 200px 56px 56px;
+    grid-template-columns: 250px 250px 1fr 200px 200px 56px 56px;
   }
 
   .row {
@@ -50,6 +50,7 @@ const MeetingList = ({ meetings, fetchMeetings }: Props) => {
         <Card key={meeting.IdMeeting} className="grid-meeting row">
           <p>{formatDate(meeting.From)}</p>
           <p>{formatDate(meeting.To)}</p>
+          <p>{meeting.Topic}</p>
           <p>{meeting.meetingGroup.Name}</p>
           <p>{meeting.meetingRoom.Name}</p>
           <EditBtn

@@ -7,6 +7,7 @@ export interface MeetingDTO {
   To: string;
   meetingGroup: GroupDTO;
   meetingRoom: RoomDTO;
+  Topic: string;
 }
 
 export interface MeetingDTOShort {

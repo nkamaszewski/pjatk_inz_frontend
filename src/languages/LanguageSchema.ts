@@ -81,11 +81,15 @@ export interface LanguageSchema {
   department: string;
   division: string;
   position: string;
+  group: string;
   groups: string;
   name: string;
   participantsAmount: string;
   topic: string;
   subject: string;
+  room: string;
+  from: string;
+  to: string;
   validation: {
     loginRequired: string;
     emailFormat: string;
