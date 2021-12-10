@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Navigation from './Navigation';
+import Navigation from './navigation/Navigation';
 
 const PageLayoutStyle = styled.div`
   height: 100vh;
