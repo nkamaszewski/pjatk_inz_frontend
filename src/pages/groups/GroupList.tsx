@@ -20,7 +20,7 @@ const GroupListStyle = styled.div`
 
   .grid-group {
     display: grid;
-    grid-template-columns: 1fr 300px 56px 56px;
+    grid-template-columns: 1fr 280px 400px 300px 56px 56px;
   }
 
   .row {
@@ -57,6 +57,8 @@ const GroupList = ({ groups, fetchGroups }: Props) => {
         <Card key={group.IdGroup} className="grid-group row">
           <p>{group.Name}</p>
           <p>{group.NumberOfPerson}</p>
+          <p>{group.Topic}</p>
+          <p>{group.Subject}</p>
           <Button
             onClick={() => {
               setGroup(group);

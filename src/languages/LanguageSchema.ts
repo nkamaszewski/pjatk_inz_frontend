@@ -84,6 +84,8 @@ export interface LanguageSchema {
   groups: string;
   name: string;
   participantsAmount: string;
+  topic: string;
+  subject: string;
   validation: {
     loginRequired: string;
     emailFormat: string;

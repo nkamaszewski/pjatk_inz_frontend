@@ -86,6 +86,8 @@ export const pl: LanguageSchema = {
   groups: 'grupy',
   name: 'nazwa',
   participantsAmount: 'ilość uczestników',
+  topic: 'temat',
+  subject: 'kategoria',
   validation: {
     loginRequired: 'podanie email / login jest wymagane',
     emailFormat: 'niepoprawny format email',

@@ -4,7 +4,7 @@ import HeaderListStyled from '../../components/styled/HeaderListStyled';
 const GroupListHeader = () => {
   const {
     language: {
-      schema: { name, participantsAmount },
+      schema: { name, participantsAmount, subject, topic },
     },
   } = useLanguage();
   return (
@@ -12,6 +12,8 @@ const GroupListHeader = () => {
       <>
         <p>{name}</p>
         <p>{participantsAmount}</p>
+        <p>{topic}</p>
+        <p>{subject}</p>
       </>
     </HeaderListStyled>
   );

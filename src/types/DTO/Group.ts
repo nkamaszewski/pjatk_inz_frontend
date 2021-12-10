@@ -3,4 +3,6 @@ export interface GroupDTO {
   Name: string;
   NumberOfPerson: number;
   IdEducation: string;
+  Subject: string;
+  Topic: string;
 }
