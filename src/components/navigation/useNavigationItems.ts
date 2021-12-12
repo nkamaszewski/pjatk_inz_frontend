@@ -58,7 +58,7 @@ const getNavigationsItems = (schema: LanguageSchema): NavigationItem[] => [
   },
   {
     id: '3',
-    label: capFL(schema.training),
+    label: capFL(schema.trainings),
     link: '/szkolenia/studia',
     children: [
       {
