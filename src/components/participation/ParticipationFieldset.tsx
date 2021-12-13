@@ -1,21 +1,17 @@
-import HeaderFieldset from 'components/HeaderFieldset';
-import FieldsetStyled from 'components/styled/FieldsetStyled';
 import styled from 'styled-components';
 import { ParticipationContent } from './ParticipationContent';
+import { ParticipationFieldsetHeader } from './ParticipationFieldsetHeader';
 
-const ParticipationFieldsetStyled = styled.div``;
+const ParticipationFieldsetStyled = styled.div`
+  padding: 24px;
+  width: 600px;
+`;
 
-interface ParticipationFieldsetProps {
-  closeDrawer: () => void;
-}
-
-export const ParticipationFieldset = ({
-  closeDrawer,
-}: ParticipationFieldsetProps) => {
+export const ParticipationFieldset = () => {
   return (
-    <FieldsetStyled>
-      <HeaderFieldset title={`Uczestnicy`} closeDrawer={closeDrawer} />
+    <ParticipationFieldsetStyled>
+      <ParticipationFieldsetHeader />
       <ParticipationContent />
-    </FieldsetStyled>
+    </ParticipationFieldsetStyled>
   );
 };

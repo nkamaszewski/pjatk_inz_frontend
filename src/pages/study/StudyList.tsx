@@ -65,7 +65,7 @@ const StudyList = ({ studies, fetchStudies }: Props) => {
         />
       </Drawer>
       <Drawer anchor="right" open={open} onClose={closeDrawer}>
-        <ParticipationFieldset closeDrawer={closeDrawer} />
+        <ParticipationFieldset />
       </Drawer>
       <StudyListHeader />
       {studies.map((study) => {
