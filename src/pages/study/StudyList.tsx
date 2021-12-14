@@ -40,7 +40,12 @@ const StudyList = ({ studies, fetchStudies }: Props) => {
   const [editStudy, setEditStudy]: [StudiesListDTO | null, Function] =
     useState(null);
   const { open, openDrawer, closeDrawer } = useDrawer();
+  const [selectedIdEducation, setSelectedIdEducation] = useState('');
   const { setSnackbar } = useSnackbar();
+  const handleAddParticipation = (id: string) => {
+    setSelectedIdEducation(id);
+    openDrawer();
+  };
   const handleCloseDrawer = () => setEditStudy(null);
   const handleDeleteItem = async (id: string) => {
     try {
@@ -65,7 +70,7 @@ const StudyList = ({ studies, fetchStudies }: Props) => {
         />
       </Drawer>
       <Drawer anchor="right" open={open} onClose={closeDrawer}>
-        <ParticipationFieldset />
+        <ParticipationFieldset IdEducation={selectedIdEducation} />
       </Drawer>
       <StudyListHeader />
       {studies.map((study) => {
@@ -79,7 +84,9 @@ const StudyList = ({ studies, fetchStudies }: Props) => {
 
             <EditBtn onClick={() => setEditStudy(study)} />
             <DeleteBtn onClick={() => handleDeleteItem(study.IdEducation)} />
-            <AddParticipation onClick={openDrawer} />
+            <AddParticipation
+              onClick={() => handleAddParticipation(study.IdEducation)}
+            />
           </Card>
         );
       })}

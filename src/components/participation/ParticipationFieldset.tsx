@@ -7,10 +7,14 @@ const ParticipationFieldsetStyled = styled.div`
   width: 600px;
 `;
 
-export const ParticipationFieldset = () => {
+interface Props {
+  IdEducation: string;
+}
+
+export const ParticipationFieldset = ({ IdEducation }: Props) => {
   return (
     <ParticipationFieldsetStyled>
-      <ParticipationFieldsetHeader />
+      <ParticipationFieldsetHeader IdEducation={IdEducation} />
       <ParticipationContent />
     </ParticipationFieldsetStyled>
   );

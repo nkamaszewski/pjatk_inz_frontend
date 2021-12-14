@@ -1,0 +1,34 @@
+import { FormikConfig, FormikValues, useFormik } from 'formik';
+import * as Yup from 'yup';
+
+const participationSchema = Yup.object().shape({
+  email: Yup.string()
+    .required('podanie email / login jest wymagane')
+    .email('niepoprawny format email'),
+  password: Yup.string().required('hasło jest wymagane'),
+});
+
+export function useFormikParticipation<
+  Values extends FormikValues = FormikValues
+>({
+  validateOnChange,
+  validateOnBlur,
+  validateOnMount,
+  isInitialValid,
+  enableReinitialize,
+  onSubmit,
+  ...rest
+}: FormikConfig<Values>) {
+  const formikParticipation = useFormik({
+    validateOnChange,
+    validateOnBlur,
+    validateOnMount,
+    isInitialValid,
+    enableReinitialize,
+    onSubmit,
+    ...rest,
+    validationSchema: participationSchema,
+  });
+
+  return formikParticipation;
+}
