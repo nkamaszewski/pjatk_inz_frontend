@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Fab } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { ParticipationDTO } from 'types/DTO/Participation';
 import { ParticipationForm } from './ParticipationForm';
 
 const ParticipationFieldsetHeaderStyled = styled.div`
@@ -11,11 +12,13 @@ const ParticipationFieldsetHeaderStyled = styled.div`
 `;
 
 interface ParticipationFieldsetHeaderProps {
-  IdEducation: string;
+  addParticipation: (
+    participation: Omit<ParticipationDTO, 'IdParticipation' | 'IdEducation'>
+  ) => Promise<void>;
 }
 
 export const ParticipationFieldsetHeader = ({
-  IdEducation,
+  addParticipation,
 }: ParticipationFieldsetHeaderProps) => {
   const [addingMode, setAddingMode] = useState(false);
 
@@ -24,7 +27,7 @@ export const ParticipationFieldsetHeader = ({
       <ParticipationForm
         open={addingMode}
         setOpen={setAddingMode}
-        IdEducation={IdEducation}
+        addParticipation={addParticipation}
       />
       <h3>Uczestnicy</h3>
       <Fab color="primary" aria-label="add" onClick={() => setAddingMode(true)}>

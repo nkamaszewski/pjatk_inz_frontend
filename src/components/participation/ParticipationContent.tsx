@@ -1,7 +1,10 @@
+import { Card } from '@material-ui/core';
+import DeleteBtn from 'components/DeleteBtn';
 import styled from 'styled-components';
+import { ParticipationsListDTO } from 'types/DTO/Participation';
 
 const ParticipationContentStyled = styled.div`
-  .grid-group {
+  .grid-participation {
     padding: 16px;
     margin: 4px 0;
     display: grid;
@@ -9,22 +12,30 @@ const ParticipationContentStyled = styled.div`
   }
 `;
 
-interface ParticipationContentProps {}
+interface ParticipationContentProps {
+  participations: ParticipationsListDTO[];
+  removeParticipation: (id: string) => void;
+}
 
-export const ParticipationContent = ({}: ParticipationContentProps) => {
+export const ParticipationContent = ({
+  participations,
+  removeParticipation,
+}: ParticipationContentProps) => {
   return (
     <ParticipationContentStyled>
-      <header className="grid-group">
+      <header className="grid-participation">
         <p>Imię</p>
         <p>Nazwisko</p>
       </header>
-      {/* {employeeGroup.map((eg) => (
-        <Card key={eg.IdEmployeeGroup} className="grid-group">
-          <p>{eg.employeeGroupGroup.Name}</p>
-          <p>{eg.employeeGroupGroup.NumberOfPerson}</p>
-          <DeleteBtn onClick={() => handleDeleteItem(eg.IdEmployeeGroup)} />
+      {participations.map((part) => (
+        <Card key={part.IdEducation} className="grid-participation">
+          <p>{part.participationEmployee.employeePerson.FirstName}</p>
+          <p>{part.participationEmployee.employeePerson.LastName}</p>
+          <DeleteBtn
+            onClick={() => removeParticipation(part.IdParticipation)}
+          />
         </Card>
-      ))} */}
+      ))}
     </ParticipationContentStyled>
   );
 };

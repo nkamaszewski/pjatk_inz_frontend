@@ -2,10 +2,11 @@ import { FormikConfig, FormikValues, useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const participationSchema = Yup.object().shape({
-  email: Yup.string()
-    .required('podanie email / login jest wymagane')
-    .email('niepoprawny format email'),
-  password: Yup.string().required('hasło jest wymagane'),
+  IdPerson: Yup.string().required('podanie pracownika jest wymagane'),
+  DateOfRegistration: Yup.string().required(
+    'podanie daty rejestracji jest wymagane'
+  ),
+  EndDate: Yup.string().required('podanie daty końca jest wymagane'),
 });
 
 export function useFormikParticipation<
