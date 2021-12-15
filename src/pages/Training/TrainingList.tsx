@@ -13,13 +13,16 @@ import { formatDate } from '../../helpers/formatDate';
 import { TrainingDTO } from '../../types/DTO/Training';
 import TrainingFieldset from './TrainingFieldset';
 import TrainingHeader from './TrainingHeader';
+import { ParticipationFieldset } from 'components/participation/ParticipationFieldset';
+import { useDrawer } from 'hooks/useDrawer';
+import { AddParticipation } from 'components/AddParticipation';
 
 const TrainingListStyle = styled.div`
   padding: 16px;
 
   .grid-trainings {
     display: grid;
-    grid-template-columns: 1fr 140px 1fr repeat(2, 140px) 56px 56px;
+    grid-template-columns: 1fr 140px 1fr repeat(2, 140px) 56px 56px 56px;
   }
   .row {
     padding: 16px;
@@ -35,7 +38,13 @@ interface Props {
 const TrainingList = ({ trainings, fetchTrainings }: Props) => {
   const [editTraining, setEditTraining] = useState<TrainingDTO | null>(null);
   const { setSnackbar } = useSnackbar();
+  const { open, openDrawer, closeDrawer } = useDrawer();
+  const [selectedIdEducation, setSelectedIdEducation] = useState('');
   const handleCloseDrawer = () => setEditTraining(null);
+  const handleAddParticipation = (id: string) => {
+    setSelectedIdEducation(id);
+    openDrawer();
+  };
   const handleDeleteItem = async (id: string) => {
     try {
       await deleteTraining(id);
@@ -58,6 +67,9 @@ const TrainingList = ({ trainings, fetchTrainings }: Props) => {
           editTraining={editTraining}
         />
       </Drawer>
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
+        <ParticipationFieldset IdEducation={selectedIdEducation} />
+      </Drawer>
       <TrainingHeader />
       {trainings.map((training) => (
         <Card
@@ -73,6 +85,11 @@ const TrainingList = ({ trainings, fetchTrainings }: Props) => {
           <DeleteBtn
             onClick={() =>
               handleDeleteItem(training.trainingEducation.IdEducation)
+            }
+          />
+          <AddParticipation
+            onClick={() =>
+              handleAddParticipation(training.trainingEducation.IdEducation)
             }
           />
         </Card>

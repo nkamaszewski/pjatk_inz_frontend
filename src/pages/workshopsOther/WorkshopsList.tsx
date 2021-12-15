@@ -1,6 +1,8 @@
 import { Card, Drawer } from '@material-ui/core';
+import { AddParticipation } from 'components/AddParticipation';
 import DeleteBtn from 'components/DeleteBtn';
 import EditBtn from 'components/EditBtn';
+import { ParticipationFieldset } from 'components/participation/ParticipationFieldset';
 import { useDrawer } from 'hooks/useDrawer';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -17,7 +19,7 @@ const WorkshopsListStyled = styled.div`
 
   .grid-workshops {
     display: grid;
-    grid-template-columns: 1fr 56px 56px;
+    grid-template-columns: 1fr 56px 56px 56px;
   }
 
   .row {
@@ -38,6 +40,16 @@ export const WorkshopsList = ({
   const [workshop, setWorkshop] = useState<OtherEducationDTO | null>(null);
   const { getItem, deleteItem } = useWorkshopCRUD();
   const { open, openDrawer, closeDrawer } = useDrawer();
+  const {
+    open: openParticipation,
+    openDrawer: openDrawerParticipation,
+    closeDrawer: closeDrawerParticipation,
+  } = useDrawer();
+  const [selectedIdEducation, setSelectedIdEducation] = useState('');
+  const handleAddParticipation = (id: string) => {
+    setSelectedIdEducation(id);
+    openDrawerParticipation();
+  };
 
   const handleEditWorkshop = async (id: string) => {
     const workshopToEdit = await getItem(id);
@@ -57,6 +69,9 @@ export const WorkshopsList = ({
           <p>{w.Name}</p>
           <EditBtn onClick={() => handleEditWorkshop(w.IdEducation)} />
           <DeleteBtn onClick={() => handleDeleteWorkshop(w.IdEducation)} />
+          <AddParticipation
+            onClick={() => handleAddParticipation(w.IdEducation)}
+          />
         </Card>
       ))}
 
@@ -66,6 +81,13 @@ export const WorkshopsList = ({
           fetchWorkshops={fetchWorkshops}
           workshop={workshop}
         />
+      </Drawer>
+      <Drawer
+        anchor="right"
+        open={openParticipation}
+        onClose={closeDrawerParticipation}
+      >
+        <ParticipationFieldset IdEducation={selectedIdEducation} />
       </Drawer>
     </WorkshopsListStyled>
   );
