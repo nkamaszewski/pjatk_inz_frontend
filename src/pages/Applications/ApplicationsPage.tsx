@@ -22,7 +22,7 @@ export const ApplicationsPage = () => {
 
   return (
     <ApplicationsPageStyled>
-      <PageHeader title="Wnioski propozycje szkoleń" />
+      <PageHeader title="Wnioski o szkolenia" />
       <AddFab className="page-panel" onClick={() => setIsOpen(true)}>
         <FilterPanel />
       </AddFab>

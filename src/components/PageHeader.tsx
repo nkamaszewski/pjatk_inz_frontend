@@ -33,6 +33,7 @@ const PageHeaderStyle = styled.div`
 
   h1 {
     padding-left: 36px;
+    text-transform: uppercase;
   }
 
   .level-1 {
