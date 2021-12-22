@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import AddFab from '../../components/AddFab';
@@ -19,10 +20,18 @@ const ApplicationsPageStyled = styled.div`
 export const ApplicationsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { applications, fetchApplications } = useApplicationsList();
+  const {
+    language: {
+      schema: {
+        trainingApplications
+      },
+    },
+  } = useLanguage();
+
 
   return (
     <ApplicationsPageStyled>
-      <PageHeader title="Wnioski o szkolenia" />
+      <PageHeader title={trainingApplications} />
       <AddFab className="page-panel" onClick={() => setIsOpen(true)}>
         <FilterPanel />
       </AddFab>

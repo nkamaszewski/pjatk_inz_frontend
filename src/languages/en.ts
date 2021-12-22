@@ -81,6 +81,7 @@ export const en: LanguageSchema = {
   applications: 'applications',
   training: 'training',
   trainings: 'trainings',
+  trainingApplications: 'TRAINING APPLICATIONS',
   additional: 'additional',
   study: 'study',
   courses: 'courses',

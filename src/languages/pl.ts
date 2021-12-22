@@ -81,6 +81,7 @@ export const pl: LanguageSchema = {
   applications: 'wnioski',
   training: 'szkoleniowe',
   trainings: 'szkolenia',
+  trainingApplications: 'WNIOSKI O SZKOLENIA',
   additional: 'dodatkowe',
   study: 'studia',
   courses: 'kursy',

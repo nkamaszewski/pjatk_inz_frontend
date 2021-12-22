@@ -52,7 +52,7 @@ const UserAccountPage = () => {
   const {
     language: {
       schema: {
-        userAccountPage: { _form, _header },
+        userAccountPage: { _form, _header },changePassword
       },
     },
   } = useLanguage();
@@ -156,7 +156,7 @@ const UserAccountPage = () => {
           color="primary"
           onClick={drawer.openDrawer}
         >
-          Zmień hasło
+          {changePassword}
         </Button>
       </div>
       <Divider />
