@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { getCoaches } from '../../api/Coach';
 import AddFab from '../../components/AddFab';
@@ -26,9 +27,18 @@ const WorkshopsCoaches = () => {
     fetchCoaches();
   }, []);
 
+  const {
+    language: {
+      schema: {
+        coachesM
+
+      },
+    },
+  } = useLanguage();
+
   return (
     <div>
-      <PageHeader title="Szkoleniowcy " />
+      <PageHeader title={coachesM} />
       <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <CoachFieldset

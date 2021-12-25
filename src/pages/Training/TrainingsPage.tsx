@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import AddFab from '../../components/AddFab';
@@ -19,10 +20,18 @@ const TrainingsPageStyled = styled.div`
 const TrainingsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { trainings, fetchTrainings } = useTrainings();
+  const {
+    language: {
+      schema: {
+        courses
+
+      },
+    },
+  } = useLanguage();
 
   return (
     <TrainingsPageStyled>
-      <PageHeader title="Kursy" />
+      <PageHeader title={courses} />
       <AddFab className="page-panel" onClick={() => setIsOpen(true)}>
         <FilterPanel />
       </AddFab>

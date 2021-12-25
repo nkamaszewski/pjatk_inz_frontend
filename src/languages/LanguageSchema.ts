@@ -80,6 +80,8 @@ export interface LanguageSchema {
   training: string;
   trainings: string;
   trainingApplications: string;
+  trainingOrganizers: string;
+  otherTtrainings: string;
   study: string;
   courses: string;
   others: string;
@@ -89,6 +91,7 @@ export interface LanguageSchema {
   positions: string;
   rooms: string;
   coaches: string;
+  coachesM: string;
   meetings: string;
   questionnaires: string;
   company: string;
@@ -109,6 +112,7 @@ export interface LanguageSchema {
   room: string;
   from: string;
   to: string;
+  additionalApplications: string;
   validation: {
     loginRequired: string;
     emailFormat: string;

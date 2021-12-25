@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { getCompanies } from '../../api/Company';
 import AddFab from '../../components/AddFab';
@@ -25,10 +26,18 @@ const Organizators = () => {
   useEffect(() => {
     fetchCompanies();
   }, []);
+  const {
+    language: {
+      schema: {
+        trainingOrganizers
+
+      },
+    },
+  } = useLanguage();
 
   return (
     <div>
-      <PageHeader title="Organizatorzy szkoleń" />
+      <PageHeader title={trainingOrganizers} />
       <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <CompanyFieldset
