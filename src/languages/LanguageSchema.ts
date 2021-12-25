@@ -118,6 +118,13 @@ export interface LanguageSchema {
   validationTable: string;
   status: string;
   consisting: string;
+  fieldsOfStudy: string;
+  school: string;
+  city: string;
+  mode: string;
+  level: string;
+  price: string;
+  organizer: string;
   validation: {
     loginRequired: string;
     emailFormat: string;
