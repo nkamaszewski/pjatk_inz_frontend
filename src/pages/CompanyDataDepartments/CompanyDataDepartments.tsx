@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getDepartments } from '../../api/Department';
@@ -37,9 +38,13 @@ const CompanyDataDepartments = () => {
     fetchDivisionsDepartments();
   }, []);
 
+  const {
+    language: { schema },
+  } = useLanguage();
+
   return (
     <CompanyDataDepartmentsStyle>
-      <PageHeader title="Firma piony wydziały" />
+      <PageHeader title={schema.departmentsDivisions} />
       <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <DepartmentDivisionFieldset

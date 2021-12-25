@@ -77,6 +77,7 @@ export interface LanguageSchema {
   light: string;
   employees: string;
   applications: string;
+  applicationsTrainingProposals: string;
   training: string;
   trainings: string;
   trainingApplications: string;
@@ -91,7 +92,6 @@ export interface LanguageSchema {
   positions: string;
   rooms: string;
   coaches: string;
-  coachesM: string;
   meetings: string;
   questionnaires: string;
   company: string;
@@ -112,7 +112,12 @@ export interface LanguageSchema {
   room: string;
   from: string;
   to: string;
+  timetable: string;
   additionalApplications: string;
+  dateOfSubmission: string;
+  validationTable: string;
+  status: string;
+  consisting: string;
   validation: {
     loginRequired: string;
     emailFormat: string;

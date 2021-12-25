@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getPositions } from '../../api/Position';
@@ -29,9 +30,13 @@ const CompanyDataPositions = () => {
     fetchPositions();
   }, []);
 
+  const {
+    language: { schema },
+  } = useLanguage();
+
   return (
     <CompanyDataPositionsStyle>
-      <PageHeader title="Firma stanowiska" />
+      <PageHeader title={schema.positions} />
       <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <PositionFieldset

@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getQuestionnaireOffers } from '../../api/QuestionnaireOffer';
@@ -29,9 +30,18 @@ const Polls = () => {
     fetchQuestionnaireOffers();
   }, []);
 
+  const {
+    language: {
+      schema: {
+        applicationsTrainingProposals
+
+      },
+    },
+  } = useLanguage();
+
   return (
     <PollsStyle>
-      <PageHeader title="Wnioski propozycje szkoleń" />
+      <PageHeader title={applicationsTrainingProposals} />
       <AddFab onClick={() => setIsOpen(true)} />
 
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>

@@ -28,17 +28,12 @@ const WorkshopsCoaches = () => {
   }, []);
 
   const {
-    language: {
-      schema: {
-        coachesM
-
-      },
-    },
+    language: { schema },
   } = useLanguage();
 
   return (
     <div>
-      <PageHeader title={coachesM} />
+      <PageHeader title={schema.coaches} />
       <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <CoachFieldset

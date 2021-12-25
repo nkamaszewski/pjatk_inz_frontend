@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import AddFab from '../../components/AddFab';
@@ -20,9 +21,18 @@ const WorkshopsInternalMeeting = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { meetings, fetchMeetings } = useMeetingList();
 
+  const {
+    language: {
+      schema: {
+        timetable
+
+      },
+    },
+  } = useLanguage();
+
   return (
     <WorkshopsInternalMeetingStyled>
-      <PageHeader title="Harmonogram" />
+      <PageHeader title={timetable} />
       <AddFab className="page-panel" onClick={() => setIsOpen(true)}>
         <FilterPanel />
       </AddFab>

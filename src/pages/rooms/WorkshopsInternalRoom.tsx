@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { getRooms } from '../../api/Room';
 import AddFab from '../../components/AddFab';
@@ -28,9 +29,13 @@ const WorkshopsInternalRoom = () => {
     fetchRooms();
   }, []);
 
+  const {
+    language: { schema },
+  } = useLanguage();
+
   return (
     <div>
-      <PageHeader title="Sale" />
+      <PageHeader title={schema.rooms} />
       <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <RoomFieldset

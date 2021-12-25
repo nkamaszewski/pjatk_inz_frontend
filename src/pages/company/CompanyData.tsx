@@ -1,4 +1,5 @@
 import { Button, Divider, TextField } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getOwner, updateCompany } from '../../api/Company';
@@ -103,9 +104,13 @@ const CompanyData = () => {
     }
   };
 
+  const {
+    language: { schema },
+  } = useLanguage();
+
   return (
     <CompanyDateStyle>
-      <PageHeader title="Firma dane" />
+      <PageHeader title={schema.companyData} />
       <div className="company-section">
         {owner && !ownerEditModel && (
           <section className="company-data">
