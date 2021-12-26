@@ -1,12 +1,18 @@
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
 const CompaniesListHeader = () => {
+  const {
+    language: {
+      schema: { name, taxId, address },
+    },
+  } = useLanguage();
   return (
     <HeaderListStyled className="grid-company">
       <>
-        <p>Nazwa</p>
-        <p>NIP</p>
-        <p>Adres</p>
+        <p>{name}</p>
+        <p>{taxId}</p>
+        <p>{address}</p>
       </>
     </HeaderListStyled>
   );

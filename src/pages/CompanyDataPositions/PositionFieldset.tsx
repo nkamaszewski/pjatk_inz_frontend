@@ -1,3 +1,4 @@
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { PositionDTO } from '../../types/DTO/Position';
@@ -14,10 +15,13 @@ const PositionFieldset = ({
   fetchPositions,
   editPosition,
 }: Props) => {
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editPosition ? 'Edytuj' : 'Dodaj'} stanowisko`}
+        title={`${editPosition ? schema.edit : schema.add} ${schema.position2}`}
         closeDrawer={closeDrawer}
       />
 

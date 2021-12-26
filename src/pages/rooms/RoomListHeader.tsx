@@ -1,4 +1,5 @@
 import { Card } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
@@ -12,16 +13,21 @@ const RoomListHeaderStyle = styled(Card)`
 `;
 
 const RoomListHeader = () => {
+  const {
+    language: {
+      schema: { name, surface, cinematic, layoutU, uWithoutATable, school },
+    },
+  } = useLanguage();
   return (
     <>
       <HeaderListStyled className="grid-room">
         <>
-          <p>Nazwa</p>
-          <p>Powierzchnia</p>
-          <p className="item-centered">Kinowe</p>
-          <p className="item-centered">"U"</p>
-          <p className="item-centered">"U" bez stołu</p>
-          <p className="item-centered">Szkolne</p>
+          <p>{name}</p>
+          <p>{surface}</p>
+          <p className="item-centered">{cinematic}</p>
+          <p className="item-centered">{layoutU}</p>
+          <p className="item-centered">{uWithoutATable}</p>
+          <p className="item-centered">{school}</p>
         </>
       </HeaderListStyled>
       <RoomListHeaderStyle className="grid-room">

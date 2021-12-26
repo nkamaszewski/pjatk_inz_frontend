@@ -108,6 +108,7 @@ const CompanyData = () => {
     language: { schema },
   } = useLanguage();
 
+
   return (
     <CompanyDateStyle>
       <PageHeader title={schema.companyData} />
@@ -130,7 +131,7 @@ const CompanyData = () => {
         {ownerEditModel && (
           <section className="form-section">
             <TextField
-              label="Nazwa"
+              label={schema.name}
               type="text"
               InputLabelProps={{
                 shrink: true,
@@ -142,7 +143,7 @@ const CompanyData = () => {
             />
             <Divider />
             <TextField
-              label="NIP"
+              label={schema.taxId}
               type="text"
               InputLabelProps={{
                 shrink: true,
@@ -153,7 +154,7 @@ const CompanyData = () => {
               onChange={handleOwnerEditChange}
             />
             <TextField
-              label="Ulica"
+              label={schema.street}
               type="text"
               InputLabelProps={{
                 shrink: true,
@@ -164,7 +165,7 @@ const CompanyData = () => {
               onChange={handleOwnerEditChange}
             />
             <TextField
-              label="Numer"
+              label={schema.number}
               type="text"
               InputLabelProps={{
                 shrink: true,
@@ -175,7 +176,7 @@ const CompanyData = () => {
               onChange={handleOwnerEditChange}
             />
             <TextField
-              label="Kod pocztowy"
+              label={schema.postcode}
               type="text"
               InputLabelProps={{
                 shrink: true,
@@ -186,7 +187,7 @@ const CompanyData = () => {
               onChange={handleOwnerEditChange}
             />
             <TextField
-              label="Miasto"
+              label={schema.city}
               type="text"
               InputLabelProps={{
                 shrink: true,
@@ -202,7 +203,7 @@ const CompanyData = () => {
               variant="contained"
               className="save-btn"
             >
-              Zapisz
+              {schema.save}
             </Button>
           </section>
         )}
@@ -212,7 +213,7 @@ const CompanyData = () => {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             setOwnerEditModel(event.target.checked ? owner : null)
           }
-          label="Tryb edycji"
+          label={schema.editMode}
         />
       </div>
     </CompanyDateStyle>

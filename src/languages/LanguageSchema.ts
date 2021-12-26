@@ -125,6 +125,21 @@ export interface LanguageSchema {
   level: string;
   price: string;
   organizer: string;
+  taxId: string;
+  address: string;
+  professionalTitle: string;
+  surface: string;
+  cinematic: string;
+  uWithoutATable: string;
+  layoutU: string; 
+  editMode: string;
+  number: string;
+  street: string;
+  postcode: string;
+  save: string;
+  add: string;
+  position2: string;
+  edit: string;
   validation: {
     loginRequired: string;
     emailFormat: string;
