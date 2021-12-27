@@ -28,7 +28,7 @@ interface Props {
 
 const WorkshopList = ({ applications, fetchApplications }: Props) => {
   const { editApplicationFor, getForEdit, cancelEditing, deleteItem } =
-    useApplication();
+    useApplication(fetchApplications);
 
   const handleDeleteItem = async (id: string) => {
     await deleteItem(id);

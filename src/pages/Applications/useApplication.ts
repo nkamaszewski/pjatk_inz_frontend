@@ -1,17 +1,16 @@
 import { deleteApplicationsFor, getApplicationFor } from 'api/Application';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from 'providers/NotificationContext';
 import { useState } from 'react';
 import { ApplicationForDTO } from 'types/DTO/ApplicationFor';
-import { useApplicationsList } from './useApplicationsList';
 
-export const useApplication = () => {
+export const useApplication = (cbFunction: Function) => {
   const [editApplicationFor, setEditApplicationFor] =
     useState<ApplicationForDTO | null>(null);
-  const { fetchApplications } = useApplicationsList();
+  const handleHttpError = useHandleHttpError();
 
   const { setSnackbar } = useSnackbar();
 
@@ -35,10 +34,9 @@ export const useApplication = () => {
     try {
       await deleteApplicationsFor(id);
       setSnackbar(createSnackbarSuccess('Usunięto wniosek!'));
-      fetchApplications();
+      cbFunction();
     } catch (e) {
-      console.error(e);
-      setSnackbar(createSnackbarError('Nie udało się usunąć wniosku!'));
+      handleHttpError(e);
     }
   };
 
