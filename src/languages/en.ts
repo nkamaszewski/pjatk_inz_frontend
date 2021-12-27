@@ -145,6 +145,7 @@ export const en: LanguageSchema = {
   addDivision: 'ADD DIVISION',
   additionalApplications: 'ADDITIONAL APPLICATIONS',
   editDepartment: 'Edit department',
+  author: 'Author',
   validation: {
     loginRequired: 'email / login is required',
     emailFormat: 'incorrect email format',

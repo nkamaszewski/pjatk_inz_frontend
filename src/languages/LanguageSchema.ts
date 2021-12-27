@@ -131,7 +131,7 @@ export interface LanguageSchema {
   surface: string;
   cinematic: string;
   uWithoutATable: string;
-  layoutU: string; 
+  layoutU: string;
   editMode: string;
   number: string;
   street: string;
@@ -143,6 +143,7 @@ export interface LanguageSchema {
   addDepartment: string;
   addDivision: string;
   editDepartment: string;
+  author: string;
   validation: {
     loginRequired: string;
     emailFormat: string;

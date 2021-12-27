@@ -145,6 +145,7 @@ export const pl: LanguageSchema = {
   addDepartment: 'DODAJ PION',
   addDivision: 'DODAJ WYDZIAŁ',
   editDepartment: 'Edytuj pion',
+  author: 'Autor',
   validation: {
     loginRequired: 'podanie email / login jest wymagane',
     emailFormat: 'niepoprawny format email',
