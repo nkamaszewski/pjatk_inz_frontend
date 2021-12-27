@@ -1,4 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postDivision, updateDivision } from '../../api/Division';
@@ -56,12 +57,15 @@ const DivisionContent = ({
       closeDrawer();
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <DivisionContentStyle>
       <TextField
         fullWidth
-        label="Nazwa"
+        label={schema.name}
         value={name}
         onChange={handleOnNameChange}
       />
@@ -71,7 +75,7 @@ const DivisionContent = ({
         color="primary"
         onClick={handleOnSave}
       >
-        Zapisz
+        {schema.save}
       </Button>
     </DivisionContentStyle>
   );

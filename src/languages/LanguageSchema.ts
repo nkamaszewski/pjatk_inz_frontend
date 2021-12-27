@@ -140,6 +140,9 @@ export interface LanguageSchema {
   add: string;
   position2: string;
   edit: string;
+  addDepartment: string;
+  addDivision: string;
+  editDepartment: string;
   validation: {
     loginRequired: string;
     emailFormat: string;

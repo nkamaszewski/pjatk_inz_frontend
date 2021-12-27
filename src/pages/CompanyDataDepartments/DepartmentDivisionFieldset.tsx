@@ -1,4 +1,5 @@
 import { Tab, Tabs } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { DivisionDTO } from '../../types/DTO/Division';
@@ -33,6 +34,9 @@ const DepartmentDivisionFieldset = ({
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setSelectedTab(newValue);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <DepartmentDivisionFieldsetStyle>
@@ -44,8 +48,8 @@ const DepartmentDivisionFieldset = ({
         aria-label="disabled tabs example"
         className="tabs"
       >
-        <Tab label="Dodaj Pion" className="tab" />
-        <Tab label="Dodaj Wydział" className="tab" />
+        <Tab label={schema.addDepartment} className="tab" />
+        <Tab label={schema.addDivision} className="tab" />
       </Tabs>
 
       {selectedTab === PION && (

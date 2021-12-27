@@ -1,3 +1,4 @@
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { DepartmentDTO } from '../../types/DTO/Department';
@@ -17,9 +18,12 @@ const DepartmentFieldset = ({
   editDepartment,
   divisions,
 }: Props) => {
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FieldsetStyled>
-      <HeaderFieldset title={`Edytuj pion`} closeDrawer={closeDrawer} />
+      <HeaderFieldset title={schema.editDepartment} closeDrawer={closeDrawer} />
       <DepartmentContent
         closeDrawer={closeDrawer}
         fetchDivisionsDepartments={fetchDivisionsDepartments}

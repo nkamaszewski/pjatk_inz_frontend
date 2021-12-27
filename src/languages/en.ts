@@ -141,7 +141,10 @@ export const en: LanguageSchema = {
   save: 'SAVE',
   add: 'Add',
   edit: 'Edit',
+  addDepartment: 'ADD DEPARTMENT',
+  addDivision: 'ADD DIVISION',
   additionalApplications: 'ADDITIONAL APPLICATIONS',
+  editDepartment: 'Edit department',
   validation: {
     loginRequired: 'email / login is required',
     emailFormat: 'incorrect email format',

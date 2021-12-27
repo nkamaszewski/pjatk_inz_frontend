@@ -6,6 +6,7 @@ import {
   Select,
   TextField,
 } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postDepartment, updateDepartment } from '../../api/Department';
@@ -73,17 +74,20 @@ const DepartmentContent = ({
       closeDrawer();
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <DepartmentContentStyle>
       <TextField
         fullWidth
-        label="Nazwa"
+        label={schema.name}
         value={name}
         onChange={handleOnNameChange}
       />
       <FormControl fullWidth>
-        <InputLabel>Pion</InputLabel>
+        <InputLabel>{schema.department}</InputLabel>
         <Select value={selectedDivision} onChange={handleSelectChange}>
           {divisions.map((division) => (
             <MenuItem value={division.IdDivision}>{division.Name}</MenuItem>
@@ -96,7 +100,7 @@ const DepartmentContent = ({
         color="primary"
         onClick={handleOnSave}
       >
-        Zapisz
+        {schema.save}
       </Button>
     </DepartmentContentStyle>
   );

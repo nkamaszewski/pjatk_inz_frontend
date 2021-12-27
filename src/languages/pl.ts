@@ -142,6 +142,9 @@ export const pl: LanguageSchema = {
   postcode: 'Kod pocztowy',
   save: 'ZAPISZ',
   add: 'Dodaj',
+  addDepartment: 'DODAJ PION',
+  addDivision: 'DODAJ WYDZIAŁ',
+  editDepartment: 'Edytuj pion',
   validation: {
     loginRequired: 'podanie email / login jest wymagane',
     emailFormat: 'niepoprawny format email',
