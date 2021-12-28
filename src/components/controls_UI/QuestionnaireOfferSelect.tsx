@@ -13,6 +13,7 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { useAuth } from 'providers/AuthProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -44,6 +45,7 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
   const [questionnaireOffer, setQuestionnaireOffer] = useState(
     EMPTY_QUESTIONNAIRE_OFFER
   );
+  const auth = useAuth();
 
   const fetchQuestionnaireOffers = () => {
     try {
@@ -77,7 +79,7 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
     try {
       postQuestionnaireOffer({
         Year: questionnaireOffer.Year,
-        IdPerson: '1',
+        IdPerson: auth.auth.user?.IdPerson ?? '1',
       }).then((res) => {
         setAddingMode(false);
         fetchQuestionnaireOffers();

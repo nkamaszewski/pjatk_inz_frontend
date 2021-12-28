@@ -15,4 +15,6 @@ export interface ApplicationForListDTO {
   IdStatus: string;
   Compatibility: boolean;
   Status: string;
+  FirstName: string;
+  LastName: string;
 }

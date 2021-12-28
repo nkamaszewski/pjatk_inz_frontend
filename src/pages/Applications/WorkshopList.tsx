@@ -13,7 +13,7 @@ const WorkshopListStyle = styled.div`
 
   .grid-workshop {
     display: grid;
-    grid-template-columns: 240px 1fr 200px 56px 56px;
+    grid-template-columns: 240px 240px 1fr 200px 56px 56px;
   }
 
   .row {
@@ -28,7 +28,7 @@ interface Props {
 
 const WorkshopList = ({ applications, fetchApplications }: Props) => {
   const { editApplicationFor, getForEdit, cancelEditing, deleteItem } =
-    useApplication();
+    useApplication(fetchApplications);
 
   const handleDeleteItem = async (id: string) => {
     await deleteItem(id);
@@ -56,6 +56,9 @@ const WorkshopList = ({ applications, fetchApplications }: Props) => {
         <div key={application.IdApplicationFor}>
           <div className="grid-workshop row">
             <p>{formatDate(application.DateOfSubmission)}</p>
+            <p>
+              {application.FirstName} {application.LastName}
+            </p>
             <p>
               {application.Compatibility
                 ? 'wniosek poprawny'

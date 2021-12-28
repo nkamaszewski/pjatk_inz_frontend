@@ -131,7 +131,7 @@ export interface LanguageSchema {
   surface: string;
   cinematic: string;
   uWithoutATable: string;
-  layoutU: string; 
+  layoutU: string;
   editMode: string;
   number: string;
   street: string;
