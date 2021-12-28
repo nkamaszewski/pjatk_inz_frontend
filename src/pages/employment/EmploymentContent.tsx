@@ -13,6 +13,7 @@ import {
 } from '../../providers/NotificationContext';
 import { formatDate } from '../../helpers/formatDate';
 import { EmploymentDTO } from '../../types/DTO/Employment';
+import { useLanguage } from 'providers/LanguageProvider';
 
 const EmploymentContentStyle = styled.div`
   padding: 24px 0;
@@ -120,11 +121,14 @@ const EmploymentContent = ({
   ) => {
     setPassword(event.target.value);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <EmploymentContentStyle>
       <TextField
-        label="Data od"
+        label={schema.dateFrom}
         name="dateFrom"
         type="date"
         InputLabelProps={{
@@ -134,7 +138,7 @@ const EmploymentContent = ({
         onChange={handleDateChange}
       />
       <TextField
-        label="Data do"
+        label={schema.dateTo}
         name="dateTo"
         type="date"
         InputLabelProps={{
@@ -190,7 +194,7 @@ const EmploymentContent = ({
         color="primary"
         onClick={handleOnSave}
       >
-        Zapisz
+        {schema.save}
       </Button>
     </EmploymentContentStyle>
   );

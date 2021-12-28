@@ -1,5 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { ALL } from 'providers/FilterContext';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getRooms } from '../../api/Room';
@@ -36,15 +37,18 @@ const RoomSelect = ({ value, onChange, withAll, name }: Props) => {
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <RoomSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Sala</InputLabel>
+        <InputLabel>{schema.room}</InputLabel>
         <Select value={value} onChange={handleSelectChange} name={name}>
           {rooms.map((room) => (
             <MenuItem key={room.IdRoom} value={room.IdRoom}>
               {room.IdRoom === ALL
-                ? 'Wszystkie'
+                ? schema.all
                 : `${room.Name}, powierzchnia: ${room.Area}`}
             </MenuItem>
           ))}

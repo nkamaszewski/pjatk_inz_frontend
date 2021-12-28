@@ -1,5 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { ALL } from 'providers/FilterContext';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getGroups } from '../../api/Group';
@@ -38,10 +39,13 @@ const GroupSelect = ({ value, onChange, withAll, name }: Props) => {
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <GroupSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Grupa</InputLabel>
+        <InputLabel>{schema.group}</InputLabel>
         <Select value={value} onChange={handleSelectChange} name={name}>
           {groups.map((group) => (
             <MenuItem key={group.IdGroup} value={group.IdGroup}>

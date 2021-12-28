@@ -1,3 +1,4 @@
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { EmploymentDTO } from '../../types/DTO/Employment';
@@ -14,10 +15,13 @@ const EmploymentFieldset = ({
   fetchEmployments,
   editEmployee,
 }: Props) => {
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editEmployee ? 'Edytuj' : 'Dodaj'} zatrudnienie`}
+        title={`${editEmployee ? schema.edit : schema.add} ${schema.employment}`}
         closeDrawer={closeDrawer}
       />
 

@@ -1,11 +1,11 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import { getDepartments } from '../../api/Department';
 import { DepartmentDTO } from '../../types/DTO/Department';
 
-const DEFAULT_DEPARTMENTS: DepartmentDTO[] = [
-  { IdDepartment: 'all', Name: 'Wszystkie' } as DepartmentDTO,
-];
+const DEFAULT_DEPARTMENTS = (Name: string):DepartmentDTO[] => ([{IdDepartment: 'all', Name} as DepartmentDTO])
+
 
 interface Props {
   value: string;
@@ -19,9 +19,14 @@ const DepartmentSelect = ({
   onChange,
   name,
   withAll = false,
+  
 }: Props) => {
-  const [departments, setDepartments]: [DepartmentDTO[], Function] = useState(
-    withAll ? DEFAULT_DEPARTMENTS : []
+  const {
+    language: { schema },
+  } = useLanguage();
+
+  const [departments, setDepartments] = useState<DepartmentDTO[]>(
+    withAll ? DEFAULT_DEPARTMENTS(schema.all) : []
   );
 
   useEffect(() => {
@@ -29,7 +34,7 @@ const DepartmentSelect = ({
       getDepartments().then((res) => {
         const newDepartments = res.data;
         setDepartments(
-          withAll ? DEFAULT_DEPARTMENTS.concat(newDepartments) : res.data
+          withAll ? DEFAULT_DEPARTMENTS(schema.all).concat(newDepartments) : res.data
         );
       });
     } catch (e) {
@@ -40,10 +45,10 @@ const DepartmentSelect = ({
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
-
+  
   return (
     <FormControl fullWidth>
-      <InputLabel>Wydział</InputLabel>
+      <InputLabel>{schema.division}</InputLabel>
       <Select value={value} onChange={handleSelectChange} name={name}>
         {departments.map((department) => (
           <MenuItem

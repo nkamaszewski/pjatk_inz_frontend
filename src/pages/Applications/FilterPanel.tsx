@@ -4,6 +4,7 @@ import DepartmentSelect from '../../components/controls_UI/DepartmentSelect';
 import { ChangeEvent } from '../../types/EventTypes';
 import styled from 'styled-components';
 import DivisionSelect from '../../components/controls_UI/DivisionSelect';
+import { useLanguage } from 'providers/LanguageProvider';
 
 const FilterPanelStyle = styled.div`
   display: grid;
@@ -25,9 +26,12 @@ const FilterPanel = () => {
       }));
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FilterPanelStyle>
-      <h4>Filtruj:</h4>
+      <h4>{schema.filter}</h4>
 
       <StatusSelect
         value={filters.idstatus}

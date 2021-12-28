@@ -143,6 +143,14 @@ export interface LanguageSchema {
   addDepartment: string;
   addDivision: string;
   editDepartment: string;
+  employment: string;
+  dateFrom: string;
+  dateTo: string;
+  person: string;
+  filter: string;
+  all: string;
+  editMeeting: string;
+  addMeeting: string;
   validation: {
     loginRequired: string;
     emailFormat: string;

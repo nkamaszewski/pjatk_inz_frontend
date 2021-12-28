@@ -1,4 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import { getPositions } from '../../api/Position';
 import { PositionDTO } from '../../types/DTO/Position';
@@ -24,10 +25,13 @@ const PositionSelect = ({ value, onChange }: Props) => {
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <FormControl fullWidth>
-      <InputLabel>Stanowisko</InputLabel>
+      <InputLabel>{schema.position}</InputLabel>
       <Select value={value} onChange={handleSelectChange}>
         {positions.map((position) => (
           <MenuItem key={position.IdPosition} value={position.IdPosition}>

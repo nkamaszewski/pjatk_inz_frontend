@@ -13,8 +13,10 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { isSchema } from 'yup';
 import { getPersons, postPerson } from '../../api/Person';
 import { PersonDTO } from '../../types/DTO/Person';
 
@@ -81,10 +83,13 @@ const PersonSelect = ({ value, onChange }: Props) => {
       setPerson(EMPTY_PERSON);
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <EmployeeSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Osoba</InputLabel>
+        <InputLabel>{schema.person}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {persons.map((person) => (
             <MenuItem
