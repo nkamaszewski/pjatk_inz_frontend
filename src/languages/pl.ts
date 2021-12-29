@@ -153,6 +153,7 @@ export const pl: LanguageSchema = {
   all: 'Wszystkie',
   editMeeting: 'Edytuj spotkanie',
   addMeeting: 'Dodaj spotkanie',
+  author: 'Autor',
   validation: {
     loginRequired: 'podanie email / login jest wymagane',
     emailFormat: 'niepoprawny format email',

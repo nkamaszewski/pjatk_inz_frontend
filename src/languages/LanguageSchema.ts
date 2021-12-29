@@ -151,6 +151,7 @@ export interface LanguageSchema {
   all: string;
   editMeeting: string;
   addMeeting: string;
+  author: string;
   validation: {
     loginRequired: string;
     emailFormat: string;
