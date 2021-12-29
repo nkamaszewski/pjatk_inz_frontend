@@ -2,7 +2,6 @@ import GroupSelect from 'components/controls_UI/GroupSelect';
 import RoomSelect from 'components/controls_UI/RoomSelect';
 import { useLanguage } from 'providers/LanguageProvider';
 import styled from 'styled-components';
-import { isSchema } from 'yup';
 import { useFilter } from '../../providers/FilterContext';
 
 const FilterPanelStyle = styled.div`

@@ -16,7 +16,6 @@ import {
 import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { isSchema } from 'yup';
 import { getPersons, postPerson } from '../../api/Person';
 import { PersonDTO } from '../../types/DTO/Person';
 
