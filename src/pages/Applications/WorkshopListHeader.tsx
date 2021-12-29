@@ -4,7 +4,7 @@ import HeaderListStyled from '../../components/styled/HeaderListStyled';
 const WorkshopListHeader = () => {
   const {
     language: {
-      schema: { dateOfSubmission, author, validationTable, status },
+      schema: { dateOfSubmission, author, validationTable, status, name },
     },
   } = useLanguage();
   return (
@@ -12,6 +12,7 @@ const WorkshopListHeader = () => {
       <>
         <p>{dateOfSubmission}</p>
         <p>{author}</p>
+        <p>{name}</p>
         <p>{validationTable}</p>
         <p>{status}</p>
       </>

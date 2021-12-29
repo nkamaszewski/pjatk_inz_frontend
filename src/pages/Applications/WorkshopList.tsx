@@ -13,7 +13,7 @@ const WorkshopListStyle = styled.div`
 
   .grid-workshop {
     display: grid;
-    grid-template-columns: 240px 240px 1fr 200px 56px 56px;
+    grid-template-columns: 240px 240px 1fr 200px 200px 56px 56px;
   }
 
   .row {
@@ -59,6 +59,7 @@ const WorkshopList = ({ applications, fetchApplications }: Props) => {
             <p>
               {application.FirstName} {application.LastName}
             </p>
+            <p>{application.Nazwa}</p>
             <p>
               {application.Compatibility
                 ? 'wniosek poprawny'

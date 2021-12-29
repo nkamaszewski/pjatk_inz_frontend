@@ -17,4 +17,5 @@ export interface ApplicationForListDTO {
   Status: string;
   FirstName: string;
   LastName: string;
+  Nazwa: string;
 }
