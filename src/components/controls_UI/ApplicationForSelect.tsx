@@ -1,4 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { formatDate } from 'helpers/formatDate';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getApplicationsFor } from '../../api/Application';
@@ -34,11 +35,21 @@ const ApplicationForSelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>Wniosek szkoleniowy</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {appFor.map(({ IdApplicationFor, Status }) => (
-            <MenuItem key={IdApplicationFor} value={IdApplicationFor}>
-              {Status}
-            </MenuItem>
-          ))}
+          {appFor.map(
+            ({
+              IdApplicationFor,
+              Nazwa,
+              FirstName,
+              LastName,
+              DateOfSubmission,
+              Status,
+            }) => (
+              <MenuItem key={IdApplicationFor} value={IdApplicationFor}>
+                {formatDate(DateOfSubmission)} {Nazwa} {FirstName} {LastName}{' '}
+                {Status}
+              </MenuItem>
+            )
+          )}
         </Select>
       </FormControl>
     </ApplicationForSelectStyle>
