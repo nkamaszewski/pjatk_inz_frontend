@@ -102,7 +102,7 @@ const WorkshopContent = ({
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setCompatibility(event.target.checked)
         }
-        label="Czy poprawny?"
+        label="Czy zgodny z zakresem obowiązków?"
       />
 
       <StatusSelect
