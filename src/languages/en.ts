@@ -154,6 +154,7 @@ export const en: LanguageSchema = {
   editMeeting: 'Edit meeting',
   addMeeting: 'Add meeting',
   author: 'Author',
+  typeOfCourse: 'Type of course',
   validation: {
     loginRequired: 'email / login is required',
     emailFormat: 'incorrect email format',

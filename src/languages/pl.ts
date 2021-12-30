@@ -130,6 +130,7 @@ export const pl: LanguageSchema = {
   organizer: 'Organizator',
   taxId: 'NIP',
   address: 'Adres',
+  typeOfCourse: 'Rodzaj kursu',
   professionalTitle: 'Tytuł zawodowy',
   additionalApplications: 'WNIOSKI DODATKOWE',
   surface: 'Powierzchnia',

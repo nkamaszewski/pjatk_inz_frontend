@@ -2,7 +2,8 @@ import { ALL, useFilter } from '../../providers/FilterContext';
 import { ChangeEvent } from '../../types/EventTypes';
 import styled from 'styled-components';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-// import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguage } from 'providers/LanguageProvider';
+
 
 const TRAINING_TYPES = [
   { id: ALL, name: 'Wszystkie' },
@@ -30,15 +31,16 @@ const FilterPanel = () => {
       }));
     }
   };
-  // const {
-  //   language: { schema },
-  // } = useLanguage();
+   const {
+     language: { schema },
+   } = useLanguage();
+
   return (
     <FilterPanelStyle>
-      <h4>Filtruj:</h4>
+      <h4>{schema.filter}</h4>
 
       <FormControl fullWidth>
-        <InputLabel>Rodzaj kursu</InputLabel>
+        <InputLabel>{schema.typeOfCourse}</InputLabel>
         <Select
           value={filters.internal}
           onChange={handleChangefilter}
