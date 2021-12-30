@@ -7,28 +7,24 @@ import EmploymentContent from './EmploymentContent';
 
 interface Props {
   closeDrawer: () => void;
-  fetchEmployments: Function;
   editEmployee?: EmploymentDTO | null;
 }
 
-const EmploymentFieldset = ({
-  closeDrawer,
-  fetchEmployments,
-  editEmployee,
-}: Props) => {
+const EmploymentFieldset = ({ closeDrawer, editEmployee }: Props) => {
   const {
     language: { schema },
   } = useLanguage();
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editEmployee ? capFL(schema.edit) : schema.add} ${schema.employment}`}
+        title={`${editEmployee ? capFL(schema.edit) : schema.add} ${
+          schema.employment
+        }`}
         closeDrawer={closeDrawer}
       />
 
       <EmploymentContent
         closeDrawer={closeDrawer}
-        fetchEmployments={fetchEmployments}
         editEmployee={editEmployee}
       />
     </FieldsetStyled>

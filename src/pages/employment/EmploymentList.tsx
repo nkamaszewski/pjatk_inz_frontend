@@ -6,10 +6,8 @@ import { SendInvitationBtn } from 'components/SendInvitationBtn/SendInvitationBt
 import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { deleteEmployment } from '../../api/Employment';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
-import { DivisionDTO } from '../../types/DTO/Division';
 import {
   EmploymentDTO,
   EmploymentListDTO,
@@ -19,6 +17,7 @@ import { PersonDTO } from '../../types/DTO/Person';
 import EmployeeDetailsFieldset from './EmployeeDetailsFieldset';
 import EmploymentFieldset from './EmploymentFieldset';
 import EmploymentListHeader from './EmploymentListHeader';
+import { useDeleteEmploymentMutation } from './useDeleteEmploymentMutation';
 
 const EmploymentListStyle = styled.div`
   padding: 16px;
@@ -35,41 +34,18 @@ const EmploymentListStyle = styled.div`
 `;
 
 interface Props {
-  employees: EmploymentListDTO[];
-  divisions: DivisionDTO[];
-  persons: PersonDTO[];
-  fetchEmployments: () => void;
+  employments: EmploymentListDTO[];
 }
 
-const EmploymentList = ({
-  employees,
-  divisions,
-  persons,
-  fetchEmployments,
-}: Props) => {
+const EmploymentList = ({ employments }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [person, setPerson] = useState({} as PersonDTO);
   const [editEmployee, setEditEmployee] = useState<EmploymentDTO | null>(null);
+  const deleteMutation = useDeleteEmploymentMutation();
 
-  const getDivisionName = (employee: EmploymentListDTO) => {
-    const div = divisions.find(
-      (division: DivisionDTO) =>
-        division.IdDivision === employee.employmentsDepartment.IdDivision
-    );
-    return div ? (div as DivisionDTO).Name : '';
-  };
-
-  const getPersonDisplayData = (employee: EmploymentListDTO) => {
-    const person = persons.find(
-      (p: PersonDTO) => p.IdPerson === employee.IdPerson
-    );
-    return person ?? ({} as PersonDTO);
-  };
-
-  const deleteEmployee = async (id: string) => {
+  const deleteEmployee = (id: string) => {
     try {
-      await deleteEmployment(id);
-      fetchEmployments();
+      deleteMutation.mutate({ id });
     } catch (e) {
       console.error(e);
     }
@@ -83,15 +59,14 @@ const EmploymentList = ({
   return (
     <EmploymentListStyle>
       <EmploymentListHeader />
-      {employees.map((employee) => {
-        const person = getPersonDisplayData(employee);
+      {employments.map((employment) => {
         return (
-          <Card key={employee.IdEmployment} className="grid-employment row">
-            <p>{person.FirstName}</p>
-            <p>{person.LastName}</p>
-            <p>{getDivisionName(employee)}</p>
-            <p>{employee.employmentsDepartment.Name}</p>
-            <p>{employee.emplymentPosition.Name}</p>
+          <Card key={employment.IdEmployment} className="grid-employment row">
+            <p>{employment.FirstName}</p>
+            <p>{employment.LastName}</p>
+            <p>{employment.Division.Name}</p>
+            <p>{employment.Department.Name}</p>
+            <p>{employment.Position.Name}</p>
             {person.personEmployee?.IsActive ? (
               <span />
             ) : (
@@ -99,10 +74,12 @@ const EmploymentList = ({
             )}
             <EditBtn
               onClick={() =>
-                setEditEmployee(mapEmploymentListDTOtoEmploymentDTO(employee))
+                setEditEmployee(mapEmploymentListDTOtoEmploymentDTO(employment))
               }
             />
-            <DeleteBtn onClick={() => deleteEmployee(employee.IdEmployment)} />
+            <DeleteBtn
+              onClick={() => deleteEmployee(employment.IdEmployment)}
+            />
             <Tooltip title={schema.group}>
               <Button
                 onClick={() => {
@@ -123,7 +100,6 @@ const EmploymentList = ({
       >
         <EmploymentFieldset
           closeDrawer={handleCloseDrawer}
-          fetchEmployments={fetchEmployments}
           editEmployee={editEmployee}
         />
       </Drawer>

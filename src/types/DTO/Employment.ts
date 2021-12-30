@@ -1,3 +1,5 @@
+import { DepartmentDTO } from './Department';
+import { DivisionDTO } from './Division';
 import { PositionDTO } from './Position';
 
 export interface EmploymentDTO {
@@ -14,12 +16,11 @@ export interface EmploymentListDTO {
   IdPerson: string;
   DateFrom: Date;
   DateTo: Date;
-  employmentsDepartment: {
-    IdDepartment: string;
-    IdDivision: string;
-    Name: string;
-  };
-  emplymentPosition: PositionDTO;
+  Department: DepartmentDTO;
+  Division: DivisionDTO;
+  Position: PositionDTO;
+  FirstName: string;
+  LastName: string;
 }
 
 export const mapEmploymentListDTOtoEmploymentDTO = ({
@@ -27,8 +28,8 @@ export const mapEmploymentListDTOtoEmploymentDTO = ({
   IdPerson,
   DateFrom,
   DateTo,
-  employmentsDepartment: { IdDepartment },
-  emplymentPosition: { IdPosition },
+  Department: { IdDepartment },
+  Position: { IdPosition },
 }: EmploymentListDTO) => {
   const empDTO: EmploymentDTO = {
     IdEmployment,

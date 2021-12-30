@@ -1,7 +1,8 @@
 import { axiosJWT } from 'helpers/tokenAxios';
-import { EmploymentDTO } from '../types/DTO/Employment';
+import { EmploymentDTO, EmploymentListDTO } from '../types/DTO/Employment';
 
-export const getEmployments = () => axiosJWT.get('/employments/');
+export const getEmployments = () =>
+  axiosJWT.get<EmploymentListDTO[]>('/employments/');
 
 export const getEmployment = (id: string) => axiosJWT.get(`/employments/${id}`);
 

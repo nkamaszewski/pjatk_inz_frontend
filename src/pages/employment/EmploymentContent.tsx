@@ -1,19 +1,20 @@
 import { Button, TextField } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getEmployee, postEmployee } from '../../api/Employee';
-import { postEmployment, updateEmployment } from '../../api/Employment';
 import DepartmentSelect from '../../components/controls_UI/DepartmentSelect';
 import PersonSelect from '../../components/controls_UI/PersonSelect';
 import PositionSelect from '../../components/controls_UI/PositionSelect';
+import { formatDate } from '../../helpers/formatDate';
 import {
   createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
-import { formatDate } from '../../helpers/formatDate';
 import { EmploymentDTO } from '../../types/DTO/Employment';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useAddEmploymentMutation } from './useAddEmploymentMutation';
+import { useUpdateEmploymentMutation } from './useUpdateEmploymentMutation';
 
 const EmploymentContentStyle = styled.div`
   padding: 24px 0;
@@ -23,15 +24,10 @@ const EmploymentContentStyle = styled.div`
 
 interface Props {
   closeDrawer: Function;
-  fetchEmployments: Function;
   editEmployee?: EmploymentDTO | null;
 }
 
-const EmploymentContent = ({
-  closeDrawer,
-  fetchEmployments,
-  editEmployee,
-}: Props) => {
+const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
   //TODO: formatowanie czasu, nie dziala edycja
   const [dateFrom, setDateFrom] = useState(formatDate(editEmployee?.DateFrom));
   const [dateTo, setDateTo] = useState(formatDate(editEmployee?.DateTo));
@@ -49,6 +45,8 @@ const EmploymentContent = ({
 
   const [showEmployeeConfig, setShowEmployeeConfig] = useState(false);
   const { setSnackbar } = useSnackbar();
+  const addMutation = useAddEmploymentMutation();
+  const updateMutation = useUpdateEmploymentMutation();
 
   useEffect(() => {
     if (selectedPerson) {
@@ -85,12 +83,12 @@ const EmploymentContent = ({
           IdPerson: selectedPerson,
         };
 
-        await updateEmployment(empDTO);
+        await updateMutation.mutateAsync(empDTO);
         setSnackbar(createSnackbarSuccess('Edytowano zatrudnienie'));
       }
       // new Employment
       else {
-        await postEmployment({
+        await addMutation.mutateAsync({
           DateFrom: dateFrom,
           DateTo: dateTo || null,
           IdDepartment: selectedDepartment,
@@ -99,7 +97,6 @@ const EmploymentContent = ({
         });
         setSnackbar(createSnackbarSuccess('Dodano zatrudnienie'));
       }
-      fetchEmployments();
     } catch (e) {
       console.error(e);
       setSnackbar(createSnackbarError('Operacja nie udała się'));
