@@ -1,3 +1,5 @@
+import { capFL } from "helpers/capitalizeFirstLetter";
+
 export interface LanguageSchema {
   auth: {
     _loginError: string;
@@ -138,7 +140,6 @@ export interface LanguageSchema {
   postcode: string;
   save: string;
   add: string;
-  position2: string;
   edit: string;
   addDepartment: string;
   addDivision: string;
@@ -153,6 +154,11 @@ export interface LanguageSchema {
   addMeeting: string;
   author: string;
   typeOfCourse: string;
+  remove: string;
+  internal: string;
+  external: string;
+  course: string;
+  sendActivationLink: string;
   validation: {
     loginRequired: string;
     emailFormat: string;

@@ -5,11 +5,11 @@ import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
 
 
-const TRAINING_TYPES = [
-  { id: ALL, name: 'Wszystkie' },
-  { id: '0', name: 'Zewnętrzne' },
-  { id: '1', name: 'Wewnętrzne' },
-];
+const TRAINING_TYPES = (schema: { all: any; external: any; internal: any; }) => ([
+  { id: ALL, name: schema.all },
+  { id: '0', name: schema.external },
+  { id: '1', name: schema.internal }
+]);
 
 const FilterPanelStyle = styled.div`
   display: grid;
@@ -31,9 +31,9 @@ const FilterPanel = () => {
       }));
     }
   };
-   const {
-     language: { schema },
-   } = useLanguage();
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <FilterPanelStyle>
@@ -46,7 +46,7 @@ const FilterPanel = () => {
           onChange={handleChangefilter}
           name="internal"
         >
-          {TRAINING_TYPES.map(({ id, name }) => (
+          {TRAINING_TYPES(schema).map(({ id, name }) => (
             <MenuItem key={id} value={id}>
               {name}
             </MenuItem>

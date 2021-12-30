@@ -1,4 +1,5 @@
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { useLanguage } from 'providers/LanguageProvider';
 import { IconBtn } from '../IconBtn';
 import { useSendInvitation } from './useSendInitivation';
 
@@ -11,9 +12,12 @@ export const SendInvitationBtn = ({ email }: SendInvitationBtnProps) => {
   const handleOnClick = () => {
     sendInvitation(email);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <IconBtn
-      title="wyślij link aktywacyjny"
+      title={schema.sendActivationLink}
       onClick={handleOnClick}
       icon={faPaperPlane}
     />

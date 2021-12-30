@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Drawer, Tooltip } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import { SendInvitationBtn } from 'components/SendInvitationBtn/SendInvitationBtn';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteEmployment } from '../../api/Employment';
@@ -75,6 +76,9 @@ const EmploymentList = ({
   };
 
   const handleCloseDrawer = () => setEditEmployee(null);
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <EmploymentListStyle>
@@ -99,7 +103,7 @@ const EmploymentList = ({
               }
             />
             <DeleteBtn onClick={() => deleteEmployee(employee.IdEmployment)} />
-            <Tooltip title="grupa">
+            <Tooltip title={schema.group}>
               <Button
                 onClick={() => {
                   setPerson(person);

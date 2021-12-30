@@ -13,6 +13,7 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getTopics, postTopic } from '../../api/Training';
@@ -83,10 +84,13 @@ const TopicSelect = ({ value, onChange }: Props) => {
       setTopic(EMPTY_TOPIC);
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <TopicSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Temat</InputLabel>
+        <InputLabel>{schema.topic}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {topics.map((top) => (
             <MenuItem key={top.IdTopic} value={top.IdTopic}>

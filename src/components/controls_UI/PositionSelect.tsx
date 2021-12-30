@@ -1,4 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import { getPositions } from '../../api/Position';
@@ -31,7 +32,7 @@ const PositionSelect = ({ value, onChange }: Props) => {
 
   return (
     <FormControl fullWidth>
-      <InputLabel>{schema.position}</InputLabel>
+      <InputLabel>{capFL(schema.position)}</InputLabel>
       <Select value={value} onChange={handleSelectChange}>
         {positions.map((position) => (
           <MenuItem key={position.IdPosition} value={position.IdPosition}>
