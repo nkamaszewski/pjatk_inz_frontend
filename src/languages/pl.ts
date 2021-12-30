@@ -116,7 +116,7 @@ export const pl: LanguageSchema = {
   to: 'Do',
   timetable: 'harmonogram',
   applicationsTrainingProposals: 'wnioski propozycje szkoleń',
-  validationTable: 'Walidacja',
+  validationTable: 'Zgodność',
   status: 'Status',
   consisting: 'Składający',
   dateOfSubmission: 'Data złożenia',

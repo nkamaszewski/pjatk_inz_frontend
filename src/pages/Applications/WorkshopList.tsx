@@ -62,8 +62,8 @@ const WorkshopList = ({ applications, fetchApplications }: Props) => {
             <p>{application.Nazwa}</p>
             <p>
               {application.Compatibility
-                ? 'wniosek poprawny'
-                : 'wniosek niepoprawny'}
+                ? 'wniosek zgodny'
+                : 'wniosek niezgodny'}
             </p>
             <p>{application.Status}</p>
             <EditBtn
