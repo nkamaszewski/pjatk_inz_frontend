@@ -98,7 +98,7 @@ const PersonSelect = ({ value, onChange }: Props) => {
           ))}
         </Select>
       </FormControl>
-      <Tooltip title="dodaj osobę">
+      <Tooltip title={schema.addAPerson}>
         <Button
           onClick={() => {
             setAddingMode(true);
@@ -108,7 +108,7 @@ const PersonSelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Dodaj osobę do bazy danych</DialogTitle>
+        <DialogTitle>{schema.addAPersonToTheDatabase}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -116,7 +116,7 @@ const PersonSelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="FirstName"
-            label="Imię"
+            label={schema.firstName}
             type="text"
             fullWidth
           />
@@ -125,7 +125,7 @@ const PersonSelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="LastName"
-            label="Nazwisko"
+            label={schema.lastName}
             type="text"
             fullWidth
           />
@@ -134,7 +134,7 @@ const PersonSelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Email"
-            label="Email"
+            label={schema.emailInForm}
             type="email"
             fullWidth
           />
@@ -143,17 +143,17 @@ const PersonSelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Phone"
-            label="Telefon"
+            label={schema.phoneInForm}
             type="number"
             fullWidth
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
-            Anuluj
+            {schema.cancel}
           </Button>
           <Button onClick={handleOnConfirm} color="primary">
-            Dodaj
+            {schema.add}
           </Button>
         </DialogActions>
       </Dialog>

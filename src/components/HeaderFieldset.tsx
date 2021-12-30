@@ -1,6 +1,7 @@
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Divider, Tooltip } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { useTheme } from '../providers/ThemeContext';
 
@@ -28,13 +29,16 @@ interface Props {
 const HeaderFieldset = ({ title, className, closeDrawer }: Props) => {
   const { theme } = useTheme();
   const handleCancel = () => closeDrawer();
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <HeaderFieldsetStyle theme={theme} className={className}>
       <div>
         <h3>{title}</h3>
         <Divider />
       </div>
-      <Tooltip title="anuluj">
+      <Tooltip title={schema.cancel}>
         <Button className="cancel-btn" color="primary" onClick={handleCancel}>
           <FontAwesomeIcon className="g-primary-color" icon={faWindowClose} />
         </Button>

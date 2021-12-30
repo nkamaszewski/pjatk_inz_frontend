@@ -159,6 +159,11 @@ export const en: LanguageSchema = {
   external: 'External',
   course: 'course',
   sendActivationLink: 'send activation link',
+  addAPerson: 'add a person',
+  addAPersonToTheDatabase: 'Add a person to the database',
+  emailInForm: 'Email',
+  phoneInForm: 'Phone',
+  cancel: 'cancel',
   validation: {
     loginRequired: 'email / login is required',
     emailFormat: 'incorrect email format',

@@ -1,21 +1,20 @@
+import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguage } from 'providers/LanguageProvider';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
 const EmploymentListHeader = () => {
   const {
-    language: {
-      schema: { lastName, firstName, department, division, position },
-    },
+    language: { schema },
   } = useLanguage();
 
   return (
     <HeaderListStyled className="grid-employment">
       <>
-        <p>{lastName}</p>
-        <p>{firstName}</p>
-        <p>{department}</p>
-        <p>{division}</p>
-        <p>{position}</p>
+        <p>{schema.firstName}</p>
+        <p>{schema.lastName}</p>
+        <p>{schema.department}</p>
+        <p>{schema.division}</p>
+        <p>{capFL(schema.position)}</p>
       </>
     </HeaderListStyled>
   );
