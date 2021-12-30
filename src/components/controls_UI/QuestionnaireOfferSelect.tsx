@@ -14,6 +14,7 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { useAuth } from 'providers/AuthProvider';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -91,6 +92,9 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
       setQuestionnaireOffer(EMPTY_QUESTIONNAIRE_OFFER);
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <EmployeeSelectStyle>
       <FormControl fullWidth>
@@ -114,7 +118,7 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Dodaj osobę do bazy danych</DialogTitle>
+        <DialogTitle>{schema.addAPersonToTheDatabase}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus

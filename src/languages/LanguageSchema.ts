@@ -159,6 +159,11 @@ export interface LanguageSchema {
   external: string;
   course: string;
   sendActivationLink: string;
+  addAPerson: string;
+  addAPersonToTheDatabase: string; 
+  emailInForm: string; 
+  phoneInForm: string;
+  cancel: string;
   validation: {
     loginRequired: string;
     emailFormat: string;
