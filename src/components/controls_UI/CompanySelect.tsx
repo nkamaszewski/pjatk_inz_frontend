@@ -13,6 +13,8 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { capFL } from 'helpers/capitalizeFirstLetter';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getCompanies, postCompany } from '../../api/Company';
@@ -86,10 +88,13 @@ const CompanySelect = ({ value, onChange }: Props) => {
       setCompany(EMPTY_COMPANY);
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <CompanySelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Firma</InputLabel>
+        <InputLabel>{capFL(schema.company)}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {companies.map((comp) => (
             <MenuItem

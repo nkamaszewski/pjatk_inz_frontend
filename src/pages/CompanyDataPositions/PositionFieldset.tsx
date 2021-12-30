@@ -1,3 +1,4 @@
+import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguage } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
@@ -21,7 +22,7 @@ const PositionFieldset = ({
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editPosition ? schema.edit : schema.add} ${schema.position2}`}
+        title={`${editPosition ? capFL(schema.edit) : schema.add} ${schema.position}`}
         closeDrawer={closeDrawer}
       />
 

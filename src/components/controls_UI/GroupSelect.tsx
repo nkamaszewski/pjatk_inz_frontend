@@ -1,4 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { capFL } from 'helpers/capitalizeFirstLetter';
 import { ALL } from 'providers/FilterContext';
 import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
@@ -6,7 +7,7 @@ import styled from 'styled-components';
 import { getGroups } from '../../api/Group';
 import { GroupDTO } from '../../types/DTO/Group';
 
-const DEFAULT_GROUPS = [{ IdGroup: 'all', Name: 'Wszystkie' } as GroupDTO];
+const DEFAULT_GROUPS = [{ IdGroup: 'all', Name: '' } as GroupDTO];
 
 const GroupSelectStyle = styled.div`
   display: grid;
@@ -45,7 +46,7 @@ const GroupSelect = ({ value, onChange, withAll, name }: Props) => {
   return (
     <GroupSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>{schema.group}</InputLabel>
+        <InputLabel>{capFL(schema.group)}</InputLabel>
         <Select value={value} onChange={handleSelectChange} name={name}>
           {groups.map((group) => (
             <MenuItem key={group.IdGroup} value={group.IdGroup}>
