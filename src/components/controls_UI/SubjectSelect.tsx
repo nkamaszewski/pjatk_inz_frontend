@@ -13,6 +13,7 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getSubjects, postSubject } from '../../api/Training';
@@ -79,10 +80,13 @@ const SubjectSelect = ({ value, onChange }: Props) => {
       setSubject(EMPTY_SUBJECT);
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <SubjectSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Tematyka</InputLabel>
+        <InputLabel>{schema.subjectForm}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {subjects.map((sub) => (
             <MenuItem key={sub.IdSubject} value={sub.IdSubject}>
@@ -91,7 +95,7 @@ const SubjectSelect = ({ value, onChange }: Props) => {
           ))}
         </Select>
       </FormControl>
-      <Tooltip title="dodaj tematykę szkolenia">
+      <Tooltip title={schema.addTheSubjectOfTheTraining}>
         <Button
           onClick={() => {
             setAddingMode(true);
@@ -101,7 +105,7 @@ const SubjectSelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Dodaj tematykę szkolenia do bazy danych</DialogTitle>
+        <DialogTitle>{schema.addTheTrainingTopicToTheDatabaseV2}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -109,17 +113,17 @@ const SubjectSelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Subject"
-            label="Nazwa"
+            label={schema.name}
             type="text"
             fullWidth
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
-            Anuluj
+            {schema.cancel}
           </Button>
           <Button onClick={handleOnConfirm} color="primary">
-            Dodaj
+            {schema.add}
           </Button>
         </DialogActions>
       </Dialog>

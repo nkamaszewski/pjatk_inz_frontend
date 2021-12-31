@@ -184,7 +184,19 @@ export interface LanguageSchema {
   addDegreeOfStudy: string;
   addStudyModeToTheDatabase: string; 
   addDegreeOfStudyToTheDatabase: string;
-  addTheUniversityToTheDatabase: string;  
+  addTheUniversityToTheDatabase: string;
+  trainer: string;
+  internalTraining: string; 
+  addATrainingTopic: string; 
+  addACompany: string;
+  addATrainer: string;
+  addTheTrainingTopicToTheDatabase: string;
+  subjectForm: string;
+  addTheSubjectOfTheTraining: string;
+  addTheTrainingTopicToTheDatabaseV2: string;
+  addTheCompanyToTheDatabase: string; 
+  addTheTrainerToTheDatabase: string;
+  academicTitle: string;    
   validation: {
     loginRequired: string;
     emailFormat: string;

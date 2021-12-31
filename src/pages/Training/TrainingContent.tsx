@@ -14,6 +14,7 @@ import {
 } from '../../providers/NotificationContext';
 import { formatDate } from '../../helpers/formatDate';
 import { TrainingDTO } from '../../types/DTO/Training';
+import { useLanguage } from 'providers/LanguageProvider';
 
 const TrainingContentStyle = styled.div`
   padding: 24px 0;
@@ -110,6 +111,9 @@ const TrainingContent = ({
   const handleDateToChange = (e: any) => {
     setDateTo(e.target.value);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <TrainingContentStyle>
@@ -123,11 +127,11 @@ const TrainingContent = ({
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setInternal(event.target.checked)
         }
-        label="Szkolenie wewnętrzne:"
+        label={schema.internalTraining}
       />
 
       <TextField
-        label="Data od"
+        label={schema.dateFrom}
         name="dateFrom"
         type="date"
         InputLabelProps={{
@@ -137,7 +141,7 @@ const TrainingContent = ({
         onChange={handleDateFromChange}
       />
       <TextField
-        label="Data do"
+        label={schema.dateTo}
         name="dateTo"
         type="date"
         InputLabelProps={{
@@ -148,7 +152,7 @@ const TrainingContent = ({
       />
 
       <TextField
-        label="Cena"
+        label={schema.price}
         name="Price"
         type="number"
         InputLabelProps={{
@@ -159,7 +163,7 @@ const TrainingContent = ({
       />
 
       <TextField
-        label="Cena zakwaterowania"
+        label={schema.accommodationPrice}
         name="PriceAccommodation"
         type="number"
         InputLabelProps={{
@@ -170,7 +174,7 @@ const TrainingContent = ({
       />
 
       <TextField
-        label="Koszt transportu"
+        label={schema.theCostOfTransport}
         name="PriceTransit"
         type="number"
         InputLabelProps={{
@@ -186,7 +190,7 @@ const TrainingContent = ({
         color="primary"
         onClick={handleOnSave}
       >
-        Zapisz
+        {schema.save}
       </Button>
     </TrainingContentStyle>
   );

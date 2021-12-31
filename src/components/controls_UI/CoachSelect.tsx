@@ -13,6 +13,7 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getCoaches, postCoach } from '../../api/Coach';
@@ -81,10 +82,13 @@ const CoachSelect = ({ value, onChange }: Props) => {
       setCoach(EMPTY_COACH);
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <CoachSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Szkoleniowiec</InputLabel>
+        <InputLabel>{schema.trainer}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {coaches.map((c) => (
             <MenuItem key={c.IdPerson} value={c.IdPerson}>
@@ -93,7 +97,7 @@ const CoachSelect = ({ value, onChange }: Props) => {
           ))}
         </Select>
       </FormControl>
-      <Tooltip title="dodaj szkoleniowca">
+      <Tooltip title={schema.addATrainer}>
         <Button
           onClick={() => {
             setAddingMode(true);
@@ -103,7 +107,7 @@ const CoachSelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Dodaj szkoleniowca do bazy danych</DialogTitle>
+        <DialogTitle>{schema.addTheTrainerToTheDatabase}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -111,7 +115,7 @@ const CoachSelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="JobTitle"
-            label="Tytuł naukowy"
+            label={schema.academicTitle}
             type="text"
             fullWidth
           />
@@ -127,10 +131,10 @@ const CoachSelect = ({ value, onChange }: Props) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
-            Anuluj
+            {schema.cancel}
           </Button>
           <Button onClick={handleOnConfirm} color="primary">
-            Dodaj
+            {schema.add}
           </Button>
         </DialogActions>
       </Dialog>
