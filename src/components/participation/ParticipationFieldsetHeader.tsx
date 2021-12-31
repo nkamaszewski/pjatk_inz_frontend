@@ -1,6 +1,8 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Fab } from '@material-ui/core';
+import { capFL } from 'helpers/capitalizeFirstLetter';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { ParticipationDTO } from 'types/DTO/Participation';
@@ -21,7 +23,9 @@ export const ParticipationFieldsetHeader = ({
   addParticipation,
 }: ParticipationFieldsetHeaderProps) => {
   const [addingMode, setAddingMode] = useState(false);
-
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <ParticipationFieldsetHeaderStyled>
       <ParticipationForm
@@ -29,7 +33,7 @@ export const ParticipationFieldsetHeader = ({
         setOpen={setAddingMode}
         addParticipation={addParticipation}
       />
-      <h3>Uczestnicy</h3>
+      <h3>{capFL(schema.participants)}</h3>
       <Fab color="primary" aria-label="add" onClick={() => setAddingMode(true)}>
         <FontAwesomeIcon icon={faPlus} />
       </Fab>

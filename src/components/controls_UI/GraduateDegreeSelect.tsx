@@ -13,6 +13,7 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getGraduateDegrees, postGraduateDegree } from '../../api/Study';
@@ -82,10 +83,13 @@ const GraduateDegreeSelect = ({ value, onChange }: Props) => {
       setGraduateDegree(EMPTY_GRADUATE_DEGREE);
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <GraduateDegreeSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Stopień studiów</InputLabel>
+        <InputLabel>{schema.degreeOfStudy}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {graduateDegrees.map((graduateD) => (
             <MenuItem
@@ -122,10 +126,10 @@ const GraduateDegreeSelect = ({ value, onChange }: Props) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
-            Anuluj
+            {schema.cancel}
           </Button>
           <Button onClick={handleOnConfirm} color="primary">
-            Dodaj
+            {schema.add}
           </Button>
         </DialogActions>
       </Dialog>

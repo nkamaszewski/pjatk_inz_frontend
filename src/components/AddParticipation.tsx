@@ -1,4 +1,5 @@
 import { faSitemap } from '@fortawesome/free-solid-svg-icons';
+import { useLanguage } from 'providers/LanguageProvider';
 import { IconBtn } from './IconBtn';
 
 interface AddParticipationProps {
@@ -6,5 +7,8 @@ interface AddParticipationProps {
 }
 
 export const AddParticipation = ({ onClick }: AddParticipationProps) => {
-  return <IconBtn title="uczestnicy" onClick={onClick} icon={faSitemap} />;
+  const {
+    language: { schema },
+  } = useLanguage();
+  return <IconBtn title={schema.participants} onClick={onClick} icon={faSitemap} />;
 };

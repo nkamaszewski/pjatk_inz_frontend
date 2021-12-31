@@ -1,4 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postEducation, updateEducation } from '../../api/Education';
@@ -93,11 +94,14 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
       [event.target.name]: event.target.value,
     }));
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <StudyContentStyle>
       <TextField
-        label="Kierunek studiów"
+        label={schema.fieldOfStudy}
         name="fieldOfStudy"
         type="text"
         InputLabelProps={{
@@ -117,7 +121,7 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
       />
 
       <TextField
-        label="Cena"
+        label={schema.price}
         name="Price"
         type="number"
         InputLabelProps={{
@@ -128,7 +132,7 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
       />
 
       <TextField
-        label="Cena zakwaterowania"
+        label={schema.accommodationPrice}
         name="PriceAccommodation"
         type="number"
         InputLabelProps={{
@@ -139,7 +143,7 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
       />
 
       <TextField
-        label="Koszt transportu"
+        label={schema.theCostOfTransport}
         name="PriceTransit"
         type="number"
         InputLabelProps={{

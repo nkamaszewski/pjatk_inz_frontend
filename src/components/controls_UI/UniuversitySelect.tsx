@@ -13,6 +13,7 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getUniversitets, postUniversitet } from '../../api/Universitet';
@@ -87,10 +88,13 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
       setUniversitet(EMPTY_UNIVERSITET);
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <UniuversitySelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Uczelnia</InputLabel>
+        <InputLabel>{schema.school}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {universitets.map((uni) => (
             <MenuItem
@@ -118,7 +122,7 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Name"
-            label="Nazwa"
+            label={schema.name}
             type="text"
             fullWidth
           />
@@ -127,7 +131,7 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="ShortName"
-            label="Skrócona nazwa"
+            label={schema.shortName}
             type="text"
             fullWidth
           />
@@ -136,7 +140,7 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="City"
-            label="Miasto"
+            label={schema.city}
             type="text"
             fullWidth
           />
@@ -145,7 +149,7 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="PostalCode"
-            label="Kod pocztowy"
+            label={schema.postcode}
             type="text"
             fullWidth
           />
@@ -154,7 +158,7 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Street"
-            label="Ulica"
+            label={schema.street}
             type="text"
             fullWidth
           />
@@ -163,17 +167,17 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Number"
-            label="Numer"
+            label={schema.number}
             type="number"
             fullWidth
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
-            Anuluj
+            {schema.cancel}
           </Button>
           <Button onClick={handleOnConfirm} color="primary">
-            Dodaj
+            {schema.add}
           </Button>
         </DialogActions>
       </Dialog>

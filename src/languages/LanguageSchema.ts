@@ -171,6 +171,14 @@ export interface LanguageSchema {
   application: string;
   trainingApplication: string;
   dateOfRegistration: string;
+  participants: string; 
+  addStudies: string;
+  accommodationPrice: string;
+  theCostOfTransport: string;
+  fieldOfStudy: string;
+  modeOfStudy: string;
+  degreeOfStudy: string;  
+  shortName: string;  
   validation: {
     loginRequired: string;
     emailFormat: string;

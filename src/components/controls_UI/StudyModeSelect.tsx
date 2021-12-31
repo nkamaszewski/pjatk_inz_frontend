@@ -13,6 +13,7 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getStudyModes, postStudyMode } from '../../api/Study';
@@ -81,10 +82,13 @@ const StudyModeSelect = ({ value, onChange }: Props) => {
       setStudyMode(EMPTY_STUDY_MODE);
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <StudyModeSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Tryb studiów</InputLabel>
+        <InputLabel>{schema.modeOfStudy}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {studyModes.map((studyM) => (
             <MenuItem key={studyM.IdStudyMode} value={studyM.IdStudyMode}>
@@ -118,10 +122,10 @@ const StudyModeSelect = ({ value, onChange }: Props) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
-            Anuluj
+            {schema.cancel}
           </Button>
           <Button onClick={handleOnConfirm} color="primary">
-            Dodaj
+            {schema.add}
           </Button>
         </DialogActions>
       </Dialog>

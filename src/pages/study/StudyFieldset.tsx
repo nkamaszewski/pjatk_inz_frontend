@@ -1,3 +1,4 @@
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { StudiesListDTO } from '../../types/DTO/Study';
@@ -9,9 +10,12 @@ interface Props {
 }
 
 const StudyFieldset = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FieldsetStyled>
-      <HeaderFieldset title={`Dodaj Studia`} closeDrawer={closeDrawer} />
+      <HeaderFieldset title={schema.addStudies} closeDrawer={closeDrawer} />
       <StudyContent
         closeDrawer={closeDrawer}
         fetchStudies={fetchStudies}
