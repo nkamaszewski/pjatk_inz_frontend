@@ -179,6 +179,12 @@ export interface LanguageSchema {
   modeOfStudy: string;
   degreeOfStudy: string;  
   shortName: string;  
+  addUniversities: string;
+  addStudyMode: string; 
+  addDegreeOfStudy: string;
+  addStudyModeToTheDatabase: string; 
+  addDegreeOfStudyToTheDatabase: string;
+  addTheUniversityToTheDatabase: string;  
   validation: {
     loginRequired: string;
     emailFormat: string;

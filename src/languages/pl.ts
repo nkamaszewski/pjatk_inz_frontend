@@ -179,6 +179,12 @@ export const pl: LanguageSchema = {
   modeOfStudy: 'Tryb studiów',
   degreeOfStudy: 'Stopień studiów',
   shortName: 'Skrócona nazwa',
+  addUniversities: 'dodaj uczelnię',
+  addStudyMode: 'dodaj tryb studiów',
+  addDegreeOfStudy: 'dodaj stopień studiów',
+  addStudyModeToTheDatabase: 'Dodaj tryb studiów do bazy danych',
+  addDegreeOfStudyToTheDatabase: 'Dodaj stopień studiów do bazy danych',
+  addTheUniversityToTheDatabase: 'Dodaj uczelnię do bazy danych',
   validation: {
     loginRequired: 'podanie email / login jest wymagane',
     emailFormat: 'niepoprawny format email',

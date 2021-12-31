@@ -159,7 +159,7 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
         color="primary"
         onClick={handleOnSave}
       >
-        Zapisz
+        {schema.save}
       </Button>
     </StudyContentStyle>
   );

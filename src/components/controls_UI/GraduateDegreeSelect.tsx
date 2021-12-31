@@ -101,7 +101,7 @@ const GraduateDegreeSelect = ({ value, onChange }: Props) => {
           ))}
         </Select>
       </FormControl>
-      <Tooltip title="dodaj stopień studiów">
+      <Tooltip title={schema.addDegreeOfStudy}>
         <Button
           onClick={() => {
             setAddingMode(true);
@@ -111,7 +111,7 @@ const GraduateDegreeSelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Dodaj stopień studiów do bazy danych</DialogTitle>
+        <DialogTitle>{schema.addDegreeOfStudyToTheDatabase}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -119,7 +119,7 @@ const GraduateDegreeSelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Name"
-            label="Nazwa"
+            label={schema.name}
             type="text"
             fullWidth
           />
