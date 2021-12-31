@@ -164,6 +164,13 @@ export interface LanguageSchema {
   emailInForm: string; 
   phoneInForm: string;
   cancel: string;
+  addAnApplication: string;
+  theApplicationConcernsStudies: string;
+  isItInLineWithTheTermsOfReference: string;
+  studies: string; 
+  application: string;
+  trainingApplication: string;
+  dateOfRegistration: string;
   validation: {
     loginRequired: string;
     emailFormat: string;

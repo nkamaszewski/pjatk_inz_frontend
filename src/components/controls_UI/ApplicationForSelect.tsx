@@ -1,5 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { formatDate } from 'helpers/formatDate';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getApplicationsFor } from '../../api/Application';
@@ -30,10 +31,13 @@ const ApplicationForSelect = ({ value, onChange }: Props) => {
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <ApplicationForSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Wniosek szkoleniowy</InputLabel>
+        <InputLabel>{schema.trainingApplication}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {appFor.map(
             ({

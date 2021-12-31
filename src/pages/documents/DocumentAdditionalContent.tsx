@@ -1,6 +1,7 @@
 import { Button, TextField } from '@material-ui/core';
 import { postAdditionalApplication } from 'api/AdditionalApplication';
 import { formatDate } from 'helpers/formatDate';
+import { useLanguage } from 'providers/LanguageProvider';
 import {
   createSnackbarError,
   createSnackbarSuccess,
@@ -73,6 +74,9 @@ const DocumentAdditionalContent = ({
       }
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <DocumentAdditionalContentStyle>
@@ -81,12 +85,12 @@ const DocumentAdditionalContent = ({
         name={name}
         type="text"
         value={name}
-        label="Nazwa"
+        label={schema.name}
         onChange={handleSetName}
         autoComplete="off"
       />
       <TextField
-        label="Data rejestracji"
+        label={schema.dateOfRegistration}
         name="DateOfRegistration"
         type="date"
         fullWidth
@@ -98,7 +102,7 @@ const DocumentAdditionalContent = ({
       />
 
       <Button variant="contained" color="primary" onClick={handleOnSave}>
-        Zapisz
+        {schema.save}
       </Button>
     </DocumentAdditionalContentStyle>
   );

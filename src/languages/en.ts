@@ -164,6 +164,13 @@ export const en: LanguageSchema = {
   emailInForm: 'Email',
   phoneInForm: 'Phone',
   cancel: 'cancel',
+  addAnApplication: 'Add an application',
+  theApplicationConcernsStudies: 'The application concers studies?',
+  isItInLineWithTheTermsOfReference: 'Is it in line with the terms of reference?',
+  studies: 'studies',
+  application: 'application',
+  trainingApplication: 'Training application',
+  dateOfRegistration: 'Date of registration',
   validation: {
     loginRequired: 'email / login is required',
     emailFormat: 'incorrect email format',

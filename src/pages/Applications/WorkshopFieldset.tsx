@@ -1,3 +1,4 @@
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
@@ -14,10 +15,13 @@ const WorkshopFieldset = ({
   fetchApplications,
   editApplicationFor,
 }: Props) => {
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editApplicationFor ? 'Edytuj' : 'Dodaj'} wniosek`}
+        title={`${editApplicationFor ? schema.edit : schema.add} ${schema.application}`}
         closeDrawer={closeDrawer}
       />
       <WorkshopContent

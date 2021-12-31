@@ -1,3 +1,4 @@
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import DocumentAdditionalContent from './DocumentAdditionalContent';
@@ -8,9 +9,12 @@ interface Props {
 }
 
 const DocumentAdditionalFieldset = ({ closeDrawer, fetchDocuments }: Props) => {
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FieldsetStyled>
-      <HeaderFieldset title={`Dodaj wniosek`} closeDrawer={closeDrawer} />
+      <HeaderFieldset title={schema.addAnApplication} closeDrawer={closeDrawer} />
       <DocumentAdditionalContent
         closeDrawer={closeDrawer}
         fetchDocuments={fetchDocuments}

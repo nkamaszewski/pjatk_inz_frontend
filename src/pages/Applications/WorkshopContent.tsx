@@ -1,6 +1,7 @@
 import { Button } from '@material-ui/core';
 import StatusSelect from 'components/controls_UI/StatusSelect';
 import { useAuth } from 'providers/AuthProvider';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -79,6 +80,9 @@ const WorkshopContent = ({
       closeDrawer();
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <WorkshopContentStyle>
@@ -88,7 +92,7 @@ const WorkshopContent = ({
           setIsStudy(event.target.checked);
           setIdEducation('');
         }}
-        label="Wniosek dotyczy studiów?"
+        label={schema.theApplicationConcernsStudies}
       />
 
       {isStudy ? (
@@ -102,7 +106,7 @@ const WorkshopContent = ({
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setCompatibility(event.target.checked)
         }
-        label="Czy zgodny z zakresem obowiązków?"
+        label={schema.isItInLineWithTheTermsOfReference}
       />
 
       <StatusSelect
@@ -121,7 +125,7 @@ const WorkshopContent = ({
         color="primary"
         onClick={handleOnSave}
       >
-        Zapisz
+        {schema.save}
       </Button>
     </WorkshopContentStyle>
   );

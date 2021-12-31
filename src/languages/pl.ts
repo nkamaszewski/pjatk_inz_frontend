@@ -164,6 +164,13 @@ export const pl: LanguageSchema = {
   emailInForm: 'Email',
   phoneInForm: 'Telefon',
   cancel: 'anuluj',
+  addAnApplication: 'Dodaj wniosek',
+  theApplicationConcernsStudies: 'Wniosek dotyczy studiów?',
+  isItInLineWithTheTermsOfReference: 'Czy zgodny z zakresem obowiązków?',
+  studies: 'studia',
+  application: 'wniosek',
+  trainingApplication: 'Wniosek szkoleniowy',
+  dateOfRegistration: 'Data rejestracji',
   validation: {
     loginRequired: 'podanie email / login jest wymagane',
     emailFormat: 'niepoprawny format email',
