@@ -49,7 +49,7 @@ const RoomSelect = ({ value, onChange, withAll, name }: Props) => {
             <MenuItem key={room.IdRoom} value={room.IdRoom}>
               {room.IdRoom === ALL
                 ? schema.all
-                : `${room.Name}, powierzchnia: ${room.Area}`}
+                : `${room.Name} ${schema.surfaceV2} ${room.Area}`}
             </MenuItem>
           ))}
         </Select>

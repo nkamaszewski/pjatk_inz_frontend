@@ -51,8 +51,8 @@ const GroupSelect = ({ value, onChange, withAll, name }: Props) => {
           {groups.map((group) => (
             <MenuItem key={group.IdGroup} value={group.IdGroup}>
               {group.IdGroup === ALL
-                ? 'Wszystkie'
-                : `${group.Name}, liczba osób: ${group.NumberOfPerson}`}
+                ? schema.all
+                : `${group.Name} ${schema.numberOfPeopleV2} ${group.NumberOfPerson}`}
             </MenuItem>
           ))}
         </Select>

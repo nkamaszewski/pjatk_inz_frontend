@@ -1,3 +1,4 @@
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import GroupContent from './GroupContent';
@@ -8,9 +9,12 @@ interface Props {
 }
 
 const GroupFieldset = ({ closeDrawer, fetchGroups }: Props) => {
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FieldsetStyled>
-      <HeaderFieldset title={`Dodaj grupę`} closeDrawer={closeDrawer} />
+      <HeaderFieldset title={schema.addGroup} closeDrawer={closeDrawer} />
       <GroupContent closeDrawer={closeDrawer} fetchGroups={fetchGroups} />
     </FieldsetStyled>
   );

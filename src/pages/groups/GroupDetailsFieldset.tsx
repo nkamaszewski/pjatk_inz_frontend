@@ -9,6 +9,7 @@ import {
   DialogTitle,
   Fab,
 } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -115,25 +116,28 @@ const GroupDetailsFieldset = ({ closeDrawer, group }: Props) => {
     );
     return person ?? ({} as PersonDTO);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <GroupDetailsFieldsetStyle>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Przypisz pracownika do grupy</DialogTitle>
+        <DialogTitle>{schema.assignAnEmployeeToAGroup}</DialogTitle>
         <DialogContent>
           <EmployeeSeelect value={idPerson} onChange={setIdPerson} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
-            Anuluj
+            {schema.cancel}
           </Button>
           <Button onClick={handleOnConfirm} color="primary">
-            Dodaj
+            {schema.add}
           </Button>
         </DialogActions>
       </Dialog>
       <div className="header">
-        <h3>Pracownicy grupy {group.Name}:</h3>
+        <h3>{schema.groupEmployees} {group.Name}:</h3>
         <Fab
           color="primary"
           aria-label="add"

@@ -15,7 +15,7 @@ const RoomListHeaderStyle = styled(Card)`
 const RoomListHeader = () => {
   const {
     language: {
-      schema: { name, surface, cinematic, layoutU, uWithoutATable, school },
+      schema: { name, surface, cinematic, layoutU, uWithoutATable, schoolV2 },
     },
   } = useLanguage();
   return (
@@ -27,7 +27,7 @@ const RoomListHeader = () => {
           <p className="item-centered">{cinematic}</p>
           <p className="item-centered">{layoutU}</p>
           <p className="item-centered">{uWithoutATable}</p>
-          <p className="item-centered">{school}</p>
+          <p className="item-centered">{schoolV2}</p>
         </>
       </HeaderListStyled>
       <RoomListHeaderStyle className="grid-room">

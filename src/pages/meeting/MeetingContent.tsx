@@ -86,7 +86,7 @@ const MeetingContent = ({ closeDrawer, fetchMeetings, meeting }: Props) => {
       <RoomSelect value={idRoom} onChange={setIdRoom} />
 
       <Button variant="contained" color="primary" onClick={handleOnSave}>
-        Zapisz
+        {schema.save}
       </Button>
     </MeetingContentStyle>
   );

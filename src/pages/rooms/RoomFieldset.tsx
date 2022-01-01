@@ -1,3 +1,5 @@
+import { capFL } from 'helpers/capitalizeFirstLetter';
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { RoomDTO } from '../../types/DTO/Room';
@@ -10,10 +12,13 @@ interface Props {
 }
 
 const RoomFieldset = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editRoom ? 'Edytuj' : 'Dodaj'} salę`}
+        title={`${editRoom ? capFL(schema.edit) : schema.add} ${schema.roomV2}`}
         closeDrawer={closeDrawer}
       />
       <RoomContent

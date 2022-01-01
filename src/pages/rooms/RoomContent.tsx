@@ -1,4 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postRoom, updateRoom } from '../../api/Room';
@@ -58,11 +59,14 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
       closeDrawer();
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <RoomContentStyle>
       <TextField
-        label="Nazwa"
+        label={schema.name}
         type="text"
         InputLabelProps={{
           shrink: true,
@@ -73,7 +77,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
         }
       />
       <TextField
-        label="Powierzchnia w m2"
+        label={schema.areaInM2}
         type="number"
         InputLabelProps={{
           shrink: true,
@@ -84,7 +88,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
         }
       />
       <TextField
-        label="Ustawienie kinowe"
+        label={schema.cinemaSetting}
         type="number"
         InputLabelProps={{
           shrink: true,
@@ -95,7 +99,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
         }
       />
       <TextField
-        label="Ustawienie 'U'"
+        label={schema.uSetting}
         type="number"
         InputLabelProps={{
           shrink: true,
@@ -106,7 +110,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
         }
       />
       <TextField
-        label="Ustawienie 'U' bez stołu"
+        label={schema.settingUWithoutTable}
         type="number"
         InputLabelProps={{
           shrink: true,
@@ -117,7 +121,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
         }
       />
       <TextField
-        label="Ustawienie szkolne"
+        label={schema.schoolSetting}
         type="number"
         InputLabelProps={{
           shrink: true,
@@ -129,7 +133,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
       />
 
       <Button variant="contained" color="primary" onClick={handleOnSave}>
-        Zapisz
+        {schema.save}
       </Button>
     </RoomContentStyle>
   );

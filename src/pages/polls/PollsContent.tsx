@@ -1,4 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postOffer, updateOffer } from '../../api/Offers';
@@ -84,6 +85,9 @@ const PollsContent = ({
       closeDrawer();
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <PollsContentStyle>
@@ -95,21 +99,21 @@ const PollsContent = ({
       <TextField
         type="text"
         fullWidth
-        label="Temat"
+        label={schema.category}
         value={topic}
         onChange={handleOnTopicChange}
       />
       <TextField
         type="text"
         fullWidth
-        label="Link"
+        label={schema.link}
         value={link}
         onChange={handleOnLinkChange}
       />
       <TextField
         type="number"
         fullWidth
-        label="Koszt"
+        label={schema.cost}
         value={price}
         onChange={handleOnPriceChange}
       />
@@ -119,7 +123,7 @@ const PollsContent = ({
         color="primary"
         onClick={handleOnSave}
       >
-        Zapisz
+        {schema.save}
       </Button>
     </PollsContentStyle>
   );
