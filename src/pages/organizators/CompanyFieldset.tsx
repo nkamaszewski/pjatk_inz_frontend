@@ -1,3 +1,5 @@
+import { capFL } from 'helpers/capitalizeFirstLetter';
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { CompanyDTO } from '../../types/DTO/Company';
@@ -14,10 +16,13 @@ const CompanyFieldset = ({
   fetchCompanies,
   editCompany,
 }: Props) => {
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editCompany ? 'Edytuj' : 'Dodaj'} firmę`}
+        title={`${editCompany ? capFL(schema.edit) : capFL(schema.add)} ${schema.companyV2}`}
         closeDrawer={closeDrawer}
       />
       <CompanyContent

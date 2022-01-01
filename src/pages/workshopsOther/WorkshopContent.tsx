@@ -1,5 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import CompanySelect from 'components/controls_UI/CompanySelect';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { OtherEducationDTO } from 'types/DTO/OtherEducation';
@@ -69,11 +70,14 @@ export const WorkshopContent = ({
       [event.target.name]: event.target.value,
     }));
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <WorkshopContentStyle>
       <TextField
-        label="Nazwa"
+        label={schema.name}
         InputLabelProps={{
           shrink: true,
         }}
@@ -84,7 +88,7 @@ export const WorkshopContent = ({
       />
 
       <TextField
-        label="Cena"
+        label={schema.price}
         name="Price"
         type="number"
         InputLabelProps={{
@@ -95,7 +99,7 @@ export const WorkshopContent = ({
       />
 
       <TextField
-        label="Cena zakwaterowania"
+        label={schema.accommodationPrice}
         name="PriceAccommodation"
         type="number"
         InputLabelProps={{
@@ -106,7 +110,7 @@ export const WorkshopContent = ({
       />
 
       <TextField
-        label="Koszt transportu"
+        label={schema.theCostOfTransport}
         name="PriceTransit"
         type="number"
         InputLabelProps={{
@@ -119,7 +123,7 @@ export const WorkshopContent = ({
       <CompanySelect value={IdCompany} onChange={setIdcompany} />
 
       <Button variant="contained" color="primary" onClick={handleOnSave}>
-        Zapisz
+        {schema.save}
       </Button>
     </WorkshopContentStyle>
   );

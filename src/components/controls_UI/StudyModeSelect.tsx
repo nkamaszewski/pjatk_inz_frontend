@@ -97,7 +97,7 @@ const StudyModeSelect = ({ value, onChange }: Props) => {
           ))}
         </Select>
       </FormControl>
-      <Tooltip title="dodaj tryb studiów">
+      <Tooltip title={schema.addStudyMode}>
         <Button
           onClick={() => {
             setAddingMode(true);
@@ -107,7 +107,7 @@ const StudyModeSelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Dodaj tryb studiów do bazy danych</DialogTitle>
+        <DialogTitle>{schema.addStudyModeToTheDatabase}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -115,7 +115,7 @@ const StudyModeSelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Name"
-            label="Nazwa"
+            label={schema.name}
             type="text"
             fullWidth
           />

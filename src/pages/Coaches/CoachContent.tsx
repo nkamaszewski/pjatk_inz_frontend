@@ -1,4 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postCoach, updateCoach } from '../../api/Coach';
@@ -62,12 +63,15 @@ const CoachContent = ({ closeDrawer, fetchCoaches, editCoach }: Props) => {
   ) => {
     setJobTitle(event.target.value);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <CoachContentStyle>
       <PersonSelect value={selectedPerson} onChange={setSelectedPerson} />
       <TextField
-        label="Tytuł zawodowy"
+        label={schema.professionalTitle}
         name="jobTitle"
         type="text"
         InputLabelProps={{
@@ -83,7 +87,7 @@ const CoachContent = ({ closeDrawer, fetchCoaches, editCoach }: Props) => {
         color="primary"
         onClick={handleOnSave}
       >
-        Zapisz
+        {schema.save}
       </Button>
     </CoachContentStyle>
   );

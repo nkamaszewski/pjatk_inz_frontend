@@ -1,4 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postCompany, updateCompany } from '../../api/Company';
@@ -64,11 +65,14 @@ const CompanyContent = ({
       closeDrawer();
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <CompanyContentStyle>
       <TextField
-        label="Nazwa"
+        label={schema.name}
         type="text"
         InputLabelProps={{
           shrink: true,
@@ -79,7 +83,7 @@ const CompanyContent = ({
         }
       />
       <TextField
-        label="NIP"
+        label={schema.taxId}
         type="text"
         InputLabelProps={{
           shrink: true,
@@ -89,7 +93,7 @@ const CompanyContent = ({
           setTin(event.target.value)
         }
       />
-      <h4>Adres:</h4>
+      <h4>{schema.addressV2}</h4>
 
       <TextField
         label="Ulica"
@@ -114,7 +118,7 @@ const CompanyContent = ({
         }
       />
       <TextField
-        label="Kod pocztowy"
+        label={schema.postcode}
         type="text"
         InputLabelProps={{
           shrink: true,
@@ -126,7 +130,7 @@ const CompanyContent = ({
       />
 
       <TextField
-        label="Miejscowość"
+        label={schema.town}
         type="text"
         InputLabelProps={{
           shrink: true,
@@ -138,7 +142,7 @@ const CompanyContent = ({
       />
 
       <Button variant="contained" color="primary" onClick={handleOnSave}>
-        Zapisz
+        {schema.save}
       </Button>
     </CompanyContentStyle>
   );

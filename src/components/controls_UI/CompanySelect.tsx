@@ -104,7 +104,7 @@ const CompanySelect = ({ value, onChange }: Props) => {
           ))}
         </Select>
       </FormControl>
-      <Tooltip title="dodaj firmę">
+      <Tooltip title={schema.addACompany}>
         <Button
           onClick={() => {
             setAddingMode(true);
@@ -114,7 +114,7 @@ const CompanySelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Dodaj firmę do bazy danych</DialogTitle>
+        <DialogTitle>{schema.addTheCompanyToTheDatabase}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -122,7 +122,7 @@ const CompanySelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Name"
-            label="Nazwa"
+            label={schema.name}
             type="text"
             fullWidth
           />
@@ -140,7 +140,7 @@ const CompanySelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="City"
-            label="Miasto"
+            label={schema.city}
             type="text"
             fullWidth
           />
@@ -149,7 +149,7 @@ const CompanySelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="PostalCode"
-            label="Kod pocztowy"
+            label={schema.postcode}
             type="text"
             fullWidth
           />
@@ -158,7 +158,7 @@ const CompanySelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Street"
-            label="Ulica"
+            label={schema.street}
             type="text"
             fullWidth
           />
@@ -167,17 +167,17 @@ const CompanySelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Number"
-            label="Numer"
+            label={schema.number}
             type="number"
             fullWidth
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
-            Anuluj
+            {schema.cancel}
           </Button>
           <Button onClick={handleOnConfirm} color="primary">
-            Dodaj
+            {schema.add}
           </Button>
         </DialogActions>
       </Dialog>

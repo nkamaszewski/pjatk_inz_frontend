@@ -99,7 +99,7 @@ const TopicSelect = ({ value, onChange }: Props) => {
           ))}
         </Select>
       </FormControl>
-      <Tooltip title="dodaj temat szkolenia">
+      <Tooltip title={schema.addATrainingTopic}>
         <Button
           onClick={() => {
             setAddingMode(true);
@@ -109,7 +109,7 @@ const TopicSelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Dodaj temat szkolenia do bazy danych</DialogTitle>
+        <DialogTitle>{schema.addTheTrainingTopicToTheDatabase}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -117,7 +117,7 @@ const TopicSelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Topic"
-            label="Nazwa"
+            label={schema.name}
             type="text"
             fullWidth
           />
@@ -133,10 +133,10 @@ const TopicSelect = ({ value, onChange }: Props) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
-            Anuluj
+            {schema.cancel}
           </Button>
           <Button onClick={handleOnConfirm} color="primary">
-            Dodaj
+            {schema.add}
           </Button>
         </DialogActions>
       </Dialog>

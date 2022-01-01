@@ -104,7 +104,7 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
           ))}
         </Select>
       </FormControl>
-      <Tooltip title="dodaj uczelnie">
+      <Tooltip title={schema.addUniversities}>
         <Button
           onClick={() => {
             setAddingMode(true);
@@ -114,7 +114,7 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Dodaj uczelnię do bazy danych</DialogTitle>
+        <DialogTitle>{schema.addTheUniversityToTheDatabase}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
