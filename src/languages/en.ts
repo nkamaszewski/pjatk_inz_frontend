@@ -197,6 +197,11 @@ export const en: LanguageSchema = {
   addTheCompanyToTheDatabase: 'Add the company to the database',
   addTheTrainerToTheDatabase: 'Add the trainer to the database',
   academicTitle: 'Academic title',
+  addTraining: 'Add training',
+  editTraining: 'Edit training',
+  companyV2: 'company',
+  addressV2: 'Address:',
+  town: 'Town',
   validation: {
     loginRequired: 'email / login is required',
     emailFormat: 'incorrect email format',

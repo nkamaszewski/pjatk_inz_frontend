@@ -196,7 +196,12 @@ export interface LanguageSchema {
   addTheTrainingTopicToTheDatabaseV2: string;
   addTheCompanyToTheDatabase: string; 
   addTheTrainerToTheDatabase: string;
-  academicTitle: string;    
+  academicTitle: string; 
+  addTraining: string;
+  editTraining: string; 
+  companyV2: string;
+  addressV2: string;
+  town: string;  
   validation: {
     loginRequired: string;
     emailFormat: string;

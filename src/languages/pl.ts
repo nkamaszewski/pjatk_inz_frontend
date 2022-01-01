@@ -197,6 +197,11 @@ export const pl: LanguageSchema = {
   addTheCompanyToTheDatabase: 'Dodaj firmę do bazy danych',
   addTheTrainerToTheDatabase: 'Dodaj szkoleniowca do bazy danych',
   academicTitle: 'Tytuł naukowy',
+  addTraining: 'Dodaj szkolenie',
+  editTraining: 'Edytuj szkolenie',
+  companyV2: 'firmę',
+  addressV2: 'Adres:',
+  town: 'Miejscowość',
   validation: {
     loginRequired: 'podanie email / login jest wymagane',
     emailFormat: 'niepoprawny format email',
