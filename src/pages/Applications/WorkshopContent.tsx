@@ -16,6 +16,7 @@ import {
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const WorkshopContentStyle = styled.div`
   padding: 24px 0;
@@ -50,6 +51,8 @@ const WorkshopContent = ({
   const {
     auth: { user },
   } = useAuth();
+  
+  const handleHttpError = useHandleHttpError();
 
   const handleOnSave = async () => {
     try {
@@ -74,7 +77,9 @@ const WorkshopContent = ({
         setSnackbar(createSnackbarSuccess('Wniosek został dodany'));
       }
     } catch (e) {
-      console.error(e);
+      // console.error(e);
+      handleHttpError(e);
+
     } finally {
       fetchApplications();
       closeDrawer();

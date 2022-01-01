@@ -8,6 +8,7 @@ import {
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { CompanyDTO } from '../../types/DTO/Company';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const CompanyContentStyle = styled.div`
   padding: 24px 0;
@@ -33,7 +34,7 @@ const CompanyContent = ({
   const [postalCode, setPostalCode] = useState(editCompany?.PostalCode ?? '');
   const [city, setCity] = useState(editCompany?.City ?? '');
   const { setSnackbar } = useSnackbar();
-
+  const handleHttpError = useHandleHttpError();
   const handleOnSave = async () => {
     const newCompany = {
       Name: name,
@@ -56,7 +57,8 @@ const CompanyContent = ({
       }
       fetchCompanies();
     } catch (e) {
-      setSnackbar(createSnackbarError('Operacja nie powiodła się!'));
+      handleHttpError(e);
+      // setSnackbar(createSnackbarError('Operacja nie powiodła się!'));
       console.error(e);
     } finally {
       closeDrawer();
