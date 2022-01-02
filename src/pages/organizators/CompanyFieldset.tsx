@@ -22,7 +22,7 @@ const CompanyFieldset = ({
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editCompany ? capFL(schema.edit) : capFL(schema.add)} ${schema.companyV2}`}
+        title={`${editCompany ? capFL(schema.edit) : schema.add} ${schema.companyV2}`}
         closeDrawer={closeDrawer}
       />
       <CompanyContent

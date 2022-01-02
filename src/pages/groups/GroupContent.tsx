@@ -1,4 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postGroup } from '../../api/Group';
@@ -33,11 +34,14 @@ const GroupContent = ({ closeDrawer, fetchGroups }: Props) => {
       closeDrawer();
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
 
   return (
     <GroupContentStyle>
       <TextField
-        label="Nazwa"
+        label={schema.name}
         type="text"
         InputLabelProps={{
           shrink: true,
@@ -48,7 +52,7 @@ const GroupContent = ({ closeDrawer, fetchGroups }: Props) => {
         }
       />
       <TextField
-        label="Liczba osób"
+        label={schema.numberOfPeople}
         type="number"
         InputLabelProps={{
           shrink: true,
@@ -62,7 +66,7 @@ const GroupContent = ({ closeDrawer, fetchGroups }: Props) => {
       <TrainingSelect value={idEducation} onChange={setIdEducation} />
 
       <Button variant="contained" color="primary" onClick={handleOnSave}>
-        Zapisz
+        {schema.save}
       </Button>
     </GroupContentStyle>
   );

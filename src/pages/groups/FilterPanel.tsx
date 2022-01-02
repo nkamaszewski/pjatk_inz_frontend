@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { ALL, useFilter } from '../../providers/FilterContext';
 import { ChangeEvent } from '../../types/EventTypes';
 
-const GROUPS_TYPE = [
-  { id: ALL, name: 'Wszystkie' },
-  { id: '1', name: 'Tylko aktywne' },
-];
+const GROUPS_TYPE = (schema: { all: any; onlyActive: any;}) => ([
+  { id: ALL, name: schema.all },
+  { id: '1', name: schema.onlyActive },
+]);
 
 const FilterPanelStyle = styled.div`
   display: grid;
@@ -37,13 +37,13 @@ const FilterPanel = () => {
       <h4>{schema.filter}</h4>
 
       <FormControl fullWidth>
-        <InputLabel>Rodzaj</InputLabel>
+        <InputLabel>{schema.type}</InputLabel>
         <Select
           value={filters.active}
           onChange={handleChangefilter}
           name="active"
         >
-          {GROUPS_TYPE.map(({ id, name }) => (
+          {GROUPS_TYPE(schema).map(({ id, name }) => (
             <MenuItem key={id} value={id}>
               {name}
             </MenuItem>

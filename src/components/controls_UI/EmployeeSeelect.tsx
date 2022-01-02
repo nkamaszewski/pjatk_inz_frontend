@@ -1,4 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import { getEmployees } from '../../api/Employee';
 import { EmployeeDTO } from '../../types/DTO/Employee';
@@ -25,9 +26,12 @@ const EmployeeSeelect = ({ value, onChange }: Props) => {
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FormControl fullWidth>
-      <InputLabel>Pracownik</InputLabel>
+      <InputLabel>{schema.employee}</InputLabel>
       <Select value={value} onChange={handleSelectChange}>
         {employees.map((employee) => (
           <MenuItem

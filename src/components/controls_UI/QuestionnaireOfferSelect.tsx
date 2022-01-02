@@ -98,7 +98,7 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
   return (
     <EmployeeSelectStyle>
       <FormControl fullWidth>
-        <InputLabel>Rok wniosku</InputLabel>
+        <InputLabel>{schema.yearOfApplication}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {questionnaireOffers.map((qo) => (
             <MenuItem
@@ -108,7 +108,7 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
           ))}
         </Select>
       </FormControl>
-      <Tooltip title="dodaj rok wniosku">
+      <Tooltip title={schema.addTheYearOfTheApplication}>
         <Button
           onClick={() => {
             setAddingMode(true);
@@ -118,7 +118,7 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>{schema.addAPersonToTheDatabase}</DialogTitle>
+        <DialogTitle>{schema.addTheYearOfTheApplicationToTheDatabase}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -126,17 +126,17 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
             onChange={handleOnChange}
             margin="dense"
             name="Year"
-            label="Rok"
+            label={schema.year}
             type="number"
             fullWidth
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
-            Anuluj
+            {schema.cancel}
           </Button>
           <Button onClick={handleOnConfirm} color="primary">
-            Dodaj
+            {schema.add}
           </Button>
         </DialogActions>
       </Dialog>
