@@ -1,10 +1,9 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { formatDate } from 'helpers/formatDate';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { getApplicationsFor } from '../../api/Application';
-import { ApplicationForListDTO } from '../../types/DTO/ApplicationFor';
+import { useAppForQuery } from './useAppForQuery';
 
 const ApplicationForSelectStyle = styled.div``;
 
@@ -14,19 +13,7 @@ interface Props {
 }
 
 const ApplicationForSelect = ({ value, onChange }: Props) => {
-  const [appFor, setAppFor]: [ApplicationForListDTO[], Function] = useState([]);
-
-  const fetchStudies = () => {
-    try {
-      getApplicationsFor().then((res) => {
-        setAppFor(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchStudies, []);
+  const appForQuery = useAppForQuery();
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -39,7 +26,7 @@ const ApplicationForSelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{schema.trainingApplication}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {appFor.map(
+          {appForQuery.data?.data.map(
             ({
               IdApplicationFor,
               Nazwa,

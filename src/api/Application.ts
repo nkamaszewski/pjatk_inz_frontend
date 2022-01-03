@@ -1,6 +1,9 @@
 import { axiosJWT } from 'helpers/tokenAxios';
 import { ALL } from '../providers/FilterContext';
-import { ApplicationForDTO } from '../types/DTO/ApplicationFor';
+import {
+  ApplicationForDTO,
+  ApplicationForListDTO,
+} from '../types/DTO/ApplicationFor';
 
 interface QueryParams {
   iddepartment: string | null;
@@ -15,7 +18,7 @@ export const getApplicationsFor = (
   if (params.idstatus === ALL) query.idstatus = null;
   if (params.iddivision === ALL) query.iddivision = null;
   if (params.iddepartment === ALL) query.iddepartment = null;
-  return axiosJWT.get(`/appfor`, { params: query });
+  return axiosJWT.get<ApplicationForListDTO[]>(`/appfor`, { params: query });
 };
 
 export const getApplicationFor = (id: string) =>

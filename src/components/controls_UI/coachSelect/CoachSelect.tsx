@@ -14,11 +14,12 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getCoaches, postCoach } from '../../api/Coach';
-import { CoachDTO } from '../../types/DTO/Coach';
-import PersonSelect from './PersonSelect';
+import { CoachDTO } from '../../../types/DTO/Coach';
+import PersonSelect from '../PersonSelect';
+import { useCoachesQuery } from './useCoachesQuery';
+import { useCoachMutation } from './useCoachMutation';
 
 const CoachSelectStyle = styled.div`
   display: grid;
@@ -37,21 +38,10 @@ const EMPTY_COACH = {
 } as CoachDTO;
 
 const CoachSelect = ({ value, onChange }: Props) => {
-  const [coaches, setCoaches]: [CoachDTO[], Function] = useState([]);
+  const coachesQuery = useCoachesQuery();
+  const coachMutation = useCoachMutation();
   const [addingMode, setAddingMode] = useState(false);
   const [coach, setCoach] = useState(EMPTY_COACH);
-
-  const fetchCoaches = () => {
-    try {
-      getCoaches().then((res) => {
-        setCoaches(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchCoaches, []);
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -69,18 +59,11 @@ const CoachSelect = ({ value, onChange }: Props) => {
     setCoach(EMPTY_COACH);
   };
 
-  const handleOnConfirm = () => {
-    try {
-      postCoach(coach).then((res) => {
-        setAddingMode(false);
-        fetchCoaches();
-        onChange(res.data.IdPerson);
-      });
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setCoach(EMPTY_COACH);
-    }
+  const handleOnConfirm = async () => {
+    const res = await coachMutation.mutateAsync(coach);
+    setAddingMode(false);
+    onChange(res.data.IdPerson);
+    setCoach(EMPTY_COACH);
   };
   const {
     language: { schema },
@@ -90,7 +73,7 @@ const CoachSelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{schema.trainer}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {coaches.map((c) => (
+          {coachesQuery.data?.data.map((c) => (
             <MenuItem key={c.IdPerson} value={c.IdPerson}>
               {`${c.CoachPerson.FirstName} ${c.CoachPerson.LastName} ${c.JobTitle}`}
             </MenuItem>

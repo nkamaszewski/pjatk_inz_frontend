@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { postEducation, updateEducation } from '../../api/Education';
 import { postTraining, updateTraining } from '../../api/Training';
-import CoachSelect from '../../components/controls_UI/CoachSelect';
+import CoachSelect from '../../components/controls_UI/coachSelect/CoachSelect';
 import CompanySelect from '../../components/controls_UI/CompanySelect';
 import SwitchBtn from '../../components/controls_UI/SwitchBtn';
 import TopicSelect from '../../components/controls_UI/TopicSelect';

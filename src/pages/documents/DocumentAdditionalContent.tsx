@@ -9,7 +9,7 @@ import {
 } from 'providers/NotificationContext';
 import { useState } from 'react';
 import styled from 'styled-components';
-import ApplicationForSelect from '../../components/controls_UI/ApplicationForSelect';
+import ApplicationForSelect from '../../components/controls_UI/applicationForSelect/ApplicationForSelect';
 import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
 
 const DocumentAdditionalContentStyle = styled.div`

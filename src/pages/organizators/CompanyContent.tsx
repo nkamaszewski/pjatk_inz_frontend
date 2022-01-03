@@ -4,7 +4,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { postCompany, updateCompany } from '../../api/Company';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
