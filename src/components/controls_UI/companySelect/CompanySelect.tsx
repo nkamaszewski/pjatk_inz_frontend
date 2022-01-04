@@ -15,10 +15,11 @@ import {
 } from '@material-ui/core';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getCompanies, postCompany } from '../../api/Company';
-import { CompanyDTO } from '../../types/DTO/Company';
+import { CompanyDTO } from '../../../types/DTO/Company';
+import { useCompaniesQuery } from './useCompaniesQuery';
+import { useCompanyMutation } from './useCompanyMutation';
 
 const CompanySelectStyle = styled.div`
   display: grid;
@@ -41,21 +42,10 @@ const EMPTY_COMPANY = {
 } as CompanyDTO;
 
 const CompanySelect = ({ value, onChange }: Props) => {
-  const [companies, setCompanies]: [CompanyDTO[], Function] = useState([]);
   const [addingMode, setAddingMode] = useState(false);
   const [company, setCompany] = useState(EMPTY_COMPANY);
-
-  const fetchCompanies = () => {
-    try {
-      getCompanies().then((res) => {
-        setCompanies(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchCompanies, []);
+  const companiesQuery = useCompaniesQuery();
+  const companyMutation = useCompanyMutation();
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -73,15 +63,13 @@ const CompanySelect = ({ value, onChange }: Props) => {
     setCompany(EMPTY_COMPANY);
   };
 
-  const handleOnConfirm = () => {
+  const handleOnConfirm = async () => {
     try {
       const uni: any = { ...company };
       delete uni.IdCompany;
-      postCompany(uni).then((res) => {
-        setAddingMode(false);
-        fetchCompanies();
-        onChange(res.data.IdCompany);
-      });
+      const res = await companyMutation.mutateAsync(uni);
+      setAddingMode(false);
+      onChange(res.data.IdCompany);
     } catch (e) {
       console.error(e);
     } finally {
@@ -96,7 +84,7 @@ const CompanySelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{capFL(schema.company)}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {companies.map((comp) => (
+          {companiesQuery.data?.data.map((comp) => (
             <MenuItem
               key={comp.IdCompany}
               value={comp.IdCompany}

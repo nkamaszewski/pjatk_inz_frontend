@@ -1,5 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
-import CompanySelect from 'components/controls_UI/CompanySelect';
+import CompanySelect from 'components/controls_UI/companySelect/CompanySelect';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';

@@ -1,7 +1,7 @@
 import { axiosJWT } from 'helpers/tokenAxios';
 import { CompanyDTO } from '../types/DTO/Company';
 
-export const getCompanies = () => axiosJWT.get('/companies/');
+export const getCompanies = () => axiosJWT.get<CompanyDTO[]>('/companies/');
 
 export const getOwner = () => axiosJWT.get('/companies/owner');
 
