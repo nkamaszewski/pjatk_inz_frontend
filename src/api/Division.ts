@@ -1,7 +1,7 @@
 import { axiosJWT } from 'helpers/tokenAxios';
 import { DivisionDTO } from '../types/DTO/Division';
 
-export const getDivisions = () => axiosJWT.get('/divisions/');
+export const getDivisions = () => axiosJWT.get<DivisionDTO[]>('/divisions/');
 
 export const postDivision = (division: Omit<DivisionDTO, 'IdDivision'>) =>
   axiosJWT.post('/divisions/', division);

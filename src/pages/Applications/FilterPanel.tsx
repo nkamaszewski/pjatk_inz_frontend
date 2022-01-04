@@ -1,9 +1,9 @@
 import { useFilter } from '../../providers/FilterContext';
 import StatusSelect from '../../components/controls_UI/StatusSelect';
-import DepartmentSelect from '../../components/controls_UI/DepartmentSelect';
+import DepartmentSelect from '../../components/controls_UI/departmentSelect/DepartmentSelect';
 import { ChangeEvent } from '../../types/EventTypes';
 import styled from 'styled-components';
-import DivisionSelect from '../../components/controls_UI/DivisionSelect';
+import DivisionSelect from '../../components/controls_UI/divisionSelect/DivisionSelect';
 import { useLanguage } from 'providers/LanguageProvider';
 
 const FilterPanelStyle = styled.div`

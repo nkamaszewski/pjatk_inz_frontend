@@ -1,7 +1,8 @@
 import { axiosJWT } from 'helpers/tokenAxios';
 import { DepartmentDTO } from '../types/DTO/Department';
 
-export const getDepartments = () => axiosJWT.get('/departments/');
+export const getDepartments = () =>
+  axiosJWT.get<DepartmentDTO[]>('/departments/');
 
 export const postDepartment = (
   department: Omit<DepartmentDTO, 'IdDepartment'>
