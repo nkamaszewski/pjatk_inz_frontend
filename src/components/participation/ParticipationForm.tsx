@@ -6,7 +6,7 @@ import {
   DialogTitle,
   TextField,
 } from '@material-ui/core';
-import EmployeeSeelect from 'components/controls_UI/EmployeeSeelect';
+import { EmployeeSelect } from 'components/controls_UI/employeeSelect/EmployeeSelect';
 import { ParticipationDTO } from 'types/DTO/Participation';
 import { useFormikParticipation } from './useFormikParticipation';
 
@@ -58,7 +58,7 @@ export const ParticipationForm = ({
       <DialogContent
         style={{ width: '500px', display: 'grid', gridRowGap: '16px' }}
       >
-        <EmployeeSeelect
+        <EmployeeSelect
           value={formik.values.IdPerson}
           onChange={handleChangeEmployee}
         />

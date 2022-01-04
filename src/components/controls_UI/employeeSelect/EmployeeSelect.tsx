@@ -1,28 +1,16 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
-import { getEmployees } from '../../api/Employee';
-import { EmployeeDTO } from '../../types/DTO/Employee';
+import React from 'react';
+import { useEmployeesQuery } from './useEmployeesQuery';
 
 interface Props {
   value: string;
   onChange: Function;
 }
 
-const EmployeeSeelect = ({ value, onChange }: Props) => {
-  const [employees, setEmployees]: [EmployeeDTO[], Function] = useState([]);
+export const EmployeeSelect = ({ value, onChange }: Props) => {
+  const employeesQuery = useEmployeesQuery();
 
-  const fetchEmployees = () => {
-    try {
-      getEmployees().then((res) => {
-        setEmployees(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchEmployees, []);
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
@@ -33,7 +21,7 @@ const EmployeeSeelect = ({ value, onChange }: Props) => {
     <FormControl fullWidth>
       <InputLabel>{schema.employee}</InputLabel>
       <Select value={value} onChange={handleSelectChange}>
-        {employees.map((employee) => (
+        {employeesQuery.data?.data.map((employee) => (
           <MenuItem
             key={employee.IdPerson}
             value={employee.IdPerson}
@@ -43,5 +31,3 @@ const EmployeeSeelect = ({ value, onChange }: Props) => {
     </FormControl>
   );
 };
-
-export default EmployeeSeelect;

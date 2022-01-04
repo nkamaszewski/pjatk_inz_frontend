@@ -16,7 +16,7 @@ import {
   getEmployeeGroup,
   postEmployeeGroup,
 } from '../../api/EmployeeGroup';
-import GroupSelect from '../../components/controls_UI/GroupSelect';
+import GroupSelect from '../../components/controls_UI/groupSelect/GroupSelect';
 import DeleteBtn from '../../components/DeleteBtn';
 import {
   createSnackbarSuccess,

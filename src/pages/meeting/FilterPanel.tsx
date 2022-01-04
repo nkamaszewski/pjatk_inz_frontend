@@ -1,4 +1,4 @@
-import GroupSelect from 'components/controls_UI/GroupSelect';
+import GroupSelect from 'components/controls_UI/groupSelect/GroupSelect';
 import RoomSelect from 'components/controls_UI/RoomSelect';
 import { useLanguage } from 'providers/LanguageProvider';
 import styled from 'styled-components';

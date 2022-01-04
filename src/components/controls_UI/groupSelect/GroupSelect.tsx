@@ -2,12 +2,9 @@ import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { ALL } from 'providers/FilterContext';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { getGroups } from '../../api/Group';
-import { GroupDTO } from '../../types/DTO/Group';
-
-const DEFAULT_GROUPS = [{ IdGroup: 'all', Name: '' } as GroupDTO];
+import { useGroupesQuery } from './useGroupesQuery';
 
 const GroupSelectStyle = styled.div`
   display: grid;
@@ -21,22 +18,9 @@ interface Props {
   name?: string;
 }
 
-const GroupSelect = ({ value, onChange, withAll, name }: Props) => {
-  const [groups, setGroups] = useState<GroupDTO[]>(
-    withAll ? DEFAULT_GROUPS : []
-  );
+const GroupSelect = ({ value, onChange, withAll = false, name }: Props) => {
+  const groupsQuery = useGroupesQuery(withAll);
 
-  const fetchEmployments = () => {
-    try {
-      getGroups().then((res) => {
-        setGroups(withAll ? DEFAULT_GROUPS.concat(res.data) : res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchEmployments, [withAll]);
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
@@ -48,7 +32,7 @@ const GroupSelect = ({ value, onChange, withAll, name }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{capFL(schema.group)}</InputLabel>
         <Select value={value} onChange={handleSelectChange} name={name}>
-          {groups.map((group) => (
+          {groupsQuery.data?.map((group) => (
             <MenuItem key={group.IdGroup} value={group.IdGroup}>
               {group.IdGroup === ALL
                 ? schema.all

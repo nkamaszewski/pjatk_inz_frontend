@@ -1,4 +1,5 @@
 import { axiosJWT } from 'helpers/tokenAxios';
+import { GraduateDegreeDTO } from 'types/DTO/GraduateDegree';
 import { StudyDTO } from '../types/DTO/Study';
 
 export const getStudies = () => axiosJWT.get('/studies');
@@ -15,7 +16,8 @@ export const getStudyModes = () => axiosJWT.get('/studymodess');
 export const postStudyMode = (studyMode: { Name: string }) =>
   axiosJWT.post('/studymodess', studyMode);
 
-export const getGraduateDegrees = () => axiosJWT.get('/graduatedegrees');
+export const getGraduateDegrees = () =>
+  axiosJWT.get<GraduateDegreeDTO[]>('/graduatedegrees');
 
 export const postGraduateDegree = (graduateDegree: { Name: string }) =>
   axiosJWT.post('/graduatedegrees', graduateDegree);

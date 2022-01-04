@@ -18,7 +18,7 @@ import {
   postEmployeeGroup,
 } from '../../api/EmployeeGroup';
 import { getPersons } from '../../api/Person';
-import EmployeeSeelect from '../../components/controls_UI/EmployeeSeelect';
+import { EmployeeSelect } from '../../components/controls_UI/employeeSelect/EmployeeSelect';
 import DeleteBtn from '../../components/DeleteBtn';
 import {
   createSnackbarError,
@@ -125,7 +125,7 @@ const GroupDetailsFieldset = ({ closeDrawer, group }: Props) => {
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
         <DialogTitle>{schema.assignAnEmployeeToAGroup}</DialogTitle>
         <DialogContent>
-          <EmployeeSeelect value={idPerson} onChange={setIdPerson} />
+          <EmployeeSelect value={idPerson} onChange={setIdPerson} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
@@ -137,7 +137,9 @@ const GroupDetailsFieldset = ({ closeDrawer, group }: Props) => {
         </DialogActions>
       </Dialog>
       <div className="header">
-        <h3>{schema.groupEmployees} {group.Name}:</h3>
+        <h3>
+          {schema.groupEmployees} {group.Name}:
+        </h3>
         <Fab
           color="primary"
           aria-label="add"

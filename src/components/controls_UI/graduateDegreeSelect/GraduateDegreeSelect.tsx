@@ -14,10 +14,11 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getGraduateDegrees, postGraduateDegree } from '../../api/Study';
-import { GraduateDegreeDTO } from '../../types/DTO/GraduateDegree';
+import { GraduateDegreeDTO } from '../../../types/DTO/GraduateDegree';
+import { useGraduateDegreeMutation } from './useGraduateDegreeMutation';
+import { useGraduateDegreesQuery } from './useGraduateDegreesQuery';
 
 const GraduateDegreeSelectStyle = styled.div`
   display: grid;
@@ -35,22 +36,10 @@ const EMPTY_GRADUATE_DEGREE = {
 } as GraduateDegreeDTO;
 
 const GraduateDegreeSelect = ({ value, onChange }: Props) => {
-  const [graduateDegrees, setGraduateDegrees]: [GraduateDegreeDTO[], Function] =
-    useState([]);
   const [addingMode, setAddingMode] = useState(false);
   const [graduateDegree, setGraduateDegree] = useState(EMPTY_GRADUATE_DEGREE);
-
-  const fetchGraduateDegrees = () => {
-    try {
-      getGraduateDegrees().then((res) => {
-        setGraduateDegrees(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchGraduateDegrees, []);
+  const graduateDegreesQuery = useGraduateDegreesQuery();
+  const graduateDegreeMutation = useGraduateDegreeMutation();
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -72,9 +61,9 @@ const GraduateDegreeSelect = ({ value, onChange }: Props) => {
     try {
       const newGraduateDegree: any = { ...graduateDegree };
       delete newGraduateDegree.IdGraduateDegree;
-      postGraduateDegree(newGraduateDegree).then((res) => {
+      graduateDegreeMutation.mutateAsync(newGraduateDegree).then((res) => {
         setAddingMode(false);
-        fetchGraduateDegrees();
+
         onChange(res.data.IdGraduateDegree);
       });
     } catch (e) {
@@ -91,7 +80,7 @@ const GraduateDegreeSelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{schema.degreeOfStudy}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {graduateDegrees.map((graduateD) => (
+          {graduateDegreesQuery.data?.data.map((graduateD) => (
             <MenuItem
               key={graduateD.IdGraduateDegree}
               value={graduateD.IdGraduateDegree}

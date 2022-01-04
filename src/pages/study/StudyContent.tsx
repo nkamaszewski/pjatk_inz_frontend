@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { postEducation, updateEducation } from '../../api/Education';
 import { postStudy, updateStudy } from '../../api/Study';
-import GraduateDegreeSelect from '../../components/controls_UI/GraduateDegreeSelect';
+import GraduateDegreeSelect from '../../components/controls_UI/graduateDegreeSelect/GraduateDegreeSelect';
 import StudyModeSelect from '../../components/controls_UI/StudyModeSelect';
 import UniuversitySelect from '../../components/controls_UI/UniuversitySelect';
 import {

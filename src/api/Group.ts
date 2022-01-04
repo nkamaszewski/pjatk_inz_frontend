@@ -1,4 +1,5 @@
 import { axiosJWT } from 'helpers/tokenAxios';
+import { GroupDTO } from 'types/DTO/Group';
 import { ALL } from '../providers/FilterContext';
 
 interface QueryParams {
@@ -8,7 +9,7 @@ interface QueryParams {
 export const getGroups = (params: QueryParams = { active: null }) => {
   const query: QueryParams = { ...params };
   if (params.active === ALL) query.active = null;
-  return axiosJWT.get('/groups', { params: query });
+  return axiosJWT.get<GroupDTO[]>('/groups', { params: query });
 };
 
 export const postGroup = (group: {
