@@ -10,6 +10,7 @@ import {
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { CoachDTO } from '../../types/DTO/Coach';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const CoachContentStyle = styled.div`
   padding: 24px 0;
@@ -29,6 +30,7 @@ const CoachContent = ({ closeDrawer, fetchCoaches, editCoach }: Props) => {
   );
   const [jobTitle, setJobTitle] = useState(editCoach?.JobTitle ?? '');
   const { setSnackbar } = useSnackbar();
+	const handleHttpError = useHandleHttpError();
 
   const handleOnSave = async () => {
     try {
@@ -47,11 +49,7 @@ const CoachContent = ({ closeDrawer, fetchCoaches, editCoach }: Props) => {
       );
       fetchCoaches();
     } catch (e) {
-      setSnackbar(
-        createSnackbarError(
-          `nie udało się ${editCoach ? 'wyedytować' : 'dodać'} szkoleniowca`
-        )
-      );
+			handleHttpError(e);
       console.error(e);
     } finally {
       closeDrawer();

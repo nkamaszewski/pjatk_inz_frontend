@@ -13,6 +13,7 @@ import {
 import { CoachDTO } from '../../types/DTO/Coach';
 import CoachFieldset from './CoachFieldset';
 import CoachListHeader from './CoachListHeader';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const CoachListStyle = styled.div`
   padding: 16px;
@@ -36,6 +37,7 @@ interface Props {
 const CoachList = ({ coaches, fetchCoaches }: Props) => {
   const [editCoach, setEditCoach]: [CoachDTO | null, Function] = useState(null);
   const { setSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
   const handleCloseDrawer = () => setEditCoach(null);
   const handleDeleteItem = async (id: string) => {
     try {
@@ -43,7 +45,7 @@ const CoachList = ({ coaches, fetchCoaches }: Props) => {
       fetchCoaches();
       setSnackbar(createSnackbarSuccess('usunięto szkoleniowca'));
     } catch (e) {
-      setSnackbar(createSnackbarError('nie udało się usunąć szkoleniowca!'));
+			handleHttpError(e);
     }
   };
 
