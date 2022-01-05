@@ -14,6 +14,7 @@ import { CompanyDTO } from '../../types/DTO/Company';
 import { RoomDTO } from '../../types/DTO/Room';
 import CompaniesListHeader from './CompaniesListHeader';
 import CompanyFieldset from './CompanyFieldset';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const CompaniesListStyle = styled.div`
   padding: 16px;
@@ -38,6 +39,7 @@ const CompaniesList = ({ companies, fetchCompanies }: Props) => {
   const [editCompany, setEditCompany]: [RoomDTO | null, Function] =
     useState(null);
   const { setSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
   const handleCloseDrawer = () => setEditCompany(null);
   const handleDeleteItem = async (id: string) => {
     try {
@@ -45,7 +47,7 @@ const CompaniesList = ({ companies, fetchCompanies }: Props) => {
       fetchCompanies();
       setSnackbar(createSnackbarSuccess('usunięto firmę'));
     } catch (e) {
-      setSnackbar(createSnackbarError('nie udało się usunąć firmy!'));
+			handleHttpError(e);
     }
   };
   return (

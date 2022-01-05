@@ -11,6 +11,7 @@ import {
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { CompanyDTO } from '../../types/DTO/Company';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const CompanyDateStyle = styled.div`
   .company-section {
@@ -68,6 +69,7 @@ const CompanyData = () => {
     CompanyDTO | undefined | null
   >(null);
   const { setSnackbar } = useSnackbar();
+	const handleHttpError = useHandleHttpError();
 
   const fetchOwner = () => {
     try {
@@ -98,7 +100,7 @@ const CompanyData = () => {
       setSnackbar(createSnackbarSuccess('Zmiany zostały dokonane'));
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('Nie udało się dokonać zmian!'));
+			handleHttpError(e);
     } finally {
       setOwnerEditModel(null);
     }

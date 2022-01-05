@@ -51,17 +51,16 @@ const CompanyContent = ({
           ...newCompany,
         });
         setSnackbar(createSnackbarSuccess('Edytowano firmę'));
+        closeDrawer();
       } else {
         await postCompany(newCompany);
         setSnackbar(createSnackbarSuccess('Dodano firmę'));
+        closeDrawer();
       }
       fetchCompanies();
     } catch (e) {
       handleHttpError(e);
-      // setSnackbar(createSnackbarError('Operacja nie powiodła się!'));
       console.error(e);
-    } finally {
-      closeDrawer();
     }
   };
   const {

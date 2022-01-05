@@ -15,8 +15,7 @@ import {
 import { formatDate } from '../../helpers/formatDate';
 import { TrainingDTO } from '../../types/DTO/Training';
 import { useLanguage } from 'providers/LanguageProvider';
-import { useHandleHttpError } from "hooks/useHandleHttpError";
-
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const TrainingContentStyle = styled.div`
   padding: 24px 0;

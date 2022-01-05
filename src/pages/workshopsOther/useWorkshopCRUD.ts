@@ -15,9 +15,11 @@ import {
   OtherEducationDTO,
   OtherEducationListDTO,
 } from 'types/DTO/OtherEducation';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 export const useWorkshopCRUD = () => {
   const { setSnackbar } = useSnackbar();
+	const handleHttpError = useHandleHttpError();
 
   const getItem = async (id: string) => {
     const response = await getOtherEducation(id);
@@ -35,7 +37,7 @@ export const useWorkshopCRUD = () => {
       setSnackbar(createSnackbarSuccess('Dodano szkolenie!'));
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('Nie udało się dodać szkolenia!'));
+			handleHttpError(e);
     }
   };
 
@@ -45,7 +47,7 @@ export const useWorkshopCRUD = () => {
       setSnackbar(createSnackbarSuccess('Usunięto szkolenie!'));
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('Nie udało się usunąć szkolenia!'));
+			handleHttpError(e);
     }
   };
 
@@ -60,7 +62,7 @@ export const useWorkshopCRUD = () => {
       setSnackbar(createSnackbarSuccess('Szkolenie zostało wyedytowane'));
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('Nie udało się wydedytować szkolenia!'));
+			handleHttpError(e);
     }
   };
 
