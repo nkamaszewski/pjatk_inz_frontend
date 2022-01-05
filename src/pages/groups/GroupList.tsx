@@ -14,6 +14,7 @@ import {
 import { GroupDTO } from '../../types/DTO/Group';
 import GroupDetailsFieldset from './GroupDetailsFieldset';
 import GroupListHeader from './GroupListHeader';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const GroupListStyle = styled.div`
   padding: 16px;
@@ -38,6 +39,7 @@ const GroupList = ({ groups, fetchGroups }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [group, setGroup] = useState({} as GroupDTO);
   const { setSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
 
   const handleDeleteItem = async (id: string) => {
     try {
@@ -46,7 +48,7 @@ const GroupList = ({ groups, fetchGroups }: Props) => {
       fetchGroups();
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('Nie udało się usunąć grupy!'));
+      handleHttpError(e);
     }
   };
 
