@@ -15,6 +15,8 @@ import {
 import { formatDate } from '../../helpers/formatDate';
 import { TrainingDTO } from '../../types/DTO/Training';
 import { useLanguage } from 'providers/LanguageProvider';
+import { useHandleHttpError } from "hooks/useHandleHttpError";
+
 
 const TrainingContentStyle = styled.div`
   padding: 24px 0;
@@ -54,6 +56,7 @@ const TrainingContent = ({
   });
 
   const { setSnackbar } = useSnackbar();
+	const handleHttpError = useHandleHttpError();
 
   const handleOnSave = async () => {
     try {
@@ -73,6 +76,7 @@ const TrainingContent = ({
           DateTo: dateTo,
         });
         setSnackbar(createSnackbarSuccess('Edytowano Kurs'));
+        closeDrawer();
       } else {
         const response = await postEducation(education);
         const { IdEducation } = response.data;
@@ -86,13 +90,12 @@ const TrainingContent = ({
           DateTo: dateTo,
         });
         setSnackbar(createSnackbarSuccess('Dodano Kurs'));
+        closeDrawer();
       }
       fetchTrainings();
     } catch (e) {
-      setSnackbar(createSnackbarError('Operacja nie powiodła się!'));
+			handleHttpError(e);
       console.error(e);
-    } finally {
-      closeDrawer();
     }
   };
 

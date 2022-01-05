@@ -1,19 +1,19 @@
-import { Button, TextField } from "@material-ui/core";
-import { useLanguage } from "providers/LanguageProvider";
-import { useState } from "react";
-import styled from "styled-components";
-import { postEducation, updateEducation } from "../../api/Education";
-import { postStudy, updateStudy } from "../../api/Study";
-import GraduateDegreeSelect from "../../components/controls_UI/graduateDegreeSelect/GraduateDegreeSelect";
-import StudyModeSelect from "../../components/controls_UI/StudyModeSelect";
-import UniuversitySelect from "../../components/controls_UI/UniuversitySelect";
+import { Button, TextField } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
+import { useState } from 'react';
+import styled from 'styled-components';
+import { postEducation, updateEducation } from '../../api/Education';
+import { postStudy, updateStudy } from '../../api/Study';
+import GraduateDegreeSelect from '../../components/controls_UI/graduateDegreeSelect/GraduateDegreeSelect';
+import StudyModeSelect from '../../components/controls_UI/StudyModeSelect';
+import UniuversitySelect from '../../components/controls_UI/UniuversitySelect';
 import {
 	createSnackbarError,
 	createSnackbarSuccess,
 	useSnackbar,
-} from "../../providers/NotificationContext";
-import { StudiesListDTO } from "../../types/DTO/Study";
-import { useHandleHttpError } from "hooks/useHandleHttpError";
+} from '../../providers/NotificationContext';
+import { StudiesListDTO } from '../../types/DTO/Study';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const StudyContentStyle = styled.div`
 	padding: 24px 0;
@@ -29,14 +29,14 @@ interface Props {
 
 const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
 	const [fieldOfStudy, setFieldOfStudy] = useState(
-		editStudy?.FieldOfStudy ?? ""
+		editStudy?.FieldOfStudy ?? ''
 	);
 	const [universitetId, setUniversitetId] = useState(
-		editStudy?.IdUniversity ?? ""
+		editStudy?.IdUniversity ?? ''
 	);
-	const [studyModeId, setStudyModeId] = useState(editStudy?.IdStudyMode ?? "");
+	const [studyModeId, setStudyModeId] = useState(editStudy?.IdStudyMode ?? '');
 	const [graduateDegreeId, setGraduateDegreeId] = useState(
-		editStudy?.studysGraduateDegree.IdGraduateDegree ?? ""
+		editStudy?.studysGraduateDegree.IdGraduateDegree ?? ''
 	);
 	const [education, setEducation] = useState({
 		Price: editStudy?.studyEducation.Price ?? 0,
@@ -60,7 +60,7 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
 					IdStudyMode: studyModeId,
 					IdGraduateDegree: graduateDegreeId,
 				});
-				setSnackbar(createSnackbarSuccess("Studia zostały wyedytowane"));
+				setSnackbar(createSnackbarSuccess('Studia zostały wyedytowane'));
 				closeDrawer();
 			} else {
 				const response = await postEducation(education);
@@ -72,7 +72,7 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
 					IdStudyMode: studyModeId,
 					IdGraduateDegree: graduateDegreeId,
 				});
-				setSnackbar(createSnackbarSuccess("Dodano studia"));
+				setSnackbar(createSnackbarSuccess('Dodano studia'));
 				closeDrawer();
 			}
 			fetchStudies();
@@ -104,8 +104,8 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
 		<StudyContentStyle>
 			<TextField
 				label={schema.fieldOfStudy}
-				name="fieldOfStudy"
-				type="text"
+				name='fieldOfStudy'
+				type='text'
 				InputLabelProps={{
 					shrink: true,
 				}}
@@ -124,8 +124,8 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
 
 			<TextField
 				label={schema.price}
-				name="Price"
-				type="number"
+				name='Price'
+				type='number'
 				InputLabelProps={{
 					shrink: true,
 				}}
@@ -135,8 +135,8 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
 
 			<TextField
 				label={schema.accommodationPrice}
-				name="PriceAccommodation"
-				type="number"
+				name='PriceAccommodation'
+				type='number'
 				InputLabelProps={{
 					shrink: true,
 				}}
@@ -146,8 +146,8 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
 
 			<TextField
 				label={schema.theCostOfTransport}
-				name="PriceTransit"
-				type="number"
+				name='PriceTransit'
+				type='number'
 				InputLabelProps={{
 					shrink: true,
 				}}
@@ -157,8 +157,8 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
 
 			<Button
 				disabled={!Boolean(fieldOfStudy)}
-				variant="contained"
-				color="primary"
+				variant='contained'
+				color='primary'
 				onClick={handleOnSave}
 			>
 				{schema.save}

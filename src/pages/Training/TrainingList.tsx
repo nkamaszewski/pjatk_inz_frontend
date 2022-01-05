@@ -16,6 +16,7 @@ import TrainingHeader from './TrainingHeader';
 import { ParticipationFieldset } from 'components/participation/ParticipationFieldset';
 import { useDrawer } from 'hooks/useDrawer';
 import { AddParticipation } from 'components/AddParticipation';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const TrainingListStyle = styled.div`
   padding: 16px;
@@ -38,6 +39,7 @@ interface Props {
 const TrainingList = ({ trainings, fetchTrainings }: Props) => {
   const [editTraining, setEditTraining] = useState<TrainingDTO | null>(null);
   const { setSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
   const { open, openDrawer, closeDrawer } = useDrawer();
   const [selectedIdEducation, setSelectedIdEducation] = useState('');
   const handleCloseDrawer = () => setEditTraining(null);
@@ -51,7 +53,7 @@ const TrainingList = ({ trainings, fetchTrainings }: Props) => {
       fetchTrainings();
       setSnackbar(createSnackbarSuccess('usunięto kurs'));
     } catch (e) {
-      setSnackbar(createSnackbarError('nie udało się usunąć kursu!'));
+			handleHttpError(e);
     }
   };
   return (
