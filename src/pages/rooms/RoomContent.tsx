@@ -9,6 +9,7 @@ import {
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { RoomDTO } from '../../types/DTO/Room';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const RoomContentStyle = styled.div`
   padding: 24px 0;
@@ -30,6 +31,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
   const [capacitySet3, setCapacitySet3] = useState(editRoom?.CapacitySet3 ?? 0);
   const [capacitySet4, setCapacitySet4] = useState(editRoom?.CapacitySet4 ?? 0);
   const { setSnackbar } = useSnackbar();
+	const handleHttpError = useHandleHttpError();
 
   const handleOnSave = async () => {
     const newRoom = {
@@ -47,16 +49,16 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
           ...newRoom,
         });
         setSnackbar(createSnackbarSuccess('Edytowano salę'));
+        closeDrawer();
       } else {
         await postRoom(newRoom);
         setSnackbar(createSnackbarSuccess('Dodano salę'));
+        closeDrawer();
       }
       fetchRooms();
     } catch (e) {
-      setSnackbar(createSnackbarError('Operacja nie powiodła się!'));
+			handleHttpError(e);
       console.error(e);
-    } finally {
-      closeDrawer();
     }
   };
   const {

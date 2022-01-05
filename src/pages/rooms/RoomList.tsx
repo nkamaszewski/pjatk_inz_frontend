@@ -13,6 +13,7 @@ import {
 import { RoomDTO } from '../../types/DTO/Room';
 import RoomFieldset from './RoomFieldset';
 import RoomListHeader from './RoomListHeader';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const RoomListStyle = styled.div`
   padding: 16px;
@@ -40,6 +41,7 @@ interface Props {
 const RoomList = ({ rooms, fetchRooms }: Props) => {
   const [editRoom, setEditRoom]: [RoomDTO | null, Function] = useState(null);
   const { setSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
   const handleCloseDrawer = () => setEditRoom(null);
   const handleDeleteItem = async (id: string) => {
     try {
@@ -47,7 +49,7 @@ const RoomList = ({ rooms, fetchRooms }: Props) => {
       fetchRooms();
       setSnackbar(createSnackbarSuccess('usunięto salę'));
     } catch (e) {
-      setSnackbar(createSnackbarError('nie udało się usunąć sali!'));
+			handleHttpError(e);
     }
   };
   return (
