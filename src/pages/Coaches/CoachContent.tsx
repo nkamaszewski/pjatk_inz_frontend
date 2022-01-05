@@ -4,7 +4,7 @@ import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postCoach, updateCoach } from '../../api/Coach';
-import PersonSelect from '../../components/controls_UI/PersonSelect';
+import PersonSelect from '../../components/controls_UI/personSelect/PersonSelect';
 import {
   createSnackbarSuccess,
   useSnackbar,

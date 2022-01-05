@@ -53,7 +53,7 @@ interface Props {
 const GroupDetailsFieldset = ({ closeDrawer, group }: Props) => {
   const [employeeGroup, setEmployeeGroup]: [EmployeeGroupDTO[], Function] =
     useState([]);
-  const [persons, setPersons] = useState([]);
+  const [persons, setPersons] = useState<PersonDTO[]>([]);
   const [addingMode, setAddingMode] = useState(false);
   const [idPerson, setIdPerson] = useState('');
   const { setSnackbar } = useSnackbar();

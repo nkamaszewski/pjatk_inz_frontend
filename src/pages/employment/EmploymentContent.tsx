@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getEmployee, postEmployee } from '../../api/Employee';
 import DepartmentSelect from '../../components/controls_UI/departmentSelect/DepartmentSelect';
-import PersonSelect from '../../components/controls_UI/PersonSelect';
+import PersonSelect from '../../components/controls_UI/personSelect/PersonSelect';
 import PositionSelect from '../../components/controls_UI/PositionSelect';
 import { formatDate } from '../../helpers/formatDate';
 import {

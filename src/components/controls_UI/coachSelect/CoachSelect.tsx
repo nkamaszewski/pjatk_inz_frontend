@@ -17,7 +17,7 @@ import { useLanguage } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CoachDTO } from '../../../types/DTO/Coach';
-import PersonSelect from '../PersonSelect';
+import PersonSelect from '../personSelect/PersonSelect';
 import { useCoachesQuery } from './useCoachesQuery';
 import { useCoachMutation } from './useCoachMutation';
 
