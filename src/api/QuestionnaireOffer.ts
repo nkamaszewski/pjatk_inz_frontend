@@ -1,6 +1,8 @@
 import { axiosJWT } from 'helpers/tokenAxios';
+import { QuestionnaireOfferDTO } from 'types/DTO/QuestionnaireOffer';
 
-export const getQuestionnaireOffers = () => axiosJWT.get('/questoffer/');
+export const getQuestionnaireOffers = () =>
+  axiosJWT.get<QuestionnaireOfferDTO[]>('/questoffer/');
 
 export const postQuestionnaireOffer = (questionnaireoffer: {
   Year: number;

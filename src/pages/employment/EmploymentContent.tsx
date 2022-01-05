@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { getEmployee, postEmployee } from '../../api/Employee';
 import DepartmentSelect from '../../components/controls_UI/departmentSelect/DepartmentSelect';
 import PersonSelect from '../../components/controls_UI/personSelect/PersonSelect';
-import PositionSelect from '../../components/controls_UI/PositionSelect';
+import PositionSelect from '../../components/controls_UI/positionSelect/PositionSelect';
 import { formatDate } from '../../helpers/formatDate';
 import {
   createSnackbarError,

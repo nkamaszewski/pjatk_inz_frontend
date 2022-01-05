@@ -5,7 +5,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { MeetingDTOShort } from 'types/DTO/Meeting';
 import GroupSelect from '../../components/controls_UI/groupSelect/GroupSelect';
-import RoomSelect from '../../components/controls_UI/RoomSelect';
+import RoomSelect from '../../components/controls_UI/roomSelect/RoomSelect';
 import { useMeetingCRUD } from './useMeetingCRUD';
 
 const MeetingContentStyle = styled.div`
