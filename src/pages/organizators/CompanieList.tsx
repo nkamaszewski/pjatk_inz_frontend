@@ -1,12 +1,12 @@
 import { Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteCompany } from '../../api/Company';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
@@ -14,7 +14,6 @@ import { CompanyDTO } from '../../types/DTO/Company';
 import { RoomDTO } from '../../types/DTO/Room';
 import CompaniesListHeader from './CompaniesListHeader';
 import CompanyFieldset from './CompanyFieldset';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const CompaniesListStyle = styled.div`
   padding: 16px;
@@ -47,7 +46,7 @@ const CompaniesList = ({ companies, fetchCompanies }: Props) => {
       fetchCompanies();
       setSnackbar(createSnackbarSuccess('usunięto firmę'));
     } catch (e) {
-			handleHttpError(e);
+      handleHttpError(e);
     }
   };
   return (

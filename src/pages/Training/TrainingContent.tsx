@@ -1,4 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postEducation, updateEducation } from '../../api/Education';
@@ -6,16 +8,13 @@ import { postTraining, updateTraining } from '../../api/Training';
 import CoachSelect from '../../components/controls_UI/coachSelect/CoachSelect';
 import CompanySelect from '../../components/controls_UI/companySelect/CompanySelect';
 import SwitchBtn from '../../components/controls_UI/SwitchBtn';
-import TopicSelect from '../../components/controls_UI/TopicSelect';
+import TopicSelect from '../../components/controls_UI/topicSelect/TopicSelect';
+import { formatDate } from '../../helpers/formatDate';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
-import { formatDate } from '../../helpers/formatDate';
 import { TrainingDTO } from '../../types/DTO/Training';
-import { useLanguage } from 'providers/LanguageProvider';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const TrainingContentStyle = styled.div`
   padding: 24px 0;
@@ -55,7 +54,7 @@ const TrainingContent = ({
   });
 
   const { setSnackbar } = useSnackbar();
-	const handleHttpError = useHandleHttpError();
+  const handleHttpError = useHandleHttpError();
 
   const handleOnSave = async () => {
     try {
@@ -93,7 +92,7 @@ const TrainingContent = ({
       }
       fetchTrainings();
     } catch (e) {
-			handleHttpError(e);
+      handleHttpError(e);
       console.error(e);
     }
   };

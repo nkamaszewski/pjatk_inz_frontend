@@ -15,13 +15,11 @@ import {
 } from '@material-ui/core';
 import { useAuth } from 'providers/AuthProvider';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import {
-  getQuestionnaireOffers,
-  postQuestionnaireOffer,
-} from '../../api/QuestionnaireOffer';
-import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
+import { QuestionnaireOfferDTO } from '../../../types/DTO/QuestionnaireOffer';
+import { useQuestionnaireOfferMutation } from './useQuestionnaireOfferMutation';
+import { useQuestionnaireOffersQuery } from './useQuestionnaireOffersQuery';
 
 const EmployeeSelectStyle = styled.div`
   display: grid;
@@ -38,27 +36,13 @@ const EMPTY_QUESTIONNAIRE_OFFER = {
 } as QuestionnaireOfferDTO;
 
 const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
-  const [questionnaireOffers, setQuestionnaireOffers]: [
-    QuestionnaireOfferDTO[],
-    Function
-  ] = useState([]);
+  const questionnaireOffersQuery = useQuestionnaireOffersQuery();
+  const questionnaireOfferMutation = useQuestionnaireOfferMutation();
   const [addingMode, setAddingMode] = useState(false);
   const [questionnaireOffer, setQuestionnaireOffer] = useState(
     EMPTY_QUESTIONNAIRE_OFFER
   );
   const auth = useAuth();
-
-  const fetchQuestionnaireOffers = () => {
-    try {
-      getQuestionnaireOffers().then((res) => {
-        setQuestionnaireOffers(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchQuestionnaireOffers, []);
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -78,14 +62,16 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
 
   const handleOnConfirm = () => {
     try {
-      postQuestionnaireOffer({
-        Year: questionnaireOffer.Year,
-        IdPerson: auth.auth.user?.IdPerson ?? '1',
-      }).then((res) => {
-        setAddingMode(false);
-        fetchQuestionnaireOffers();
-        onChange(res.data.IdPerson);
-      });
+      questionnaireOfferMutation
+        .mutateAsync({
+          Year: questionnaireOffer.Year,
+          IdPerson: auth.auth.user?.IdPerson ?? '1',
+        })
+        .then((res) => {
+          setAddingMode(false);
+
+          onChange(res.data.IdPerson);
+        });
     } catch (e) {
       console.error(e);
     } finally {
@@ -100,7 +86,7 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{schema.yearOfApplication}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {questionnaireOffers.map((qo) => (
+          {questionnaireOffersQuery.data?.data.map((qo) => (
             <MenuItem
               key={qo.IdQuestionnaireOffer}
               value={qo.IdQuestionnaireOffer}
@@ -118,7 +104,9 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
         </Button>
       </Tooltip>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>{schema.addTheYearOfTheApplicationToTheDatabase}</DialogTitle>
+        <DialogTitle>
+          {schema.addTheYearOfTheApplicationToTheDatabase}
+        </DialogTitle>
         <DialogContent>
           <TextField
             autoFocus

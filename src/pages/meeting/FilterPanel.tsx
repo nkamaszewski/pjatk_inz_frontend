@@ -1,5 +1,5 @@
 import GroupSelect from 'components/controls_UI/groupSelect/GroupSelect';
-import RoomSelect from 'components/controls_UI/RoomSelect';
+import RoomSelect from 'components/controls_UI/roomSelect/RoomSelect';
 import { useLanguage } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { useFilter } from '../../providers/FilterContext';

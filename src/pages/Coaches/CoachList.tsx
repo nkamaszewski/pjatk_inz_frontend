@@ -1,19 +1,18 @@
 import { Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteCoach } from '../../api/Coach';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { CoachDTO } from '../../types/DTO/Coach';
 import CoachFieldset from './CoachFieldset';
 import CoachListHeader from './CoachListHeader';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const CoachListStyle = styled.div`
   padding: 16px;
@@ -45,7 +44,7 @@ const CoachList = ({ coaches, fetchCoaches }: Props) => {
       fetchCoaches();
       setSnackbar(createSnackbarSuccess('usunięto szkoleniowca'));
     } catch (e) {
-			handleHttpError(e);
+      handleHttpError(e);
     }
   };
 

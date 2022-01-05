@@ -1,9 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
-import { getPositions } from '../../api/Position';
-import { PositionDTO } from '../../types/DTO/Position';
+import React from 'react';
+import { usePositionsQuery } from './usePositionsQuery';
 
 interface Props {
   value: string;
@@ -11,17 +10,7 @@ interface Props {
 }
 
 const PositionSelect = ({ value, onChange }: Props) => {
-  const [positions, setPositions]: [PositionDTO[], Function] = useState([]);
-
-  useEffect(() => {
-    try {
-      getPositions().then((res) => {
-        setPositions(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
+  const positionsQuery = usePositionsQuery();
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -34,7 +23,7 @@ const PositionSelect = ({ value, onChange }: Props) => {
     <FormControl fullWidth>
       <InputLabel>{capFL(schema.position)}</InputLabel>
       <Select value={value} onChange={handleSelectChange}>
-        {positions.map((position) => (
+        {positionsQuery.data?.data.map((position) => (
           <MenuItem key={position.IdPosition} value={position.IdPosition}>
             {position.Name}
           </MenuItem>

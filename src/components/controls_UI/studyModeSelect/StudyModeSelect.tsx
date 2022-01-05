@@ -14,10 +14,11 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getStudyModes, postStudyMode } from '../../api/Study';
-import { StudyModeDTO } from '../../types/DTO/StudyMode';
+import { StudyModeDTO } from '../../../types/DTO/StudyMode';
+import { useStudyModeMutation } from './useStudyModeMutation';
+import { useStudyModesQuery } from './useStudyModesQuery';
 
 const StudyModeSelectStyle = styled.div`
   display: grid;
@@ -35,21 +36,10 @@ const EMPTY_STUDY_MODE = {
 } as StudyModeDTO;
 
 const StudyModeSelect = ({ value, onChange }: Props) => {
-  const [studyModes, setStudyModes]: [StudyModeDTO[], Function] = useState([]);
+  const studyModesQuery = useStudyModesQuery();
+  const studyModeMutation = useStudyModeMutation();
   const [addingMode, setAddingMode] = useState(false);
   const [studyMode, setStudyMode] = useState(EMPTY_STUDY_MODE);
-
-  const fetchStudyModes = () => {
-    try {
-      getStudyModes().then((res) => {
-        setStudyModes(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchStudyModes, []);
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -71,9 +61,9 @@ const StudyModeSelect = ({ value, onChange }: Props) => {
     try {
       const newStudyMode: any = { ...studyMode };
       delete newStudyMode.IdStudyMode;
-      postStudyMode(newStudyMode).then((res) => {
+      studyModeMutation.mutateAsync(newStudyMode).then((res) => {
         setAddingMode(false);
-        fetchStudyModes();
+
         onChange(res.data.IdStudyMode);
       });
     } catch (e) {
@@ -90,7 +80,7 @@ const StudyModeSelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{schema.modeOfStudy}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {studyModes.map((studyM) => (
+          {studyModesQuery.data?.data.map((studyM) => (
             <MenuItem key={studyM.IdStudyMode} value={studyM.IdStudyMode}>
               {studyM.Name}
             </MenuItem>

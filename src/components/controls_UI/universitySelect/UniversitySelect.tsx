@@ -14,10 +14,11 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getUniversitets, postUniversitet } from '../../api/Universitet';
-import { UniversitetDTO } from '../../types/DTO/Universitet';
+import { UniversitetDTO } from '../../../types/DTO/Universitet';
+import { useUniversitetMutation } from './useUniversitetMutation';
+import { useUniversitetsQuery } from './useUniversitetsQuery';
 
 const UniuversitySelectStyle = styled.div`
   display: grid;
@@ -39,23 +40,11 @@ const EMPTY_UNIVERSITET = {
   Number: 0,
 } as UniversitetDTO;
 
-const UniuversitySelect = ({ value, onChange }: Props) => {
-  const [universitets, setUniversitets]: [UniversitetDTO[], Function] =
-    useState([]);
+const UniversitySelect = ({ value, onChange }: Props) => {
+  const universitetsQuery = useUniversitetsQuery();
+  const universitetMutation = useUniversitetMutation();
   const [addingMode, setAddingMode] = useState(false);
   const [universitet, setUniversitet] = useState(EMPTY_UNIVERSITET);
-
-  const fetchUniversitets = () => {
-    try {
-      getUniversitets().then((res) => {
-        setUniversitets(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchUniversitets, []);
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -77,9 +66,8 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
     try {
       const uni: any = { ...universitet };
       delete uni.IdUniversity;
-      postUniversitet(uni).then((res) => {
+      universitetMutation.mutateAsync(uni).then((res) => {
         setAddingMode(false);
-        fetchUniversitets();
         onChange(res.data.IdUniversity);
       });
     } catch (e) {
@@ -96,7 +84,7 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{schema.school}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {universitets.map((uni) => (
+          {universitetsQuery.data?.data.map((uni) => (
             <MenuItem
               key={uni.IdUniversity}
               value={uni.IdUniversity}
@@ -185,4 +173,4 @@ const UniuversitySelect = ({ value, onChange }: Props) => {
   );
 };
 
-export default UniuversitySelect;
+export default UniversitySelect;

@@ -1,22 +1,21 @@
 import { Card, Drawer } from '@material-ui/core';
+import { AddParticipation } from 'components/AddParticipation';
+import { ParticipationFieldset } from 'components/participation/ParticipationFieldset';
+import { useDrawer } from 'hooks/useDrawer';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteTraining } from '../../api/Training';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
+import { formatDate } from '../../helpers/formatDate';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
-import { formatDate } from '../../helpers/formatDate';
 import { TrainingDTO } from '../../types/DTO/Training';
 import TrainingFieldset from './TrainingFieldset';
 import TrainingHeader from './TrainingHeader';
-import { ParticipationFieldset } from 'components/participation/ParticipationFieldset';
-import { useDrawer } from 'hooks/useDrawer';
-import { AddParticipation } from 'components/AddParticipation';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const TrainingListStyle = styled.div`
   padding: 16px;
@@ -53,7 +52,7 @@ const TrainingList = ({ trainings, fetchTrainings }: Props) => {
       fetchTrainings();
       setSnackbar(createSnackbarSuccess('usunięto kurs'));
     } catch (e) {
-			handleHttpError(e);
+      handleHttpError(e);
     }
   };
   return (

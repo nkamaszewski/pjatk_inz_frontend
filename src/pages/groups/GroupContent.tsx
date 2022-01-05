@@ -3,7 +3,7 @@ import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postGroup } from '../../api/Group';
-import TrainingSelect from '../../components/controls_UI/TrainingSelect';
+import TrainingSelect from '../../components/controls_UI/trainingSelect/TrainingSelect';
 
 const GroupContentStyle = styled.div`
   padding: 24px 0;

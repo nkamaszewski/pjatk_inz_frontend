@@ -5,8 +5,8 @@ import {
   postOtherEducation,
   updateOtherEducation,
 } from 'api/OtherEducation';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from 'providers/NotificationContext';
@@ -15,11 +15,10 @@ import {
   OtherEducationDTO,
   OtherEducationListDTO,
 } from 'types/DTO/OtherEducation';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 export const useWorkshopCRUD = () => {
   const { setSnackbar } = useSnackbar();
-	const handleHttpError = useHandleHttpError();
+  const handleHttpError = useHandleHttpError();
 
   const getItem = async (id: string) => {
     const response = await getOtherEducation(id);
@@ -37,7 +36,7 @@ export const useWorkshopCRUD = () => {
       setSnackbar(createSnackbarSuccess('Dodano szkolenie!'));
     } catch (e) {
       console.error(e);
-			handleHttpError(e);
+      handleHttpError(e);
     }
   };
 
@@ -47,7 +46,7 @@ export const useWorkshopCRUD = () => {
       setSnackbar(createSnackbarSuccess('Usunięto szkolenie!'));
     } catch (e) {
       console.error(e);
-			handleHttpError(e);
+      handleHttpError(e);
     }
   };
 
@@ -62,7 +61,7 @@ export const useWorkshopCRUD = () => {
       setSnackbar(createSnackbarSuccess('Szkolenie zostało wyedytowane'));
     } catch (e) {
       console.error(e);
-			handleHttpError(e);
+      handleHttpError(e);
     }
   };
 

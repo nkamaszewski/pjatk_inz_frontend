@@ -1,6 +1,7 @@
 import { axiosJWT } from 'helpers/tokenAxios';
+import { PositionDTO } from 'types/DTO/Position';
 
-export const getPositions = () => axiosJWT.get('/positions/');
+export const getPositions = () => axiosJWT.get<PositionDTO[]>('/positions/');
 
 export const postPosition = (position: { Name: string }) =>
   axiosJWT.post('/positions/', position);

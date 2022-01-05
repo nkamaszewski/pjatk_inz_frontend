@@ -3,7 +3,7 @@ import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postOffer, updateOffer } from '../../api/Offers';
-import QuestionnaireOfferSelect from '../../components/controls_UI/QuestionnaireOfferSelect';
+import QuestionnaireOfferSelect from '../../components/controls_UI/questionnaireOfferSelect/QuestionnaireOfferSelect';
 import {
   createSnackbarError,
   createSnackbarSuccess,

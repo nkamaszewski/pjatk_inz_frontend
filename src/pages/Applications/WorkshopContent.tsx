@@ -8,9 +8,9 @@ import {
   postApplicationsFor,
   updateApplicationsFor,
 } from '../../api/Application';
-import StudySelect from '../../components/controls_UI/StudySelect';
+import StudySelect from '../../components/controls_UI/studySelect/StudySelect';
 import SwitchBtn from '../../components/controls_UI/SwitchBtn';
-import TrainingSelect from '../../components/controls_UI/TrainingSelect';
+import TrainingSelect from '../../components/controls_UI/trainingSelect/TrainingSelect';
 import {
   createSnackbarSuccess,
   useSnackbar,
@@ -51,7 +51,7 @@ const WorkshopContent = ({
   const {
     auth: { user },
   } = useAuth();
-  
+
   const handleHttpError = useHandleHttpError();
 
   const handleOnSave = async () => {
@@ -79,7 +79,6 @@ const WorkshopContent = ({
     } catch (e) {
       // console.error(e);
       handleHttpError(e);
-
     } finally {
       fetchApplications();
       closeDrawer();

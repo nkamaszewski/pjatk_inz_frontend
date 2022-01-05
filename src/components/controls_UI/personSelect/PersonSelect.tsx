@@ -14,10 +14,11 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getPersons, postPerson } from '../../api/Person';
-import { PersonDTO } from '../../types/DTO/Person';
+import { PersonDTO } from '../../../types/DTO/Person';
+import { usePersonMutation } from './usePersonMutation';
+import { usePersonsQuery } from './usePersonsQuery';
 
 const EmployeeSelectStyle = styled.div`
   display: grid;
@@ -37,21 +38,10 @@ const EMPTY_PERSON = {
 } as PersonDTO;
 
 const PersonSelect = ({ value, onChange }: Props) => {
-  const [persons, setPersons]: [PersonDTO[], Function] = useState([]);
   const [addingMode, setAddingMode] = useState(false);
   const [person, setPerson] = useState(EMPTY_PERSON);
-
-  const fetchEmployments = () => {
-    try {
-      getPersons().then((res) => {
-        setPersons(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchEmployments, []);
+  const personsQuery = usePersonsQuery();
+  const personMutation = usePersonMutation();
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -71,9 +61,8 @@ const PersonSelect = ({ value, onChange }: Props) => {
 
   const handleOnConfirm = () => {
     try {
-      postPerson(person).then((res) => {
+      personMutation.mutateAsync(person).then((res) => {
         setAddingMode(false);
-        fetchEmployments();
         onChange(res.data.IdPerson);
       });
     } catch (e) {
@@ -90,7 +79,7 @@ const PersonSelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{schema.person}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {persons.map((person) => (
+          {personsQuery.data?.data.map((person) => (
             <MenuItem
               key={person.IdPerson}
               value={person.IdPerson}

@@ -1,7 +1,7 @@
 import { axiosJWT } from 'helpers/tokenAxios';
 import { RoomDTO } from '../types/DTO/Room';
 
-export const getRooms = () => axiosJWT.get('/rooms/');
+export const getRooms = () => axiosJWT.get<RoomDTO[]>('/rooms/');
 
 export const postRoom = (room: Omit<RoomDTO, 'IdRoom'>) =>
   axiosJWT.post('/rooms/', room);

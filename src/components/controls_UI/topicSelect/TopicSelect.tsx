@@ -14,11 +14,12 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getTopics, postTopic } from '../../api/Training';
-import { TopicDTO } from '../../types/DTO/Topic';
-import SubjectSelect from './SubjectSelect';
+import { TopicDTO } from '../../../types/DTO/Topic';
+import SubjectSelect from '../subjectSelect/SubjectSelect';
+import { useTopicMutation } from './useTopicMutation';
+import { useTopicsQuery } from './useTopicsQuery';
 
 const TopicSelectStyle = styled.div`
   display: grid;
@@ -37,21 +38,10 @@ const EMPTY_TOPIC = {
 } as TopicDTO;
 
 const TopicSelect = ({ value, onChange }: Props) => {
-  const [topics, setTopics]: [TopicDTO[], Function] = useState([]);
+  const topicsQuery = useTopicsQuery();
+  const topicMutation = useTopicMutation();
   const [addingMode, setAddingMode] = useState(false);
   const [topic, setTopic] = useState(EMPTY_TOPIC);
-
-  const fetchTopics = () => {
-    try {
-      getTopics().then((res) => {
-        setTopics(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchTopics, []);
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -71,13 +61,12 @@ const TopicSelect = ({ value, onChange }: Props) => {
 
   const handleOnConfirm = () => {
     try {
-      postTopic({ Topic: topic.Topic, IdSubject: topic.IdSubject }).then(
-        (res) => {
+      topicMutation
+        .mutateAsync({ Topic: topic.Topic, IdSubject: topic.IdSubject })
+        .then((res) => {
           setAddingMode(false);
-          fetchTopics();
           onChange(res.data.IdTopic);
-        }
-      );
+        });
     } catch (e) {
       console.error(e);
     } finally {
@@ -92,7 +81,7 @@ const TopicSelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{schema.topic}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {topics.map((top) => (
+          {topicsQuery.data?.data.map((top) => (
             <MenuItem key={top.IdTopic} value={top.IdTopic}>
               {top.Topic}
             </MenuItem>
