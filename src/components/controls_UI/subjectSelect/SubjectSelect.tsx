@@ -14,10 +14,11 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { getSubjects, postSubject } from '../../api/Training';
-import { SubjectDTO } from '../../types/DTO/Subject';
+import { SubjectDTO } from '../../../types/DTO/Subject';
+import { useSubjectMutation } from './useSubjectMutation';
+import { useSubjectsQuery } from './useSubjectsQuery';
 
 const SubjectSelectStyle = styled.div`
   display: grid;
@@ -35,21 +36,10 @@ const EMPTY_SUBJECT = {
 } as SubjectDTO;
 
 const SubjectSelect = ({ value, onChange }: Props) => {
-  const [subjects, setSubjects]: [SubjectDTO[], Function] = useState([]);
+  const subjectsQuery = useSubjectsQuery();
+  const subjectMutations = useSubjectMutation();
   const [addingMode, setAddingMode] = useState(false);
   const [subject, setSubject] = useState(EMPTY_SUBJECT);
-
-  const fetchSubjects = () => {
-    try {
-      getSubjects().then((res) => {
-        setSubjects(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchSubjects, []);
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -69,9 +59,8 @@ const SubjectSelect = ({ value, onChange }: Props) => {
 
   const handleOnConfirm = () => {
     try {
-      postSubject({ Subject: subject.Subject }).then((res) => {
+      subjectMutations.mutateAsync({ Subject: subject.Subject }).then((res) => {
         setAddingMode(false);
-        fetchSubjects();
         onChange(res.data.IdSubject);
       });
     } catch (e) {
@@ -88,7 +77,7 @@ const SubjectSelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{schema.subjectForm}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {subjects.map((sub) => (
+          {subjectsQuery.data?.data.map((sub) => (
             <MenuItem key={sub.IdSubject} value={sub.IdSubject}>
               {sub.Subject}
             </MenuItem>

@@ -1,6 +1,8 @@
 import { axiosJWT } from 'helpers/tokenAxios';
+import { UniversitetDTO } from 'types/DTO/Universitet';
 
-export const getUniversitets = () => axiosJWT.get('/universities/');
+export const getUniversitets = () =>
+  axiosJWT.get<UniversitetDTO[]>('/universities/');
 
 export const postUniversitet = (universitet: {
   Name: string;

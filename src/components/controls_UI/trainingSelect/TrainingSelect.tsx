@@ -1,12 +1,9 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-import { getTrainings } from '../../api/Training';
-
-import { TrainingDTO } from '../../types/DTO/Training';
+import { useTrainingsQuery } from './useTrainingsQuery';
 
 const EmployeeSelectStyle = styled.div`
   display: grid;
@@ -19,19 +16,7 @@ interface Props {
 }
 
 const TrainingSelect = ({ value, onChange }: Props) => {
-  const [trainings, setTrainings]: [TrainingDTO[], Function] = useState([]);
-
-  const fetchEmployments = () => {
-    try {
-      getTrainings().then((res) => {
-        setTrainings(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchEmployments, []);
+  const trainingsQuery = useTrainingsQuery();
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
@@ -43,7 +28,7 @@ const TrainingSelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{capFL(schema.course)}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {trainings.map((training) => (
+          {trainingsQuery.data?.data.map((training) => (
             <MenuItem
               key={training.trainingEducation.IdEducation}
               value={training.trainingEducation.IdEducation}

@@ -2,6 +2,7 @@ import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
+import { StudiesListDTO } from 'types/DTO/Study';
 import { getStudies } from '../../api/Study';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
@@ -9,7 +10,7 @@ import StudyFieldset from './StudyFieldset';
 import StudyList from './StudyList';
 
 const WorkshopsStudy = () => {
-  const [studies, setStudies] = useState([]);
+  const [studies, setStudies] = useState<StudiesListDTO[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const fetchStudies = () => {
@@ -28,10 +29,7 @@ const WorkshopsStudy = () => {
 
   const {
     language: {
-      schema: {
-        study
-
-      },
+      schema: { study },
     },
   } = useLanguage();
 

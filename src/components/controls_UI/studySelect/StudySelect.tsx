@@ -1,10 +1,9 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguage } from 'providers/LanguageProvider';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { getStudies } from '../../api/Study';
-import { StudyDTO } from '../../types/DTO/Study';
+import { useStudiesQuery } from './useStudiesQuery';
 
 const StudySelectStyle = styled.div`
   display: grid;
@@ -17,19 +16,7 @@ interface Props {
 }
 
 const StudySelect = ({ value, onChange }: Props) => {
-  const [studies, setStudies]: [StudyDTO[], Function] = useState([]);
-
-  const fetchStudies = () => {
-    try {
-      getStudies().then((res) => {
-        setStudies(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(fetchStudies, []);
+  const studiesQuery = useStudiesQuery();
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
@@ -42,9 +29,9 @@ const StudySelect = ({ value, onChange }: Props) => {
       <FormControl fullWidth>
         <InputLabel>{capFL(schema.studies)}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
-          {studies.map((studies) => (
-            <MenuItem key={studies.IdEducation} value={studies.IdEducation}>
-              {studies.FieldOfStudy}
+          {studiesQuery.data?.data.map((study) => (
+            <MenuItem key={study.IdEducation} value={study.IdEducation}>
+              {study.FieldOfStudy}
             </MenuItem>
           ))}
         </Select>
