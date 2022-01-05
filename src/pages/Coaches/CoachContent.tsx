@@ -1,16 +1,15 @@
 import { Button, TextField } from '@material-ui/core';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postCoach, updateCoach } from '../../api/Coach';
 import PersonSelect from '../../components/controls_UI/PersonSelect';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { CoachDTO } from '../../types/DTO/Coach';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const CoachContentStyle = styled.div`
   padding: 24px 0;
@@ -30,7 +29,7 @@ const CoachContent = ({ closeDrawer, fetchCoaches, editCoach }: Props) => {
   );
   const [jobTitle, setJobTitle] = useState(editCoach?.JobTitle ?? '');
   const { setSnackbar } = useSnackbar();
-	const handleHttpError = useHandleHttpError();
+  const handleHttpError = useHandleHttpError();
 
   const handleOnSave = async () => {
     try {
@@ -49,7 +48,7 @@ const CoachContent = ({ closeDrawer, fetchCoaches, editCoach }: Props) => {
       );
       fetchCoaches();
     } catch (e) {
-			handleHttpError(e);
+      handleHttpError(e);
       console.error(e);
     } finally {
       closeDrawer();

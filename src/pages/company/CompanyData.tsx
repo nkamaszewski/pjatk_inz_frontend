@@ -1,4 +1,5 @@
 import { Button, Divider, TextField } from '@material-ui/core';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -6,12 +7,10 @@ import { getOwner, updateCompany } from '../../api/Company';
 import SwitchBtn from '../../components/controls_UI/SwitchBtn';
 import PageHeader from '../../components/PageHeader';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { CompanyDTO } from '../../types/DTO/Company';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const CompanyDateStyle = styled.div`
   .company-section {
@@ -69,7 +68,7 @@ const CompanyData = () => {
     CompanyDTO | undefined | null
   >(null);
   const { setSnackbar } = useSnackbar();
-	const handleHttpError = useHandleHttpError();
+  const handleHttpError = useHandleHttpError();
 
   const fetchOwner = () => {
     try {
@@ -100,7 +99,7 @@ const CompanyData = () => {
       setSnackbar(createSnackbarSuccess('Zmiany zostały dokonane'));
     } catch (e) {
       console.error(e);
-			handleHttpError(e);
+      handleHttpError(e);
     } finally {
       setOwnerEditModel(null);
     }
@@ -109,7 +108,6 @@ const CompanyData = () => {
   const {
     language: { schema },
   } = useLanguage();
-
 
   return (
     <CompanyDateStyle>
