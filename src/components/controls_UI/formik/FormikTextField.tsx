@@ -27,7 +27,7 @@ export const FormikTextField = ({
   autoFocus,
 }: Props) => {
   return (
-    <FormControl>
+    <FormControl style={{ height: '72px' }}>
       <TextField
         name={name}
         type={type}

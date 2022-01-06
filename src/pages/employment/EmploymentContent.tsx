@@ -61,7 +61,7 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
 
       const empDTO = {
         DateFrom: values.DateFrom,
-        DateTo: values.DateTo,
+        DateTo: values.DateTo ? values.DateTo : null,
         IdDepartment: values.IdDepartment,
         IdPosition: values.IdPosition,
         IdPerson: values.IdPerson,
