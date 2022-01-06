@@ -1,15 +1,14 @@
 import { Button, TextField } from '@material-ui/core';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postRoom, updateRoom } from '../../api/Room';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { RoomDTO } from '../../types/DTO/Room';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const RoomContentStyle = styled.div`
   padding: 24px 0;
@@ -31,7 +30,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
   const [capacitySet3, setCapacitySet3] = useState(editRoom?.CapacitySet3 ?? 0);
   const [capacitySet4, setCapacitySet4] = useState(editRoom?.CapacitySet4 ?? 0);
   const { setSnackbar } = useSnackbar();
-	const handleHttpError = useHandleHttpError();
+  const handleHttpError = useHandleHttpError();
 
   const handleOnSave = async () => {
     const newRoom = {
@@ -57,7 +56,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
       }
       fetchRooms();
     } catch (e) {
-			handleHttpError(e);
+      handleHttpError(e);
       console.error(e);
     }
   };

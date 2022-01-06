@@ -2,19 +2,18 @@ import { faSitemap } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteGroup } from '../../api/Group';
 import DeleteBtn from '../../components/DeleteBtn';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { GroupDTO } from '../../types/DTO/Group';
 import GroupDetailsFieldset from './GroupDetailsFieldset';
 import GroupListHeader from './GroupListHeader';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const GroupListStyle = styled.div`
   padding: 16px;

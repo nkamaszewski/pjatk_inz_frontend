@@ -1,19 +1,18 @@
 import { Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteRoom } from '../../api/Room';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { RoomDTO } from '../../types/DTO/Room';
 import RoomFieldset from './RoomFieldset';
 import RoomListHeader from './RoomListHeader';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 const RoomListStyle = styled.div`
   padding: 16px;
@@ -49,7 +48,7 @@ const RoomList = ({ rooms, fetchRooms }: Props) => {
       fetchRooms();
       setSnackbar(createSnackbarSuccess('usunięto salę'));
     } catch (e) {
-			handleHttpError(e);
+      handleHttpError(e);
     }
   };
   return (
