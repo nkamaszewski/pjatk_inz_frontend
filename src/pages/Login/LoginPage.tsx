@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import lottieJson from '../../animations/Security.json';
 import FormikPassword from '../../components/controls_UI/formik/FormikPassword';
-import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
+import { FormikTextField } from '../../components/controls_UI/formik/FormikTextField';
 import { LanguagePanel } from '../../components/LanguagePanel';
 import { useAuth } from '../../providers/AuthProvider';
 import { useLanguage } from '../../providers/LanguageProvider';

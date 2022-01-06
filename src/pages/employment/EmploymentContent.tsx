@@ -1,19 +1,17 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import FormikPassword from 'components/controls_UI/formik/FormikPassword';
+import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
+import { formatDate } from 'helpers/formatDate';
 import { useLanguage } from 'providers/LanguageProvider';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getEmployee, postEmployee } from '../../api/Employee';
+import { postEmployee } from '../../api/Employee';
 import DepartmentSelect from '../../components/controls_UI/departmentSelect/DepartmentSelect';
 import PersonSelect from '../../components/controls_UI/personSelect/PersonSelect';
 import PositionSelect from '../../components/controls_UI/positionSelect/PositionSelect';
-import { formatDate } from '../../helpers/formatDate';
-import {
-  createSnackbarError,
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { EmploymentDTO } from '../../types/DTO/Employment';
 import { useAddEmploymentMutation } from './useAddEmploymentMutation';
+import { useEmploymentForm } from './useEmploymentForm';
+import { useShowEmployeeConfig } from './useShowEmployeeConfig';
 import { useUpdateEmploymentMutation } from './useUpdateEmploymentMutation';
 
 const EmploymentContentStyle = styled.div`
@@ -23,174 +21,149 @@ const EmploymentContentStyle = styled.div`
 `;
 
 interface Props {
-  closeDrawer: Function;
+  closeDrawer: () => void;
   editEmployee?: EmploymentDTO | null;
 }
 
-const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
-  //TODO: formatowanie czasu, nie dziala edycja
-  const [dateFrom, setDateFrom] = useState(formatDate(editEmployee?.DateFrom));
-  const [dateTo, setDateTo] = useState(formatDate(editEmployee?.DateTo));
-  const [selectedDepartment, setSelectedDepartment] = useState(
-    editEmployee?.IdDepartment ?? ''
-  );
-  const [selectedPosition, setSelectedPosition] = useState(
-    editEmployee?.IdPosition ?? ''
-  );
-  const [selectedPerson, setSelectedPerson] = useState(
-    editEmployee?.IdPerson ?? ''
-  );
-  const [pesel, setPesel] = useState(0);
-  const [password, setPassword] = useState('');
+const initialValues = {
+  DateFrom: '',
+  DateTo: '',
+  IdDepartment: '',
+  IdPosition: '',
+  IdPerson: '',
+  showEmployeeConfig: false,
+  Pesel: 0,
+  Password: '',
+};
 
-  const [showEmployeeConfig, setShowEmployeeConfig] = useState(false);
-  const { setSnackbar } = useSnackbar();
+const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
   const addMutation = useAddEmploymentMutation();
   const updateMutation = useUpdateEmploymentMutation();
-
-  useEffect(() => {
-    if (selectedPerson) {
-      getEmployee(selectedPerson)
-        .then((res) => {
-          if (res.status === 404) {
-            setShowEmployeeConfig(true);
-          }
-        })
-        .catch((e) => {
-          setShowEmployeeConfig(true);
-        });
-    }
-  }, [selectedPerson]);
-
-  const handleOnSave = async () => {
-    try {
-      // new person
-      if (showEmployeeConfig) {
+  const employmentForm = useEmploymentForm()({
+    initialValues: editEmployee
+      ? {
+          ...editEmployee,
+          DateFrom: formatDate(editEmployee?.DateFrom),
+          DateTo: formatDate(editEmployee?.DateTo),
+          showEmployeeConfig: false,
+          Pesel: 0,
+          Password: '',
+        }
+      : initialValues,
+    onSubmit: async (values) => {
+      if (values.showEmployeeConfig) {
         await postEmployee({
-          IdPerson: selectedPerson,
-          Pesel: pesel,
-          Password: password,
+          IdPerson: values.IdPerson,
+          Pesel: values.Pesel,
+          Password: values.Password,
         });
       }
-      // edit emplyment
+
+      const empDTO = {
+        DateFrom: values.DateFrom,
+        DateTo: values.DateTo,
+        IdDepartment: values.IdDepartment,
+        IdPosition: values.IdPosition,
+        IdPerson: values.IdPerson,
+      };
+
       if (editEmployee) {
-        const empDTO: EmploymentDTO = {
-          IdEmployment: editEmployee.IdEmployment,
-          DateFrom: dateFrom,
-          DateTo: dateTo || null,
-          IdDepartment: selectedDepartment,
-          IdPosition: selectedPosition,
-          IdPerson: selectedPerson,
-        };
-
-        await updateMutation.mutateAsync(empDTO);
-        setSnackbar(createSnackbarSuccess('Edytowano zatrudnienie'));
+        const payload = { ...empDTO, IdEmployment: editEmployee.IdEmployment };
+        await updateMutation.mutateAsync(payload);
+      } else {
+        await addMutation.mutateAsync(empDTO);
       }
-      // new Employment
-      else {
-        await addMutation.mutateAsync({
-          DateFrom: dateFrom,
-          DateTo: dateTo || null,
-          IdDepartment: selectedDepartment,
-          IdPosition: selectedPosition,
-          IdPerson: selectedPerson,
-        });
-        setSnackbar(createSnackbarSuccess('Dodano zatrudnienie'));
-      }
-    } catch (e) {
-      console.error(e);
-      setSnackbar(createSnackbarError('Operacja nie udała się'));
-    } finally {
       closeDrawer();
-    }
+    },
+  });
+
+  useShowEmployeeConfig(employmentForm);
+
+  const handleOnSave = () => {
+    employmentForm.submitForm();
   };
 
-  const handleDateChange = (e: any) => {
-    const setterFn = e.target.name === 'dateFrom' ? setDateFrom : setDateTo;
-    setterFn(e.target.value);
-  };
-
-  const handleOnPeselChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPesel(Number(event.target.value));
-  };
-  const handleOnPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPassword(event.target.value);
-  };
   const {
     language: { schema },
   } = useLanguage();
 
   return (
     <EmploymentContentStyle>
-      <TextField
+      <FormikTextField
         label={schema.dateFrom}
-        name="dateFrom"
+        name="DateFrom"
         type="date"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={dateFrom}
-        onChange={handleDateChange}
+        value={employmentForm.values.DateFrom}
+        onChange={employmentForm.handleChange}
+        onBlur={employmentForm.handleBlur}
+        error={employmentForm.errors.DateFrom}
+        touched={employmentForm.touched.DateFrom}
+        autoFocus
       />
-      <TextField
+      <FormikTextField
         label={schema.dateTo}
-        name="dateTo"
+        name="DateTo"
         type="date"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={dateTo}
-        onChange={handleDateChange}
+        value={employmentForm.values.DateTo}
+        onChange={employmentForm.handleChange}
+        onBlur={employmentForm.handleBlur}
+        error={employmentForm.errors.DateTo}
+        touched={employmentForm.touched.DateTo}
       />
+
       <DepartmentSelect
-        value={selectedDepartment}
-        onChange={setSelectedDepartment}
+        name="IdDepartment"
+        value={employmentForm.values.IdDepartment}
+        onChange={(id) => employmentForm.setFieldValue('IdDepartment', id)}
+        onBlur={employmentForm.handleBlur}
+        error={employmentForm.errors.IdDepartment}
+        touched={employmentForm.touched.IdDepartment}
       />
 
-      <PositionSelect value={selectedPosition} onChange={setSelectedPosition} />
+      <PositionSelect
+        name="IdPosition"
+        value={employmentForm.values.IdPosition}
+        onChange={(id) => employmentForm.setFieldValue('IdPosition', id)}
+        onBlur={employmentForm.handleBlur}
+        error={employmentForm.errors.IdPosition}
+        touched={employmentForm.touched.IdPosition}
+      />
 
-      <PersonSelect value={selectedPerson} onChange={setSelectedPerson} />
+      <PersonSelect
+        name="IdPerson"
+        value={employmentForm.values.IdPerson}
+        onChange={(id) => employmentForm.setFieldValue('IdPerson', id)}
+        onBlur={employmentForm.handleBlur}
+        error={employmentForm.errors.IdPerson}
+        touched={employmentForm.touched.IdPerson}
+      />
 
-      {showEmployeeConfig && (
+      {employmentForm.values.showEmployeeConfig && (
         <>
-          <TextField
+          <FormikTextField
             label="Pesel"
-            name="pesel"
+            name="Pesel"
             type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={pesel}
-            onChange={handleOnPeselChange}
+            value={employmentForm.values.Pesel}
+            onChange={employmentForm.handleChange}
+            onBlur={employmentForm.handleBlur}
+            error={employmentForm.errors.Pesel}
+            touched={employmentForm.touched.Pesel}
           />
-          <TextField
+
+          <FormikPassword
             label="Hasło"
-            name="password"
-            type="password"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={password}
-            onChange={handleOnPasswordChange}
+            name="Password"
+            value={employmentForm.values.Password}
+            onChange={employmentForm.handleChange}
+            onBlur={employmentForm.handleBlur}
+            error={employmentForm.errors.Password}
+            touched={employmentForm.touched.Password}
           />
         </>
       )}
 
-      <Button
-        disabled={
-          !Boolean(dateFrom) ||
-          !Boolean(selectedDepartment) ||
-          !Boolean(selectedPosition) ||
-          !Boolean(selectedPerson) ||
-          (showEmployeeConfig && !Boolean(pesel)) ||
-          (showEmployeeConfig && !Boolean(password))
-        }
-        variant="contained"
-        color="primary"
-        onClick={handleOnSave}
-      >
+      <Button variant="contained" color="primary" onClick={handleOnSave}>
         {schema.save}
       </Button>
     </EmploymentContentStyle>

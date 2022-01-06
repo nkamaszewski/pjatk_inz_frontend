@@ -1,17 +1,9 @@
-import { TextField } from '@material-ui/core';
-import styled from 'styled-components';
-
-const FieldStyle = styled.div`
-  display: grid;
-  margin: 8px 0;
-  .error-message {
-    color: red;
-  }
-`;
+import { FormControl, TextField } from '@material-ui/core';
+import { ErrorHelperText } from '../ErrorHelperText';
 
 interface Props {
   name: string;
-  value: string | number;
+  value: string | number | null;
   type?: string;
   onChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
@@ -22,7 +14,7 @@ interface Props {
   autoFocus?: boolean;
 }
 
-const FormikTextField = ({
+export const FormikTextField = ({
   name,
   value,
   type = 'text',
@@ -35,7 +27,7 @@ const FormikTextField = ({
   autoFocus,
 }: Props) => {
   return (
-    <FieldStyle>
+    <FormControl>
       <TextField
         name={name}
         type={type}
@@ -46,10 +38,11 @@ const FormikTextField = ({
         onFocus={onFocus}
         onBlur={onBlur}
         autoComplete="off"
+        InputLabelProps={{
+          shrink: true,
+        }}
       />
-      {error && touched && <span className="error-message">{error}</span>}
-    </FieldStyle>
+      {error && touched && <ErrorHelperText text={error} />}
+    </FormControl>
   );
 };
-
-export default FormikTextField;
