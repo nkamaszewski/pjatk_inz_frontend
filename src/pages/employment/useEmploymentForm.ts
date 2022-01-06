@@ -20,6 +20,22 @@ const validationSchema = Yup.object().shape({
   IdDepartment: Yup.string().required('podanie wydziału jest wymagane'),
   IdPosition: Yup.string().required('podanie stanowiska jest wymagane'),
   IdPerson: Yup.string().required('podanie osoby jest wymagane'),
+  showEmployeeConfig: Yup.boolean(),
+  Pesel: Yup.string().when('showEmployeeConfig', {
+    is: true,
+    then: (schema: any) =>
+      schema
+        .required('pesel jest wymagany')
+        .test(
+          'pesel-len',
+          'pesel powinien składać się z 11 cyfr',
+          (pesel: string) => pesel.length === 11
+        ),
+  }),
+  Password: Yup.string().when('showEmployeeConfig', {
+    is: true,
+    then: (schema: any) => schema.required('hasło jest wymagane'),
+  }),
 });
 
 export const useEmploymentForm = () => useForm(validationSchema);
