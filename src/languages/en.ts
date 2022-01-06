@@ -235,6 +235,12 @@ export const en: LanguageSchema = {
   theNameOfTheCertificate: 'The name of the cetificate',
   endDate: 'End date',
   addAParticipant: 'Add a participant',
+  employmentAdded: 'Employment added',
+  theOperationWasUnsuccessful: 'The operation was unsuccessful',
+  employmentWasEdited: 'Employment was edited',
+  employmentRemoved: 'Employment removed',
+  groupsToWhichItBelongs: 'Groups to which it belongs',
+  cardinality: 'Cardinality',
   validation: {
     loginRequired: 'email / login is required',
     emailFormat: 'incorrect email format',

@@ -1,4 +1,5 @@
 import { postEmployment } from 'api/Employment';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useSnackbar } from 'providers/NotificationContext';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -9,11 +10,15 @@ export const useAddEmploymentMutation = () => {
   const mutation = useMutation(postEmployment, {
     onSuccess: () => {
       queryClient.invalidateQueries('employments');
-      setSuccessSnackbar('Dodano zatrudnienie');
+      setSuccessSnackbar(schema.employmentAdded);
     },
     onError: (error: any) => {
-      setErrorSnackbar(error?.message ?? 'Operacja nie udała się');
+      setErrorSnackbar(error?.message ?? schema.theOperationWasUnsuccessful);
     },
   });
+  const {
+    language: { schema },
+  } = useLanguage();
+
   return mutation;
 };
