@@ -6,13 +6,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguage } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
@@ -81,7 +81,7 @@ const CompanySelect = ({ value, onChange }: Props) => {
   } = useLanguage();
   return (
     <CompanySelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{capFL(schema.company)}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {companiesQuery.data?.data.map((comp) => (
@@ -91,7 +91,7 @@ const CompanySelect = ({ value, onChange }: Props) => {
             >{`${comp.Name} ${comp.City}`}</MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
       <Tooltip title={schema.addACompany}>
         <Button
           onClick={() => {

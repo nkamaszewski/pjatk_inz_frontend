@@ -1,5 +1,6 @@
-import { FormControl, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { ErrorHelperText } from '../ErrorHelperText';
+import { FormControlStyled } from '../FormControlStyled';
 
 interface Props {
   name: string;
@@ -27,7 +28,7 @@ export const FormikTextField = ({
   autoFocus,
 }: Props) => {
   return (
-    <FormControl style={{ height: '72px' }}>
+    <FormControlStyled>
       <TextField
         name={name}
         type={type}
@@ -43,6 +44,6 @@ export const FormikTextField = ({
         }}
       />
       {error && touched && <ErrorHelperText text={error} />}
-    </FormControl>
+    </FormControlStyled>
   );
 };

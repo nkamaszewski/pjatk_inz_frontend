@@ -1,4 +1,5 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useLanguage } from 'providers/LanguageProvider';
 import React from 'react';
 import { useDivisionsQuery } from './useDivisionsQuery';
@@ -21,7 +22,7 @@ const DivisionSelect = ({ value, onChange, name, withAll = false }: Props) => {
   };
 
   return (
-    <FormControl fullWidth>
+    <FormControlStyled>
       <InputLabel>{schema.department}</InputLabel>
       <Select value={value} onChange={handleSelectChange} name={name}>
         {divisionsQuery.data?.map((division) => (
@@ -30,7 +31,7 @@ const DivisionSelect = ({ value, onChange, name, withAll = false }: Props) => {
           </MenuItem>
         ))}
       </Select>
-    </FormControl>
+    </FormControlStyled>
   );
 };
 

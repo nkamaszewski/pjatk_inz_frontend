@@ -1,4 +1,5 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguage } from 'providers/LanguageProvider';
 import React from 'react';
@@ -32,7 +33,7 @@ const PositionSelect = ({
   } = useLanguage();
 
   return (
-    <FormControl fullWidth>
+    <FormControlStyled>
       <InputLabel>{capFL(schema.position)}</InputLabel>
       <Select
         value={value}
@@ -47,7 +48,7 @@ const PositionSelect = ({
         ))}
       </Select>
       {touched && error && <ErrorHelperText text={error} />}
-    </FormControl>
+    </FormControlStyled>
   );
 };
 

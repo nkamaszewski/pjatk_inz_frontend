@@ -6,7 +6,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
@@ -19,6 +18,7 @@ import styled from 'styled-components';
 import { GraduateDegreeDTO } from '../../../types/DTO/GraduateDegree';
 import { useGraduateDegreeMutation } from './useGraduateDegreeMutation';
 import { useGraduateDegreesQuery } from './useGraduateDegreesQuery';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 
 const GraduateDegreeSelectStyle = styled.div`
   display: grid;
@@ -77,7 +77,7 @@ const GraduateDegreeSelect = ({ value, onChange }: Props) => {
   } = useLanguage();
   return (
     <GraduateDegreeSelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{schema.degreeOfStudy}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {graduateDegreesQuery.data?.data.map((graduateD) => (
@@ -89,7 +89,7 @@ const GraduateDegreeSelect = ({ value, onChange }: Props) => {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
       <Tooltip title={schema.addDegreeOfStudy}>
         <Button
           onClick={() => {

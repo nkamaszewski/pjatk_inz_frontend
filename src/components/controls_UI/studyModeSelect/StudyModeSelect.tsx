@@ -6,13 +6,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useLanguage } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -77,7 +77,7 @@ const StudyModeSelect = ({ value, onChange }: Props) => {
   } = useLanguage();
   return (
     <StudyModeSelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{schema.modeOfStudy}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {studyModesQuery.data?.data.map((studyM) => (
@@ -86,7 +86,7 @@ const StudyModeSelect = ({ value, onChange }: Props) => {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
       <Tooltip title={schema.addStudyMode}>
         <Button
           onClick={() => {

@@ -1,4 +1,5 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useLanguage } from 'providers/LanguageProvider';
 import React from 'react';
 import { useEmployeesQuery } from './useEmployeesQuery';
@@ -18,7 +19,7 @@ export const EmployeeSelect = ({ value, onChange }: Props) => {
     language: { schema },
   } = useLanguage();
   return (
-    <FormControl fullWidth>
+    <FormControlStyled>
       <InputLabel>{schema.employee}</InputLabel>
       <Select value={value} onChange={handleSelectChange}>
         {employeesQuery.data?.data.map((employee) => (
@@ -28,6 +29,6 @@ export const EmployeeSelect = ({ value, onChange }: Props) => {
           >{`${employee.employeePerson.FirstName} ${employee.employeePerson.LastName}`}</MenuItem>
         ))}
       </Select>
-    </FormControl>
+    </FormControlStyled>
   );
 };

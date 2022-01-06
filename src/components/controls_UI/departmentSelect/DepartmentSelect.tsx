@@ -1,4 +1,5 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useLanguage } from 'providers/LanguageProvider';
 import React from 'react';
 import { ErrorHelperText } from '../ErrorHelperText';
@@ -33,7 +34,7 @@ const DepartmentSelect = ({
   };
 
   return (
-    <FormControl fullWidth>
+    <FormControlStyled>
       <InputLabel>{schema.division}</InputLabel>
       <Select
         value={value}
@@ -51,7 +52,7 @@ const DepartmentSelect = ({
         ))}
       </Select>
       {touched && error && <ErrorHelperText text={error} />}
-    </FormControl>
+    </FormControlStyled>
   );
 };
 

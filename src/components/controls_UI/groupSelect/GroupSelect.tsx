@@ -1,4 +1,5 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { ALL } from 'providers/FilterContext';
 import { useLanguage } from 'providers/LanguageProvider';
@@ -29,7 +30,7 @@ const GroupSelect = ({ value, onChange, withAll = false, name }: Props) => {
   } = useLanguage();
   return (
     <GroupSelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{capFL(schema.group)}</InputLabel>
         <Select value={value} onChange={handleSelectChange} name={name}>
           {groupsQuery.data?.map((group) => (
@@ -40,7 +41,7 @@ const GroupSelect = ({ value, onChange, withAll = false, name }: Props) => {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
     </GroupSelectStyle>
   );
 };

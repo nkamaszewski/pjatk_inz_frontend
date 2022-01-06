@@ -1,4 +1,5 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguage } from 'providers/LanguageProvider';
 import React from 'react';
@@ -25,7 +26,7 @@ const TrainingSelect = ({ value, onChange }: Props) => {
   } = useLanguage();
   return (
     <EmployeeSelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{capFL(schema.course)}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {trainingsQuery.data?.data.map((training) => (
@@ -35,7 +36,7 @@ const TrainingSelect = ({ value, onChange }: Props) => {
             >{`${training.trainingTopic.Topic}, organizator: ${training.trainingCompany.Name}`}</MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
     </EmployeeSelectStyle>
   );
 };

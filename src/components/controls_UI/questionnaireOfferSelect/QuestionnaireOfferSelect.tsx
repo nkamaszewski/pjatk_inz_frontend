@@ -6,7 +6,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
@@ -20,6 +19,7 @@ import styled from 'styled-components';
 import { QuestionnaireOfferDTO } from '../../../types/DTO/QuestionnaireOffer';
 import { useQuestionnaireOfferMutation } from './useQuestionnaireOfferMutation';
 import { useQuestionnaireOffersQuery } from './useQuestionnaireOffersQuery';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 
 const EmployeeSelectStyle = styled.div`
   display: grid;
@@ -83,7 +83,7 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
   } = useLanguage();
   return (
     <EmployeeSelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{schema.yearOfApplication}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {questionnaireOffersQuery.data?.data.map((qo) => (
@@ -93,7 +93,7 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
             >{`${qo.Year}`}</MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
       <Tooltip title={schema.addTheYearOfTheApplication}>
         <Button
           onClick={() => {

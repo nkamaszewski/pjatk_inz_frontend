@@ -1,9 +1,12 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useDictionary } from '../../providers/DictionaryContext';
 import { StatusDTO } from '../../types/DTO/Status';
+import { FormControlStyled } from './FormControlStyled';
 
-const DEFAULT_STATUSES = (Name: string): StatusDTO[] => [{ IdStatus: 'all', Name }];
+const DEFAULT_STATUSES = (Name: string): StatusDTO[] => [
+  { IdStatus: 'all', Name },
+];
 
 interface Props {
   value: string;
@@ -20,16 +23,18 @@ const StatusSelect = ({ value, onChange, name }: Props) => {
 
   const { statuses } = useDictionary();
   return (
-    <FormControl fullWidth>
+    <FormControlStyled>
       <InputLabel>{schema.status}</InputLabel>
       <Select value={value} onChange={onChange} name={name}>
-        {DEFAULT_STATUSES(schema.all).concat(statuses).map(({ IdStatus, Name }) => (
-          <MenuItem key={IdStatus} value={IdStatus}>
-            {Name}
-          </MenuItem>
-        ))}
+        {DEFAULT_STATUSES(schema.all)
+          .concat(statuses)
+          .map(({ IdStatus, Name }) => (
+            <MenuItem key={IdStatus} value={IdStatus}>
+              {Name}
+            </MenuItem>
+          ))}
       </Select>
-    </FormControl>
+    </FormControlStyled>
   );
 };
 

@@ -1,11 +1,11 @@
 import {
   Button,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
@@ -87,14 +87,14 @@ const DepartmentContent = ({
         value={name}
         onChange={handleOnNameChange}
       />
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{schema.department}</InputLabel>
         <Select value={selectedDivision} onChange={handleSelectChange}>
           {divisions.map((division) => (
             <MenuItem value={division.IdDivision}>{division.Name}</MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
       <Button
         disabled={!Boolean(name) && !Boolean(selectedDivision)}
         variant="contained"

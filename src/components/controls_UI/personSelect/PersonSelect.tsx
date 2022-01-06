@@ -6,13 +6,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useLanguage } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -88,7 +88,7 @@ const PersonSelect = ({
   } = useLanguage();
   return (
     <EmployeeSelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{schema.person}</InputLabel>
         <Select
           value={value}
@@ -104,7 +104,7 @@ const PersonSelect = ({
           ))}
         </Select>
         {touched && error && <ErrorHelperText text={error} />}
-      </FormControl>
+      </FormControlStyled>
       <Tooltip title={schema.addAPerson}>
         <Button
           onClick={() => {

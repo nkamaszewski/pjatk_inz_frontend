@@ -6,13 +6,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useLanguage } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -78,7 +78,7 @@ const TopicSelect = ({ value, onChange }: Props) => {
   } = useLanguage();
   return (
     <TopicSelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{schema.topic}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {topicsQuery.data?.data.map((top) => (
@@ -87,7 +87,7 @@ const TopicSelect = ({ value, onChange }: Props) => {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
       <Tooltip title={schema.addATrainingTopic}>
         <Button
           onClick={() => {

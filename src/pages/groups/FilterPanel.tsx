@@ -1,13 +1,14 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { ALL, useFilter } from '../../providers/FilterContext';
 import { ChangeEvent } from '../../types/EventTypes';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 
-const GROUPS_TYPE = (schema: { all: any; onlyActive: any;}) => ([
+const GROUPS_TYPE = (schema: { all: any; onlyActive: any }) => [
   { id: ALL, name: schema.all },
   { id: '1', name: schema.onlyActive },
-]);
+];
 
 const FilterPanelStyle = styled.div`
   display: grid;
@@ -36,7 +37,7 @@ const FilterPanel = () => {
     <FilterPanelStyle>
       <h4>{schema.filter}</h4>
 
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{schema.type}</InputLabel>
         <Select
           value={filters.active}
@@ -49,7 +50,7 @@ const FilterPanel = () => {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
     </FilterPanelStyle>
   );
 };

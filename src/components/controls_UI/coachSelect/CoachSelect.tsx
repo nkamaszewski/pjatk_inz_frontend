@@ -6,13 +6,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useLanguage } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -70,7 +70,7 @@ const CoachSelect = ({ value, onChange }: Props) => {
   } = useLanguage();
   return (
     <CoachSelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{schema.trainer}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {coachesQuery.data?.data.map((c) => (
@@ -79,7 +79,7 @@ const CoachSelect = ({ value, onChange }: Props) => {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
       <Tooltip title={schema.addATrainer}>
         <Button
           onClick={() => {

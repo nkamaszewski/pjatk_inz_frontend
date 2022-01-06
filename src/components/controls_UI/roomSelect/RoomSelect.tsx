@@ -1,4 +1,5 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { ALL } from 'providers/FilterContext';
 import { useLanguage } from 'providers/LanguageProvider';
 import React from 'react';
@@ -28,7 +29,7 @@ const RoomSelect = ({ value, onChange, withAll = false, name }: Props) => {
   } = useLanguage();
   return (
     <RoomSelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{schema.room}</InputLabel>
         <Select value={value} onChange={handleSelectChange} name={name}>
           {roomsQuery.data?.map((room) => (
@@ -39,7 +40,7 @@ const RoomSelect = ({ value, onChange, withAll = false, name }: Props) => {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
     </RoomSelectStyle>
   );
 };

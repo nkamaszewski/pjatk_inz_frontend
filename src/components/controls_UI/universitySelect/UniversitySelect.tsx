@@ -6,13 +6,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useLanguage } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -81,7 +81,7 @@ const UniversitySelect = ({ value, onChange }: Props) => {
   } = useLanguage();
   return (
     <UniuversitySelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{schema.school}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {universitetsQuery.data?.data.map((uni) => (
@@ -91,7 +91,7 @@ const UniversitySelect = ({ value, onChange }: Props) => {
             >{`${uni.ShortName} ${uni.City}`}</MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControlStyled>
       <Tooltip title={schema.addUniversities}>
         <Button
           onClick={() => {

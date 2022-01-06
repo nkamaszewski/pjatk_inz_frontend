@@ -1,4 +1,5 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { formatDate } from 'helpers/formatDate';
 import { useLanguage } from 'providers/LanguageProvider';
 import React from 'react';
@@ -23,7 +24,7 @@ const ApplicationForSelect = ({ value, onChange }: Props) => {
   } = useLanguage();
   return (
     <ApplicationForSelectStyle>
-      <FormControl fullWidth>
+      <FormControlStyled>
         <InputLabel>{schema.trainingApplication}</InputLabel>
         <Select value={value} onChange={handleSelectChange}>
           {appForQuery.data?.data.map(
@@ -42,7 +43,7 @@ const ApplicationForSelect = ({ value, onChange }: Props) => {
             )
           )}
         </Select>
-      </FormControl>
+      </FormControlStyled>
     </ApplicationForSelectStyle>
   );
 };
