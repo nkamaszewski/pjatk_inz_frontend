@@ -1,4 +1,5 @@
 import { deleteEmployment } from 'api/Employment';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useSnackbar } from 'providers/NotificationContext';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -11,12 +12,16 @@ export const useDeleteEmploymentMutation = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('employments');
-        setSuccessSnackbar('Usunięto zatrudnienie');
+        setSuccessSnackbar(schema.employmentRemoved);
       },
       onError: (error: any) => {
-        setErrorSnackbar(error?.message ?? 'Operacja nie udała się');
+        setErrorSnackbar(error?.message ?? schema.theOperationWasUnsuccessful);
       },
     }
   );
+  const {
+    language: { schema },
+  } = useLanguage();
+
   return mutation;
 };

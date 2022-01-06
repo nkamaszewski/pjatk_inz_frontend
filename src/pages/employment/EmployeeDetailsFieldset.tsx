@@ -9,6 +9,7 @@ import {
   DialogTitle,
   Fab,
 } from '@material-ui/core';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -101,26 +102,28 @@ const EmployeeDetailsFieldset = ({ closeDrawer, person }: Props) => {
       console.error(error);
     }
   };
-
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <EmployeeDetailsFieldsetStyle>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>
-        <DialogTitle>Przypisz pracownika do grupy</DialogTitle>
+        <DialogTitle>{schema.assignAnEmployeeToAGroup}</DialogTitle>
         <DialogContent>
           <GroupSelect value={idGroup} onChange={setIdGroup} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOnCancel} color="primary">
-            Anuluj
+            {schema.cancel}
           </Button>
           <Button onClick={handleOnConfirm} color="primary">
-            Dodaj
+            {schema.add}
           </Button>
         </DialogActions>
       </Dialog>
       <div className="header">
         <h3>
-          Grupy do których należy {person.FirstName} {person.LastName}:
+          {schema.groupsToWhichItBelongs} {person.FirstName} {person.LastName}:
         </h3>
         <Fab
           color="primary"
@@ -131,8 +134,8 @@ const EmployeeDetailsFieldset = ({ closeDrawer, person }: Props) => {
         </Fab>
       </div>
       <header className="grid-group">
-        <p>Nazwa</p>
-        <p>Liczność</p>
+        <p>{schema.name}</p>
+        <p>{schema.cardinality}</p>
       </header>
       {employeeGroup.map((eg) => (
         <Card key={eg.IdEmployeeGroup} className="grid-group">

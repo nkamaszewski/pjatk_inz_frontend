@@ -234,7 +234,13 @@ export interface LanguageSchema {
   studiesAdded: string;
   theNameOfTheCertificate: string; 
   endDate: string;
-  addAParticipant: string;     
+  addAParticipant: string; 
+  employmentAdded: string;
+  theOperationWasUnsuccessful: string;
+  employmentWasEdited: string;
+  employmentRemoved: string; 
+  groupsToWhichItBelongs: string;  
+  cardinality: string;       
   validation: {
     loginRequired: string;
     emailFormat: string;

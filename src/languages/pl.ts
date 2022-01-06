@@ -235,6 +235,12 @@ export const pl: LanguageSchema = {
 	theNameOfTheCertificate: 'Nazwa certyfikatu',
 	endDate: 'Data zakończenia',
 	addAParticipant: 'Dodaj uczestnika',
+	employmentAdded: 'Dodano zatrudnienie',
+	theOperationWasUnsuccessful: 'Operacja nie udała się',
+	employmentWasEdited: 'Edytowano zatrudnienie',
+	employmentRemoved: 'Usunięto zatrudnienie',
+	groupsToWhichItBelongs: 'Grupy do których należy',
+	cardinality: 'Liczność',
 	validation: {
 		loginRequired: 'podanie email / login jest wymagane',
 		emailFormat: 'niepoprawny format email',
