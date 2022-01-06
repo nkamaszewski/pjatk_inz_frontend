@@ -9,4 +9,4 @@ export const postPerson = (person: {
   LastName: string;
   Email: string;
   Phone: number;
-}) => axiosJWT.post('/persons/', person);
+}) => axiosJWT.post<PersonDTO>('/persons/', person);
