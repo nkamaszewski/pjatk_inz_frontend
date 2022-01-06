@@ -6,7 +6,7 @@ import Lottie from 'react-lottie-player';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import lottieJson from '../../animations/Newsletter.json';
-import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
+import { FormikTextField } from '../../components/controls_UI/formik/FormikTextField';
 import { LanguagePanel } from '../../components/LanguagePanel';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { useTheme } from '../../providers/ThemeContext';

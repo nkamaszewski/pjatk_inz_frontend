@@ -2,7 +2,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IconBtn } from '../../IconBtn';
-import FormikTextField from './FormikTextField';
+import { FormikTextField } from './FormikTextField';
 
 const FormikPasswordStyled = styled.div`
   display: grid;

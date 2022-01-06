@@ -17,6 +17,7 @@ import { useLanguage } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { PersonDTO } from '../../../types/DTO/Person';
+import { ErrorHelperText } from '../ErrorHelperText';
 import { usePersonMutation } from './usePersonMutation';
 import { usePersonsQuery } from './usePersonsQuery';
 
@@ -27,7 +28,11 @@ const EmployeeSelectStyle = styled.div`
 
 interface Props {
   value: string;
-  onChange: Function;
+  onChange: (id: string) => void;
+  onBlur?: (e: React.FocusEvent<any>) => void;
+  name?: string;
+  touched?: boolean;
+  error?: string;
 }
 
 const EMPTY_PERSON = {
@@ -37,7 +42,14 @@ const EMPTY_PERSON = {
   Phone: 0,
 } as PersonDTO;
 
-const PersonSelect = ({ value, onChange }: Props) => {
+const PersonSelect = ({
+  value,
+  onChange,
+  onBlur,
+  name,
+  touched = false,
+  error,
+}: Props) => {
   const [addingMode, setAddingMode] = useState(false);
   const [person, setPerson] = useState(EMPTY_PERSON);
   const personsQuery = usePersonsQuery();
@@ -78,7 +90,12 @@ const PersonSelect = ({ value, onChange }: Props) => {
     <EmployeeSelectStyle>
       <FormControl fullWidth>
         <InputLabel>{schema.person}</InputLabel>
-        <Select value={value} onChange={handleSelectChange}>
+        <Select
+          value={value}
+          onChange={handleSelectChange}
+          onBlur={onBlur}
+          name={name}
+        >
           {personsQuery.data?.data.map((person) => (
             <MenuItem
               key={person.IdPerson}
@@ -86,6 +103,7 @@ const PersonSelect = ({ value, onChange }: Props) => {
             >{`${person.FirstName} ${person.LastName}`}</MenuItem>
           ))}
         </Select>
+        {touched && error && <ErrorHelperText text={error} />}
       </FormControl>
       <Tooltip title={schema.addAPerson}>
         <Button

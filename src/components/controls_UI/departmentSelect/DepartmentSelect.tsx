@@ -1,20 +1,27 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { useLanguage } from 'providers/LanguageProvider';
 import React from 'react';
+import { ErrorHelperText } from '../ErrorHelperText';
 import { useDepartmentsQuery } from './useDepartmentsQuery';
 
 interface Props {
   value: string;
-  onChange: Function;
+  onChange: (id: string) => void;
+  onBlur?: (e: React.FocusEvent<any>) => void;
   name?: string;
   withAll?: boolean;
+  touched?: boolean;
+  error?: string;
 }
 
 const DepartmentSelect = ({
   value,
   onChange,
+  onBlur,
   name,
   withAll = false,
+  touched = false,
+  error,
 }: Props) => {
   const departmentsQuery = useDepartmentsQuery(withAll);
   const {
@@ -28,7 +35,12 @@ const DepartmentSelect = ({
   return (
     <FormControl fullWidth>
       <InputLabel>{schema.division}</InputLabel>
-      <Select value={value} onChange={handleSelectChange} name={name}>
+      <Select
+        value={value}
+        onChange={handleSelectChange}
+        onBlur={onBlur}
+        name={name}
+      >
         {departmentsQuery.data?.map((department) => (
           <MenuItem
             key={department.IdDepartment}
@@ -38,6 +50,7 @@ const DepartmentSelect = ({
           </MenuItem>
         ))}
       </Select>
+      {touched && error && <ErrorHelperText text={error} />}
     </FormControl>
   );
 };

@@ -7,7 +7,7 @@ import { useLanguage } from 'providers/LanguageProvider';
 import { useSnackbar } from 'providers/NotificationContext';
 import { useState } from 'react';
 import styled from 'styled-components';
-import FormikTextField from '../../components/controls_UI/formik/FormikTextField';
+import { FormikTextField } from '../../components/controls_UI/formik/FormikTextField';
 import SwitchBtn from '../../components/controls_UI/SwitchBtn';
 import PageHeader from '../../components/PageHeader';
 import { useAuth } from '../../providers/AuthProvider';
@@ -52,7 +52,8 @@ const UserAccountPage = () => {
   const {
     language: {
       schema: {
-        userAccountPage: { _form, _header },changePassword
+        userAccountPage: { _form, _header },
+        changePassword,
       },
     },
   } = useLanguage();

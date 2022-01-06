@@ -1,4 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
+import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -6,14 +7,9 @@ import { getEmployee, postEmployee } from '../../api/Employee';
 import DepartmentSelect from '../../components/controls_UI/departmentSelect/DepartmentSelect';
 import PersonSelect from '../../components/controls_UI/personSelect/PersonSelect';
 import PositionSelect from '../../components/controls_UI/positionSelect/PositionSelect';
-import { formatDate } from '../../helpers/formatDate';
-import {
-  createSnackbarError,
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { EmploymentDTO } from '../../types/DTO/Employment';
 import { useAddEmploymentMutation } from './useAddEmploymentMutation';
+import { useEmploymentForm } from './useEmploymentForm';
 import { useUpdateEmploymentMutation } from './useUpdateEmploymentMutation';
 
 const EmploymentContentStyle = styled.div`
@@ -27,30 +23,53 @@ interface Props {
   editEmployee?: EmploymentDTO | null;
 }
 
+const initialValues = {
+  DateFrom: '',
+  DateTo: '',
+  IdDepartment: '',
+  IdPosition: '',
+  IdPerson: '',
+};
+
 const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
-  //TODO: formatowanie czasu, nie dziala edycja
-  const [dateFrom, setDateFrom] = useState(formatDate(editEmployee?.DateFrom));
-  const [dateTo, setDateTo] = useState(formatDate(editEmployee?.DateTo));
-  const [selectedDepartment, setSelectedDepartment] = useState(
-    editEmployee?.IdDepartment ?? ''
-  );
-  const [selectedPosition, setSelectedPosition] = useState(
-    editEmployee?.IdPosition ?? ''
-  );
-  const [selectedPerson, setSelectedPerson] = useState(
-    editEmployee?.IdPerson ?? ''
-  );
   const [pesel, setPesel] = useState(0);
   const [password, setPassword] = useState('');
-
-  const [showEmployeeConfig, setShowEmployeeConfig] = useState(false);
-  const { setSnackbar } = useSnackbar();
   const addMutation = useAddEmploymentMutation();
   const updateMutation = useUpdateEmploymentMutation();
+  const employmentForm = useEmploymentForm()({
+    initialValues,
+    onSubmit: async (values) => {
+      if (showEmployeeConfig) {
+        await postEmployee({
+          IdPerson: values.IdPerson,
+          Pesel: pesel,
+          Password: password,
+        });
+      }
+
+      const empDTO = {
+        DateFrom: values.DateFrom,
+        DateTo: values.DateTo,
+        IdDepartment: values.IdDepartment,
+        IdPosition: values.IdPosition,
+        IdPerson: values.IdPerson,
+      };
+
+      if (editEmployee) {
+        const payload = { ...empDTO, IdEmployment: editEmployee.IdEmployment };
+        await updateMutation.mutateAsync(payload);
+      } else {
+        await addMutation.mutateAsync(empDTO);
+      }
+      closeDrawer();
+    },
+  });
+
+  const [showEmployeeConfig, setShowEmployeeConfig] = useState(false);
 
   useEffect(() => {
-    if (selectedPerson) {
-      getEmployee(selectedPerson)
+    if (employmentForm.values.IdPerson) {
+      getEmployee(employmentForm.values.IdPerson)
         .then((res) => {
           if (res.status === 404) {
             setShowEmployeeConfig(true);
@@ -60,54 +79,10 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
           setShowEmployeeConfig(true);
         });
     }
-  }, [selectedPerson]);
+  }, [employmentForm.values.IdPerson]);
 
-  const handleOnSave = async () => {
-    try {
-      // new person
-      if (showEmployeeConfig) {
-        await postEmployee({
-          IdPerson: selectedPerson,
-          Pesel: pesel,
-          Password: password,
-        });
-      }
-      // edit emplyment
-      if (editEmployee) {
-        const empDTO: EmploymentDTO = {
-          IdEmployment: editEmployee.IdEmployment,
-          DateFrom: dateFrom,
-          DateTo: dateTo || null,
-          IdDepartment: selectedDepartment,
-          IdPosition: selectedPosition,
-          IdPerson: selectedPerson,
-        };
-
-        await updateMutation.mutateAsync(empDTO);
-        setSnackbar(createSnackbarSuccess('Edytowano zatrudnienie'));
-      }
-      // new Employment
-      else {
-        await addMutation.mutateAsync({
-          DateFrom: dateFrom,
-          DateTo: dateTo || null,
-          IdDepartment: selectedDepartment,
-          IdPosition: selectedPosition,
-          IdPerson: selectedPerson,
-        });
-        setSnackbar(createSnackbarSuccess('Dodano zatrudnienie'));
-      }
-    } catch (e) {
-      console.error(e);
-      setSnackbar(createSnackbarError('Operacja nie udała się'));
-    } finally {
-      closeDrawer();
-    }
-  };
-
-  const handleDateChange = (e: any) => {
-    const setterFn = e.target.name === 'dateFrom' ? setDateFrom : setDateTo;
-    setterFn(e.target.value);
+  const handleOnSave = () => {
+    employmentForm.submitForm();
   };
 
   const handleOnPeselChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,34 +99,54 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
 
   return (
     <EmploymentContentStyle>
-      <TextField
+      <FormikTextField
         label={schema.dateFrom}
-        name="dateFrom"
+        name="DateFrom"
         type="date"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={dateFrom}
-        onChange={handleDateChange}
+        value={employmentForm.values.DateFrom}
+        onChange={employmentForm.handleChange}
+        onBlur={employmentForm.handleBlur}
+        error={employmentForm.errors.DateFrom}
+        touched={employmentForm.touched.DateFrom}
+        autoFocus
       />
-      <TextField
+      <FormikTextField
         label={schema.dateTo}
-        name="dateTo"
+        name="DateTo"
         type="date"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={dateTo}
-        onChange={handleDateChange}
+        value={employmentForm.values.DateTo}
+        onChange={employmentForm.handleChange}
+        onBlur={employmentForm.handleBlur}
+        error={employmentForm.errors.DateTo}
+        touched={employmentForm.touched.DateTo}
       />
+
       <DepartmentSelect
-        value={selectedDepartment}
-        onChange={setSelectedDepartment}
+        name="IdDepartment"
+        value={employmentForm.values.IdDepartment}
+        onChange={(id) => employmentForm.setFieldValue('IdDepartment', id)}
+        onBlur={employmentForm.handleBlur}
+        error={employmentForm.errors.IdDepartment}
+        touched={employmentForm.touched.IdDepartment}
       />
 
-      <PositionSelect value={selectedPosition} onChange={setSelectedPosition} />
+      <PositionSelect
+        name="IdPosition"
+        value={employmentForm.values.IdPosition}
+        onChange={(id) => employmentForm.setFieldValue('IdPosition', id)}
+        onBlur={employmentForm.handleBlur}
+        error={employmentForm.errors.IdPosition}
+        touched={employmentForm.touched.IdPosition}
+      />
 
-      <PersonSelect value={selectedPerson} onChange={setSelectedPerson} />
+      <PersonSelect
+        name="IdPerson"
+        value={employmentForm.values.IdPerson}
+        onChange={(id) => employmentForm.setFieldValue('IdPerson', id)}
+        onBlur={employmentForm.handleBlur}
+        error={employmentForm.errors.IdPerson}
+        touched={employmentForm.touched.IdPerson}
+      />
 
       {showEmployeeConfig && (
         <>
@@ -178,19 +173,7 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
         </>
       )}
 
-      <Button
-        disabled={
-          !Boolean(dateFrom) ||
-          !Boolean(selectedDepartment) ||
-          !Boolean(selectedPosition) ||
-          !Boolean(selectedPerson) ||
-          (showEmployeeConfig && !Boolean(pesel)) ||
-          (showEmployeeConfig && !Boolean(password))
-        }
-        variant="contained"
-        color="primary"
-        onClick={handleOnSave}
-      >
+      <Button variant="contained" color="primary" onClick={handleOnSave}>
         {schema.save}
       </Button>
     </EmploymentContentStyle>
