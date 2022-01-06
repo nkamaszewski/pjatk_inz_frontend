@@ -11,18 +11,11 @@ export const useDivisionsQuery = (withAll: boolean) => {
   const {
     language: { schema },
   } = useLanguage();
-  const initialData = withAll ? DEFAULT_DIVISIONS(schema.all) : [];
 
-  const query = useQuery(
-    ['divisions', 'control_ui'],
-    async () => {
-      const res = await getDivisions();
-      return withAll
-        ? DEFAULT_DIVISIONS(schema.all).concat(res.data)
-        : res.data;
-    },
-    { initialData }
-  );
+  const query = useQuery(['divisions', 'control_ui'], async () => {
+    const res = await getDivisions();
+    return withAll ? DEFAULT_DIVISIONS(schema.all).concat(res.data) : res.data;
+  });
 
   return query;
 };

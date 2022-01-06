@@ -11,18 +11,13 @@ export const useDepartmentsQuery = (withAll: boolean) => {
   const {
     language: { schema },
   } = useLanguage();
-  const initialData = withAll ? DEFAULT_DEPARTMENTS(schema.all) : [];
 
-  const query = useQuery(
-    ['departments', 'control_ui'],
-    async () => {
-      const res = await getDepartments();
-      return withAll
-        ? DEFAULT_DEPARTMENTS(schema.all).concat(res.data)
-        : res.data;
-    },
-    { initialData }
-  );
+  const query = useQuery(['departments', 'control_ui'], async () => {
+    const res = await getDepartments();
+    return withAll
+      ? DEFAULT_DEPARTMENTS(schema.all).concat(res.data)
+      : res.data;
+  });
 
   return query;
 };
