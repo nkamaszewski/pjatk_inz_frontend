@@ -11,8 +11,8 @@ export const useAddEmploymentMutation = () => {
       queryClient.invalidateQueries('employments');
       setSuccessSnackbar('Dodano zatrudnienie');
     },
-    onError: () => {
-      setErrorSnackbar('Operacja nie udała się');
+    onError: (error: any) => {
+      setErrorSnackbar(error?.message ?? 'Operacja nie udała się');
     },
   });
   return mutation;

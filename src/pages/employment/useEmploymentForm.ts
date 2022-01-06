@@ -8,6 +8,7 @@ const validationSchema = Yup.object().shape({
     })
     .required('data jest wymagana'),
   DateTo: Yup.date()
+    .nullable()
     .transform((value, originalValue) => {
       return originalValue ? new Date(originalValue) : null;
     })
