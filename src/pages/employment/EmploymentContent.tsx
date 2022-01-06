@@ -1,15 +1,17 @@
 import { Button, TextField } from '@material-ui/core';
 import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
+import { formatDate } from 'helpers/formatDate';
 import { useLanguage } from 'providers/LanguageProvider';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { getEmployee, postEmployee } from '../../api/Employee';
+import { postEmployee } from '../../api/Employee';
 import DepartmentSelect from '../../components/controls_UI/departmentSelect/DepartmentSelect';
 import PersonSelect from '../../components/controls_UI/personSelect/PersonSelect';
 import PositionSelect from '../../components/controls_UI/positionSelect/PositionSelect';
 import { EmploymentDTO } from '../../types/DTO/Employment';
 import { useAddEmploymentMutation } from './useAddEmploymentMutation';
 import { useEmploymentForm } from './useEmploymentForm';
+import { useShowEmployeeConfig } from './useShowEmployeeConfig';
 import { useUpdateEmploymentMutation } from './useUpdateEmploymentMutation';
 
 const EmploymentContentStyle = styled.div`
@@ -19,7 +21,7 @@ const EmploymentContentStyle = styled.div`
 `;
 
 interface Props {
-  closeDrawer: Function;
+  closeDrawer: () => void;
   editEmployee?: EmploymentDTO | null;
 }
 
@@ -32,12 +34,19 @@ const initialValues = {
 };
 
 const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
+  console.log(editEmployee);
   const [pesel, setPesel] = useState(0);
   const [password, setPassword] = useState('');
   const addMutation = useAddEmploymentMutation();
   const updateMutation = useUpdateEmploymentMutation();
   const employmentForm = useEmploymentForm()({
-    initialValues,
+    initialValues: editEmployee
+      ? {
+          ...editEmployee,
+          DateFrom: formatDate(editEmployee?.DateFrom),
+          DateTo: formatDate(editEmployee?.DateTo),
+        }
+      : initialValues,
     onSubmit: async (values) => {
       if (showEmployeeConfig) {
         await postEmployee({
@@ -65,21 +74,9 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
     },
   });
 
-  const [showEmployeeConfig, setShowEmployeeConfig] = useState(false);
-
-  useEffect(() => {
-    if (employmentForm.values.IdPerson) {
-      getEmployee(employmentForm.values.IdPerson)
-        .then((res) => {
-          if (res.status === 404) {
-            setShowEmployeeConfig(true);
-          }
-        })
-        .catch((e) => {
-          setShowEmployeeConfig(true);
-        });
-    }
-  }, [employmentForm.values.IdPerson]);
+  const showEmployeeConfig = useShowEmployeeConfig(
+    employmentForm.values.IdPerson
+  );
 
   const handleOnSave = () => {
     employmentForm.submitForm();
