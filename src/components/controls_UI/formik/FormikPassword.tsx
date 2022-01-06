@@ -1,7 +1,9 @@
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FormControl } from '@material-ui/core';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IconBtn } from '../../IconBtn';
+import { ErrorHelperText } from '../ErrorHelperText';
 import { FormikTextField } from './FormikTextField';
 
 const FormikPasswordStyled = styled.div`
@@ -27,14 +29,17 @@ const FormikPassword = (props: Props) => {
 
   const handleToggle = () => setShowPassword((prev) => !prev);
   return (
-    <FormikPasswordStyled>
-      <FormikTextField {...props} type={showPassword ? 'text' : 'password'} />
-      <IconBtn
-        title={showPassword ? 'ukryj hasło' : 'pokaż hasło'}
-        onClick={handleToggle}
-        icon={showPassword ? faEyeSlash : faEye}
-      />
-    </FormikPasswordStyled>
+    <FormControl>
+      <FormikPasswordStyled>
+        <FormikTextField {...props} type={showPassword ? 'text' : 'password'} />
+        <IconBtn
+          title={showPassword ? 'ukryj hasło' : 'pokaż hasło'}
+          onClick={handleToggle}
+          icon={showPassword ? faEyeSlash : faEye}
+        />
+      </FormikPasswordStyled>
+      {props.error && props.touched && <ErrorHelperText text={props.error} />}
+    </FormControl>
   );
 };
 

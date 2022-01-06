@@ -1,8 +1,8 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import FormikPassword from 'components/controls_UI/formik/FormikPassword';
 import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { formatDate } from 'helpers/formatDate';
 import { useLanguage } from 'providers/LanguageProvider';
-import { useState } from 'react';
 import styled from 'styled-components';
 import { postEmployee } from '../../api/Employee';
 import DepartmentSelect from '../../components/controls_UI/departmentSelect/DepartmentSelect';
@@ -31,12 +31,12 @@ const initialValues = {
   IdDepartment: '',
   IdPosition: '',
   IdPerson: '',
+  showEmployeeConfig: false,
+  Pesel: 0,
+  Password: '',
 };
 
 const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
-  console.log(editEmployee);
-  const [pesel, setPesel] = useState(0);
-  const [password, setPassword] = useState('');
   const addMutation = useAddEmploymentMutation();
   const updateMutation = useUpdateEmploymentMutation();
   const employmentForm = useEmploymentForm()({
@@ -45,14 +45,17 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
           ...editEmployee,
           DateFrom: formatDate(editEmployee?.DateFrom),
           DateTo: formatDate(editEmployee?.DateTo),
+          showEmployeeConfig: false,
+          Pesel: 0,
+          Password: '',
         }
       : initialValues,
     onSubmit: async (values) => {
-      if (showEmployeeConfig) {
+      if (values.showEmployeeConfig) {
         await postEmployee({
           IdPerson: values.IdPerson,
-          Pesel: pesel,
-          Password: password,
+          Pesel: values.Pesel,
+          Password: values.Password,
         });
       }
 
@@ -74,22 +77,12 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
     },
   });
 
-  const showEmployeeConfig = useShowEmployeeConfig(
-    employmentForm.values.IdPerson
-  );
+  useShowEmployeeConfig(employmentForm);
 
   const handleOnSave = () => {
     employmentForm.submitForm();
   };
 
-  const handleOnPeselChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPesel(Number(event.target.value));
-  };
-  const handleOnPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPassword(event.target.value);
-  };
   const {
     language: { schema },
   } = useLanguage();
@@ -145,27 +138,27 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
         touched={employmentForm.touched.IdPerson}
       />
 
-      {showEmployeeConfig && (
+      {employmentForm.values.showEmployeeConfig && (
         <>
-          <TextField
+          <FormikTextField
             label="Pesel"
-            name="pesel"
+            name="Pesel"
             type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={pesel}
-            onChange={handleOnPeselChange}
+            value={employmentForm.values.Pesel}
+            onChange={employmentForm.handleChange}
+            onBlur={employmentForm.handleBlur}
+            error={employmentForm.errors.Pesel}
+            touched={employmentForm.touched.Pesel}
           />
-          <TextField
+
+          <FormikPassword
             label="Hasło"
-            name="password"
-            type="password"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value={password}
-            onChange={handleOnPasswordChange}
+            name="Password"
+            value={employmentForm.values.Password}
+            onChange={employmentForm.handleChange}
+            onBlur={employmentForm.handleBlur}
+            error={employmentForm.errors.Password}
+            touched={employmentForm.touched.Password}
           />
         </>
       )}
