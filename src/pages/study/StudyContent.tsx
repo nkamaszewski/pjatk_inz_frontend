@@ -59,7 +59,7 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
           IdStudyMode: studyModeId,
           IdGraduateDegree: graduateDegreeId,
         });
-        setSnackbar(createSnackbarSuccess('Studia zostały wyedytowane'));
+        setSnackbar(createSnackbarSuccess(schema.theStudiesHaveBeenEdited));
         closeDrawer();
       } else {
         const response = await postEducation(education);
@@ -71,7 +71,7 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
           IdStudyMode: studyModeId,
           IdGraduateDegree: graduateDegreeId,
         });
-        setSnackbar(createSnackbarSuccess('Dodano studia'));
+        setSnackbar(createSnackbarSuccess(schema.studiesAdded));
         closeDrawer();
       }
       fetchStudies();

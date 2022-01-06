@@ -7,6 +7,7 @@ import {
   TextField,
 } from '@material-ui/core';
 import { EmployeeSelect } from 'components/controls_UI/employeeSelect/EmployeeSelect';
+import { useLanguage } from 'providers/LanguageProvider';
 import { ParticipationDTO } from 'types/DTO/Participation';
 import { useFormikParticipation } from './useFormikParticipation';
 
@@ -52,9 +53,13 @@ export const ParticipationForm = ({
   const handleChangeEmployee = (id: string) => {
     formik.setFieldValue('IdPerson', id);
   };
+  const {
+    language: { schema },
+  } = useLanguage();
+
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>
-      <DialogTitle>Dodaj uczestnika</DialogTitle>
+      <DialogTitle>{schema.addAParticipant}</DialogTitle>
       <DialogContent
         style={{ width: '500px', display: 'grid', gridRowGap: '16px' }}
       >
@@ -63,7 +68,7 @@ export const ParticipationForm = ({
           onChange={handleChangeEmployee}
         />
         <TextField
-          label="Data rejestracji"
+          label={schema.dateOfRegistration}
           name="DateOfRegistration"
           type="date"
           fullWidth
@@ -74,7 +79,7 @@ export const ParticipationForm = ({
           onChange={formik.handleChange}
         />
         <TextField
-          label="Data zakończenia"
+          label={schema.endDate}
           name="EndDate"
           type="date"
           fullWidth
@@ -87,7 +92,7 @@ export const ParticipationForm = ({
         <TextField
           margin="dense"
           name="CertificateOfCompletion"
-          label="Nazwa certyfikatu"
+          label={schema.theNameOfTheCertificate}
           type="text"
           fullWidth
           value={formik.values.CertificateOfCompletion}
@@ -96,10 +101,10 @@ export const ParticipationForm = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleOnCancel} color="primary">
-          Anuluj
+          {schema.cancel}
         </Button>
         <Button onClick={handleOnConfirm} color="primary">
-          Dodaj
+          {schema.add}
         </Button>
       </DialogActions>
     </Dialog>

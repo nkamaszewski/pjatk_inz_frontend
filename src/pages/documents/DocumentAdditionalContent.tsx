@@ -64,10 +64,10 @@ const DocumentAdditionalContent = ({
         });
 
         fetchDocuments();
-        setSnackbar(createSnackbarSuccess('Dodano wniosek'));
+        setSnackbar(createSnackbarSuccess(schema.applicationAdded));
         // }
       } catch (e) {
-        setSnackbar(createSnackbarError('Nie udało się dodać wniosku'));
+        setSnackbar(createSnackbarError(schema.theApplicationCouldNotBeAdded));
         console.error(e);
       } finally {
         closeDrawer();

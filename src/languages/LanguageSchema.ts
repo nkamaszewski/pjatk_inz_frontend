@@ -225,7 +225,16 @@ export interface LanguageSchema {
   addTheYearOfTheApplication: string;
   year: string;
   category: string;
-  link: string;  
+  link: string;
+  applicationAdded: string; 
+  theApplicationCouldNotBeAdded: string;
+  theApplicationHasBeenDeleted: string; 
+  theRequestCouldNotBeDeleted: string;
+  theStudiesHaveBeenEdited: string;
+  studiesAdded: string;
+  theNameOfTheCertificate: string; 
+  endDate: string;
+  addAParticipant: string;     
   validation: {
     loginRequired: string;
     emailFormat: string;

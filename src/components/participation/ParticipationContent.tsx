@@ -1,5 +1,6 @@
 import { Card } from '@material-ui/core';
 import DeleteBtn from 'components/DeleteBtn';
+import { useLanguage } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { ParticipationsListDTO } from 'types/DTO/Participation';
 
@@ -21,11 +22,15 @@ export const ParticipationContent = ({
   participations,
   removeParticipation,
 }: ParticipationContentProps) => {
+  const {
+    language: { schema },
+  } = useLanguage();
+
   return (
     <ParticipationContentStyled>
       <header className="grid-participation">
-        <p>Imię</p>
-        <p>Nazwisko</p>
+        <p>{schema.firstName}</p>
+        <p>{schema.lastName}</p>
       </header>
       {participations.map((part) => (
         <Card key={part.IdEducation} className="grid-participation">

@@ -16,6 +16,7 @@ import { formatDate } from '../../helpers/formatDate';
 import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
 import DocumentAdditionalFieldset from './DocumentAdditionalFieldset';
 import DocumentAdditionalListHeader from './DocumentAdditionalListHeader';
+import { useLanguage } from 'providers/LanguageProvider';
 
 const DocumentAdditionalListStyle = styled.div`
   padding: 16px;
@@ -52,24 +53,28 @@ const DocumentAdditionalList = ({ documents, fetchDocuments }: Props) => {
     try {
       await deleteApplicationsForRefund(id);
       fetchDocuments();
-      setSnackbar(createSnackbarSuccess('usunięto wniosek'));
+      setSnackbar(createSnackbarSuccess(schema.theApplicationHasBeenDeleted));
     } catch (e) {
-      setSnackbar(createSnackbarError('nie udało się usunąć wniosku!'));
+      setSnackbar(createSnackbarError(schema.theRequestCouldNotBeDeleted));
     }
   };
   const handleDeleteItemDetails = async (id: string) => {
     try {
       await deleteApplicationsForReason(id);
       fetchDocuments();
-      setSnackbar(createSnackbarSuccess('usunięto wniosek'));
+      setSnackbar(createSnackbarSuccess(schema.theApplicationHasBeenDeleted));
     } catch (e) {
-      setSnackbar(createSnackbarError('nie udało się usunąć wniosku!'));
+      setSnackbar(createSnackbarError(schema.theRequestCouldNotBeDeleted));
     }
   };
   console.log('statuses', statuses);
 
   const getStatusName = (id: string) =>
     statuses.find(({ IdStatus }) => IdStatus === id)?.Name ?? '';
+    const {
+      language: { schema },
+    } = useLanguage();
+  
   return (
     <DocumentAdditionalListStyle>
       <Drawer
