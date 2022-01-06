@@ -1,10 +1,10 @@
 import { Button, TextField } from '@material-ui/core';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postDivision, updateDivision } from '../../api/Division';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
@@ -29,6 +29,7 @@ const DivisionContent = ({
 }: Props) => {
   const [name, setName] = useState(editDivision?.Name ?? '');
   const { setSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
 
   const handleOnNameChange = (e: any) => {
     e.persist();
@@ -45,16 +46,16 @@ const DivisionContent = ({
         });
         fetchDivisionsDepartments();
         setSnackbar(createSnackbarSuccess('edytowano pion'));
+        closeDrawer();
       } else {
         await postDivision(newDivision);
         fetchDivisionsDepartments();
         setSnackbar(createSnackbarSuccess('dodano pion'));
+        closeDrawer();
       }
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('Operacja nie powiodła się!'));
-    } finally {
-      closeDrawer();
+      handleHttpError(e);
     }
   };
   const {

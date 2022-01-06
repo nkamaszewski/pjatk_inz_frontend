@@ -1,4 +1,5 @@
 import { Divider, Drawer } from '@material-ui/core';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteOffer } from '../../api/Offers';
@@ -6,7 +7,6 @@ import { deleteQuestionnaireOffer } from '../../api/QuestionnaireOffer';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
@@ -48,26 +48,27 @@ const PollsList = ({
 }: Props) => {
   const [editOffer, setEditOffer]: [OfferDTO | null, Function] = useState(null);
   const { setSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
 
   const handleDeleteItem = async (id: string) => {
     try {
       await deleteQuestionnaireOffer(id);
-      setSnackbar(createSnackbarSuccess('Usunięto ankietę!'));
+      setSnackbar(createSnackbarSuccess('Usunięto wniosek!'));
       fetchQuestionnaireOffers();
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('Nie udało się usunąć ankiety!'));
+      handleHttpError(e);
     }
   };
 
   const handleDeleteOffer = async (id: string) => {
     try {
       await deleteOffer(id);
-      setSnackbar(createSnackbarSuccess('Usunięto ofertę!'));
+      setSnackbar(createSnackbarSuccess('Usunięto propozycję szkolenia!'));
       fetchQuestionnaireOffers();
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('Nie udało się usunąć oferty!'));
+      handleHttpError(e);
     }
   };
 

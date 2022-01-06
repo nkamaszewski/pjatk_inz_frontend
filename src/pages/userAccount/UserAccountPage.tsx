@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Divider, Drawer } from '@material-ui/core';
 import { updateUser } from 'api/User';
 import { useDrawer } from 'hooks/useDrawer';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useSnackbar } from 'providers/NotificationContext';
 import { useState } from 'react';
@@ -57,7 +58,8 @@ const UserAccountPage = () => {
       },
     },
   } = useLanguage();
-  const { setSuccessSnackbar, setErrorSnackbar } = useSnackbar();
+  const { setSuccessSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
 
   const formik = useFormikUser({
     initialValues: user ?? ({} as PersonDTO),
@@ -68,7 +70,7 @@ const UserAccountPage = () => {
         setSuccessSnackbar(_form.submitSuccess);
       } catch (e) {
         console.error('useFormikUser', e);
-        setErrorSnackbar(_form.submitError);
+        handleHttpError(e);
       }
     },
   });

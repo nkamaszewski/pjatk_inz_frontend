@@ -1,11 +1,11 @@
 import { Divider, Drawer } from '@material-ui/core';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deletePosition } from '../../api/Position';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
@@ -30,6 +30,7 @@ const PositionsList = ({ positions, fetchPositions }: Props) => {
   const [editPosition, setEditPosition]: [PositionDTO | null, Function] =
     useState(null);
   const { setSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
 
   const handleDeleteItem = async (id: string) => {
     try {
@@ -38,7 +39,7 @@ const PositionsList = ({ positions, fetchPositions }: Props) => {
       fetchPositions();
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('Nie udało się usunąć stanowiska!'));
+      handleHttpError(e);
     }
   };
 

@@ -6,12 +6,12 @@ import {
   Select,
   TextField,
 } from '@material-ui/core';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postDepartment, updateDepartment } from '../../api/Department';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
@@ -42,6 +42,7 @@ const DepartmentContent = ({
     editDepartment?.IdDivision ?? ''
   );
   const { setSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
 
   const handleOnNameChange = (e: any) => {
     e.persist();
@@ -62,16 +63,16 @@ const DepartmentContent = ({
         });
         fetchDivisionsDepartments();
         setSnackbar(createSnackbarSuccess('edytowano wydział'));
+        closeDrawer();
       } else {
         await postDepartment(newDepartment);
         fetchDivisionsDepartments();
         setSnackbar(createSnackbarSuccess('dodano wydział'));
+        closeDrawer();
       }
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('Operacja nie powiodła się!'));
-    } finally {
-      closeDrawer();
+      handleHttpError(e);
     }
   };
   const {

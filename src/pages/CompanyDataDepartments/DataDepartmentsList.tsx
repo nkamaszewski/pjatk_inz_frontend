@@ -1,4 +1,5 @@
 import { Divider, Drawer } from '@material-ui/core';
+import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteDepartment } from '../../api/Department';
@@ -6,7 +7,6 @@ import { deleteDivision } from '../../api/Division';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import {
-  createSnackbarError,
   createSnackbarSuccess,
   useSnackbar,
 } from '../../providers/NotificationContext';
@@ -48,6 +48,7 @@ const DataDepartmentsList = ({
   const [editDepartment, setEditDepartment]: [DepartmentDTO | null, Function] =
     useState(null);
   const { setSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
   const handleCloseDivisionDrawer = () => setEditDivision(null);
   const handleCloseDepartmentDrawer = () => setEditDepartment(null);
   const handleDeleteDivision = async (id: string) => {
@@ -56,7 +57,7 @@ const DataDepartmentsList = ({
       fetchDivisionsDepartments();
       setSnackbar(createSnackbarSuccess('usunięto pion'));
     } catch (e) {
-      setSnackbar(createSnackbarError('nie udało się usunąć pionu!'));
+      handleHttpError(e);
     }
   };
   const handleDeleteDepartment = async (id: string) => {
@@ -65,7 +66,7 @@ const DataDepartmentsList = ({
       fetchDivisionsDepartments();
       setSnackbar(createSnackbarSuccess('usunięto wydział'));
     } catch (e) {
-      setSnackbar(createSnackbarError('nie udało się usunąć wydziału!'));
+      handleHttpError(e);
     }
   };
   return (
