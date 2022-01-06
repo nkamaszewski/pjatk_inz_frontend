@@ -2,6 +2,7 @@ import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import React from 'react';
 import styled from 'styled-components';
+import { ErrorHelperText } from '../ErrorHelperText';
 import { useRoleQuery } from './useRoleQuery';
 
 const UserRoleSelectStyle = styled.div`
@@ -11,11 +12,21 @@ const UserRoleSelectStyle = styled.div`
 
 interface Props {
   value: string;
-  onChange: Function;
+  onChange: (id: string) => void;
+  onBlur?: (e: React.FocusEvent<any>) => void;
   name?: string;
+  touched?: boolean;
+  error?: string;
 }
 
-export const UserRoleSelect = ({ value, onChange, name }: Props) => {
+export const UserRoleSelect = ({
+  value,
+  onChange,
+  name,
+  onBlur,
+  touched,
+  error,
+}: Props) => {
   const roleQuery = useRoleQuery();
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -26,13 +37,19 @@ export const UserRoleSelect = ({ value, onChange, name }: Props) => {
     <UserRoleSelectStyle>
       <FormControlStyled>
         <InputLabel>Rola</InputLabel>
-        <Select value={value} onChange={handleSelectChange} name={name}>
+        <Select
+          value={value}
+          onChange={handleSelectChange}
+          onBlur={onBlur}
+          name={name}
+        >
           {roleQuery.data?.data.map((role) => (
             <MenuItem key={role.IdRole} value={role.IdRole}>
               {role.Name}
             </MenuItem>
           ))}
         </Select>
+        {touched && error && <ErrorHelperText text={error} />}
       </FormControlStyled>
     </UserRoleSelectStyle>
   );

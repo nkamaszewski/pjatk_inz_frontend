@@ -37,6 +37,10 @@ const validationSchema = Yup.object().shape({
     is: true,
     then: (schema: any) => schema.required('hasło jest wymagane'),
   }),
+  IdRole: Yup.string().when('showEmployeeConfig', {
+    is: true,
+    then: (schema: any) => schema.required('podanie roli jest wymagane'),
+  }),
 });
 
 export const useEmploymentForm = () => useForm(validationSchema);

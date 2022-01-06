@@ -1,6 +1,7 @@
 import { Button } from '@material-ui/core';
 import FormikPassword from 'components/controls_UI/formik/FormikPassword';
 import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
+import { UserRoleSelect } from 'components/controls_UI/userRoleSelect/UserRoleSelect';
 import { formatDate } from 'helpers/formatDate';
 import { useLanguage } from 'providers/LanguageProvider';
 import styled from 'styled-components';
@@ -34,6 +35,7 @@ const initialValues = {
   showEmployeeConfig: false,
   Pesel: 0,
   Password: '',
+  IdRole: '',
 };
 
 const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
@@ -48,6 +50,7 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
           showEmployeeConfig: false,
           Pesel: 0,
           Password: '',
+          IdRole: '',
         }
       : initialValues,
     onSubmit: async (values) => {
@@ -56,6 +59,7 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
           IdPerson: values.IdPerson,
           Pesel: values.Pesel,
           Password: values.Password,
+          IdRole: values.IdRole,
         });
       }
 
@@ -159,6 +163,15 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
             onBlur={employmentForm.handleBlur}
             error={employmentForm.errors.Password}
             touched={employmentForm.touched.Password}
+          />
+
+          <UserRoleSelect
+            name="IdRole"
+            value={employmentForm.values.IdRole}
+            onChange={(id) => employmentForm.setFieldValue('IdRole', id)}
+            onBlur={employmentForm.handleBlur}
+            error={employmentForm.errors.IdRole}
+            touched={employmentForm.touched.IdRole}
           />
         </>
       )}
