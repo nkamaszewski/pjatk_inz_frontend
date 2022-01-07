@@ -5,7 +5,7 @@ import React from 'react';
 import { ErrorHelperText } from '../ErrorHelperText';
 import { useDepartmentsQuery } from './useDepartmentsQuery';
 
-interface Props {
+export interface DepartmentSelectProps {
   value: string;
   onChange: (id: string) => void;
   onBlur?: (e: React.FocusEvent<any>) => void;
@@ -13,6 +13,8 @@ interface Props {
   withAll?: boolean;
   touched?: boolean;
   error?: string;
+  idDivision?: string;
+  disabled?: boolean;
 }
 
 const DepartmentSelect = ({
@@ -23,8 +25,10 @@ const DepartmentSelect = ({
   withAll = false,
   touched = false,
   error,
-}: Props) => {
-  const departmentsQuery = useDepartmentsQuery(withAll);
+  idDivision,
+  disabled = false,
+}: DepartmentSelectProps) => {
+  const departmentsQuery = useDepartmentsQuery(withAll, idDivision);
   const {
     language: { schema },
   } = useLanguage();
@@ -41,6 +45,7 @@ const DepartmentSelect = ({
         onChange={handleSelectChange}
         onBlur={onBlur}
         name={name}
+        disabled={disabled}
       >
         {departmentsQuery.data?.map((department) => (
           <MenuItem

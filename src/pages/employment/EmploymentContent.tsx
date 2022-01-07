@@ -2,11 +2,11 @@ import { Button } from '@material-ui/core';
 import FormikPassword from 'components/controls_UI/formik/FormikPassword';
 import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { RoleSelect } from 'components/controls_UI/roleSelect/RoleSelect';
+import { DivisionDepartmentCascade } from 'components/DivisionDepartmentCascade';
 import { formatDate } from 'helpers/formatDate';
 import { useLanguage } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { postEmployee } from '../../api/Employee';
-import DepartmentSelect from '../../components/controls_UI/departmentSelect/DepartmentSelect';
 import PersonSelect from '../../components/controls_UI/personSelect/PersonSelect';
 import PositionSelect from '../../components/controls_UI/positionSelect/PositionSelect';
 import { EmploymentDTO } from '../../types/DTO/Employment';
@@ -29,6 +29,7 @@ interface Props {
 const initialValues = {
   DateFrom: '',
   DateTo: '',
+  IdDivision: '',
   IdDepartment: '',
   IdPosition: '',
   IdPerson: '',
@@ -64,6 +65,7 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
       const empDTO = {
         DateFrom: values.DateFrom,
         DateTo: values.DateTo ? values.DateTo : null,
+        IdDivision: values.IdDivision,
         IdDepartment: values.IdDepartment,
         IdPosition: values.IdPosition,
         IdPerson: values.IdPerson,
@@ -123,13 +125,24 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
         touched={employmentForm.touched.IdRole}
       />
 
-      <DepartmentSelect
-        name="IdDepartment"
-        value={employmentForm.values.IdDepartment}
-        onChange={(id) => employmentForm.setFieldValue('IdDepartment', id)}
-        onBlur={employmentForm.handleBlur}
-        error={employmentForm.errors.IdDepartment}
-        touched={employmentForm.touched.IdDepartment}
+      <DivisionDepartmentCascade
+        divisionProps={{
+          name: 'IdDivision',
+          value: employmentForm.values.IdDivision,
+          onChange: (id) => employmentForm.setFieldValue('IdDivision', id),
+          onBlur: employmentForm.handleBlur,
+          error: employmentForm.errors.IdDivision,
+          touched: employmentForm.touched.IdDivision,
+        }}
+        departmentProps={{
+          name: 'IdDepartment',
+          value: employmentForm.values.IdDepartment,
+          onChange: (id) => employmentForm.setFieldValue('IdDepartment', id),
+          onBlur: employmentForm.handleBlur,
+          error: employmentForm.errors.IdDepartment,
+          touched: employmentForm.touched.IdDepartment,
+        }}
+        idRole={employmentForm.values.IdRole}
       />
 
       <PositionSelect

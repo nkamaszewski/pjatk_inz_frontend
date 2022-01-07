@@ -1,6 +1,8 @@
 import { useForm } from 'helpers/useForm';
 import * as Yup from 'yup';
 
+export const DIRECTOR_ID_ROLE = '3';
+
 const validationSchema = Yup.object().shape({
   DateFrom: Yup.date()
     .transform((value, originalValue) => {
@@ -19,7 +21,12 @@ const validationSchema = Yup.object().shape({
         schema.min(DateFrom, 'data do nie może być wcześniejsza od daty od')
     ),
   IdRole: Yup.string().required('podanie roli jest wymagane'),
-  IdDepartment: Yup.string().required('podanie wydziału jest wymagane'),
+  IdDivision: Yup.string().required('podanie pionu jest wymagane'),
+  IdDepartment: Yup.string().when('IdRole', {
+    is: DIRECTOR_ID_ROLE,
+    then: (schema: any) => schema.notRequired(),
+    otherwise: (schema: any) => schema.required('pesel jest wymagany'),
+  }),
   IdPosition: Yup.string().required('podanie stanowiska jest wymagane'),
   IdPerson: Yup.string().required('podanie osoby jest wymagane'),
   showEmployeeConfig: Yup.boolean(),

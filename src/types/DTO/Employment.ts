@@ -7,6 +7,7 @@ export interface EmploymentDTO {
   DateFrom: Date | string | null;
   DateTo: Date | string | null;
   IdDepartment: string;
+  IdDivision: string;
   IdPosition: string;
   IdPerson: string;
   IdRole: string;
@@ -31,6 +32,7 @@ export const mapEmploymentListDTOtoEmploymentDTO = ({
   DateFrom,
   DateTo,
   Department: { IdDepartment },
+  Division: { IdDivision },
   Position: { IdPosition },
   IdRole,
 }: EmploymentListDTO) => {
@@ -38,6 +40,7 @@ export const mapEmploymentListDTOtoEmploymentDTO = ({
     IdEmployment,
     DateFrom,
     DateTo,
+    IdDivision,
     IdDepartment,
     IdPosition,
     IdPerson,

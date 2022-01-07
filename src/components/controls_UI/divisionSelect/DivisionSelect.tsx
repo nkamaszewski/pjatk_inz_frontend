@@ -2,16 +2,28 @@ import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useLanguage } from 'providers/LanguageProvider';
 import React from 'react';
+import { ErrorHelperText } from '../ErrorHelperText';
 import { useDivisionsQuery } from './useDivisionsQuery';
 
-interface Props {
+export interface DivisionSelectProps {
   value: string;
-  onChange: Function;
+  onChange: (id: string) => void;
+  onBlur?: (e: React.FocusEvent<any>) => void;
   name?: string;
   withAll?: boolean;
+  touched?: boolean;
+  error?: string;
 }
 
-const DivisionSelect = ({ value, onChange, name, withAll = false }: Props) => {
+const DivisionSelect = ({
+  value,
+  onChange,
+  onBlur,
+  name,
+  withAll = false,
+  touched = false,
+  error,
+}: DivisionSelectProps) => {
   const divisionsQuery = useDivisionsQuery(withAll);
   const {
     language: { schema },
@@ -31,6 +43,7 @@ const DivisionSelect = ({ value, onChange, name, withAll = false }: Props) => {
           </MenuItem>
         ))}
       </Select>
+      {touched && error && <ErrorHelperText text={error} />}
     </FormControlStyled>
   );
 };
