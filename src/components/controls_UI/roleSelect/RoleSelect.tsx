@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { ErrorHelperText } from '../ErrorHelperText';
 import { useRoleQuery } from './useRoleQuery';
 
-const UserRoleSelectStyle = styled.div`
+const RoleSelectStyle = styled.div`
   display: grid;
   grid-template-columns: 1fr;
 `;
@@ -19,7 +19,7 @@ interface Props {
   error?: string;
 }
 
-export const UserRoleSelect = ({
+export const RoleSelect = ({
   value,
   onChange,
   name,
@@ -34,7 +34,7 @@ export const UserRoleSelect = ({
   };
 
   return (
-    <UserRoleSelectStyle>
+    <RoleSelectStyle>
       <FormControlStyled>
         <InputLabel>Rola</InputLabel>
         <Select
@@ -51,6 +51,6 @@ export const UserRoleSelect = ({
         </Select>
         {touched && error && <ErrorHelperText text={error} />}
       </FormControlStyled>
-    </UserRoleSelectStyle>
+    </RoleSelectStyle>
   );
 };

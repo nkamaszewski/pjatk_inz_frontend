@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core';
 import FormikPassword from 'components/controls_UI/formik/FormikPassword';
 import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
-import { UserRoleSelect } from 'components/controls_UI/userRoleSelect/UserRoleSelect';
+import { RoleSelect } from 'components/controls_UI/roleSelect/RoleSelect';
 import { formatDate } from 'helpers/formatDate';
 import { useLanguage } from 'providers/LanguageProvider';
 import styled from 'styled-components';
@@ -114,7 +114,7 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
         touched={employmentForm.touched.DateTo}
       />
 
-      <UserRoleSelect
+      <RoleSelect
         name="IdRole"
         value={employmentForm.values.IdRole}
         onChange={(id) => employmentForm.setFieldValue('IdRole', id)}
