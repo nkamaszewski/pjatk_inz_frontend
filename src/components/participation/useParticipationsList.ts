@@ -3,6 +3,7 @@ import {
   getParticipationsByIdEducation,
   postParticipation,
 } from 'api/Participation';
+import { useLanguage } from 'providers/LanguageProvider';
 import {
   createSnackbarError,
   createSnackbarSuccess,
@@ -40,10 +41,10 @@ export const useParticipationsList = (IdEducation: string) => {
     try {
       await postParticipation({ ...participation, IdEducation });
       await fetchParticipations();
-      setSnackbar(createSnackbarSuccess('dodano uczestnika'));
+      setSnackbar(createSnackbarSuccess(schema.participantAdded));
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('nie udało się dodać uczestnika!'));
+      setSnackbar(createSnackbarError(schema.failedToAddAParticipant));
     }
   };
 
@@ -51,12 +52,15 @@ export const useParticipationsList = (IdEducation: string) => {
     try {
       await deleteParticipation(idParticipation);
       await fetchParticipations();
-      setSnackbar(createSnackbarSuccess('Usunięto uczestnika'));
+      setSnackbar(createSnackbarSuccess(schema.participantRemoved));
     } catch (e) {
       console.error(e);
-      setSnackbar(createSnackbarError('nie udało się usunąć uczestnika!'));
+      setSnackbar(createSnackbarError(schema.theParticipantCouldNotBeRemoved));
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
   return {
     participations,
     fetchParticipations,

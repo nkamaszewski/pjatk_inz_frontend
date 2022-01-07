@@ -240,7 +240,17 @@ export interface LanguageSchema {
   employmentWasEdited: string;
   employmentRemoved: string; 
   groupsToWhichItBelongs: string;  
-  cardinality: string;       
+  cardinality: string; 
+  activationLinkHasBeenSent: string; 
+  theActivationLinkCouldNotBeSent: string; 
+  participantAdded: string; 
+  failedToAddAParticipant: string; 
+  participantRemoved: string;  
+  theParticipantCouldNotBeRemoved: string;
+  courseAdded: string; 
+  editedCourse: string;   
+  showPassword: string; 
+  hidePassword: string;  
   validation: {
     loginRequired: string;
     emailFormat: string;

@@ -1,4 +1,5 @@
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IconBtn } from '../../IconBtn';
@@ -26,11 +27,15 @@ const FormikPassword = (props: Props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleToggle = () => setShowPassword((prev) => !prev);
+  const {
+    language: { schema },
+  } = useLanguage();
+
   return (
     <FormikPasswordStyled>
       <FormikTextField {...props} type={showPassword ? 'text' : 'password'} />
       <IconBtn
-        title={showPassword ? 'ukryj hasło' : 'pokaż hasło'}
+        title={showPassword ? schema.hidePassword : schema.showPassword}
         onClick={handleToggle}
         icon={showPassword ? faEyeSlash : faEye}
       />

@@ -73,7 +73,7 @@ const TrainingContent = ({
           DateFrom: dateFrom,
           DateTo: dateTo,
         });
-        setSnackbar(createSnackbarSuccess('Edytowano Kurs'));
+        setSnackbar(createSnackbarSuccess(schema.editedCourse));
         closeDrawer();
       } else {
         const response = await postEducation(education);
@@ -87,7 +87,7 @@ const TrainingContent = ({
           DateFrom: dateFrom,
           DateTo: dateTo,
         });
-        setSnackbar(createSnackbarSuccess('Dodano Kurs'));
+        setSnackbar(createSnackbarSuccess(schema.courseAdded));
         closeDrawer();
       }
       fetchTrainings();

@@ -1,4 +1,5 @@
 import { postInviteUser } from 'api/InivitationUser';
+import { useLanguage } from 'providers/LanguageProvider';
 import {
   createSnackbarError,
   createSnackbarSuccess,
@@ -10,13 +11,17 @@ export const useSendInvitation = () => {
   const sendInvitation = async (email: string) => {
     try {
       await postInviteUser(email);
-      setSnackbar(createSnackbarSuccess('wysłano link aktywacyjny'));
+      setSnackbar(createSnackbarSuccess(schema.activationLinkHasBeenSent));
     } catch (e) {
       console.error(e);
       setSnackbar(
-        createSnackbarError('nie udało się wysłać linku aktywacyjnego!')
+        createSnackbarError(schema.theActivationLinkCouldNotBeSent)
       );
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
+
   return sendInvitation;
 };
