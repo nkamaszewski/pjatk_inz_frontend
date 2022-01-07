@@ -5,26 +5,26 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
 export const useDeleteEmploymentMutation = () => {
-	const queryClient = useQueryClient();
-	const { setSuccessSnackbar, setErrorSnackbar } = useSnackbar();
-	const handleHttpError = useHandleHttpError();
+  const queryClient = useQueryClient();
+  const { setSuccessSnackbar } = useSnackbar();
+  const handleHttpError = useHandleHttpError();
 
-	const mutation = useMutation(
-		({ id }: { id: string }) => deleteEmployment(id),
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries('employments');
-				setSuccessSnackbar(schema.employmentRemoved);
-			},
-			onError: (error: any) => {
-				handleHttpError(error);
-				// setErrorSnackbar(error?.message ?? schema.theOperationWasUnsuccessful);
-			},
-		}
-	);
-	const {
-		language: { schema },
-	} = useLanguage();
+  const mutation = useMutation(
+    ({ id }: { id: string }) => deleteEmployment(id),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('employments');
+        setSuccessSnackbar(schema.employmentRemoved);
+      },
+      onError: (error: any) => {
+        handleHttpError(error);
+        // setErrorSnackbar(error?.message ?? schema.theOperationWasUnsuccessful);
+      },
+    }
+  );
+  const {
+    language: { schema },
+  } = useLanguage();
 
-	return mutation;
+  return mutation;
 };
