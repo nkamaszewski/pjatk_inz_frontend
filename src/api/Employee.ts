@@ -9,5 +9,4 @@ export const postEmployee = (employee: {
   IdPerson: string;
   Pesel: number;
   Password: string;
-  IdRole: string;
 }) => axiosJWT.post('/employees/', employee);

@@ -18,6 +18,7 @@ const validationSchema = Yup.object().shape({
         DateFrom &&
         schema.min(DateFrom, 'data do nie może być wcześniejsza od daty od')
     ),
+  IdRole: Yup.string().required('podanie roli jest wymagane'),
   IdDepartment: Yup.string().required('podanie wydziału jest wymagane'),
   IdPosition: Yup.string().required('podanie stanowiska jest wymagane'),
   IdPerson: Yup.string().required('podanie osoby jest wymagane'),
@@ -36,10 +37,6 @@ const validationSchema = Yup.object().shape({
   Password: Yup.string().when('showEmployeeConfig', {
     is: true,
     then: (schema: any) => schema.required('hasło jest wymagane'),
-  }),
-  IdRole: Yup.string().when('showEmployeeConfig', {
-    is: true,
-    then: (schema: any) => schema.required('podanie roli jest wymagane'),
   }),
 });
 

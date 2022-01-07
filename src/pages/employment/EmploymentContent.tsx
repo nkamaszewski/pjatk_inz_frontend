@@ -50,7 +50,6 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
           showEmployeeConfig: false,
           Pesel: 0,
           Password: '',
-          IdRole: '',
         }
       : initialValues,
     onSubmit: async (values) => {
@@ -59,7 +58,6 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
           IdPerson: values.IdPerson,
           Pesel: values.Pesel,
           Password: values.Password,
-          IdRole: values.IdRole,
         });
       }
 
@@ -69,6 +67,7 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
         IdDepartment: values.IdDepartment,
         IdPosition: values.IdPosition,
         IdPerson: values.IdPerson,
+        IdRole: values.IdRole,
       };
 
       if (editEmployee) {
@@ -113,6 +112,15 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
         onBlur={employmentForm.handleBlur}
         error={employmentForm.errors.DateTo}
         touched={employmentForm.touched.DateTo}
+      />
+
+      <UserRoleSelect
+        name="IdRole"
+        value={employmentForm.values.IdRole}
+        onChange={(id) => employmentForm.setFieldValue('IdRole', id)}
+        onBlur={employmentForm.handleBlur}
+        error={employmentForm.errors.IdRole}
+        touched={employmentForm.touched.IdRole}
       />
 
       <DepartmentSelect
@@ -163,15 +171,6 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
             onBlur={employmentForm.handleBlur}
             error={employmentForm.errors.Password}
             touched={employmentForm.touched.Password}
-          />
-
-          <UserRoleSelect
-            name="IdRole"
-            value={employmentForm.values.IdRole}
-            onChange={(id) => employmentForm.setFieldValue('IdRole', id)}
-            onBlur={employmentForm.handleBlur}
-            error={employmentForm.errors.IdRole}
-            touched={employmentForm.touched.IdRole}
           />
         </>
       )}

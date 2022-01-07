@@ -7,7 +7,7 @@ import { useRoleQuery } from './useRoleQuery';
 
 const UserRoleSelectStyle = styled.div`
   display: grid;
-  grid-template-columns: 1fr 48px;
+  grid-template-columns: 1fr;
 `;
 
 interface Props {

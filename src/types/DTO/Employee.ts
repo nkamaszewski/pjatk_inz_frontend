@@ -6,5 +6,4 @@ export interface EmployeeDTO {
   Password: string;
   employeePerson: PersonDTO;
   IsActive?: null | boolean;
-  IdRole: string;
 }
