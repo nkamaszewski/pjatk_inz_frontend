@@ -166,7 +166,8 @@ export const en: LanguageSchema = {
   cancel: 'cancel',
   addAnApplication: 'Add an application',
   theApplicationConcernsStudies: 'The application concers studies?',
-  isItInLineWithTheTermsOfReference: 'Is it in line with the terms of reference?',
+  isItInLineWithTheTermsOfReference:
+    'Is it in line with the terms of reference?',
   studies: 'studies',
   application: 'application',
   trainingApplication: 'Training application',
@@ -221,7 +222,8 @@ export const en: LanguageSchema = {
   cost: 'Cost',
   questionnaire: 'questionnaire',
   yearOfApplication: 'Year of application',
-  addTheYearOfTheApplicationToTheDatabase: 'Add the year of the application to the database',
+  addTheYearOfTheApplicationToTheDatabase:
+    'Add the year of the application to the database',
   addTheYearOfTheApplication: 'add the year of the application',
   year: 'Year',
   category: 'Category',
@@ -272,6 +274,7 @@ export const en: LanguageSchema = {
     passwordRequired: 'password is required',
     passwordFormat: 'password should contain min 5 chars',
     passwordConfirmFormat: 'password and confirm password are NOT the same',
+    dateRequired: 'date is required',
   },
   errorBoundary: {
     message: 'Something gone wrong... Relax and return to the app',
