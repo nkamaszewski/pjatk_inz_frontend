@@ -1,9 +1,11 @@
 import { useForm } from 'helpers/useForm';
+import { useLanguage } from 'providers/LanguageProvider';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
   DateFrom: Yup.date()
     .transform((value, originalValue) => {
+      
       return originalValue ? new Date(originalValue) : null;
     })
     .required('data jest wymagana'),
@@ -39,5 +41,5 @@ const validationSchema = Yup.object().shape({
     then: (schema: any) => schema.required('hasło jest wymagane'),
   }),
 });
-
 export const useEmploymentForm = () => useForm(validationSchema);
+

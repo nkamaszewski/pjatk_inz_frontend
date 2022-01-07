@@ -1,5 +1,6 @@
 import { Divider, Drawer } from '@material-ui/core';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteOffer } from '../../api/Offers';
@@ -53,7 +54,7 @@ const PollsList = ({
   const handleDeleteItem = async (id: string) => {
     try {
       await deleteQuestionnaireOffer(id);
-      setSnackbar(createSnackbarSuccess('Usunięto wniosek!'));
+      setSnackbar(createSnackbarSuccess(schema.theRequestHasBeenDeleted));
       fetchQuestionnaireOffers();
     } catch (e) {
       console.error(e);
@@ -64,7 +65,7 @@ const PollsList = ({
   const handleDeleteOffer = async (id: string) => {
     try {
       await deleteOffer(id);
-      setSnackbar(createSnackbarSuccess('Usunięto propozycję szkolenia!'));
+      setSnackbar(createSnackbarSuccess(schema.trainingProposalRemoved));
       fetchQuestionnaireOffers();
     } catch (e) {
       console.error(e);
@@ -73,7 +74,9 @@ const PollsList = ({
   };
 
   const handleCloseDrawer = () => setEditOffer(null);
-
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <PollsListStyle>
       <Drawer
@@ -100,9 +103,9 @@ const PollsList = ({
             />
             <div>
               <header className="subrow subheader">
-                <p>Temat</p>
-                <p>Cena</p>
-                <p>Link</p>
+                <p>{schema.topic}</p>
+                <p>{schema.price}</p>
+                <p>{schema.link}</p>
               </header>
               {questionnaireoffer.questionnaireOfferOffer.map((offer) => (
                 <div className="subrow subrow-hover">

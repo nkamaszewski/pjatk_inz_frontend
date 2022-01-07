@@ -50,11 +50,11 @@ const CompanyContent = ({
           IdCompany: editCompany.IdCompany,
           ...newCompany,
         });
-        setSnackbar(createSnackbarSuccess('Edytowano firmę'));
+        setSnackbar(createSnackbarSuccess(schema.editedTheCompany));
         closeDrawer();
       } else {
         await postCompany(newCompany);
-        setSnackbar(createSnackbarSuccess('Dodano firmę'));
+        setSnackbar(createSnackbarSuccess(schema.companyAdded));
         closeDrawer();
       }
       fetchCompanies();
@@ -94,7 +94,7 @@ const CompanyContent = ({
       <h4>{schema.addressV2}</h4>
 
       <TextField
-        label="Ulica"
+        label={schema.street}
         type="text"
         InputLabelProps={{
           shrink: true,
@@ -105,7 +105,7 @@ const CompanyContent = ({
         }
       />
       <TextField
-        label="Ulica"
+        label={schema.number}
         type="text"
         InputLabelProps={{
           shrink: true,

@@ -71,7 +71,7 @@ const PollsContent = ({
 					IdQuestionnaireOffer: editOffer.IdQuestionnaireOffer,
 				});
 				setSnackbar(
-					createSnackbarSuccess('Pozycja wniosku została wyedytowana')
+					createSnackbarSuccess(schema.theApplicationItemHasBeenEdited)
 				);
 				closeDrawer();
 			} else {
@@ -81,7 +81,7 @@ const PollsContent = ({
 					Price: price,
 					IdQuestionnaireOffer: questionnaireOfferId,
 				});
-				setSnackbar(createSnackbarSuccess('Pozycja wniosku została dodana'));
+				setSnackbar(createSnackbarSuccess(schema.theRequestItemHasBeenAdded));
 				closeDrawer();
 			}
 		} catch (e) {

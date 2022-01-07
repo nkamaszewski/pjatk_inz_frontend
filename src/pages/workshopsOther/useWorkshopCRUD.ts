@@ -6,6 +6,7 @@ import {
   updateOtherEducation,
 } from 'api/OtherEducation';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
+import { useLanguage } from 'providers/LanguageProvider';
 import {
   createSnackbarSuccess,
   useSnackbar,
@@ -33,7 +34,7 @@ export const useWorkshopCRUD = () => {
       const response = await postEducation(education);
       const { IdEducation } = response.data;
       await postOtherEducation({ ...workshop, IdEducation });
-      setSnackbar(createSnackbarSuccess('Dodano szkolenie!'));
+      setSnackbar(createSnackbarSuccess(schema.trainingAdded));
     } catch (e) {
       console.error(e);
       handleHttpError(e);
@@ -43,7 +44,7 @@ export const useWorkshopCRUD = () => {
   const deleteItem = async (id: string) => {
     try {
       await deleteOtherEducation(id);
-      setSnackbar(createSnackbarSuccess('Usunięto szkolenie!'));
+      setSnackbar(createSnackbarSuccess(schema.trainingRemoved));
     } catch (e) {
       console.error(e);
       handleHttpError(e);
@@ -58,12 +59,14 @@ export const useWorkshopCRUD = () => {
         Name: item.Name,
         IdCompany: item.IdCompany,
       });
-      setSnackbar(createSnackbarSuccess('Szkolenie zostało wyedytowane'));
+      setSnackbar(createSnackbarSuccess(schema.theTrainingHasBeenEdited));
     } catch (e) {
       console.error(e);
       handleHttpError(e);
     }
   };
-
+  const {
+    language: { schema },
+  } = useLanguage();
   return { getItem, addItem, deleteItem, editItem };
 };

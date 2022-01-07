@@ -250,7 +250,22 @@ export interface LanguageSchema {
   courseAdded: string; 
   editedCourse: string;   
   showPassword: string; 
-  hidePassword: string;  
+  hidePassword: string;
+  trainingAdded: string; 
+  trainingRemoved: string; 
+  theTrainingHasBeenEdited: string; 
+  editedTheCompany: string;
+  companyAdded: string;  
+  edited: string; 
+  added: string;
+  trainerV2: string;
+  trainerRemoved: string; 
+  //dateIsRequired: string; 
+  //dateToCannotBeEarlierThanTheDateFrom: string; 
+  theApplicationItemHasBeenEdited: string; 
+  theRequestItemHasBeenAdded: string; 
+  theRequestHasBeenDeleted: string; 
+  trainingProposalRemoved: string;
   validation: {
     loginRequired: string;
     emailFormat: string;

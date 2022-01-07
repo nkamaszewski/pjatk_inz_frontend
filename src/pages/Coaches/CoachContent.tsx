@@ -43,7 +43,7 @@ const CoachContent = ({ closeDrawer, fetchCoaches, editCoach }: Props) => {
       }
       setSnackbar(
         createSnackbarSuccess(
-          `${editCoach ? 'edytowano' : 'dodano'} szkoleniowca`
+          `${editCoach ? schema.edited : schema.added} ${schema.trainerV2}`
         )
       );
       fetchCoaches();

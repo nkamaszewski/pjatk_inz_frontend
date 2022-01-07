@@ -1,6 +1,7 @@
 import { Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
+import { useLanguage } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteCoach } from '../../api/Coach';
@@ -42,11 +43,15 @@ const CoachList = ({ coaches, fetchCoaches }: Props) => {
     try {
       await deleteCoach(id);
       fetchCoaches();
-      setSnackbar(createSnackbarSuccess('usunięto szkoleniowca'));
+      setSnackbar(createSnackbarSuccess(schema.trainerRemoved));
     } catch (e) {
       handleHttpError(e);
     }
   };
+  const {
+    language: { schema },
+  } = useLanguage();
+
 
   return (
     <CoachListStyle>
