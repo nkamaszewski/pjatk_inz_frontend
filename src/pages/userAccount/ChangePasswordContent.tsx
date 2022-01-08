@@ -1,13 +1,11 @@
 import { Button } from '@material-ui/core';
-import { postChangePassword } from 'api/Password';
 import FormikPassword from 'components/controls_UI/formik/FormikPassword';
 import { useChangePasswordToken } from 'hooks/useChangePasswordToken';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useAuth } from 'providers/AuthProvider';
 import { useLanguage } from 'providers/LanguageProvider';
-import { useSnackbar } from 'providers/NotificationContext';
 import styled from 'styled-components';
-import { useFormikChangePassword } from './useFormikChangePassword';
+import { useChangePassowrdForm } from './useChangePasswordForm';
+import { useChangePasswordMutation } from './useChangePasswordMutation';
 
 const ChangePasswordContentStyle = styled.div`
   padding: 24px 0;
@@ -23,28 +21,23 @@ interface Props {
 
 const ChangePasswordContent = ({ closeDrawer }: Props) => {
   const token = useChangePasswordToken();
-  const { setSuccessSnackbar } = useSnackbar();
-  const handleHttpError = useHandleHttpError();
+  const changePasswordMutation = useChangePasswordMutation();
   const {
     auth: { user },
   } = useAuth();
   const {
     language: { schema },
   } = useLanguage();
-  const formik = useFormikChangePassword({
+  const formik = useChangePassowrdForm()({
     initialValues: EMPTY_FORM,
     onSubmit: async ({ newPassword }) => {
-      try {
-        await postChangePassword({
-          email: user ? user.Email : null,
-          password: newPassword,
-          token,
-        });
-        setSuccessSnackbar('zmieniono hasło!');
-        closeDrawer();
-      } catch (e) {
-        handleHttpError(e);
-      }
+      await changePasswordMutation.mutateAsync({
+        email: user ? user.Email : null,
+        password: newPassword,
+        token,
+      });
+
+      closeDrawer();
     },
   });
 
@@ -55,6 +48,7 @@ const ChangePasswordContent = ({ closeDrawer }: Props) => {
         label={schema.newPassword}
         value={formik.values.newPassword}
         onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
         error={formik.errors.newPassword}
         touched={formik.touched.newPassword}
       />
@@ -63,6 +57,7 @@ const ChangePasswordContent = ({ closeDrawer }: Props) => {
         label={schema.confirmNewPassword}
         value={formik.values.confirmedNewPassword}
         onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
         error={formik.errors.confirmedNewPassword}
         touched={formik.touched.confirmedNewPassword}
       />

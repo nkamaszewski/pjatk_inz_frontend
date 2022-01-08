@@ -1,11 +1,8 @@
 import { faMailBulk, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Divider, Drawer } from '@material-ui/core';
-import { updateUser } from 'api/User';
 import { useDrawer } from 'hooks/useDrawer';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguage } from 'providers/LanguageProvider';
-import { useSnackbar } from 'providers/NotificationContext';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { FormikTextField } from '../../components/controls_UI/formik/FormikTextField';
@@ -14,7 +11,8 @@ import PageHeader from '../../components/PageHeader';
 import { useAuth } from '../../providers/AuthProvider';
 import { PersonDTO } from '../../types/DTO/Person';
 import ChangePasswordFieldset from './ChangePasswordFieldset';
-import { useFormikUser } from './useFormikUser';
+import { useUpdateUserMutation } from './useUpdateUserMutation';
+import { useUserForm } from './useUserForm';
 
 const UserAccountPageStyled = styled.div`
   .form {
@@ -24,7 +22,7 @@ const UserAccountPageStyled = styled.div`
   .user-data {
     width: 400px;
     padding: 36px;
-    p {
+    .user-data-details {
       padding: 16px 0;
     }
     .row {
@@ -58,20 +56,14 @@ const UserAccountPage = () => {
       },
     },
   } = useLanguage();
-  const { setSuccessSnackbar } = useSnackbar();
-  const handleHttpError = useHandleHttpError();
 
-  const formik = useFormikUser({
+  const updateUserMutation = useUpdateUserMutation();
+
+  const formik = useUserForm()({
     initialValues: user ?? ({} as PersonDTO),
     onSubmit: async (values) => {
-      try {
-        const response = await updateUser(values);
-        modifyUser(response.data.Person);
-        setSuccessSnackbar(_form.submitSuccess);
-      } catch (e) {
-        console.error('useFormikUser', e);
-        handleHttpError(e);
-      }
+      const response = await updateUserMutation.mutateAsync(values);
+      modifyUser(response.data.Person);
     },
   });
 
@@ -87,11 +79,11 @@ const UserAccountPage = () => {
               </h3>
               <div className="row">
                 <FontAwesomeIcon icon={faMailBulk} />
-                <p>{user?.Email}</p>
+                <p className="user-data-details">{user?.Email}</p>
               </div>
               <div className="row">
                 <FontAwesomeIcon icon={faPhone} />
-                <p>{user?.Phone}</p>
+                <p className="user-data-details">{user?.Phone}</p>
               </div>
             </>
           ) : (
@@ -107,6 +99,7 @@ const UserAccountPage = () => {
                 autoFocus={true}
                 value={formik.values.FirstName}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 error={formik.errors.FirstName}
                 touched={formik.touched.FirstName}
               />
@@ -115,6 +108,7 @@ const UserAccountPage = () => {
                 label={_form.lastName}
                 value={formik.values.LastName}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 error={formik.errors.LastName}
                 touched={formik.touched.LastName}
               />
@@ -123,6 +117,7 @@ const UserAccountPage = () => {
                 label={_form.email}
                 value={formik.values.Email}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 error={formik.errors.Email}
                 touched={formik.touched.Email}
               />
@@ -131,6 +126,7 @@ const UserAccountPage = () => {
                 label={_form.phone}
                 value={formik.values.Phone}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 error={formik.errors.Phone}
                 touched={formik.touched.Phone}
               />
@@ -148,9 +144,12 @@ const UserAccountPage = () => {
         </section>
         <SwitchBtn
           value={editMode}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setEditMode(event.target.checked)
-          }
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setEditMode(event.target.checked);
+            if (!event.target.checked) {
+              formik.resetForm({ values: user ?? ({} as PersonDTO) });
+            }
+          }}
           label={_form.switchBtn}
         />
         <Button
