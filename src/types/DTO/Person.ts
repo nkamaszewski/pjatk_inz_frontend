@@ -5,6 +5,6 @@ export interface PersonDTO {
   FirstName: string;
   LastName: string;
   Email: string;
-  Phone: number;
+  Phone: string;
   personEmployee: null | EmployeeDTO;
 }

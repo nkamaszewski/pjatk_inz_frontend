@@ -8,5 +8,5 @@ export const postPerson = (person: {
   FirstName: string;
   LastName: string;
   Email: string;
-  Phone: number;
+  Phone: string;
 }) => axiosJWT.post<PersonDTO>('/persons/', person);

@@ -10,7 +10,7 @@ const initialValues = {
   FirstName: '',
   LastName: '',
   Email: '',
-  Phone: 0,
+  Phone: '',
 };
 
 interface PersonDialogFormProps {

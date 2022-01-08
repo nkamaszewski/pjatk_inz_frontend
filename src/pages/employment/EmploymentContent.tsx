@@ -34,7 +34,7 @@ const initialValues = {
   IdPosition: '',
   IdPerson: '',
   showEmployeeConfig: false,
-  Pesel: 0,
+  Pesel: '',
   Password: '',
   IdRole: '',
 };
@@ -49,7 +49,7 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
           DateFrom: formatDate(editEmployee?.DateFrom),
           DateTo: formatDate(editEmployee?.DateTo),
           showEmployeeConfig: false,
-          Pesel: 0,
+          Pesel: '',
           Password: '',
         }
       : initialValues,

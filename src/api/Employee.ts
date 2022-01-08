@@ -7,6 +7,6 @@ export const getEmployee = (id: string) => axiosJWT.get(`/employees/${id}`);
 
 export const postEmployee = (employee: {
   IdPerson: string;
-  Pesel: number;
+  Pesel: string;
   Password: string;
 }) => axiosJWT.post('/employees/', employee);

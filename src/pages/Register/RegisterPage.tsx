@@ -9,7 +9,7 @@ import { LanguagePanel } from '../../components/LanguagePanel';
 import { useAuth } from '../../providers/AuthProvider';
 import { useLanguage } from '../../providers/LanguageProvider';
 import { useTheme } from '../../providers/ThemeContext';
-import { useFormikRegister } from './useFormikRegister';
+import { useRegisterForm } from './useRegisterForm';
 
 const RegisterPageStyle = styled.div`
   display: grid;
@@ -83,11 +83,10 @@ const RegisterPage = () => {
       },
     },
   } = useLanguage();
-  const formik = useFormikRegister({
+  const formik = useRegisterForm()({
     initialValues: EMPTY_USER_REGISTER,
     onSubmit: async (values) => {
       const isAuthenticated = await auth.register(values);
-
       if (isAuthenticated) {
         history.push('/pracownicy');
       }
@@ -116,6 +115,7 @@ const RegisterPage = () => {
             autoFocus={true}
             value={formik.values.firstName}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             error={formik.errors.firstName}
             touched={formik.touched.firstName}
           />
@@ -124,6 +124,7 @@ const RegisterPage = () => {
             label={_form.lastName}
             value={formik.values.lastName}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             error={formik.errors.lastName}
             touched={formik.touched.lastName}
           />
@@ -132,6 +133,7 @@ const RegisterPage = () => {
             label={_form.email}
             value={formik.values.email}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             error={formik.errors.email}
             touched={formik.touched.email}
           />
@@ -140,6 +142,7 @@ const RegisterPage = () => {
             label={_form.phone}
             value={formik.values.phone}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             error={formik.errors.phone}
             touched={formik.touched.phone}
           />
@@ -149,6 +152,7 @@ const RegisterPage = () => {
             label={_form.TIN}
             value={formik.values.pesel}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             error={formik.errors.pesel}
             touched={formik.touched.pesel}
           />
@@ -157,6 +161,7 @@ const RegisterPage = () => {
             label={_form.password}
             value={formik.values.password}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             error={formik.errors.password}
             touched={formik.touched.password}
           />
