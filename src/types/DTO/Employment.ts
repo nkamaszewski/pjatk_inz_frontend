@@ -32,7 +32,7 @@ export const mapEmploymentListDTOtoEmploymentDTO = ({
   DateFrom,
   DateTo,
   Department: { IdDepartment },
-  Division: { IdDivision },
+  Division,
   Position: { IdPosition },
   IdRole,
 }: EmploymentListDTO) => {
@@ -40,7 +40,7 @@ export const mapEmploymentListDTOtoEmploymentDTO = ({
     IdEmployment,
     DateFrom,
     DateTo,
-    IdDivision,
+    IdDivision: Division ? Division.IdDivision : '',
     IdDepartment,
     IdPosition,
     IdPerson,
