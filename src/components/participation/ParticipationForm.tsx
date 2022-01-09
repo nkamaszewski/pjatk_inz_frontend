@@ -4,23 +4,21 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  TextField,
 } from '@material-ui/core';
+import { useAddParticipationMutation } from 'api/participation/useAddParticipationMutation';
 import { EmployeeSelect } from 'components/controls_UI/employeeSelect/EmployeeSelect';
+import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { useLanguageSchema } from 'providers/LanguageProvider';
-import { ParticipationDTO } from 'types/DTO/Participation';
-import { useFormikParticipation } from './useFormikParticipation';
+import { useParticipationForm } from './useParticipationForm';
 
 interface ParticipationFormProps {
   open: boolean;
-  setOpen: (isOpen: boolean) => void;
-
-  addParticipation: (
-    participation: Omit<ParticipationDTO, 'IdParticipation' | 'IdEducation'>
-  ) => Promise<void>;
+  close: () => void;
+  IdEducation: string;
 }
 
-const EMPTY_PARTICIPATION = {
+const initialValues = {
+  IdEducation: '',
   IdPerson: '',
   DateOfRegistration: '',
   EndDate: '',
@@ -29,65 +27,55 @@ const EMPTY_PARTICIPATION = {
 
 export const ParticipationForm = ({
   open,
-  setOpen,
-
-  addParticipation,
+  close,
+  IdEducation,
 }: ParticipationFormProps) => {
-  const formik = useFormikParticipation({
-    initialValues: EMPTY_PARTICIPATION,
+  const addMutation = useAddParticipationMutation();
+  const participationForm = useParticipationForm()({
+    initialValues: { ...initialValues, IdEducation },
     onSubmit: async (values) => {
-      try {
-        await addParticipation(values);
-        setOpen(false);
-      } catch (e) {}
+      await addMutation.mutateAsync(values);
+      close();
     },
   });
 
-  const handleOnCancel = () => {
-    setOpen(false);
-  };
-  const handleOnConfirm = () => {
-    formik.handleSubmit();
-  };
-
-  const handleChangeEmployee = (id: string) => {
-    formik.setFieldValue('IdPerson', id);
-  };
   const schema = useLanguageSchema();
 
   return (
-    <Dialog open={open} onClose={() => setOpen(false)}>
+    <Dialog open={open} onClose={close}>
       <DialogTitle>{schema.addAParticipant}</DialogTitle>
       <DialogContent
         style={{ width: '500px', display: 'grid', gridRowGap: '16px' }}
       >
         <EmployeeSelect
-          value={formik.values.IdPerson}
-          onChange={handleChangeEmployee}
+          value={participationForm.values.IdPerson}
+          onChange={(id) => participationForm.setFieldValue('IdPerson', id)}
+          name="IdPerson"
+          onBlur={participationForm.handleBlur}
+          error={participationForm.errors.IdPerson}
+          touched={participationForm.touched.IdPerson}
         />
-        <TextField
+        <FormikTextField
           label={schema.dateOfRegistration}
           name="DateOfRegistration"
           type="date"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-          value={formik.values.DateOfRegistration}
-          onChange={formik.handleChange}
+          value={participationForm.values.DateOfRegistration}
+          onChange={participationForm.handleChange}
+          onBlur={participationForm.handleBlur}
+          error={participationForm.errors.DateOfRegistration}
+          touched={participationForm.touched.DateOfRegistration}
         />
-        <TextField
+        <FormikTextField
           label={schema.endDate}
           name="EndDate"
           type="date"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-          value={formik.values.EndDate}
-          onChange={formik.handleChange}
+          value={participationForm.values.EndDate}
+          onChange={participationForm.handleChange}
+          onBlur={participationForm.handleBlur}
+          error={participationForm.errors.EndDate}
+          touched={participationForm.touched.EndDate}
         />
-        <TextField
+        {/* <TextField
           margin="dense"
           name="CertificateOfCompletion"
           label={schema.theNameOfTheCertificate}
@@ -95,13 +83,16 @@ export const ParticipationForm = ({
           fullWidth
           value={formik.values.CertificateOfCompletion}
           onChange={formik.handleChange}
-        />
+        /> */}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleOnCancel} color="primary">
+        <Button onClick={close} color="primary">
           {schema.cancel}
         </Button>
-        <Button onClick={handleOnConfirm} color="primary">
+        <Button
+          onClick={() => participationForm.handleSubmit()}
+          color="primary"
+        >
           {schema.add}
         </Button>
       </DialogActions>

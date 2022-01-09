@@ -12,7 +12,7 @@ export const getParticipationsByIdEducation = (idEducation: string) =>
 
 export const postParticipation = (
   participation: Omit<ParticipationDTO, 'IdParticipation'>
-) => axiosJWT.post('/participations/', participation);
+) => axiosJWT.post<ParticipationDTO>('/participations/', participation);
 
-export const deleteParticipation = (id: string) =>
+export const deleteParticipation = ({ id }: { id: string }) =>
   axiosJWT.delete(`/participations/${id}`);
