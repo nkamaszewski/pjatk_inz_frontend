@@ -2,6 +2,7 @@ import { Button } from '@material-ui/core';
 import { useAddMeetingMutation } from 'api/meeting/useAddMeetingMutation';
 import { useUpdateMeetingMutation } from 'api/meeting/useUpdateMeetingMutation';
 import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
+import { formatDateTime } from 'helpers/formatDateTime';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { MeetingDTOShort } from 'types/DTO/Meeting';
@@ -31,7 +32,13 @@ const MeetingContent = ({ closeDrawer, meeting }: Props) => {
   const addMutation = useAddMeetingMutation();
   const updateMutation = useUpdateMeetingMutation();
   const meetingForm = useMeetingsForm()({
-    initialValues: meeting ?? initialValues,
+    initialValues: meeting
+      ? {
+          ...meeting,
+          From: formatDateTime(meeting.From) as string,
+          To: formatDateTime(meeting.To) as string,
+        }
+      : initialValues,
     onSubmit: async (values) => {
       if (meeting) {
         await updateMutation.mutateAsync({
@@ -52,7 +59,7 @@ const MeetingContent = ({ closeDrawer, meeting }: Props) => {
       <FormikTextField
         label={schema.dateFrom}
         name="From"
-        type="date"
+        type="datetime-local"
         value={meetingForm.values.From}
         onChange={meetingForm.handleChange}
         onBlur={meetingForm.handleBlur}
@@ -63,7 +70,7 @@ const MeetingContent = ({ closeDrawer, meeting }: Props) => {
       <FormikTextField
         label={schema.dateTo}
         name="To"
-        type="date"
+        type="datetime-local"
         value={meetingForm.values.To}
         onChange={meetingForm.handleChange}
         onBlur={meetingForm.handleBlur}
