@@ -1,3 +1,4 @@
+import { formatDate } from 'helpers/formatDate';
 import { CoachDTO } from './Coach';
 import { CompanyDTO } from './Company';
 import { EducationDTO } from './Education';
@@ -34,8 +35,8 @@ export const mapTrainingDTOToEditModel = (
   IdCompany: t.trainingCompany.IdCompany,
   IdPerson: t.trainingCoach.IdPerson,
   Internal: t.Internal,
-  DateFrom: t.DateFrom,
-  DateTo: t.DateTo,
+  DateFrom: formatDate(t.DateFrom) as string,
+  DateTo: formatDate(t.DateTo) as string,
   Price: t.trainingEducation.Price,
   PriceAccommodation: t.trainingEducation.PriceAccommodation,
   PriceTransit: t.trainingEducation.PriceTransit,

@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 
 const validationSchema = (schema: LanguageSchema) =>
   Yup.object().shape({
-    IdEducation: Yup.string().required('podanie edukacji jest wymagane'),
     IdTopic: Yup.string().required('podanie tematu jest wymagane'),
     IdCompany: Yup.string().required('podanie firmy jest wymagane'),
     IdPerson: Yup.string().required('podanie uczestnika jest wymagane'),
