@@ -7,15 +7,10 @@ import TrainingContent from './TrainingContent';
 
 interface Props {
   closeDrawer: () => void;
-  fetchTrainings: () => void;
   editTraining?: TrainingDTO | null;
 }
 
-const TrainingFieldset = ({
-  closeDrawer,
-  fetchTrainings,
-  editTraining,
-}: Props) => {
+const TrainingFieldset = ({ closeDrawer, editTraining }: Props) => {
   const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
@@ -25,11 +20,7 @@ const TrainingFieldset = ({
         }`}
         closeDrawer={closeDrawer}
       />
-      <TrainingContent
-        closeDrawer={closeDrawer}
-        fetchTrainings={fetchTrainings}
-        editTraining={editTraining}
-      />
+      <TrainingContent closeDrawer={closeDrawer} editTraining={editTraining} />
     </FieldsetStyled>
   );
 };

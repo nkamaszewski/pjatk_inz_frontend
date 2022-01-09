@@ -12,14 +12,14 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
+import { useTopicMutation } from 'api/topic/useTopicMutation';
+import { useTopicsQuery } from 'api/topic/useTopicsQuery';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { TopicDTO } from '../../../types/DTO/Topic';
 import SubjectSelect from '../subjectSelect/SubjectSelect';
-import { useTopicMutation } from './useTopicMutation';
-import { useTopicsQuery } from './useTopicsQuery';
 
 const TopicSelectStyle = styled.div`
   display: grid;

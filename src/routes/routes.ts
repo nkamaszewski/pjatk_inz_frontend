@@ -12,7 +12,7 @@ import WorkshopsCoaches from '../pages/Coaches/WorkshopsCoaches';
 import Organizators from '../pages/organizators/Organizators';
 import { WorkshopsOthers } from '../pages/workshopsOther/WorkshopsOthers';
 import WorkshopsStudy from '../pages/study/WorkshopsStudy';
-import WorkshopsTraining from '../pages/Training/TrainingsPage';
+import WorkshopsTraining from '../pages/courses_training/TrainingsPage';
 import LoginPage from '../pages/Login/LoginPage';
 import RegisterPage from '../pages/Register/RegisterPage';
 import RestorePasswordPage from 'pages/RestorePassword/RestorePasswordPage';

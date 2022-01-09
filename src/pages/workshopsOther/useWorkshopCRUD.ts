@@ -1,4 +1,4 @@
-import { postEducation, updateEducation } from 'api/Education';
+import { postEducation, updateEducation } from 'api/education/Education';
 import {
   deleteOtherEducation,
   getOtherEducation,

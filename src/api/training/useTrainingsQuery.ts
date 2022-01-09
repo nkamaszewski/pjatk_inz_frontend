@@ -1,4 +1,4 @@
-import { getTrainings } from 'api/Training';
+import { getTrainings } from 'api/training/Training';
 import { useQuery } from 'react-query';
 
 export const useTrainingsQuery = () => {

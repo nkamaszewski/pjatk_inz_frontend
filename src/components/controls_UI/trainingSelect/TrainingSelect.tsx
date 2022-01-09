@@ -5,7 +5,7 @@ import { useLanguageSchema } from 'providers/LanguageProvider';
 import React from 'react';
 import styled from 'styled-components';
 import { ErrorHelperText } from '../ErrorHelperText';
-import { useTrainingsQuery } from './useTrainingsQuery';
+import { useTrainingsQuery } from '../../../api/training/useTrainingsQuery';
 
 const EmployeeSelectStyle = styled.div`
   display: grid;

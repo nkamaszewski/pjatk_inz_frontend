@@ -1,18 +1,13 @@
 import { Card, Drawer } from '@material-ui/core';
+import { useDeleteTrainingMutation } from 'api/training/useDeleteTrainingMutation';
 import { AddParticipation } from 'components/AddParticipation';
 import { ParticipationFieldset } from 'components/participation/ParticipationFieldset';
 import { useDrawer } from 'hooks/useDrawer';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { deleteTraining } from '../../api/Training';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import { formatDate } from '../../helpers/formatDate';
-import {
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { TrainingDTO } from '../../types/DTO/Training';
 import TrainingFieldset from './TrainingFieldset';
 import TrainingHeader from './TrainingHeader';
@@ -32,13 +27,11 @@ const TrainingListStyle = styled.div`
 
 interface Props {
   trainings: TrainingDTO[];
-  fetchTrainings: () => void;
 }
 
-const TrainingList = ({ trainings, fetchTrainings }: Props) => {
+const TrainingList = ({ trainings }: Props) => {
+  const deleteMutation = useDeleteTrainingMutation();
   const [editTraining, setEditTraining] = useState<TrainingDTO | null>(null);
-  const { setSnackbar } = useSnackbar();
-  const handleHttpError = useHandleHttpError();
   const { open, openDrawer, closeDrawer } = useDrawer();
   const [selectedIdEducation, setSelectedIdEducation] = useState('');
   const handleCloseDrawer = () => setEditTraining(null);
@@ -46,15 +39,7 @@ const TrainingList = ({ trainings, fetchTrainings }: Props) => {
     setSelectedIdEducation(id);
     openDrawer();
   };
-  const handleDeleteItem = async (id: string) => {
-    try {
-      await deleteTraining(id);
-      fetchTrainings();
-      setSnackbar(createSnackbarSuccess('usunięto kurs'));
-    } catch (e) {
-      handleHttpError(e);
-    }
-  };
+
   return (
     <TrainingListStyle>
       <Drawer
@@ -64,7 +49,6 @@ const TrainingList = ({ trainings, fetchTrainings }: Props) => {
       >
         <TrainingFieldset
           closeDrawer={handleCloseDrawer}
-          fetchTrainings={fetchTrainings}
           editTraining={editTraining}
         />
       </Drawer>
@@ -85,7 +69,9 @@ const TrainingList = ({ trainings, fetchTrainings }: Props) => {
           <EditBtn onClick={() => setEditTraining(training)} />
           <DeleteBtn
             onClick={() =>
-              handleDeleteItem(training.trainingEducation.IdEducation)
+              deleteMutation.mutate({
+                id: training.trainingEducation.IdEducation,
+              })
             }
           />
           <AddParticipation

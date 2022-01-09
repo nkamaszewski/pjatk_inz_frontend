@@ -1,14 +1,14 @@
 import { Drawer } from '@material-ui/core';
+import { useTrainingsListQuery } from 'api/training/useTrainingsListQuery';
 import { NoData } from 'components/NoData';
+import { useDrawer } from 'hooks/useDrawer';
 import { useLanguageSchema } from 'providers/LanguageProvider';
-import { useState } from 'react';
 import styled from 'styled-components';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import FilterPanel from './FilterPanel';
 import TrainingFieldset from './TrainingFieldset';
 import TrainingList from './TrainingList';
-import { useTrainings } from './useTrainings';
 
 const TrainingsPageStyled = styled.div`
   .page-panel {
@@ -18,24 +18,21 @@ const TrainingsPageStyled = styled.div`
 `;
 
 const TrainingsPage = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { trainings, fetchTrainings } = useTrainings();
+  const { open, openDrawer, closeDrawer } = useDrawer();
+  const trainingsListQuery = useTrainingsListQuery();
   const { courses } = useLanguageSchema();
 
   return (
     <TrainingsPageStyled>
       <PageHeader title={courses} />
-      <AddFab className="page-panel" onClick={() => setIsOpen(true)}>
+      <AddFab className="page-panel" onClick={openDrawer}>
         <FilterPanel />
       </AddFab>
-      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        <TrainingFieldset
-          closeDrawer={() => setIsOpen(false)}
-          fetchTrainings={fetchTrainings}
-        />
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
+        <TrainingFieldset closeDrawer={closeDrawer} />
       </Drawer>
-      {trainings.length ? (
-        <TrainingList trainings={trainings} fetchTrainings={fetchTrainings} />
+      {trainingsListQuery.data?.data.length ? (
+        <TrainingList trainings={trainingsListQuery.data.data} />
       ) : (
         <NoData />
       )}

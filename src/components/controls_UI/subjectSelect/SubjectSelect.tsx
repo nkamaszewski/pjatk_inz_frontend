@@ -17,8 +17,8 @@ import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { SubjectDTO } from '../../../types/DTO/Subject';
-import { useSubjectMutation } from './useSubjectMutation';
-import { useSubjectsQuery } from './useSubjectsQuery';
+import { useSubjectsQuery } from '../../../api/subject/useSubjectsQuery';
+import { useSubjectMutation } from 'api/subject/useSubjectMutation';
 
 const SubjectSelectStyle = styled.div`
   display: grid;
