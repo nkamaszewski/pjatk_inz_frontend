@@ -1,5 +1,5 @@
 import { capFL } from 'helpers/capitalizeFirstLetter';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { EmploymentDTO } from '../../types/DTO/Employment';
@@ -11,9 +11,7 @@ interface Props {
 }
 
 const EmploymentFieldset = ({ closeDrawer, editEmployee }: Props) => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
       <HeaderFieldset

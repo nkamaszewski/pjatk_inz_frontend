@@ -1,12 +1,8 @@
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
 const GroupListHeader = () => {
-  const {
-    language: {
-      schema: { name, participantsAmount, subject, topic },
-    },
-  } = useLanguage();
+  const { name, participantsAmount, subject, topic } = useLanguageSchema();
   return (
     <HeaderListStyled className="grid-group">
       <>

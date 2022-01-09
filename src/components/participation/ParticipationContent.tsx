@@ -1,6 +1,6 @@
 import { Card } from '@material-ui/core';
 import DeleteBtn from 'components/DeleteBtn';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { ParticipationsListDTO } from 'types/DTO/Participation';
 
@@ -22,9 +22,7 @@ export const ParticipationContent = ({
   participations,
   removeParticipation,
 }: ParticipationContentProps) => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <ParticipationContentStyled>

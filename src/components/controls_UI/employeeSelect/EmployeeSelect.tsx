@@ -1,6 +1,6 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import React from 'react';
 import { useEmployeesQuery } from './useEmployeesQuery';
 
@@ -15,9 +15,7 @@ export const EmployeeSelect = ({ value, onChange }: Props) => {
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <FormControlStyled>
       <InputLabel>{schema.employee}</InputLabel>

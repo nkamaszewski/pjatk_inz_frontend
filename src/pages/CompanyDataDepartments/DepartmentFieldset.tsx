@@ -1,4 +1,4 @@
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { DepartmentDTO } from '../../types/DTO/Department';
@@ -18,9 +18,7 @@ const DepartmentFieldset = ({
   editDepartment,
   divisions,
 }: Props) => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
       <HeaderFieldset title={schema.editDepartment} closeDrawer={closeDrawer} />

@@ -1,5 +1,5 @@
 import { Tab, Tabs } from '@material-ui/core';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { DivisionDTO } from '../../types/DTO/Division';
@@ -34,9 +34,7 @@ const DepartmentDivisionFieldset = ({
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setSelectedTab(newValue);
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <DepartmentDivisionFieldsetStyle>

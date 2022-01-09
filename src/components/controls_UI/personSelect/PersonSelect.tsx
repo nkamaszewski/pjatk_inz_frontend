@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ErrorHelperText } from '../ErrorHelperText';
@@ -44,9 +44,7 @@ const PersonSelect = ({
     onChange(event.target.value as string);
   };
 
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <EmployeeSelectStyle>
       <FormControlStyled>

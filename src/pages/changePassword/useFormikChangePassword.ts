@@ -1,13 +1,9 @@
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { FormikConfig, FormikValues, useFormik } from 'formik';
 import * as Yup from 'yup';
 
 const useChangePasswordSchema = () => {
-  const {
-    language: {
-      schema: { validation },
-    },
-  } = useLanguage();
+  const { validation } = useLanguageSchema();
 
   return Yup.object().shape({
     email: Yup.string()

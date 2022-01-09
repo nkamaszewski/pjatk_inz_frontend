@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import { formatDate } from 'helpers/formatDate';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { MeetingDTOShort } from 'types/DTO/Meeting';
@@ -52,9 +52,7 @@ const MeetingContent = ({ closeDrawer, fetchMeetings, meeting }: Props) => {
     fetchMeetings();
     closeDrawer();
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <MeetingContentStyle>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Drawer, Tooltip } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import { SendInvitationBtn } from 'components/SendInvitationBtn/SendInvitationBtn';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import DeleteBtn from '../../components/DeleteBtn';
@@ -52,9 +52,7 @@ const EmploymentList = ({ employments }: Props) => {
   };
 
   const handleCloseDrawer = () => setEditEmployee(null);
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <EmploymentListStyle>

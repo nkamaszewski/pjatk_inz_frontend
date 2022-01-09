@@ -1,11 +1,7 @@
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 const CoachListHeader = () => {
-  const {
-    language: {
-      schema: { lastName, firstName, professionalTitle },
-    },
-  } = useLanguage();
+  const { lastName, firstName, professionalTitle } = useLanguageSchema();
   return (
     <HeaderListStyled className="grid-coach">
       <>

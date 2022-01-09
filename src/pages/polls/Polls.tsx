@@ -1,6 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getQuestionnaireOffers } from '../../api/QuestionnaireOffer';
@@ -30,14 +30,7 @@ const Polls = () => {
     fetchQuestionnaireOffers();
   }, []);
 
-  const {
-    language: {
-      schema: {
-        applicationsTrainingProposals
-
-      },
-    },
-  } = useLanguage();
+  const { applicationsTrainingProposals } = useLanguageSchema();
 
   return (
     <PollsStyle>

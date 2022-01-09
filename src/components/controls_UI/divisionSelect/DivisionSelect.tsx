@@ -1,6 +1,6 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import React from 'react';
 import { ErrorHelperText } from '../ErrorHelperText';
 import { useDivisionsQuery } from './useDivisionsQuery';
@@ -25,9 +25,7 @@ const DivisionSelect = ({
   error,
 }: DivisionSelectProps) => {
   const divisionsQuery = useDivisionsQuery(withAll);
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);

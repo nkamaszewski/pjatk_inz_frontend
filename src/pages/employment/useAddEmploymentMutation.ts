@@ -1,6 +1,6 @@
 import { postEmployment } from 'api/Employment';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useSnackbar } from 'providers/NotificationContext';
 import { useMutation, useQueryClient } from 'react-query';
 
@@ -19,9 +19,7 @@ export const useAddEmploymentMutation = () => {
       // setErrorSnackbar(error?.message ?? schema.theOperationWasUnsuccessful);
     },
   });
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return mutation;
 };

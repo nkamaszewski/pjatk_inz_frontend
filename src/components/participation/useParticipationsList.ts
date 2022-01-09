@@ -4,7 +4,7 @@ import {
   postParticipation,
 } from 'api/Participation';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import {
   createSnackbarSuccess,
   useSnackbar,
@@ -61,9 +61,7 @@ export const useParticipationsList = (IdEducation: string) => {
       // setSnackbar(createSnackbarError(schema.theParticipantCouldNotBeRemoved));
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return {
     participations,
     fetchParticipations,

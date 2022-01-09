@@ -7,7 +7,7 @@ import {
   TextField,
 } from '@material-ui/core';
 import { EmployeeSelect } from 'components/controls_UI/employeeSelect/EmployeeSelect';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { ParticipationDTO } from 'types/DTO/Participation';
 import { useFormikParticipation } from './useFormikParticipation';
 
@@ -53,9 +53,7 @@ export const ParticipationForm = ({
   const handleChangeEmployee = (id: string) => {
     formik.setFieldValue('IdPerson', id);
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>

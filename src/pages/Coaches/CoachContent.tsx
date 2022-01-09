@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postCoach, updateCoach } from '../../api/Coach';
@@ -60,9 +60,7 @@ const CoachContent = ({ closeDrawer, fetchCoaches, editCoach }: Props) => {
   ) => {
     setJobTitle(event.target.value);
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <CoachContentStyle>

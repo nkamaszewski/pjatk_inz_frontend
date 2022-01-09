@@ -1,5 +1,5 @@
 import { getDepartments } from 'api/Department';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useQuery } from 'react-query';
 import { DepartmentDTO } from 'types/DTO/Department';
 
@@ -8,9 +8,7 @@ const DEFAULT_DEPARTMENTS = (Name: string): DepartmentDTO[] => [
 ];
 
 export const useDepartmentsQuery = (withAll: boolean, idDivision = '') => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   const query = useQuery(
     ['departments', 'control_ui', idDivision],

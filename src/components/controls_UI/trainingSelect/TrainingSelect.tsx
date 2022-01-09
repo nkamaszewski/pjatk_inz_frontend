@@ -1,7 +1,7 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { capFL } from 'helpers/capitalizeFirstLetter';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import React from 'react';
 import styled from 'styled-components';
 import { useTrainingsQuery } from './useTrainingsQuery';
@@ -21,9 +21,7 @@ const TrainingSelect = ({ value, onChange }: Props) => {
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <EmployeeSelectStyle>
       <FormControlStyled>

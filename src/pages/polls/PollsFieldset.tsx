@@ -1,5 +1,5 @@
 import { capFL } from 'helpers/capitalizeFirstLetter';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { OfferDTO } from '../../types/DTO/Offer';
@@ -19,13 +19,13 @@ const PollsFieldset = ({
   editOffer,
   polls,
 }: Props) => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editOffer ? capFL(schema.edit) : schema.add} ${schema.questionnaire}`}
+        title={`${editOffer ? capFL(schema.edit) : schema.add} ${
+          schema.questionnaire
+        }`}
         closeDrawer={closeDrawer}
       />
       <PollsContent

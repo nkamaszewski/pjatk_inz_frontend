@@ -1,6 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { StudiesListDTO } from 'types/DTO/Study';
 import { getStudies } from '../../api/Study';
@@ -27,11 +27,7 @@ const WorkshopsStudy = () => {
     fetchStudies();
   }, []);
 
-  const {
-    language: {
-      schema: { study },
-    },
-  } = useLanguage();
+  const { study } = useLanguageSchema();
 
   return (
     <div>

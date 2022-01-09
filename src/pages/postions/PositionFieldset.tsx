@@ -1,5 +1,5 @@
 import { capFL } from 'helpers/capitalizeFirstLetter';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { PositionDTO } from '../../types/DTO/Position';
@@ -16,13 +16,13 @@ const PositionFieldset = ({
   fetchPositions,
   editPosition,
 }: Props) => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editPosition ? capFL(schema.edit) : schema.add} ${schema.position}`}
+        title={`${editPosition ? capFL(schema.edit) : schema.add} ${
+          schema.position
+        }`}
         closeDrawer={closeDrawer}
       />
 

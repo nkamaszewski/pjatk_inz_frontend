@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import { DialogActionsBtn } from 'components/DialogActionsBtn';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect } from 'react';
 import { FormikTextField } from '../formik/FormikTextField';
 import { usePersonForm } from './usePersonForm';
@@ -36,9 +36,7 @@ export const PersonDialogForm = ({
     },
   });
 
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   const onConfirm = () => {
     personForm.submitForm();

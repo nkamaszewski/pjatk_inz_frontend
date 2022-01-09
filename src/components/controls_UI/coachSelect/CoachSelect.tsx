@@ -13,7 +13,7 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CoachDTO } from '../../../types/DTO/Coach';
@@ -65,9 +65,7 @@ const CoachSelect = ({ value, onChange }: Props) => {
     onChange(res.data.IdPerson);
     setCoach(EMPTY_COACH);
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <CoachSelectStyle>
       <FormControlStyled>

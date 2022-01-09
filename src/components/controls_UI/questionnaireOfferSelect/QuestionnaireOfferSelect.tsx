@@ -13,7 +13,7 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { useAuth } from 'providers/AuthProvider';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { QuestionnaireOfferDTO } from '../../../types/DTO/QuestionnaireOffer';
@@ -78,9 +78,7 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
       setQuestionnaireOffer(EMPTY_QUESTIONNAIRE_OFFER);
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <EmployeeSelectStyle>
       <FormControlStyled>

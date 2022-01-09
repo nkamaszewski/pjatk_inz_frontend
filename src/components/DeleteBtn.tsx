@@ -1,5 +1,5 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { IconBtn } from './IconBtn';
 
 interface Props {
@@ -7,9 +7,7 @@ interface Props {
 }
 
 const DeleteBtn = ({ onClick }: Props) => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <IconBtn

@@ -13,7 +13,7 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { StudyModeDTO } from '../../../types/DTO/StudyMode';
@@ -72,9 +72,7 @@ const StudyModeSelect = ({ value, onChange }: Props) => {
       setStudyMode(EMPTY_STUDY_MODE);
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <StudyModeSelectStyle>
       <FormControlStyled>

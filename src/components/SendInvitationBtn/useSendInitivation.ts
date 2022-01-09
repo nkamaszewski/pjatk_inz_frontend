@@ -1,5 +1,5 @@
 import { postInviteUser } from 'api/InivitationUser';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import {
   createSnackbarError,
   createSnackbarSuccess,
@@ -14,14 +14,10 @@ export const useSendInvitation = () => {
       setSnackbar(createSnackbarSuccess(schema.activationLinkHasBeenSent));
     } catch (e) {
       console.error(e);
-      setSnackbar(
-        createSnackbarError(schema.theActivationLinkCouldNotBeSent)
-      );
+      setSnackbar(createSnackbarError(schema.theActivationLinkCouldNotBeSent));
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return sendInvitation;
 };

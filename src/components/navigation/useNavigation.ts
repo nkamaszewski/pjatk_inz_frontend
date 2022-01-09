@@ -1,5 +1,5 @@
 import { capFL } from 'helpers/capitalizeFirstLetter';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 
 export const useNavigation = () => {
@@ -7,11 +7,8 @@ export const useNavigation = () => {
   const [wnioskiOpen, setWnioskiOpen] = useState(false);
   const [szkoleniaOpen, setSzkoleniaOpen] = useState(false);
   const [szkoleniaWewnetrzneOpen, setSzkoleniaWewnetrzneOpen] = useState(false);
-  const {
-    language: {
-      schema: { company, applications, trainings, internalTrainings },
-    },
-  } = useLanguage();
+  const { company, applications, trainings, internalTrainings } =
+    useLanguageSchema();
 
   const getCloseFn = (label: string) => {
     switch (label) {

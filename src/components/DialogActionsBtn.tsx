@@ -1,5 +1,5 @@
 import { Button, DialogActions } from '@material-ui/core';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 
 interface DialogActionsProps {
   onConfirm: () => void;
@@ -10,9 +10,7 @@ export const DialogActionsBtn = ({
   onConfirm,
   onCancel,
 }: DialogActionsProps) => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <DialogActions>
       <Button onClick={onCancel} color="primary">

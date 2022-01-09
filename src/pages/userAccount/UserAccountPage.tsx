@@ -2,7 +2,7 @@ import { faMailBulk, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Divider, Drawer } from '@material-ui/core';
 import { useDrawer } from 'hooks/useDrawer';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { FormikTextField } from '../../components/controls_UI/formik/FormikTextField';
@@ -49,13 +49,9 @@ const UserAccountPage = () => {
     modifyUser,
   } = useAuth();
   const {
-    language: {
-      schema: {
-        userAccountPage: { _form, _header },
-        changePassword,
-      },
-    },
-  } = useLanguage();
+    userAccountPage: { _form, _header },
+    changePassword,
+  } = useLanguageSchema();
 
   const updateUserMutation = useUpdateUserMutation();
 

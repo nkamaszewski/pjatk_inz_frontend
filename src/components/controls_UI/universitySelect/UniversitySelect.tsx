@@ -13,7 +13,7 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { UniversitetDTO } from '../../../types/DTO/Universitet';
@@ -76,9 +76,7 @@ const UniversitySelect = ({ value, onChange }: Props) => {
       setUniversitet(EMPTY_UNIVERSITET);
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <UniuversitySelectStyle>
       <FormControlStyled>

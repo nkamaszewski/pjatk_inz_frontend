@@ -1,5 +1,5 @@
 import { Avatar, Switch, withStyles } from '@material-ui/core';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { useAuth } from '../providers/AuthProvider';
@@ -74,9 +74,7 @@ const PageHeader = ({ title }: Props) => {
   const {
     auth: { user },
   } = useAuth();
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) setDarkTheme();
     else setLightTheme();

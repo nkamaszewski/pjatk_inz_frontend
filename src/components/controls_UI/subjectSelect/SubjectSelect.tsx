@@ -13,7 +13,7 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { SubjectDTO } from '../../../types/DTO/Subject';
@@ -69,9 +69,7 @@ const SubjectSelect = ({ value, onChange }: Props) => {
       setSubject(EMPTY_SUBJECT);
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <SubjectSelectStyle>
       <FormControlStyled>

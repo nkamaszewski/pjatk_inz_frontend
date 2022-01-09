@@ -1,12 +1,8 @@
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
 const GroupListHeader = () => {
-  const {
-    language: {
-      schema: { from, to, group, room, topic },
-    },
-  } = useLanguage();
+  const { from, to, group, room, topic } = useLanguageSchema();
   return (
     <HeaderListStyled className="grid-meeting">
       <>

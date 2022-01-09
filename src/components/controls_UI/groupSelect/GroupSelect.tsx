@@ -2,7 +2,7 @@ import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { ALL } from 'providers/FilterContext';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import React from 'react';
 import styled from 'styled-components';
 import { useGroupesQuery } from './useGroupesQuery';
@@ -25,9 +25,7 @@ const GroupSelect = ({ value, onChange, withAll = false, name }: Props) => {
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <GroupSelectStyle>
       <FormControlStyled>

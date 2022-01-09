@@ -1,6 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import AddFab from '../../components/AddFab';
@@ -20,9 +20,7 @@ const GroupsPageStyled = styled.div`
 const GroupsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { groups, fetchGroups } = useGroups();
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <GroupsPageStyled>

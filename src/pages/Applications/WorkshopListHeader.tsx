@@ -1,12 +1,9 @@
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
 const WorkshopListHeader = () => {
-  const {
-    language: {
-      schema: { dateOfSubmission, author, validationTable, status, name },
-    },
-  } = useLanguage();
+  const { dateOfSubmission, author, validationTable, status, name } =
+    useLanguageSchema();
   return (
     <HeaderListStyled className="grid-workshop">
       <>

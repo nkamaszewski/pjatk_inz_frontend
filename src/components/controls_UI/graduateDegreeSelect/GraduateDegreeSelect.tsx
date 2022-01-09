@@ -12,7 +12,7 @@ import {
   TextField,
   Tooltip,
 } from '@material-ui/core';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { GraduateDegreeDTO } from '../../../types/DTO/GraduateDegree';
@@ -72,9 +72,7 @@ const GraduateDegreeSelect = ({ value, onChange }: Props) => {
       setGraduateDegree(EMPTY_GRADUATE_DEGREE);
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <GraduateDegreeSelectStyle>
       <FormControlStyled>

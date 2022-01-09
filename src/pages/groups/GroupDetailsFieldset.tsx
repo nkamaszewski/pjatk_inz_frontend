@@ -9,7 +9,7 @@ import {
   DialogTitle,
   Fab,
 } from '@material-ui/core';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -116,9 +116,7 @@ const GroupDetailsFieldset = ({ closeDrawer, group }: Props) => {
     );
     return person ?? ({} as PersonDTO);
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <GroupDetailsFieldsetStyle>

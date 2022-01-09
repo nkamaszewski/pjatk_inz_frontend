@@ -4,7 +4,7 @@ import DepartmentSelect from '../../components/controls_UI/departmentSelect/Depa
 import { ChangeEvent } from '../../types/EventTypes';
 import styled from 'styled-components';
 import DivisionSelect from '../../components/controls_UI/divisionSelect/DivisionSelect';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 
 const FilterPanelStyle = styled.div`
   display: grid;
@@ -26,9 +26,7 @@ const FilterPanel = () => {
       }));
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <FilterPanelStyle>
       <h4>{schema.filter}</h4>

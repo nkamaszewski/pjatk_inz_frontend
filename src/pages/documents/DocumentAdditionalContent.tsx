@@ -1,7 +1,7 @@
 import { Button, TextField } from '@material-ui/core';
 import { postAdditionalApplication } from 'api/AdditionalApplication';
 import { formatDate } from 'helpers/formatDate';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import {
   createSnackbarError,
   createSnackbarSuccess,
@@ -74,9 +74,7 @@ const DocumentAdditionalContent = ({
       }
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <DocumentAdditionalContentStyle>

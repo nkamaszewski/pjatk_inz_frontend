@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postEducation, updateEducation } from '../../api/Education';
@@ -95,9 +95,7 @@ const StudyContent = ({ closeDrawer, fetchStudies, editStudy }: Props) => {
       [event.target.name]: event.target.value,
     }));
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <StudyContentStyle>

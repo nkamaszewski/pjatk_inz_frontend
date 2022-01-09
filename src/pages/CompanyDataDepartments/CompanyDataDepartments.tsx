@@ -1,6 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getDepartments } from '../../api/Department';
@@ -38,9 +38,7 @@ const CompanyDataDepartments = () => {
     fetchDivisionsDepartments();
   }, []);
 
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <CompanyDataDepartmentsStyle>

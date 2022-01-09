@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postDivision, updateDivision } from '../../api/Division';
@@ -58,9 +58,7 @@ const DivisionContent = ({
       handleHttpError(e);
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <DivisionContentStyle>

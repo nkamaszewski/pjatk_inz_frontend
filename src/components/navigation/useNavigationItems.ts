@@ -19,7 +19,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { LanguageSchema } from 'languages/LanguageSchema';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useMemo } from 'react';
 
 interface NavigationItem {
@@ -157,9 +157,7 @@ const getNavigationsItems = (schema: LanguageSchema): NavigationItem[] => [
   },
 ];
 export const useNavigationItems = () => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   const menuItems = useMemo(() => getNavigationsItems(schema), [schema]);
 

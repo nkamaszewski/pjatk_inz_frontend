@@ -4,7 +4,7 @@ import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { RoleSelect } from 'components/controls_UI/roleSelect/RoleSelect';
 import { DivisionDepartmentCascade } from 'components/DivisionDepartmentCascade';
 import { formatDate } from 'helpers/formatDate';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { postEmployee } from '../../api/Employee';
 import PersonSelect from '../../components/controls_UI/personSelect/PersonSelect';
@@ -88,9 +88,7 @@ const EmploymentContent = ({ closeDrawer, editEmployee }: Props) => {
     employmentForm.submitForm();
   };
 
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <EmploymentContentStyle>

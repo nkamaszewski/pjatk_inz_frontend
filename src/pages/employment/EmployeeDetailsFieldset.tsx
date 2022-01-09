@@ -9,7 +9,7 @@ import {
   DialogTitle,
   Fab,
 } from '@material-ui/core';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
@@ -102,9 +102,7 @@ const EmployeeDetailsFieldset = ({ closeDrawer, person }: Props) => {
       console.error(error);
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <EmployeeDetailsFieldsetStyle>
       <Dialog open={addingMode} onClose={() => setAddingMode(false)}>

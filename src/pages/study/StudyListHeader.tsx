@@ -1,12 +1,8 @@
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
 const StudyListHeader = () => {
-  const {
-    language: {
-      schema: { fieldsOfStudy, school, city, mode, level },
-    },
-  } = useLanguage();
+  const { fieldsOfStudy, school, city, mode, level } = useLanguageSchema();
   return (
     <HeaderListStyled className="grid-coach">
       <>

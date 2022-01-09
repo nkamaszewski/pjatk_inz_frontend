@@ -2,7 +2,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Fab } from '@material-ui/core';
 import { capFL } from 'helpers/capitalizeFirstLetter';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { ParticipationDTO } from 'types/DTO/Participation';
@@ -23,9 +23,7 @@ export const ParticipationFieldsetHeader = ({
   addParticipation,
 }: ParticipationFieldsetHeaderProps) => {
   const [addingMode, setAddingMode] = useState(false);
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <ParticipationFieldsetHeaderStyled>
       <ParticipationForm

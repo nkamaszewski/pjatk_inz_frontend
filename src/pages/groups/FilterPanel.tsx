@@ -1,5 +1,5 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { ALL, useFilter } from '../../providers/FilterContext';
 import { ChangeEvent } from '../../types/EventTypes';
@@ -30,9 +30,7 @@ const FilterPanel = () => {
       }));
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <FilterPanelStyle>
       <h4>{schema.filter}</h4>

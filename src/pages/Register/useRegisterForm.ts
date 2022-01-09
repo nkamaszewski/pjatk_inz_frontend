@@ -1,6 +1,6 @@
 import { useForm } from 'helpers/useForm';
 import { LanguageSchema } from 'languages/LanguageSchema';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import * as Yup from 'yup';
 
 const validationSchema = (schema: LanguageSchema) =>
@@ -22,8 +22,6 @@ const validationSchema = (schema: LanguageSchema) =>
   });
 
 export const useRegisterForm = () => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return useForm(validationSchema(schema));
 };

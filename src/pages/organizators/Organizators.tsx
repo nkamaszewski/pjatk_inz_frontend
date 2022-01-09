@@ -1,6 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { getCompanies } from '../../api/Company';
 import AddFab from '../../components/AddFab';
@@ -26,14 +26,7 @@ const Organizators = () => {
   useEffect(() => {
     fetchCompanies();
   }, []);
-  const {
-    language: {
-      schema: {
-        trainingOrganizers
-
-      },
-    },
-  } = useLanguage();
+  const { trainingOrganizers } = useLanguageSchema();
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { getCoaches } from '../../api/Coach';
 import AddFab from '../../components/AddFab';
@@ -27,9 +27,7 @@ const WorkshopsCoaches = () => {
     fetchCoaches();
   }, []);
 
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <div>

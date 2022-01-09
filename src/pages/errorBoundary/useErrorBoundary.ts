@@ -1,13 +1,9 @@
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useHistory } from 'react-router';
 import { PATH } from 'routes/paths';
 
 export const useErrorBoundary = () => {
-  const {
-    language: {
-      schema: { errorBoundary },
-    },
-  } = useLanguage();
+  const { errorBoundary } = useLanguageSchema();
   const history = useHistory();
 
   const returnToApp = () => {

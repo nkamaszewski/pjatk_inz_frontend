@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import FormikPassword from 'components/controls_UI/formik/FormikPassword';
 import { useChangePasswordToken } from 'hooks/useChangePasswordToken';
 import { useAuth } from 'providers/AuthProvider';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { useChangePassowrdForm } from './useChangePasswordForm';
 import { useChangePasswordMutation } from './useChangePasswordMutation';
@@ -25,9 +25,7 @@ const ChangePasswordContent = ({ closeDrawer }: Props) => {
   const {
     auth: { user },
   } = useAuth();
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   const formik = useChangePassowrdForm()({
     initialValues: EMPTY_FORM,
     onSubmit: async ({ newPassword }) => {

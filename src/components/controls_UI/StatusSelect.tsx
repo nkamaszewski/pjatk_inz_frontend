@@ -1,5 +1,5 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useDictionary } from '../../providers/DictionaryContext';
 import { StatusDTO } from '../../types/DTO/Status';
 import { FormControlStyled } from './FormControlStyled';
@@ -17,9 +17,7 @@ interface Props {
 }
 
 const StatusSelect = ({ value, onChange, name }: Props) => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   const { statuses } = useDictionary();
   return (

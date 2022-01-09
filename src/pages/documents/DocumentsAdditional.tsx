@@ -1,6 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { getApplicationsForRefund } from '../../api/ApplicationForRefund';
 import AddFab from '../../components/AddFab';
@@ -27,14 +27,7 @@ const DocumentsAdditional = () => {
     fetchDocuments();
   }, []);
 
-  const {
-    language: {
-      schema: {
-        additionalApplications
-
-      },
-    },
-  } = useLanguage();
+  const { additionalApplications } = useLanguageSchema();
 
   return (
     <div>

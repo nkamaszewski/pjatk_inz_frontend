@@ -1,7 +1,7 @@
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Divider, Tooltip } from '@material-ui/core';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { useTheme } from '../providers/ThemeContext';
 
@@ -29,9 +29,7 @@ interface Props {
 const HeaderFieldset = ({ title, className, closeDrawer }: Props) => {
   const { theme } = useTheme();
   const handleCancel = () => closeDrawer();
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <HeaderFieldsetStyle theme={theme} className={className}>
       <div>

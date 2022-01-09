@@ -2,7 +2,7 @@ import { ALL, useFilter } from '../../providers/FilterContext';
 import { ChangeEvent } from '../../types/EventTypes';
 import styled from 'styled-components';
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 
 const TRAINING_TYPES = (schema: { all: any; external: any; internal: any }) => [
@@ -31,9 +31,7 @@ const FilterPanel = () => {
       }));
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <FilterPanelStyle>

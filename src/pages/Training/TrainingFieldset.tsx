@@ -1,5 +1,5 @@
 import { capFL } from 'helpers/capitalizeFirstLetter';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { TrainingDTO } from '../../types/DTO/Training';
@@ -16,13 +16,13 @@ const TrainingFieldset = ({
   fetchTrainings,
   editTraining,
 }: Props) => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editTraining ? capFL(schema.edit) : schema.add} ${schema.course}`}
+        title={`${editTraining ? capFL(schema.edit) : schema.add} ${
+          schema.course
+        }`}
         closeDrawer={closeDrawer}
       />
       <TrainingContent

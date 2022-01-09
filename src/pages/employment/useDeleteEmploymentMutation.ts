@@ -1,5 +1,5 @@
 import { deleteEmployment } from 'api/Employment';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useSnackbar } from 'providers/NotificationContext';
 import { useMutation, useQueryClient } from 'react-query';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
@@ -22,9 +22,7 @@ export const useDeleteEmploymentMutation = () => {
       },
     }
   );
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return mutation;
 };

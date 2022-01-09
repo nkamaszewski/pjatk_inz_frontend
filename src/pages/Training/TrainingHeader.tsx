@@ -1,12 +1,8 @@
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
 const TrainingHeader = () => {
-  const {
-    language: {
-      schema: { name, price, organizer, from, to },
-    },
-  } = useLanguage();
+  const { name, price, organizer, from, to } = useLanguageSchema();
   return (
     <HeaderListStyled className="grid-trainings">
       <>

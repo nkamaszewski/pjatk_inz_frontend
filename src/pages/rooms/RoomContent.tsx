@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postRoom, updateRoom } from '../../api/Room';
@@ -60,9 +60,7 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
       console.error(e);
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <RoomContentStyle>

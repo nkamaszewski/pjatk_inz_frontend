@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import lottieJson from 'animations/NoData.json';
 import Lottie from 'react-lottie-player';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useDelayRender } from 'hooks/useDelayRender';
 
 const NoDataStyled = styled.div`
@@ -16,11 +16,7 @@ const NoDataStyled = styled.div`
 `;
 
 export const NoData = () => {
-  const {
-    language: {
-      schema: { noContent },
-    },
-  } = useLanguage();
+  const { noContent } = useLanguageSchema();
 
   const show = useDelayRender();
   return (

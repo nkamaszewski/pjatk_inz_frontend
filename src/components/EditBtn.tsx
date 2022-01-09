@@ -1,5 +1,5 @@
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { IconBtn } from './IconBtn';
 
 interface Props {
@@ -7,13 +7,11 @@ interface Props {
 }
 
 const EditBtn = ({ onClick }: Props) => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <IconBtn
-      title= {schema.edit}
+      title={schema.edit}
       onClick={onClick}
       icon={faEdit}
       iconClassname="g-primary-color"

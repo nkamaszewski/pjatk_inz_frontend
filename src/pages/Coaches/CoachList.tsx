@@ -1,7 +1,7 @@
 import { Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteCoach } from '../../api/Coach';
@@ -48,10 +48,7 @@ const CoachList = ({ coaches, fetchCoaches }: Props) => {
       handleHttpError(e);
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
-
+  const schema = useLanguageSchema();
 
   return (
     <CoachListStyle>

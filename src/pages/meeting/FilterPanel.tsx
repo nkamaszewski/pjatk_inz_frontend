@@ -1,6 +1,6 @@
 import GroupSelect from 'components/controls_UI/groupSelect/GroupSelect';
 import RoomSelect from 'components/controls_UI/roomSelect/RoomSelect';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import { useFilter } from '../../providers/FilterContext';
 
@@ -14,9 +14,7 @@ export const FilterPanel = () => {
   const {
     meeting: { filters, handleSetFilter },
   } = useFilter();
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <FilterPanelStyle>

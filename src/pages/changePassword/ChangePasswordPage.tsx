@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import lottieJson from '../../animations/Secure.json';
 import { FormikTextField } from '../../components/controls_UI/formik/FormikTextField';
 import { LanguagePanel } from '../../components/LanguagePanel';
-import { useLanguage } from '../../providers/LanguageProvider';
+import { useLanguageSchema } from '../../providers/LanguageProvider';
 import { useTheme } from '../../providers/ThemeContext';
 import { useFormikChangePassword } from './useFormikChangePassword';
 
@@ -72,9 +72,7 @@ const ChangePasswordPage = () => {
   const history = useHistory();
   const { token } = useParams<{ token: string }>();
   const { setSuccessSnackbar } = useSnackbar();
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   const formik = useFormikChangePassword({
     initialValues: EMPTY_CHANGE_PASSWORD_FORM,
     onSubmit: async ({ email, password }) => {

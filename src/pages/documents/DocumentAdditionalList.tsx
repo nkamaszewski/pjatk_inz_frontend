@@ -16,7 +16,7 @@ import { formatDate } from '../../helpers/formatDate';
 import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
 import DocumentAdditionalFieldset from './DocumentAdditionalFieldset';
 import DocumentAdditionalListHeader from './DocumentAdditionalListHeader';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 
 const DocumentAdditionalListStyle = styled.div`
   padding: 16px;
@@ -71,10 +71,8 @@ const DocumentAdditionalList = ({ documents, fetchDocuments }: Props) => {
 
   const getStatusName = (id: string) =>
     statuses.find(({ IdStatus }) => IdStatus === id)?.Name ?? '';
-    const {
-      language: { schema },
-    } = useLanguage();
-  
+  const schema = useLanguageSchema();
+
   return (
     <DocumentAdditionalListStyle>
       <Drawer

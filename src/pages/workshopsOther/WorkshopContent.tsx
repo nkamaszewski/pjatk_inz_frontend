@@ -1,6 +1,6 @@
 import { Button, TextField } from '@material-ui/core';
 import CompanySelect from 'components/controls_UI/companySelect/CompanySelect';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { OtherEducationDTO } from 'types/DTO/OtherEducation';
@@ -70,9 +70,7 @@ export const WorkshopContent = ({
       [event.target.name]: event.target.value,
     }));
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <WorkshopContentStyle>

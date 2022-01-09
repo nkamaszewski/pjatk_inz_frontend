@@ -1,5 +1,5 @@
 import { Button, TextField } from '@material-ui/core';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { postCompany, updateCompany } from '../../api/Company';
@@ -63,9 +63,7 @@ const CompanyContent = ({
       console.error(e);
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <CompanyContentStyle>

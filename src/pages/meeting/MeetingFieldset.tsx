@@ -1,4 +1,4 @@
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { MeetingDTOShort } from 'types/DTO/Meeting';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
@@ -11,9 +11,7 @@ interface Props {
 }
 
 const MeetingFieldset = ({ closeDrawer, fetchMeetings, meeting }: Props) => {
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
       <HeaderFieldset

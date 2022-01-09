@@ -1,7 +1,7 @@
 import { Drawer } from '@material-ui/core';
 import AddFab from 'components/AddFab';
 import { NoData } from 'components/NoData';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import PageHeader from '../../components/PageHeader';
@@ -14,14 +14,7 @@ const WorkshopsOthersStyled = styled.div``;
 export const WorkshopsOthers = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { workshops, fetchWorkshops } = useWorkshopList();
-  const {
-    language: {
-      schema: {
-        otherTtrainings
-
-      },
-    },
-  } = useLanguage();
+  const { otherTtrainings } = useLanguageSchema();
   return (
     <WorkshopsOthersStyled>
       <PageHeader title={otherTtrainings} />

@@ -6,7 +6,7 @@ import {
   updateOtherEducation,
 } from 'api/OtherEducation';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import {
   createSnackbarSuccess,
   useSnackbar,
@@ -65,8 +65,6 @@ export const useWorkshopCRUD = () => {
       handleHttpError(e);
     }
   };
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
   return { getItem, addItem, deleteItem, editItem };
 };

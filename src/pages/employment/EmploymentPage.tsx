@@ -1,6 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
-import { useLanguage } from 'providers/LanguageProvider';
+import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
@@ -11,9 +11,7 @@ import { useEmploymentQuery } from './useEmploymentQuery';
 const EmploymentPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const employmentQuery = useEmploymentQuery();
-  const {
-    language: { schema },
-  } = useLanguage();
+  const schema = useLanguageSchema();
 
   return (
     <div>
