@@ -1,8 +1,8 @@
-import { getGroups } from 'api/Group';
+import { getGroups } from 'api/group/Group';
 import { useQuery } from 'react-query';
-import { GroupDTO } from 'types/DTO/Group';
+import { GroupListDTO } from 'types/DTO/Group';
 
-const DEFAULT_GROUPS = [{ IdGroup: 'all', Name: '' } as GroupDTO];
+const DEFAULT_GROUPS = [{ IdGroup: 'all', Name: '' } as GroupListDTO];
 
 export const useGroupesQuery = (withAll: boolean) => {
   const query = useQuery(['groups', 'control_ui'], async () => {

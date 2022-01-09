@@ -6,7 +6,7 @@ import { useLanguageSchema } from 'providers/LanguageProvider';
 import React from 'react';
 import styled from 'styled-components';
 import { ErrorHelperText } from '../ErrorHelperText';
-import { useGroupesQuery } from './useGroupesQuery';
+import { useGroupesQuery } from '../../../api/group/useGroupesQuery';
 
 const GroupSelectStyle = styled.div`
   display: grid;

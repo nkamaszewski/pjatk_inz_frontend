@@ -26,7 +26,7 @@ import {
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { EmployeeGroupDTO } from '../../types/DTO/EmployeeGroup';
-import { GroupDTO } from '../../types/DTO/Group';
+import { GroupListDTO } from '../../types/DTO/Group';
 import { PersonDTO } from '../../types/DTO/Person';
 
 const GroupDetailsFieldsetStyle = styled.div`
@@ -47,7 +47,7 @@ const GroupDetailsFieldsetStyle = styled.div`
 
 interface Props {
   closeDrawer: Function;
-  group: GroupDTO;
+  group: GroupListDTO;
 }
 
 const GroupDetailsFieldset = ({ closeDrawer, group }: Props) => {

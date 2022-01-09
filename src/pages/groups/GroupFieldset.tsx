@@ -1,19 +1,20 @@
 import { useLanguageSchema } from 'providers/LanguageProvider';
+import { GroupDTO } from 'types/DTO/Group';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import GroupContent from './GroupContent';
 
 interface Props {
   closeDrawer: () => void;
-  fetchGroups: Function;
+  editedGroup?: GroupDTO | null;
 }
 
-const GroupFieldset = ({ closeDrawer, fetchGroups }: Props) => {
+const GroupFieldset = ({ closeDrawer, editedGroup }: Props) => {
   const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
       <HeaderFieldset title={schema.addGroup} closeDrawer={closeDrawer} />
-      <GroupContent closeDrawer={closeDrawer} fetchGroups={fetchGroups} />
+      <GroupContent closeDrawer={closeDrawer} editedGroup={editedGroup} />
     </FieldsetStyled>
   );
 };

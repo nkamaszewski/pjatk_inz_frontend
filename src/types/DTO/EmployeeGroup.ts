@@ -1,8 +1,8 @@
 import { EmployeeDTO } from './Employee';
-import { GroupDTO } from './Group';
+import { GroupListDTO } from './Group';
 
 export interface EmployeeGroupDTO {
   IdEmployeeGroup: string;
   employeeGroupEmployee: EmployeeDTO;
-  employeeGroupGroup: GroupDTO;
+  employeeGroupGroup: GroupListDTO;
 }

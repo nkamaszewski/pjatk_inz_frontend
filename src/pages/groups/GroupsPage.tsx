@@ -1,14 +1,14 @@
 import { Drawer } from '@material-ui/core';
+import { useGroupsListQuery } from 'api/group/useGroupsListQuery';
 import { NoData } from 'components/NoData';
+import { useDrawer } from 'hooks/useDrawer';
 import { useLanguageSchema } from 'providers/LanguageProvider';
-import { useState } from 'react';
 import styled from 'styled-components';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import FilterPanel from './FilterPanel';
 import GroupFieldset from './GroupFieldset';
 import GroupList from './GroupList';
-import { useGroups } from './useGroups';
 
 const GroupsPageStyled = styled.div`
   .page-panel {
@@ -18,24 +18,21 @@ const GroupsPageStyled = styled.div`
 `;
 
 const GroupsPage = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { groups, fetchGroups } = useGroups();
+  const { open, openDrawer, closeDrawer } = useDrawer();
+  const groupsListQuery = useGroupsListQuery();
   const schema = useLanguageSchema();
 
   return (
     <GroupsPageStyled>
       <PageHeader title={schema.groups} />
-      <AddFab onClick={() => setIsOpen(true)} className="page-panel">
+      <AddFab onClick={openDrawer} className="page-panel">
         <FilterPanel />
       </AddFab>
-      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        <GroupFieldset
-          closeDrawer={() => setIsOpen(false)}
-          fetchGroups={fetchGroups}
-        />
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
+        <GroupFieldset closeDrawer={closeDrawer} />
       </Drawer>
-      {groups.length ? (
-        <GroupList groups={groups} fetchGroups={fetchGroups} />
+      {groupsListQuery.data?.data.length ? (
+        <GroupList groups={groupsListQuery.data.data} />
       ) : (
         <NoData />
       )}

@@ -1,11 +1,11 @@
-import { GroupDTO } from './Group';
+import { GroupListDTO } from './Group';
 import { RoomDTO } from './Room';
 
 export interface MeetingDTO {
   IdMeeting: string;
   From: string;
   To: string;
-  meetingGroup: GroupDTO;
+  meetingGroup: GroupListDTO;
   meetingRoom: RoomDTO;
   Topic: string;
 }

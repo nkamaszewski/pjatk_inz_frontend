@@ -1,14 +1,12 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import { useAddGroupMutation } from 'api/group/useAddGroupMutation';
+import { useUpdateGroupMutation } from 'api/group/useUpdateGroupMutation';
+import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { useLanguageSchema } from 'providers/LanguageProvider';
-import { useState } from 'react';
 import styled from 'styled-components';
-import { postGroup } from '../../api/Group';
+import { GroupDTO } from 'types/DTO/Group';
 import TrainingSelect from '../../components/controls_UI/trainingSelect/TrainingSelect';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
-import {
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
+import { useGroupForm } from './useGroupForm';
 
 const GroupContentStyle = styled.div`
   padding: 24px 0;
@@ -16,62 +14,72 @@ const GroupContentStyle = styled.div`
   grid-row-gap: 16px;
 `;
 
+const initialValues = {
+  Name: '',
+  NumberOfPerson: 0,
+  IdEducation: '',
+};
 interface Props {
   closeDrawer: Function;
-  fetchGroups: Function;
+  editedGroup?: GroupDTO | null;
 }
 
-const GroupContent = ({ closeDrawer, fetchGroups }: Props) => {
-  const [name, setName] = useState('');
-  const [numberOfPerson, setNumberOfPerson] = useState(0);
-  const [idEducation, setIdEducation] = useState('0');
-  const { setSnackbar } = useSnackbar();
-  const handleHttpError = useHandleHttpError();
-  const handleOnSave = async () => {
-    try {
-      await postGroup({
-        Name: name,
-        NumberOfPerson: numberOfPerson,
-        IdEducation: idEducation,
-      });
-      setSnackbar(createSnackbarSuccess('Dodano grupę'));
+const GroupContent = ({ closeDrawer, editedGroup }: Props) => {
+  const addMutation = useAddGroupMutation();
+  const updateMutation = useUpdateGroupMutation();
+  const groupForm = useGroupForm()({
+    initialValues: editedGroup ?? initialValues,
+    onSubmit: async (values) => {
+      if (editedGroup) {
+        await updateMutation.mutateAsync({
+          ...values,
+          IdGroup: editedGroup.IdGroup,
+        });
+      } else {
+        await addMutation.mutateAsync(values);
+      }
       closeDrawer();
-      fetchGroups();
-    } catch (e) {
-      handleHttpError(e);
-      console.error(e);
-    }
-  };
+    },
+  });
+
   const schema = useLanguageSchema();
 
   return (
     <GroupContentStyle>
-      <TextField
+      <FormikTextField
         label={schema.name}
-        type="text"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={name}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setName(event.target.value)
-        }
+        name="Name"
+        value={groupForm.values.Name}
+        onChange={groupForm.handleChange}
+        onBlur={groupForm.handleBlur}
+        error={groupForm.errors.Name}
+        touched={groupForm.touched.Name}
+        autoFocus
       />
-      <TextField
-        label={schema.numberOfPeople}
-        type="number"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={numberOfPerson}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setNumberOfPerson(Number(event.target.value))
-        }
+      <FormikTextField
+        label="Ilość uczestników"
+        name="NumberOfPerson"
+        value={groupForm.values.NumberOfPerson}
+        onChange={groupForm.handleChange}
+        onBlur={groupForm.handleBlur}
+        error={groupForm.errors.NumberOfPerson}
+        touched={groupForm.touched.NumberOfPerson}
       />
 
-      <TrainingSelect value={idEducation} onChange={setIdEducation} />
+      <TrainingSelect
+        value={groupForm.values.IdEducation}
+        onChange={(id) => groupForm.setFieldValue('IdEducation', id)}
+        name="IdEducation"
+        onBlur={groupForm.handleBlur}
+        error={groupForm.errors.IdEducation}
+        touched={groupForm.touched.IdEducation}
+      />
 
-      <Button variant="contained" color="primary" onClick={handleOnSave}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => groupForm.handleSubmit()}
+      >
         {schema.save}
       </Button>
     </GroupContentStyle>

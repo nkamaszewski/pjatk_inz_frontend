@@ -113,6 +113,9 @@ export interface LanguageSchema {
   positionEdited: string;
   group: string;
   groups: string;
+  groupsRemoved: string;
+  groupsAdded: string;
+  groupsEdited: string;
   name: string;
   participantsAmount: string;
   topic: string;
