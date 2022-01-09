@@ -1,10 +1,10 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { usePositionsQuery } from 'api/position/usePositionsQuery';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import React from 'react';
 import { ErrorHelperText } from '../ErrorHelperText';
-import { usePositionsQuery } from './usePositionsQuery';
 
 interface Props {
   value: string;

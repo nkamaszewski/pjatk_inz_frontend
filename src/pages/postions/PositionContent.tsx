@@ -1,14 +1,11 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import { useAddPositionMutation } from 'api/position/useAddPositionMutation';
+import { useUpdatePositionMutation } from 'api/position/useUpdatePositionMutation';
+import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { useLanguageSchema } from 'providers/LanguageProvider';
-import { useState } from 'react';
 import styled from 'styled-components';
-import { postPosition, updatePosition } from '../../api/Position';
-import {
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { PositionDTO } from '../../types/DTO/Position';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
+import { usePositionForm } from './usePositionForm';
 
 const PositionContentStyle = styled.div`
   padding: 24px 0;
@@ -16,62 +13,49 @@ const PositionContentStyle = styled.div`
   grid-row-gap: 16px;
 `;
 
+const initialValues = {
+  Name: '',
+};
 interface Props {
-  closeDrawer: Function;
-  fetchPositions: Function;
+  closeDrawer: () => void;
   editPosition?: PositionDTO | null;
 }
 
-const PositionContent = ({
-  closeDrawer,
-  fetchPositions,
-  editPosition,
-}: Props) => {
-  const [name, setName] = useState(editPosition?.Name ?? '');
-  const { setSnackbar } = useSnackbar();
-  const handleHttpError = useHandleHttpError();
-
-  const handleOnNameChange = (e: any) => {
-    e.persist();
-    setName(e.target.value);
-  };
-
-  const handleOnSave = async () => {
-    try {
+const PositionContent = ({ closeDrawer, editPosition }: Props) => {
+  const addMutation = useAddPositionMutation();
+  const updateMutation = useUpdatePositionMutation();
+  const positionForm = usePositionForm()({
+    initialValues: editPosition ?? initialValues,
+    onSubmit: async (values) => {
       if (editPosition) {
-        await updatePosition({
-          IdPosition: editPosition.IdPosition,
-          Name: name,
-        });
-        setSnackbar(createSnackbarSuccess('Stanowisko zostało wyedytowane'));
-        closeDrawer();
+        await updateMutation.mutateAsync({ ...editPosition, ...values });
       } else {
-        await postPosition({ Name: name });
-        setSnackbar(createSnackbarSuccess('Stanowisko zostało dodane'));
-        closeDrawer();
+        await addMutation.mutateAsync(values);
       }
-    } catch (e) {
-      handleHttpError(e);
-      console.error(e);
-    } finally {
-      fetchPositions();
-    }
-  };
+      closeDrawer();
+    },
+  });
   const schema = useLanguageSchema();
 
   return (
     <PositionContentStyle>
-      <TextField
-        fullWidth
+      <FormikTextField
         label={schema.name}
-        value={name}
-        onChange={handleOnNameChange}
+        name="Name"
+        value={positionForm.values.Name}
+        onChange={positionForm.handleChange}
+        onBlur={positionForm.handleBlur}
+        error={positionForm.errors.Name}
+        touched={positionForm.touched.Name}
+        autoFocus
       />
+
       <Button
-        disabled={!Boolean(name)}
         variant="contained"
         color="primary"
-        onClick={handleOnSave}
+        onClick={() => {
+          positionForm.handleSubmit();
+        }}
       >
         {schema.save}
       </Button>

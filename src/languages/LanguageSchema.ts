@@ -105,6 +105,9 @@ export interface LanguageSchema {
   department: string;
   division: string;
   position: string;
+  positionRemoved: string;
+  positionAdded: string;
+  positionEdited: string;
   group: string;
   groups: string;
   name: string;

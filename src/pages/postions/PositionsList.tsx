@@ -1,14 +1,9 @@
 import { Divider, Drawer } from '@material-ui/core';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
+import { useDeletePositionMutation } from 'api/position/useDeletePositionMutation';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { deletePosition } from '../../api/Position';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
-import {
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { PositionDTO } from '../../types/DTO/Position';
 import PositionFieldset from './PositionFieldset';
 
@@ -23,25 +18,11 @@ const PositionsListStyle = styled.div`
 
 interface Props {
   positions: PositionDTO[];
-  fetchPositions: Function;
 }
 
-const PositionsList = ({ positions, fetchPositions }: Props) => {
-  const [editPosition, setEditPosition]: [PositionDTO | null, Function] =
-    useState(null);
-  const { setSnackbar } = useSnackbar();
-  const handleHttpError = useHandleHttpError();
-
-  const handleDeleteItem = async (id: string) => {
-    try {
-      await deletePosition(id);
-      setSnackbar(createSnackbarSuccess('Usunięto stanowisko!'));
-      fetchPositions();
-    } catch (e) {
-      console.error(e);
-      handleHttpError(e);
-    }
-  };
+const PositionsList = ({ positions }: Props) => {
+  const deleteMutation = useDeletePositionMutation();
+  const [editPosition, setEditPosition] = useState<PositionDTO | null>(null);
 
   const handleCloseDrawer = () => setEditPosition(null);
 
@@ -54,7 +35,6 @@ const PositionsList = ({ positions, fetchPositions }: Props) => {
       >
         <PositionFieldset
           closeDrawer={handleCloseDrawer}
-          fetchPositions={fetchPositions}
           editPosition={editPosition}
         />
       </Drawer>
@@ -63,7 +43,9 @@ const PositionsList = ({ positions, fetchPositions }: Props) => {
           <div className="row-content">
             <h3>{position.Name}</h3>
             <EditBtn onClick={() => setEditPosition(position)} />
-            <DeleteBtn onClick={() => handleDeleteItem(position.IdPosition)} />
+            <DeleteBtn
+              onClick={() => deleteMutation.mutate({ id: position.IdPosition })}
+            />
           </div>
           <Divider />
         </div>

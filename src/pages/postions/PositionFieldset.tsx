@@ -7,15 +7,10 @@ import PositionContent from './PositionContent';
 
 interface Props {
   closeDrawer: () => void;
-  fetchPositions: Function;
   editPosition?: PositionDTO | null;
 }
 
-const PositionFieldset = ({
-  closeDrawer,
-  fetchPositions,
-  editPosition,
-}: Props) => {
+const PositionFieldset = ({ closeDrawer, editPosition }: Props) => {
   const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
@@ -26,11 +21,7 @@ const PositionFieldset = ({
         closeDrawer={closeDrawer}
       />
 
-      <PositionContent
-        closeDrawer={closeDrawer}
-        fetchPositions={fetchPositions}
-        editPosition={editPosition}
-      />
+      <PositionContent closeDrawer={closeDrawer} editPosition={editPosition} />
     </FieldsetStyled>
   );
 };

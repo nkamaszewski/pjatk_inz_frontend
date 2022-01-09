@@ -1,46 +1,27 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useDrawer } from 'hooks/useDrawer';
 import { useLanguageSchema } from 'providers/LanguageProvider';
-import { useEffect, useState } from 'react';
-import { getPositions } from '../../api/Position';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
-import { PositionDTO } from '../../types/DTO/Position';
 import PositionFieldset from './PositionFieldset';
 import PositionsList from './PositionsList';
+import { usePositionsQuery } from 'api/position/usePositionsQuery';
 
 export const PositionsPage = () => {
-  const [positions, setPositions]: [PositionDTO[], Function] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const fetchPositions = () => {
-    try {
-      getPositions().then((res) => {
-        setPositions(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(() => {
-    fetchPositions();
-  }, []);
-
+  const positionsQuery = usePositionsQuery();
+  const { open, openDrawer, closeDrawer } = useDrawer();
   const schema = useLanguageSchema();
 
   return (
     <>
       <PageHeader title={schema.positions} />
-      <AddFab onClick={() => setIsOpen(true)} />
-      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        <PositionFieldset
-          closeDrawer={() => setIsOpen(false)}
-          fetchPositions={fetchPositions}
-        />
+      <AddFab onClick={openDrawer} />
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
+        <PositionFieldset closeDrawer={closeDrawer} />
       </Drawer>
-      {positions.length ? (
-        <PositionsList positions={positions} fetchPositions={fetchPositions} />
+      {positionsQuery.data?.data.length ? (
+        <PositionsList positions={positionsQuery.data.data} />
       ) : (
         <NoData />
       )}
