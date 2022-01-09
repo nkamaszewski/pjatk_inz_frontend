@@ -64,7 +64,7 @@ const EmploymentList = ({ employments }: Props) => {
           <Card key={employment.IdEmployment} className="grid-employment row">
             <p>{employment.FirstName}</p>
             <p>{employment.LastName}</p>
-            <p>{employment.Division.Name}</p>
+            <p>{employment.Division ? employment.Division.Name : '---'}</p>
             <p>{employment.Department.Name}</p>
             <p>{employment.Position.Name}</p>
             {person.personEmployee?.IsActive ? (
