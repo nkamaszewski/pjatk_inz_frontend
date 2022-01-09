@@ -1,6 +1,6 @@
 import CompanyData from '../pages/company/CompanyData';
 import CompanyDataDepartments from '../pages/CompanyDataDepartments/CompanyDataDepartments';
-import CompanyDataPositions from '../pages/CompanyDataPositions/CompanyDataPositions';
+import { PositionsPage } from '../pages/postions/PositionsPage';
 import DocumentsAdditional from '../pages/documents/DocumentsAdditional';
 import Employment from '../pages/employment/EmploymentPage';
 import Polls from '../pages/polls/Polls';
@@ -52,6 +52,6 @@ export const routes: RouteType[] = [
   { Component: Polls, path: PATH.polls },
   { Component: CompanyData, path: PATH.companyData },
   { Component: CompanyDataDepartments, path: PATH.companyDataDepartments },
-  { Component: CompanyDataPositions, path: PATH.companyDataPositions },
+  { Component: PositionsPage, path: PATH.companyDataPositions },
   { Component: UserAccount, path: PATH.userAccount },
 ];

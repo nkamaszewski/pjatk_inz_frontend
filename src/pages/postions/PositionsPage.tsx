@@ -2,7 +2,6 @@ import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
 import { useLanguage } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { getPositions } from '../../api/Position';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
@@ -10,9 +9,7 @@ import { PositionDTO } from '../../types/DTO/Position';
 import PositionFieldset from './PositionFieldset';
 import PositionsList from './PositionsList';
 
-const CompanyDataPositionsStyle = styled.div``;
-
-const CompanyDataPositions = () => {
+export const PositionsPage = () => {
   const [positions, setPositions]: [PositionDTO[], Function] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -35,7 +32,7 @@ const CompanyDataPositions = () => {
   } = useLanguage();
 
   return (
-    <CompanyDataPositionsStyle>
+    <>
       <PageHeader title={schema.positions} />
       <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
@@ -49,8 +46,6 @@ const CompanyDataPositions = () => {
       ) : (
         <NoData />
       )}
-    </CompanyDataPositionsStyle>
+    </>
   );
 };
-
-export default CompanyDataPositions;

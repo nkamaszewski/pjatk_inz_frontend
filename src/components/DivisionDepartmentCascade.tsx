@@ -36,7 +36,9 @@ export const DivisionDepartmentCascade = ({
       <DepartmentSelect
         {...departmentProps}
         idDivision={divisionProps.value}
-        disabled={idRole?.toString() === DIRECTOR_ID_ROLE}
+        disabled={
+          idRole?.toString() === DIRECTOR_ID_ROLE || !divisionProps.value
+        }
       />
     </>
   );

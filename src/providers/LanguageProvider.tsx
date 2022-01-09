@@ -64,3 +64,8 @@ export const useLanguage = () => {
 
   return languageCtx;
 };
+
+export const useLanguageSchema = () => {
+  const lang = useLanguage();
+  return lang.language.schema;
+};
