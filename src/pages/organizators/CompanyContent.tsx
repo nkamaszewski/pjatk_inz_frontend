@@ -2,7 +2,7 @@ import { Button, TextField } from '@material-ui/core';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postCompany, updateCompany } from '../../api/Company';
+import { postCompany, updateCompany } from '../../api/company/Company';
 import {
   createSnackbarSuccess,
   useSnackbar,

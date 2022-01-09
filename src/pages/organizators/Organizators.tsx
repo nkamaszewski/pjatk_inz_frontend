@@ -2,7 +2,7 @@ import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
-import { getCompanies } from '../../api/Company';
+import { getCompanies } from '../../api/company/Company';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import { CompanyDTO } from '../../types/DTO/Company';

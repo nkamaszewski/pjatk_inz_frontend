@@ -91,8 +91,8 @@ const WorkshopContent = ({
     <WorkshopContentStyle>
       <SwitchBtn
         value={isStudy}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          setIsStudy(event.target.checked);
+        onChange={(checked) => {
+          setIsStudy(checked);
           setIdEducation('');
         }}
         label={schema.theApplicationConcernsStudies}
@@ -106,9 +106,7 @@ const WorkshopContent = ({
 
       <SwitchBtn
         value={compatibility}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setCompatibility(event.target.checked)
-        }
+        onChange={(checked) => setCompatibility(checked)}
         label={schema.isItInLineWithTheTermsOfReference}
       />
 

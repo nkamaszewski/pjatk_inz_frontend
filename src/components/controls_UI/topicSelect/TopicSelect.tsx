@@ -19,6 +19,7 @@ import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { TopicDTO } from '../../../types/DTO/Topic';
+import { ErrorHelperText } from '../ErrorHelperText';
 import SubjectSelect from '../subjectSelect/SubjectSelect';
 
 const TopicSelectStyle = styled.div`
@@ -28,7 +29,11 @@ const TopicSelectStyle = styled.div`
 
 interface Props {
   value: string;
-  onChange: Function;
+  onChange: (id: string) => void;
+  onBlur?: (e: React.FocusEvent<any>) => void;
+  name?: string;
+  touched?: boolean;
+  error?: string;
 }
 
 const EMPTY_TOPIC = {
@@ -37,7 +42,14 @@ const EMPTY_TOPIC = {
   IdSubject: '',
 } as TopicDTO;
 
-const TopicSelect = ({ value, onChange }: Props) => {
+const TopicSelect = ({
+  value,
+  onChange,
+  onBlur,
+  name,
+  touched,
+  error,
+}: Props) => {
   const topicsQuery = useTopicsQuery();
   const topicMutation = useTopicMutation();
   const [addingMode, setAddingMode] = useState(false);
@@ -78,13 +90,19 @@ const TopicSelect = ({ value, onChange }: Props) => {
     <TopicSelectStyle>
       <FormControlStyled>
         <InputLabel>{schema.topic}</InputLabel>
-        <Select value={value} onChange={handleSelectChange}>
+        <Select
+          value={value}
+          onChange={handleSelectChange}
+          onBlur={onBlur}
+          name={name}
+        >
           {topicsQuery.data?.data.map((top) => (
             <MenuItem key={top.IdTopic} value={top.IdTopic}>
               {top.Topic}
             </MenuItem>
           ))}
         </Select>
+        {touched && error && <ErrorHelperText text={error} />}
       </FormControlStyled>
       <Tooltip title={schema.addATrainingTopic}>
         <Button

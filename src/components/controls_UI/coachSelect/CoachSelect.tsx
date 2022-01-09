@@ -16,10 +16,11 @@ import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { CoachDTO } from '../../../types/DTO/Coach';
+import { CoachDTO } from 'types/DTO/Coach';
+import { ErrorHelperText } from '../ErrorHelperText';
 import PersonSelect from '../personSelect/PersonSelect';
-import { useCoachesQuery } from './useCoachesQuery';
-import { useCoachMutation } from './useCoachMutation';
+import { useCoachesQuery } from 'api/coach/useCoachesQuery';
+import { useCoachMutation } from 'api/coach/useCoachMutation';
 
 const CoachSelectStyle = styled.div`
   display: grid;
@@ -28,7 +29,11 @@ const CoachSelectStyle = styled.div`
 
 interface Props {
   value: string;
-  onChange: Function;
+  onChange: (id: string) => void;
+  onBlur?: (e: React.FocusEvent<any>) => void;
+  name?: string;
+  touched?: boolean;
+  error?: string;
 }
 
 const EMPTY_COACH = {
@@ -37,7 +42,15 @@ const EMPTY_COACH = {
   CoachPerson: {},
 } as CoachDTO;
 
-const CoachSelect = ({ value, onChange }: Props) => {
+const CoachSelect = ({
+  value,
+  onChange,
+  onBlur,
+
+  name,
+  touched,
+  error,
+}: Props) => {
   const coachesQuery = useCoachesQuery();
   const coachMutation = useCoachMutation();
   const [addingMode, setAddingMode] = useState(false);
@@ -70,13 +83,19 @@ const CoachSelect = ({ value, onChange }: Props) => {
     <CoachSelectStyle>
       <FormControlStyled>
         <InputLabel>{schema.trainer}</InputLabel>
-        <Select value={value} onChange={handleSelectChange}>
+        <Select
+          value={value}
+          onChange={handleSelectChange}
+          name={name}
+          onBlur={onBlur}
+        >
           {coachesQuery.data?.data.map((c) => (
             <MenuItem key={c.IdPerson} value={c.IdPerson}>
               {`${c.CoachPerson.FirstName} ${c.CoachPerson.LastName} ${c.JobTitle}`}
             </MenuItem>
           ))}
         </Select>
+        {touched && error && <ErrorHelperText text={error} />}
       </FormControlStyled>
       <Tooltip title={schema.addATrainer}>
         <Button

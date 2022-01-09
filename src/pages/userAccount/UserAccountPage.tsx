@@ -140,9 +140,9 @@ const UserAccountPage = () => {
         </section>
         <SwitchBtn
           value={editMode}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setEditMode(event.target.checked);
-            if (!event.target.checked) {
+          onChange={(checked) => {
+            setEditMode(checked);
+            if (!checked) {
               formik.resetForm({ values: user ?? ({} as PersonDTO) });
             }
           }}

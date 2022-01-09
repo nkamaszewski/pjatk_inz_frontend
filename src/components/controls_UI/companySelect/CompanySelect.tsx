@@ -17,9 +17,10 @@ import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { CompanyDTO } from '../../../types/DTO/Company';
-import { useCompaniesQuery } from './useCompaniesQuery';
-import { useCompanyMutation } from './useCompanyMutation';
+import { CompanyDTO } from 'types/DTO/Company';
+import { ErrorHelperText } from '../ErrorHelperText';
+import { useCompaniesQuery } from 'api/company/useCompaniesQuery';
+import { useCompanyMutation } from 'api/company/useCompanyMutation';
 
 const CompanySelectStyle = styled.div`
   display: grid;
@@ -28,7 +29,11 @@ const CompanySelectStyle = styled.div`
 
 interface Props {
   value: string;
-  onChange: Function;
+  onChange: (id: string) => void;
+  onBlur?: (e: React.FocusEvent<any>) => void;
+  name?: string;
+  touched?: boolean;
+  error?: string;
 }
 
 const EMPTY_COMPANY = {
@@ -41,7 +46,14 @@ const EMPTY_COMPANY = {
   TIN: '',
 } as CompanyDTO;
 
-const CompanySelect = ({ value, onChange }: Props) => {
+export const CompanySelect = ({
+  value,
+  onChange,
+  onBlur,
+  name,
+  touched,
+  error,
+}: Props) => {
   const [addingMode, setAddingMode] = useState(false);
   const [company, setCompany] = useState(EMPTY_COMPANY);
   const companiesQuery = useCompaniesQuery();
@@ -81,7 +93,12 @@ const CompanySelect = ({ value, onChange }: Props) => {
     <CompanySelectStyle>
       <FormControlStyled>
         <InputLabel>{capFL(schema.company)}</InputLabel>
-        <Select value={value} onChange={handleSelectChange}>
+        <Select
+          value={value}
+          onChange={handleSelectChange}
+          name={name}
+          onBlur={onBlur}
+        >
           {companiesQuery.data?.data.map((comp) => (
             <MenuItem
               key={comp.IdCompany}
@@ -89,6 +106,7 @@ const CompanySelect = ({ value, onChange }: Props) => {
             >{`${comp.Name} ${comp.City}`}</MenuItem>
           ))}
         </Select>
+        {touched && error && <ErrorHelperText text={error} />}
       </FormControlStyled>
       <Tooltip title={schema.addACompany}>
         <Button
@@ -170,5 +188,3 @@ const CompanySelect = ({ value, onChange }: Props) => {
     </CompanySelectStyle>
   );
 };
-
-export default CompanySelect;

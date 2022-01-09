@@ -3,7 +3,7 @@ import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getOwner, updateCompany } from '../../api/Company';
+import { getOwner, updateCompany } from '../../api/company/Company';
 import SwitchBtn from '../../components/controls_UI/SwitchBtn';
 import PageHeader from '../../components/PageHeader';
 import {
@@ -208,9 +208,7 @@ const CompanyData = () => {
 
         <SwitchBtn
           value={Boolean(ownerEditModel)}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setOwnerEditModel(event.target.checked ? owner : null)
-          }
+          onChange={(checked) => setOwnerEditModel(checked ? owner : null)}
           label={schema.editMode}
         />
       </div>

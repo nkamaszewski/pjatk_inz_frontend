@@ -28,6 +28,15 @@ const validationSchema = (schema: LanguageSchema) =>
           schema.min(DateFrom, 'data do nie może być wcześniejsza od daty od')
       )
       .required(schema.validation.dateRequired),
+    Price: Yup.number()
+      .positive('cena musi być wynosić co najmniej 0')
+      .required('podanie ceny jest wymagane'),
+    PriceAccommodation: Yup.number()
+      .positive('cena musi być wynosić co najmniej 0')
+      .required('podanie ceny jest wymagane'),
+    PriceTransit: Yup.number()
+      .positive('cena musi być wynosić co najmniej 0')
+      .required('podanie ceny jest wymagane'),
   });
 
 export const useTrainingForm = () => {

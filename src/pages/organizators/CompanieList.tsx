@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { deleteCompany } from '../../api/Company';
+import { deleteCompany } from '../../api/company/Company';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import {

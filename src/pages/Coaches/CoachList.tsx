@@ -4,7 +4,7 @@ import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { deleteCoach } from '../../api/Coach';
+import { deleteCoach } from '../../api/coach/Coach';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import {

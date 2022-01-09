@@ -2,7 +2,7 @@ import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
-import { getCoaches } from '../../api/Coach';
+import { getCoaches } from '../../api/coach/Coach';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import { CoachDTO } from '../../types/DTO/Coach';

@@ -1,12 +1,13 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { useAddEducationMutation } from 'api/education/useAddEducationMutation';
 import { useUpdateEducationMutation } from 'api/education/useUpdateEducationMutation';
 import { useAddTrainingMutation } from 'api/training/useAddTrainingMutation';
 import { useUpdateTrainingMutation } from 'api/training/useUpdateTrainingMutation';
+import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import CoachSelect from '../../components/controls_UI/coachSelect/CoachSelect';
-import CompanySelect from '../../components/controls_UI/companySelect/CompanySelect';
+import { CompanySelect } from '../../components/controls_UI/companySelect/CompanySelect';
 import SwitchBtn from '../../components/controls_UI/SwitchBtn';
 import TopicSelect from '../../components/controls_UI/topicSelect/TopicSelect';
 import {
@@ -86,71 +87,93 @@ const TrainingContent = ({ closeDrawer, editTraining }: Props) => {
 
   return (
     <TrainingContentStyle>
-      <TopicSelect value={idTopic} onChange={setIdTopic} />
+      <TopicSelect
+        value={trainingForm.values.IdTopic}
+        onChange={(id) => trainingForm.setFieldValue('IdTopic', id)}
+        name="IdTopic"
+        onBlur={trainingForm.handleBlur}
+        error={trainingForm.errors.IdTopic}
+        touched={trainingForm.touched.IdTopic}
+      />
 
-      <CompanySelect value={idCompany} onChange={setIdCompany} />
+      <CompanySelect
+        value={trainingForm.values.IdCompany}
+        onChange={(id) => trainingForm.setFieldValue('IdCompany', id)}
+        name="IdCompany"
+        onBlur={trainingForm.handleBlur}
+        error={trainingForm.errors.IdCompany}
+        touched={trainingForm.touched.IdCompany}
+      />
 
-      <CoachSelect value={idPerson} onChange={setIdPerson} />
+      <CoachSelect
+        value={trainingForm.values.IdPerson}
+        onChange={(id) => trainingForm.setFieldValue('IdPerson', id)}
+        name="IdPerson"
+        onBlur={trainingForm.handleBlur}
+        error={trainingForm.errors.IdPerson}
+        touched={trainingForm.touched.IdPerson}
+      />
       <SwitchBtn
-        value={internal}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setInternal(event.target.checked)
-        }
+        value={trainingForm.values.Internal}
+        onChange={(checked) => trainingForm.setFieldValue('Internal', checked)}
+        name="Internal"
+        onBlur={trainingForm.handleBlur}
+        error={trainingForm.errors.Internal}
+        touched={trainingForm.touched.Internal}
         label={schema.internalTraining}
       />
 
-      <TextField
+      <FormikTextField
         label={schema.dateFrom}
-        name="dateFrom"
+        name="DateFrom"
         type="date"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={dateFrom}
-        onChange={handleDateFromChange}
-      />
-      <TextField
-        label={schema.dateTo}
-        name="dateTo"
-        type="date"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={dateTo}
-        onChange={handleDateToChange}
+        value={trainingForm.values.DateFrom}
+        onChange={trainingForm.handleChange}
+        onBlur={trainingForm.handleBlur}
+        error={trainingForm.errors.DateFrom}
+        touched={trainingForm.touched.DateFrom}
       />
 
-      <TextField
+      <FormikTextField
+        label={schema.dateTo}
+        name="DateTo"
+        type="date"
+        value={trainingForm.values.DateTo}
+        onChange={trainingForm.handleChange}
+        onBlur={trainingForm.handleBlur}
+        error={trainingForm.errors.DateTo}
+        touched={trainingForm.touched.DateTo}
+      />
+
+      <FormikTextField
         label={schema.price}
         name="Price"
         type="number"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={education.Price}
-        onChange={handleOnEducationChange}
+        value={trainingForm.values.Price}
+        onChange={trainingForm.handleChange}
+        onBlur={trainingForm.handleBlur}
+        error={trainingForm.errors.Price}
+        touched={trainingForm.touched.Price}
       />
-
-      <TextField
+      <FormikTextField
         label={schema.accommodationPrice}
         name="PriceAccommodation"
         type="number"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={education.PriceAccommodation}
-        onChange={handleOnEducationChange}
+        value={trainingForm.values.PriceAccommodation}
+        onChange={trainingForm.handleChange}
+        onBlur={trainingForm.handleBlur}
+        error={trainingForm.errors.PriceAccommodation}
+        touched={trainingForm.touched.PriceAccommodation}
       />
-
-      <TextField
-        label={schema.theCostOfTransport}
+      <FormikTextField
+        label="price transit"
         name="PriceTransit"
         type="number"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={education.PriceTransit}
-        onChange={handleOnEducationChange}
+        value={trainingForm.values.PriceTransit}
+        onChange={trainingForm.handleChange}
+        onBlur={trainingForm.handleBlur}
+        error={trainingForm.errors.PriceTransit}
+        touched={trainingForm.touched.PriceTransit}
       />
 
       <Button

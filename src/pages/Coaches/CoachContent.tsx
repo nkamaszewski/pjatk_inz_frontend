@@ -3,7 +3,7 @@ import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postCoach, updateCoach } from '../../api/Coach';
+import { postCoach, updateCoach } from '../../api/coach/Coach';
 import PersonSelect from '../../components/controls_UI/personSelect/PersonSelect';
 import {
   createSnackbarSuccess,

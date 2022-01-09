@@ -1,5 +1,5 @@
 import { axiosJWT } from 'helpers/tokenAxios';
-import { CoachDTO } from '../types/DTO/Coach';
+import { CoachDTO } from '../../types/DTO/Coach';
 
 export const getCoaches = () => axiosJWT.get<CoachDTO[]>('/coaches/');
 

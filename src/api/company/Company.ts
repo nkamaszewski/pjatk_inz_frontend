@@ -1,5 +1,5 @@
 import { axiosJWT } from 'helpers/tokenAxios';
-import { CompanyDTO } from '../types/DTO/Company';
+import { CompanyDTO } from '../../types/DTO/Company';
 
 export const getCompanies = () => axiosJWT.get<CompanyDTO[]>('/companies/');
 

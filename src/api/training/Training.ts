@@ -1,6 +1,4 @@
 import { axiosJWT } from 'helpers/tokenAxios';
-import { SubjectDTO } from 'types/DTO/Subject';
-import { TopicDTO } from 'types/DTO/Topic';
 import { TrainingDTO } from 'types/DTO/Training';
 import { ALL, ITrainingFilters } from '../../providers/FilterContext';
 
