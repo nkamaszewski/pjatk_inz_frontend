@@ -7,7 +7,7 @@ import Polls from '../pages/polls/Polls';
 import UserAccount from '../pages/userAccount/UserAccountPage';
 import WorkshopsInternalGroups from '../pages/groups/GroupsPage';
 import WorkshopsInternalRoom from '../pages/rooms/WorkshopsInternalRoom';
-import WorkshopsInternalMeeting from '../pages/meeting/WorkshopsInternalMeeting';
+import { MeetingsSchedulePage } from '../pages/meetingsSchedule/MeetingsSchedulePage';
 import WorkshopsCoaches from '../pages/Coaches/WorkshopsCoaches';
 import Organizators from '../pages/organizators/Organizators';
 import { WorkshopsOthers } from '../pages/workshopsOther/WorkshopsOthers';
@@ -46,8 +46,8 @@ export const routes: RouteType[] = [
   { Component: WorkshopsInternalRoom, path: PATH.workshopsInternalRoom },
   { Component: WorkshopsInternalGroups, path: PATH.workshopsInternalGroups },
   {
-    Component: WorkshopsInternalMeeting,
-    path: PATH.workshopsInternalMeeting,
+    Component: MeetingsSchedulePage,
+    path: PATH.workshopsMeetingsSchedule,
   },
   { Component: Polls, path: PATH.polls },
   { Component: CompanyData, path: PATH.companyData },

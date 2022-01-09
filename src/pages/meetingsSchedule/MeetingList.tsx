@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
+import { useDeleteMeetingMutation } from 'api/meeting/useDeleteMeetingMutation';
 import DeleteBtn from 'components/DeleteBtn';
 import EditBtn from 'components/EditBtn';
 import { formatDate } from 'helpers/formatDate';
@@ -13,7 +14,6 @@ import {
 } from '../../types/DTO/Meeting';
 import MeetingFieldset from './MeetingFieldset';
 import MeetingListHeader from './MeetingListHeader';
-import { useMeetingCRUD } from './useMeetingCRUD';
 
 const MeetingListStyle = styled.div`
   padding: 16px;
@@ -31,18 +31,13 @@ const MeetingListStyle = styled.div`
 
 interface Props {
   meetings: MeetingDTO[];
-  fetchMeetings: () => void;
 }
 
-const MeetingList = ({ meetings, fetchMeetings }: Props) => {
+const MeetingList = ({ meetings }: Props) => {
   const [meeting, setMeeting] = useState<MeetingDTOShort | null>(null);
-  const { deleteItem } = useMeetingCRUD();
+  const deleteMutation = useDeleteMeetingMutation();
   const { open, openDrawer, closeDrawer } = useDrawer();
 
-  const handleDeleteMeeting = async (id: string) => {
-    await deleteItem(id);
-    fetchMeetings();
-  };
   return (
     <MeetingListStyle>
       <MeetingListHeader />
@@ -60,16 +55,14 @@ const MeetingList = ({ meetings, fetchMeetings }: Props) => {
             }}
           />
 
-          <DeleteBtn onClick={() => handleDeleteMeeting(meeting.IdMeeting)} />
+          <DeleteBtn
+            onClick={() => deleteMutation.mutate({ id: meeting.IdMeeting })}
+          />
         </Card>
       ))}
 
       <Drawer anchor="right" open={open} onClose={closeDrawer}>
-        <MeetingFieldset
-          closeDrawer={closeDrawer}
-          fetchMeetings={fetchMeetings}
-          meeting={meeting}
-        />
+        <MeetingFieldset closeDrawer={closeDrawer} meeting={meeting} />
       </Drawer>
     </MeetingListStyle>
   );

@@ -5,6 +5,7 @@ import { ALL } from 'providers/FilterContext';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import React from 'react';
 import styled from 'styled-components';
+import { ErrorHelperText } from '../ErrorHelperText';
 import { useGroupesQuery } from './useGroupesQuery';
 
 const GroupSelectStyle = styled.div`
@@ -14,12 +15,23 @@ const GroupSelectStyle = styled.div`
 
 interface Props {
   value: string;
-  onChange: Function;
+  onChange: (id: string) => void;
+  onBlur?: (e: React.FocusEvent<any>) => void;
   withAll?: boolean;
   name?: string;
+  touched?: boolean;
+  error?: string;
 }
 
-const GroupSelect = ({ value, onChange, withAll = false, name }: Props) => {
+const GroupSelect = ({
+  value,
+  onChange,
+  onBlur,
+  withAll = false,
+  name,
+  touched,
+  error,
+}: Props) => {
   const groupsQuery = useGroupesQuery(withAll);
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -30,7 +42,12 @@ const GroupSelect = ({ value, onChange, withAll = false, name }: Props) => {
     <GroupSelectStyle>
       <FormControlStyled>
         <InputLabel>{capFL(schema.group)}</InputLabel>
-        <Select value={value} onChange={handleSelectChange} name={name}>
+        <Select
+          value={value}
+          onChange={handleSelectChange}
+          name={name}
+          onBlur={onBlur}
+        >
           {groupsQuery.data?.map((group) => (
             <MenuItem key={group.IdGroup} value={group.IdGroup}>
               {group.IdGroup === ALL
@@ -39,6 +56,7 @@ const GroupSelect = ({ value, onChange, withAll = false, name }: Props) => {
             </MenuItem>
           ))}
         </Select>
+        {touched && error && <ErrorHelperText text={error} />}
       </FormControlStyled>
     </GroupSelectStyle>
   );

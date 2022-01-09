@@ -20,9 +20,10 @@ export const postMeeting = (meeting: {
   To: string | null;
   IdGroup: string;
   IdRoom: string;
-}) => axiosJWT.post('/meetings/', meeting);
+}) => axiosJWT.post<MeetingDTO>('/meetings/', meeting);
 
-export const deleteMeeting = (id: string) => axiosJWT.delete(`/meetings/${id}`);
+export const deleteMeeting = ({ id }: { id: string }) =>
+  axiosJWT.delete(`/meetings/${id}`);
 
 export const updateMeeting = (meeting: MeetingDTOShort) =>
-  axiosJWT.put(`/meetings/${meeting.IdMeeting}`, meeting);
+  axiosJWT.put<MeetingDTO>(`/meetings/${meeting.IdMeeting}`, meeting);

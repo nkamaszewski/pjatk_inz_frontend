@@ -23,15 +23,13 @@ export const FilterPanel = () => {
       <GroupSelect
         name="idGroup"
         value={filters.idGroup}
-        onChange={(value: string) =>
-          handleSetFilter({ name: 'idGroup', value })
-        }
+        onChange={(value) => handleSetFilter({ name: 'idGroup', value })}
         withAll
       />
       <RoomSelect
         name="idRoom"
         value={filters.idRoom}
-        onChange={(value: string) => handleSetFilter({ name: 'idRoom', value })}
+        onChange={(value) => handleSetFilter({ name: 'idRoom', value })}
         withAll
       />
     </FilterPanelStyle>

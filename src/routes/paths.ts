@@ -14,7 +14,7 @@ export const PATH = {
   workshopsCoaches: '/szkolenia/szkoleniowcy',
   workshopsInternalRoom: '/szkolenia-wewnetrzne/sale',
   workshopsInternalGroups: '/szkolenia-wewnetrzne/grupy',
-  workshopsInternalMeeting: '/szkolenia-wewnetrzne/harmonogram',
+  workshopsMeetingsSchedule: '/szkolenia-wewnetrzne/harmonogram',
   polls: '/ankiety',
   companyData: '/firma/dane-firmy',
   companyDataDepartments: '/firma/piony-wydzialy',

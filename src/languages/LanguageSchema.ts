@@ -95,6 +95,9 @@ export interface LanguageSchema {
   rooms: string;
   coaches: string;
   meetings: string;
+  meetingsRemoved: string;
+  meetingsAdded: string;
+  meetingsEdited: string;
   questionnaires: string;
   company: string;
   companyData: string;

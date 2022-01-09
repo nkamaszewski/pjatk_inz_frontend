@@ -4,6 +4,7 @@ import { ALL } from 'providers/FilterContext';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import React from 'react';
 import styled from 'styled-components';
+import { ErrorHelperText } from '../ErrorHelperText';
 import { useRoomsQuery } from './useRoomsQuery';
 
 const RoomSelectStyle = styled.div`
@@ -13,12 +14,23 @@ const RoomSelectStyle = styled.div`
 
 interface Props {
   value: string;
-  onChange: Function;
+  onChange: (id: string) => void;
+  onBlur?: (e: React.FocusEvent<any>) => void;
   withAll?: boolean;
   name?: string;
+  touched?: boolean;
+  error?: string;
 }
 
-const RoomSelect = ({ value, onChange, withAll = false, name }: Props) => {
+const RoomSelect = ({
+  value,
+  onChange,
+  onBlur,
+  withAll = false,
+  name,
+  touched,
+  error,
+}: Props) => {
   const roomsQuery = useRoomsQuery(withAll);
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -29,7 +41,12 @@ const RoomSelect = ({ value, onChange, withAll = false, name }: Props) => {
     <RoomSelectStyle>
       <FormControlStyled>
         <InputLabel>{schema.room}</InputLabel>
-        <Select value={value} onChange={handleSelectChange} name={name}>
+        <Select
+          value={value}
+          onChange={handleSelectChange}
+          name={name}
+          onBlur={onBlur}
+        >
           {roomsQuery.data?.map((room) => (
             <MenuItem key={room.IdRoom} value={room.IdRoom}>
               {room.IdRoom === ALL
@@ -38,6 +55,7 @@ const RoomSelect = ({ value, onChange, withAll = false, name }: Props) => {
             </MenuItem>
           ))}
         </Select>
+        {touched && error && <ErrorHelperText text={error} />}
       </FormControlStyled>
     </RoomSelectStyle>
   );
