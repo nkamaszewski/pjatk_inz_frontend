@@ -220,6 +220,7 @@ export interface LanguageSchema {
   uSetting: string;
   type: string;
   addGroup: string;
+  editGroup: string;
   numberOfPeople: string;
   onlyActive: string;
   assignAnEmployeeToAGroup: string;

@@ -221,6 +221,7 @@ export const en: LanguageSchema = {
   uSetting: '"U" setting',
   type: 'Type',
   addGroup: 'Add group',
+  editGroup: 'Edit group',
   numberOfPeople: 'Number of people',
   onlyActive: 'Only active',
   assignAnEmployeeToAGroup: 'Assign an employee to a group',

@@ -13,7 +13,10 @@ const GroupFieldset = ({ closeDrawer, editedGroup }: Props) => {
   const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
-      <HeaderFieldset title={schema.addGroup} closeDrawer={closeDrawer} />
+      <HeaderFieldset
+        title={editedGroup ? schema.editGroup : schema.addGroup}
+        closeDrawer={closeDrawer}
+      />
       <GroupContent closeDrawer={closeDrawer} editedGroup={editedGroup} />
     </FieldsetStyled>
   );

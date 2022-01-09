@@ -220,6 +220,7 @@ export const pl: LanguageSchema = {
   uSetting: 'Ustawienie "U"',
   type: 'Rodzaj',
   addGroup: 'Dodaj grupę',
+  editGroup: 'Edytuj grupę',
   numberOfPeople: 'Liczba osób',
   onlyActive: 'Tylko aktywne',
   assignAnEmployeeToAGroup: 'Przypisz pracownika do grupy',
