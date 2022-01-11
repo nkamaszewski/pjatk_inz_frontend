@@ -100,6 +100,7 @@ export const pl: LanguageSchema = {
   meetingsAdded: 'dodano spotkanie',
   meetingsEdited: 'zaktualizaowano spotkanie',
   questionnaires: 'ankiety',
+  scores: 'ankiety',
   company: 'firma',
   companyData: 'dane Firmy',
   myAccount: 'moje konto',

@@ -128,7 +128,7 @@ const getNavigationsItems = (schema: LanguageSchema): NavigationItem[] => [
   },
   {
     id: '5',
-    label: capFL(schema.questionnaires),
+    label: capFL(schema.scores),
     link: '/ankiety',
     icon: faPollH,
   },

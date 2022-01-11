@@ -100,6 +100,7 @@ export interface LanguageSchema {
   meetingsAdded: string;
   meetingsEdited: string;
   questionnaires: string;
+  scores: string;
   company: string;
   companyData: string;
   myAccount: string;

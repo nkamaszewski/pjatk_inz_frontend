@@ -20,6 +20,7 @@ import ChangePasswordPage from 'pages/changePassword/ChangePasswordPage';
 import { PATH } from './paths';
 import { ApplicationsPage } from 'pages/Applications/ApplicationsPage';
 import SetPasswordPage from 'pages/SetPassword/SetPasswordPage';
+import { ScoresPage } from 'pages/scores/ScoresPage';
 
 export interface RouteType {
   Component: Function;
@@ -45,6 +46,7 @@ export const routes: RouteType[] = [
   { Component: WorkshopsCoaches, path: PATH.workshopsCoaches },
   { Component: WorkshopsInternalRoom, path: PATH.workshopsInternalRoom },
   { Component: WorkshopsInternalGroups, path: PATH.workshopsInternalGroups },
+  { Component: ScoresPage, path: PATH.scores },
   {
     Component: MeetingsSchedulePage,
     path: PATH.workshopsMeetingsSchedule,
