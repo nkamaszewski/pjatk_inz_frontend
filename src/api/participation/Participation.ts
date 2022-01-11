@@ -12,7 +12,24 @@ export const getParticipationsByIdEducation = (idEducation: string) =>
 
 export const postParticipation = (
   participation: Omit<ParticipationDTO, 'IdParticipation'>
-) => axiosJWT.post<ParticipationDTO>('/participations/', participation);
+) => {
+  const formData = new FormData();
+
+  formData.append(
+    'CertificateOfCompletion',
+    participation.CertificateOfCompletion
+  );
+  formData.append('IdEducation', participation.IdEducation);
+  formData.append('IdPerson', participation.IdPerson);
+  formData.append('DateOfRegistration', participation.DateOfRegistration);
+  formData.append('EndDate', participation.EndDate);
+
+  return axiosJWT.post<ParticipationDTO>('/participations/', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
 
 export const deleteParticipation = ({ id }: { id: string }) =>
   axiosJWT.delete(`/participations/${id}`);

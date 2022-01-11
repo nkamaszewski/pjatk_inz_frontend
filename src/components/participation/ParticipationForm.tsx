@@ -8,6 +8,7 @@ import {
 import { useAddParticipationMutation } from 'api/participation/useAddParticipationMutation';
 import { EmployeeSelect } from 'components/controls_UI/employeeSelect/EmployeeSelect';
 import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
+import { UploadFileBtn } from 'components/controls_UI/UploadFileBtn';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useParticipationForm } from './useParticipationForm';
 
@@ -75,15 +76,17 @@ export const ParticipationForm = ({
           error={participationForm.errors.EndDate}
           touched={participationForm.touched.EndDate}
         />
-        {/* <TextField
-          margin="dense"
+        <UploadFileBtn
+          label="dodaj ceryfikat"
+          value={participationForm.values.CertificateOfCompletion as any}
           name="CertificateOfCompletion"
-          label={schema.theNameOfTheCertificate}
-          type="text"
-          fullWidth
-          value={formik.values.CertificateOfCompletion}
-          onChange={formik.handleChange}
-        /> */}
+          onChange={(file: File) => {
+            participationForm.setFieldValue('CertificateOfCompletion', file);
+          }}
+          onBlur={participationForm.handleBlur}
+          error={participationForm.errors.CertificateOfCompletion}
+          touched={participationForm.touched.CertificateOfCompletion}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={close} color="primary">

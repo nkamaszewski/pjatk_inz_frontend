@@ -23,6 +23,7 @@ const validationSchema = (schema: LanguageSchema) =>
             'data do nie może być wcześniejsza od daty od'
           )
       ),
+    CertificateOfCompletion: Yup.mixed().required('załącznik jest wymagany'),
   });
 
 export const useParticipationForm = () => {
