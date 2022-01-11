@@ -10,6 +10,11 @@ export const getParticipationsByIdEducation = (idEducation: string) =>
     `/participations/education/${idEducation}`
   );
 
+export const getPaticipateCeritification = (id: string) =>
+  axiosJWT.get(`participations/certificate/${id}`, {
+    responseType: 'blob',
+  });
+
 export const postParticipation = (
   participation: Omit<ParticipationDTO, 'IdParticipation'>
 ) => {

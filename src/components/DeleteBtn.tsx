@@ -12,7 +12,7 @@ const DeleteBtn = ({ onClick }: Props) => {
   return (
     <IconBtn
       title={schema.remove}
-      onClick={onClick as any}
+      onClick={onClick}
       icon={faTrash}
       iconClassname="g-error-color"
     />
