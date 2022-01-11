@@ -7,11 +7,11 @@ import {
 export const getParticipations = () => axiosJWT.get('/participations/');
 export const getParticipationsByIdEducation = (idEducation: string) =>
   axiosJWT.get<ParticipationsListDTO[]>(
-    `/participations/education/${idEducation}`
+    `/participations/${idEducation}/education`
   );
 
 export const getPaticipateCeritification = (id: string) =>
-  axiosJWT.get(`participations/certificate/${id}`, {
+  axiosJWT.get(`participations/${id}/certificate`, {
     responseType: 'blob',
   });
 
