@@ -13,7 +13,7 @@ import { OfferDTO } from '../../types/DTO/Offer';
 import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
-const PollsContentStyle = styled.div`
+const TrainingPropositionContentStyle = styled.div`
   padding: 24px 0;
   display: grid;
   grid-row-gap: 16px;
@@ -26,7 +26,7 @@ interface Props {
   polls: QuestionnaireOfferDTO[];
 }
 
-const PollsContent = ({
+export const TrainingPropositionContent = ({
   closeDrawer,
   fetchQuestionnaireOffers,
   editOffer,
@@ -94,7 +94,7 @@ const PollsContent = ({
   const schema = useLanguageSchema();
 
   return (
-    <PollsContentStyle>
+    <TrainingPropositionContentStyle>
       <QuestionnaireOfferSelect
         value={questionnaireOfferId}
         onChange={setQuestionnaireOfferId}
@@ -129,8 +129,6 @@ const PollsContent = ({
       >
         {schema.save}
       </Button>
-    </PollsContentStyle>
+    </TrainingPropositionContentStyle>
   );
 };
-
-export default PollsContent;

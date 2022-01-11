@@ -7,6 +7,7 @@ export const PATH = {
   employment: '/pracownicy',
   applicationsPage: '/wnioski/wnioski-szkoleniowe',
   documentAdditional: '/wnioski/wnioski-dodatkowe',
+  trainingsProposition: '/wnioski/propozycje-szkolen',
   workshopStudy: '/szkolenia/studia',
   workshopTraining: '/szkolenia/kursy',
   workshopOthers: '/szkolenia/inne',

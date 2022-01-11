@@ -3,19 +3,19 @@ import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { deleteOffer } from '../../api/Offers';
-import { deleteQuestionnaireOffer } from '../../api/QuestionnaireOffer';
-import DeleteBtn from '../../components/DeleteBtn';
-import EditBtn from '../../components/EditBtn';
+import { deleteOffer } from 'api/Offers';
+import { deleteQuestionnaireOffer } from 'api/QuestionnaireOffer';
+import DeleteBtn from 'components/DeleteBtn';
+import EditBtn from 'components/EditBtn';
 import {
   createSnackbarSuccess,
   useSnackbar,
-} from '../../providers/NotificationContext';
-import { OfferDTO } from '../../types/DTO/Offer';
-import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
-import PollsFieldset from './PollsFieldset';
+} from 'providers/NotificationContext';
+import { OfferDTO } from 'types/DTO/Offer';
+import { QuestionnaireOfferDTO } from 'types/DTO/QuestionnaireOffer';
+import { TrainingPropositionFieldset } from './TrainingPropositionFieldset';
 
-const PollsListStyle = styled.div`
+const TrainingPropositionsListStyle = styled.div`
   padding: 24px;
 
   .row-content {
@@ -43,7 +43,7 @@ interface Props {
   fetchQuestionnaireOffers: Function;
 }
 
-const PollsList = ({
+export const TrainingPropositionsList = ({
   questionnaireOffers,
   fetchQuestionnaireOffers,
 }: Props) => {
@@ -76,13 +76,13 @@ const PollsList = ({
   const handleCloseDrawer = () => setEditOffer(null);
   const schema = useLanguageSchema();
   return (
-    <PollsListStyle>
+    <TrainingPropositionsListStyle>
       <Drawer
         anchor="right"
         open={Boolean(editOffer)}
         onClose={handleCloseDrawer}
       >
-        <PollsFieldset
+        <TrainingPropositionFieldset
           closeDrawer={handleCloseDrawer}
           fetchQuestionnaireOffers={fetchQuestionnaireOffers}
           editOffer={editOffer}
@@ -119,8 +119,6 @@ const PollsList = ({
           <Divider />
         </div>
       ))}
-    </PollsListStyle>
+    </TrainingPropositionsListStyle>
   );
 };
-
-export default PollsList;

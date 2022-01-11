@@ -3,16 +3,16 @@ import { NoData } from 'components/NoData';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getQuestionnaireOffers } from '../../api/QuestionnaireOffer';
-import AddFab from '../../components/AddFab';
-import PageHeader from '../../components/PageHeader';
-import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
-import PollsFieldset from './PollsFieldset';
-import PollsList from './PollsList';
+import { getQuestionnaireOffers } from 'api/QuestionnaireOffer';
+import AddFab from 'components/AddFab';
+import PageHeader from 'components/PageHeader';
+import { QuestionnaireOfferDTO } from 'types/DTO/QuestionnaireOffer';
+import { TrainingPropositionFieldset } from './TrainingPropositionFieldset';
+import { TrainingPropositionsList } from './TrainingPropositionsList';
 
-const PollsStyle = styled.div``;
+const TrainingPropositionsPageStyle = styled.div``;
 
-const Polls = () => {
+export const TrainingPropositionsPage = () => {
   const [polls, setPolls]: [QuestionnaireOfferDTO[], Function] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,27 +33,25 @@ const Polls = () => {
   const { applicationsTrainingProposals } = useLanguageSchema();
 
   return (
-    <PollsStyle>
+    <TrainingPropositionsPageStyle>
       <PageHeader title={applicationsTrainingProposals} />
       <AddFab onClick={() => setIsOpen(true)} />
 
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        <PollsFieldset
+        <TrainingPropositionFieldset
           closeDrawer={() => setIsOpen(false)}
           fetchQuestionnaireOffers={fetchQuestionnaireOffers}
           polls={polls}
         />
       </Drawer>
       {polls.length ? (
-        <PollsList
+        <TrainingPropositionsList
           questionnaireOffers={polls}
           fetchQuestionnaireOffers={fetchQuestionnaireOffers}
         />
       ) : (
         <NoData />
       )}
-    </PollsStyle>
+    </TrainingPropositionsPageStyle>
   );
 };
-
-export default Polls;

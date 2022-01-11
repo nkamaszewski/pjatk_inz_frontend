@@ -7,6 +7,7 @@ import {
   faPersonBooth,
   faPoll,
   faPollH,
+  faReplyAll,
   faSchool,
   faUniversity,
   faUserCircle,
@@ -21,6 +22,7 @@ import { capFL } from 'helpers/capitalizeFirstLetter';
 import { LanguageSchema } from 'languages/LanguageSchema';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useMemo } from 'react';
+import { PATH } from 'routes/paths';
 
 interface NavigationItem {
   id: string;
@@ -53,6 +55,12 @@ const getNavigationsItems = (schema: LanguageSchema): NavigationItem[] => [
         label: capFL(schema.additional),
         link: '/wnioski/wnioski-dodatkowe',
         icon: faPoll,
+      },
+      {
+        id: '2c',
+        label: capFL(schema.trainingPropositions),
+        link: PATH.trainingsProposition,
+        icon: faReplyAll,
       },
     ],
   },

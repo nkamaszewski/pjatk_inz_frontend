@@ -1,20 +1,20 @@
-import CompanyData from '../pages/company/CompanyData';
-import CompanyDataDepartments from '../pages/CompanyDataDepartments/CompanyDataDepartments';
-import { PositionsPage } from '../pages/postions/PositionsPage';
-import DocumentsAdditional from '../pages/documents/DocumentsAdditional';
-import Employment from '../pages/employment/EmploymentPage';
-import Polls from '../pages/polls/Polls';
-import UserAccount from '../pages/userAccount/UserAccountPage';
-import WorkshopsInternalGroups from '../pages/groups/GroupsPage';
-import WorkshopsInternalRoom from '../pages/rooms/WorkshopsInternalRoom';
-import { MeetingsSchedulePage } from '../pages/meetingsSchedule/MeetingsSchedulePage';
-import WorkshopsCoaches from '../pages/Coaches/WorkshopsCoaches';
-import Organizators from '../pages/organizators/Organizators';
-import { WorkshopsOthers } from '../pages/workshopsOther/WorkshopsOthers';
-import WorkshopsStudy from '../pages/study/WorkshopsStudy';
-import WorkshopsTraining from '../pages/courses_training/TrainingsPage';
-import LoginPage from '../pages/Login/LoginPage';
-import RegisterPage from '../pages/Register/RegisterPage';
+import CompanyData from 'pages/company/CompanyData';
+import CompanyDataDepartments from 'pages/CompanyDataDepartments/CompanyDataDepartments';
+import { PositionsPage } from 'pages/postions/PositionsPage';
+import DocumentsAdditional from 'pages/documents/DocumentsAdditional';
+import Employment from 'pages/employment/EmploymentPage';
+import { TrainingPropositionsPage } from 'pages/trainingPropositions/TrainingPropositionsPage';
+import UserAccount from 'pages/userAccount/UserAccountPage';
+import WorkshopsInternalGroups from 'pages/groups/GroupsPage';
+import WorkshopsInternalRoom from 'pages/rooms/WorkshopsInternalRoom';
+import { MeetingsSchedulePage } from 'pages/meetingsSchedule/MeetingsSchedulePage';
+import WorkshopsCoaches from 'pages/Coaches/WorkshopsCoaches';
+import Organizators from 'pages/organizators/Organizators';
+import { WorkshopsOthers } from 'pages/workshopsOther/WorkshopsOthers';
+import WorkshopsStudy from 'pages/study/WorkshopsStudy';
+import WorkshopsTraining from 'pages/courses_training/TrainingsPage';
+import LoginPage from 'pages/Login/LoginPage';
+import RegisterPage from 'pages/Register/RegisterPage';
 import RestorePasswordPage from 'pages/RestorePassword/RestorePasswordPage';
 import ChangePasswordPage from 'pages/changePassword/ChangePasswordPage';
 import { PATH } from './paths';
@@ -49,7 +49,7 @@ export const routes: RouteType[] = [
     Component: MeetingsSchedulePage,
     path: PATH.workshopsMeetingsSchedule,
   },
-  { Component: Polls, path: PATH.polls },
+  { Component: TrainingPropositionsPage, path: PATH.trainingsProposition },
   { Component: CompanyData, path: PATH.companyData },
   { Component: CompanyDataDepartments, path: PATH.companyDataDepartments },
   { Component: PositionsPage, path: PATH.companyDataPositions },

@@ -83,6 +83,7 @@ export const pl: LanguageSchema = {
   trainings: 'szkolenia',
   trainingApplications: 'WNIOSKI O SZKOLENIA',
   trainingOrganizers: 'organizatorzy szkoleń',
+  trainingPropositions: 'propozycje szkoleń',
   additional: 'dodatkowe',
   otherTtrainings: 'szkolenia inne',
   study: 'studia',

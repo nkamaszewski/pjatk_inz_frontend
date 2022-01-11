@@ -1,10 +1,10 @@
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguageSchema } from 'providers/LanguageProvider';
-import HeaderFieldset from '../../components/HeaderFieldset';
-import FieldsetStyled from '../../components/styled/FieldsetStyled';
-import { OfferDTO } from '../../types/DTO/Offer';
-import { QuestionnaireOfferDTO } from '../../types/DTO/QuestionnaireOffer';
-import PollsContent from './PollsContent';
+import HeaderFieldset from 'components/HeaderFieldset';
+import FieldsetStyled from 'components/styled/FieldsetStyled';
+import { OfferDTO } from 'types/DTO/Offer';
+import { QuestionnaireOfferDTO } from 'types/DTO/QuestionnaireOffer';
+import { TrainingPropositionContent } from './TrainingPropositionContent';
 
 interface Props {
   closeDrawer: () => void;
@@ -13,7 +13,7 @@ interface Props {
   polls: QuestionnaireOfferDTO[];
 }
 
-const PollsFieldset = ({
+export const TrainingPropositionFieldset = ({
   closeDrawer,
   fetchQuestionnaireOffers,
   editOffer,
@@ -28,7 +28,7 @@ const PollsFieldset = ({
         }`}
         closeDrawer={closeDrawer}
       />
-      <PollsContent
+      <TrainingPropositionContent
         closeDrawer={closeDrawer}
         fetchQuestionnaireOffers={fetchQuestionnaireOffers}
         editOffer={editOffer}
@@ -37,5 +37,3 @@ const PollsFieldset = ({
     </FieldsetStyled>
   );
 };
-
-export default PollsFieldset;

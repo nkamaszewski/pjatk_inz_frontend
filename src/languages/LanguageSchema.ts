@@ -84,6 +84,7 @@ export interface LanguageSchema {
   trainings: string;
   trainingApplications: string;
   trainingOrganizers: string;
+  trainingPropositions: string;
   otherTtrainings: string;
   study: string;
   courses: string;
