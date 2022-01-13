@@ -1,5 +1,4 @@
 import { Button } from '@material-ui/core';
-import { useIssuesQuery } from 'api/issue/useIssuesQuery';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 
@@ -9,9 +8,6 @@ const ScoreContentStyle = styled.div`
   grid-row-gap: 16px;
 `;
 
-const initialValues = {
-  Name: '',
-};
 interface Props {
   closeDrawer: () => void;
 }
