@@ -20,7 +20,7 @@ export interface QuestionnaireListDTO {
   Issue3: number;
   Issue4: number;
   Issue5: number;
-  FistName: string;
+  FirstName: string;
   LastName: string;
   Name: string;
 }
