@@ -4,8 +4,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Card,
-  Typography,
 } from '@material-ui/core';
 import { StarRating } from 'components/controls_UI/StarRating';
 import { formatDate } from 'helpers/formatDate';
