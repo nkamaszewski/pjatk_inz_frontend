@@ -9,12 +9,12 @@ import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import { DepartmentDTO } from '../../types/DTO/Department';
 import { DivisionDTO } from '../../types/DTO/Division';
-import DataDepartmentsList from './DataDepartmentsList';
+import { DepartmentsDivisionsList } from './DepartmentsDivisionsList';
 import DepartmentDivisionFieldset from './DepartmentDivisionFieldset';
 
-const CompanyDataDepartmentsStyle = styled.div``;
+const DepartmentDivisionPageStyle = styled.div``;
 
-const CompanyDataDepartments = () => {
+export const DepartmentDivisionPage = () => {
   const [divisions, setDivisions]: [DivisionDTO[], Function] = useState([]);
   const [departments, setDepartments]: [DepartmentDTO[], Function] = useState(
     []
@@ -41,7 +41,7 @@ const CompanyDataDepartments = () => {
   const schema = useLanguageSchema();
 
   return (
-    <CompanyDataDepartmentsStyle>
+    <DepartmentDivisionPageStyle>
       <PageHeader title={schema.departmentsDivisions} />
       <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
@@ -52,7 +52,7 @@ const CompanyDataDepartments = () => {
         />
       </Drawer>
       {divisions.length && departments.length ? (
-        <DataDepartmentsList
+        <DepartmentsDivisionsList
           divisions={divisions}
           departments={departments}
           fetchDivisionsDepartments={fetchDivisionsDepartments}
@@ -60,8 +60,6 @@ const CompanyDataDepartments = () => {
       ) : (
         <NoData />
       )}
-    </CompanyDataDepartmentsStyle>
+    </DepartmentDivisionPageStyle>
   );
 };
-
-export default CompanyDataDepartments;

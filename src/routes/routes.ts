@@ -1,5 +1,5 @@
 import CompanyData from 'pages/company/CompanyData';
-import CompanyDataDepartments from 'pages/CompanyDataDepartments/CompanyDataDepartments';
+import { DepartmentDivisionPage } from 'pages/DepartmentsDivisions/DepartmentDivisionPage';
 import { PositionsPage } from 'pages/postions/PositionsPage';
 import DocumentsAdditional from 'pages/documents/DocumentsAdditional';
 import Employment from 'pages/employment/EmploymentPage';
@@ -53,7 +53,7 @@ export const routes: RouteType[] = [
   },
   { Component: TrainingPropositionsPage, path: PATH.trainingsProposition },
   { Component: CompanyData, path: PATH.companyData },
-  { Component: CompanyDataDepartments, path: PATH.companyDataDepartments },
+  { Component: DepartmentDivisionPage, path: PATH.companyDataDepartments },
   { Component: PositionsPage, path: PATH.companyDataPositions },
   { Component: UserAccount, path: PATH.userAccount },
 ];

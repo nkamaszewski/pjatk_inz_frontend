@@ -15,7 +15,7 @@ import { DivisionDTO } from '../../types/DTO/Division';
 import DepartmentFieldset from './DepartmentFieldset';
 import DivisionFieldset from './DivisionFieldset';
 
-const DataDepartmentsListStyle = styled.div`
+const DepartmentsDivisionsListStyle = styled.div`
   padding: 24px;
 
   .grid-list {
@@ -38,7 +38,7 @@ interface Props {
   fetchDivisionsDepartments: () => void;
 }
 
-const DataDepartmentsList = ({
+export const DepartmentsDivisionsList = ({
   divisions,
   departments,
   fetchDivisionsDepartments,
@@ -70,7 +70,7 @@ const DataDepartmentsList = ({
     }
   };
   return (
-    <DataDepartmentsListStyle>
+    <DepartmentsDivisionsListStyle>
       <Drawer
         anchor="right"
         open={Boolean(editDivision)}
@@ -121,8 +121,6 @@ const DataDepartmentsList = ({
           <Divider />
         </div>
       ))}
-    </DataDepartmentsListStyle>
+    </DepartmentsDivisionsListStyle>
   );
 };
-
-export default DataDepartmentsList;
