@@ -46,7 +46,11 @@ export const ParticipationsList = ({
         <Card key={part.IdEducation} className="grid-participation">
           <p>{part.participationEmployee.employeePerson.FirstName}</p>
           <p>{part.participationEmployee.employeePerson.LastName}</p>
-          <DownloadBtn onClick={() => downloadFile(part.IdParticipation)} />
+          {part.CertificateOfCompletion ? (
+            <DownloadBtn onClick={() => downloadFile(part.IdParticipation)} />
+          ) : (
+            <p />
+          )}
           <DeleteBtn
             onClick={() => deleteMutation.mutate({ id: part.IdParticipation })}
           />

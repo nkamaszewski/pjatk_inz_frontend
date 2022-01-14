@@ -9,21 +9,21 @@ const validationSchema = (schema: LanguageSchema) =>
     DateOfRegistration: Yup.string().required(
       'podanie daty rejestracji jest wymagane'
     ),
-    EndDate: Yup.date()
-      .nullable()
-      .transform((value, originalValue) => {
-        return originalValue ? new Date(originalValue) : null;
-      })
-      .when(
-        'DateOfRegistration',
-        (DateOfRegistration: Date | null, schema: any) =>
-          DateOfRegistration &&
-          schema.min(
-            DateOfRegistration,
-            'data do nie może być wcześniejsza od daty od'
-          )
-      ),
-    CertificateOfCompletion: Yup.mixed().required('załącznik jest wymagany'),
+    // EndDate: Yup.date()
+    //   .nullable()
+    //   .transform((value, originalValue) => {
+    //     return originalValue ? new Date(originalValue) : null;
+    //   })
+    //   .when(
+    //     'DateOfRegistration',
+    //     (DateOfRegistration: Date | null, schema: any) =>
+    //       DateOfRegistration &&
+    //       schema.min(
+    //         DateOfRegistration,
+    //         'data do nie może być wcześniejsza od daty od'
+    //       )
+    //   ),
+    // CertificateOfCompletion: Yup.mixed().required('załącznik jest wymagany'),
   });
 
 export const useParticipationForm = () => {
