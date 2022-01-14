@@ -2,6 +2,7 @@ import { axiosJWT } from 'helpers/tokenAxios';
 import {
   ParticipationDTO,
   ParticipationsListDTO,
+  ParticipationsWithoutQuestionnaireDTO,
 } from 'types/DTO/Participation';
 
 export const getParticipations = () => axiosJWT.get('/participations/');
@@ -14,6 +15,11 @@ export const getPaticipateCeritification = (id: string) =>
   axiosJWT.get(`participations/${id}/certificate`, {
     responseType: 'blob',
   });
+
+export const getParticipationsWithoutQuestionnaires = () =>
+  axiosJWT.get<ParticipationsWithoutQuestionnaireDTO[]>(
+    '/participations/withoutquest/'
+  );
 
 export const postParticipation = (
   participation: Omit<ParticipationDTO, 'IdParticipation'>

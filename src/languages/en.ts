@@ -233,6 +233,7 @@ export const en: LanguageSchema = {
   surfaceV2: ', surface:',
   cost: 'Cost',
   questionnaire: 'questionnaire',
+  questionnaireAdded: 'questionnaire added',
   yearOfApplication: 'Year of application',
   addTheYearOfTheApplicationToTheDatabase:
     'Add the year of the application to the database',

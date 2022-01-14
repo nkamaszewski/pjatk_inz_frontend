@@ -18,3 +18,11 @@ export interface ParticipationsListDTO {
   IdEducation: string;
   participationEmployee: EmployeeDTO;
 }
+
+export interface ParticipationsWithoutQuestionnaireDTO {
+  IdParticipation: string;
+  IdEducation: string;
+  IdPerson: string;
+  IdQuestionnaire: string | null;
+  Name: string;
+}

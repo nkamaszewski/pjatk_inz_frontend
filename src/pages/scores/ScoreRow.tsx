@@ -13,13 +13,14 @@ import { QuestionnaireListDTO } from 'types/DTO/Questionnaire';
 import { getAvgScore } from './getAvgScore';
 
 const ScoreRowStyle = styled.div`
+  margin-top: 8px;
   font-weight: bold;
   .details {
     padding: 24px;
-    background-color: ${({ theme }) => theme.primaryBackground};
+
+    background-color: #e5e5e5;
     display: grid;
     grid-template-columns: 1fr 350px;
-    color: ${({ theme }) => theme.primaryColor};
 
     .avg {
       align-self: center;
@@ -31,8 +32,9 @@ const ScoreRowStyle = styled.div`
   }
 
   .info {
+    width: 100%;
     display: grid;
-    grid-template-columns: 250px auto 250px;
+    grid-template-columns: 250px 1fr 250px;
     grid-gap: 24px;
   }
   .rate {
@@ -93,7 +95,7 @@ export const ScoreRow = ({ score, issues }: ScoreRowProps) => {
           </div>
           <div className="avg">
             <p>
-              Średnia: <span>{getAvgScore(score)} / 5</span>
+              Średnia: <span>{getAvgScore(score)} / 5.0</span>
             </p>
           </div>
         </AccordionDetails>

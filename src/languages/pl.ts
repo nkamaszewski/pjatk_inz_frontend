@@ -232,6 +232,7 @@ export const pl: LanguageSchema = {
   surfaceV2: ', powierzchnia:',
   cost: 'Koszt',
   questionnaire: 'ankietę',
+  questionnaireAdded: 'dodano ankietę',
   yearOfApplication: 'Rok wniosku',
   addTheYearOfTheApplicationToTheDatabase: 'Dodaj rok wniosku do bazy danych',
   addTheYearOfTheApplication: 'dodaj rok wniosku',

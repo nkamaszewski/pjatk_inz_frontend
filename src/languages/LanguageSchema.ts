@@ -232,6 +232,7 @@ export interface LanguageSchema {
   surfaceV2: string;
   cost: string;
   questionnaire: string;
+  questionnaireAdded: string;
   yearOfApplication: string;
   addTheYearOfTheApplicationToTheDatabase: string;
   addTheYearOfTheApplication: string;

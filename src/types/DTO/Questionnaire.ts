@@ -1,5 +1,3 @@
-import { ParticipationDTO } from './Participation';
-
 export interface QuestionnaireDTO {
   IdQuestionnaire: string;
   IdParticipation: string;
@@ -9,7 +7,6 @@ export interface QuestionnaireDTO {
   Issue3: number;
   Issue4: number;
   Issue5: number;
-  questionnairesParticipation: ParticipationDTO;
 }
 export interface QuestionnaireListDTO {
   IdQuestionnaire: string;

@@ -40,7 +40,7 @@ export const ScoresList = ({ scores }: ScoresListProps) => {
   return (
     <ScoresListStyled>
       {scores.map((score) => (
-        <ScoreRow score={score} issues={issues} />
+        <ScoreRow score={score} issues={issues} key={score.IdQuestionnaire} />
       ))}
     </ScoresListStyled>
   );
