@@ -33,7 +33,7 @@ export const ParticipationWithoutQuestionnaireSelect = ({
 
   return (
     <FormControlStyled>
-      <InputLabel>{capFL(schema.position)}</InputLabel>
+      <InputLabel>{capFL(schema.participation)}</InputLabel>
       <Select
         value={value}
         onChange={handleSelectChange}

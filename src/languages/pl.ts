@@ -224,6 +224,7 @@ export const pl: LanguageSchema = {
   addGroup: 'Dodaj grupę',
   editGroup: 'Edytuj grupę',
   numberOfPeople: 'Liczba osób',
+  participation: 'uczstnictwo',
   onlyActive: 'Tylko aktywne',
   assignAnEmployeeToAGroup: 'Przypisz pracownika do grupy',
   groupEmployees: 'Pracownicy grupy',

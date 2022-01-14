@@ -225,6 +225,7 @@ export const en: LanguageSchema = {
   addGroup: 'Add group',
   editGroup: 'Edit group',
   numberOfPeople: 'Number of people',
+  participation: 'participation',
   onlyActive: 'Only active',
   assignAnEmployeeToAGroup: 'Assign an employee to a group',
   groupEmployees: 'Group employees',

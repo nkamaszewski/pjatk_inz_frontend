@@ -224,6 +224,7 @@ export interface LanguageSchema {
   addGroup: string;
   editGroup: string;
   numberOfPeople: string;
+  participation: string;
   onlyActive: string;
   assignAnEmployeeToAGroup: string;
   groupEmployees: string;
