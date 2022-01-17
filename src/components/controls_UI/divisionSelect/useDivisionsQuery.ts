@@ -1,11 +1,8 @@
-import { getDivisions } from 'api/Division';
+import { getDivisions } from 'api/division/Division';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useQuery } from 'react-query';
-import { DivisionDTO } from 'types/DTO/Division';
 
-const DEFAULT_DIVISIONS = (Name: string): DivisionDTO[] => [
-  { IdDivision: 'all', Name },
-];
+const DEFAULT_DIVISIONS = (Name: string) => [{ IdDivision: 'all', Name }];
 
 export const useDivisionsQuery = (withAll: boolean) => {
   const schema = useLanguageSchema();

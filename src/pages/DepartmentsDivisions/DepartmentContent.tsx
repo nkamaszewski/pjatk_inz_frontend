@@ -1,22 +1,12 @@
-import {
-  Button,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from '@material-ui/core';
-import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
+import { Button } from '@material-ui/core';
+import { useAddDepartmentMutation } from 'api/department/useAddDepartmentMutation';
+import { useUpdateDepartmentMutation } from 'api/department/useUpdateDepartmentMutation';
+import DivisionSelect from 'components/controls_UI/divisionSelect/DivisionSelect';
+import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { useLanguageSchema } from 'providers/LanguageProvider';
-import { useState } from 'react';
 import styled from 'styled-components';
-import { postDepartment, updateDepartment } from '../../api/Department';
-import {
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { DepartmentDTO } from '../../types/DTO/Department';
-import { DivisionDTO } from '../../types/DTO/Division';
+import { useDepartmentForm } from './useDepartmentForm';
 
 const DepartmentContentStyle = styled.div`
   padding: 24px 0;
@@ -24,80 +14,59 @@ const DepartmentContentStyle = styled.div`
   grid-row-gap: 16px;
 `;
 
+const initialValues = {
+  Name: '',
+  IdDivision: '',
+};
 interface Props {
-  divisions: DivisionDTO[];
   closeDrawer: Function;
-  fetchDivisionsDepartments: Function;
   editDepartment?: DepartmentDTO | null;
 }
 
-const DepartmentContent = ({
-  divisions,
-  closeDrawer,
-  fetchDivisionsDepartments,
-  editDepartment,
-}: Props) => {
-  const [name, setName] = useState(editDepartment?.Name ?? '');
-  const [selectedDivision, setSelectedDivision] = useState(
-    editDepartment?.IdDivision ?? ''
-  );
-  const { setSnackbar } = useSnackbar();
-  const handleHttpError = useHandleHttpError();
-
-  const handleOnNameChange = (e: any) => {
-    e.persist();
-    setName(e.target.value);
-  };
-
-  const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedDivision(event.target.value as string);
-  };
-
-  const handleOnSave = async () => {
-    const newDepartment = { Name: name, IdDivision: selectedDivision };
-    try {
+const DepartmentContent = ({ closeDrawer, editDepartment }: Props) => {
+  const addMutation = useAddDepartmentMutation();
+  const updateMutation = useUpdateDepartmentMutation();
+  const departmentForm = useDepartmentForm()({
+    initialValues: editDepartment ?? initialValues,
+    onSubmit: async (values) => {
       if (editDepartment) {
-        await updateDepartment({
+        await updateMutation.mutateAsync({
+          ...values,
           IdDepartment: editDepartment.IdDepartment,
-          ...newDepartment,
         });
-        fetchDivisionsDepartments();
-        setSnackbar(createSnackbarSuccess('edytowano wydział'));
-        closeDrawer();
       } else {
-        await postDepartment(newDepartment);
-        fetchDivisionsDepartments();
-        setSnackbar(createSnackbarSuccess('dodano wydział'));
-        closeDrawer();
+        await addMutation.mutateAsync(values);
       }
-    } catch (e) {
-      console.error(e);
-      handleHttpError(e);
-    }
-  };
+      closeDrawer();
+    },
+  });
+
   const schema = useLanguageSchema();
 
   return (
     <DepartmentContentStyle>
-      <TextField
-        fullWidth
+      <FormikTextField
         label={schema.name}
-        value={name}
-        onChange={handleOnNameChange}
+        name="Name"
+        value={departmentForm.values.Name}
+        onChange={departmentForm.handleChange}
+        onBlur={departmentForm.handleBlur}
+        error={departmentForm.errors.Name}
+        touched={departmentForm.touched.Name}
+        autoFocus
       />
-      <FormControlStyled>
-        <InputLabel>{schema.department}</InputLabel>
-        <Select value={selectedDivision} onChange={handleSelectChange}>
-          {divisions.map((division) => (
-            <MenuItem value={division.IdDivision}>{division.Name}</MenuItem>
-          ))}
-        </Select>
-      </FormControlStyled>
+      <DivisionSelect
+        value={departmentForm.values.IdDivision}
+        onChange={(id) => departmentForm.setFieldValue('IdDivision', id)}
+        name="IdDivision"
+        onBlur={departmentForm.handleBlur}
+        error={departmentForm.errors.IdDivision}
+        touched={departmentForm.touched.IdDivision}
+      />
       <Button
-        disabled={!Boolean(name) && !Boolean(selectedDivision)}
         variant="contained"
         color="primary"
-        onClick={handleOnSave}
+        onClick={() => departmentForm.handleSubmit()}
       >
         {schema.save}
       </Button>

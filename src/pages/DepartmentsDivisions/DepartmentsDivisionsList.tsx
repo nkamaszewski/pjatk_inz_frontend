@@ -1,15 +1,10 @@
 import { Divider, Drawer } from '@material-ui/core';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
+import { useDeleteDepartmentMutation } from 'api/department/useDeleteDepartmentMutation';
+import { useDeleteDivisionMutation } from 'api/division/useDeleteDivisionMutation';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { deleteDepartment } from '../../api/Department';
-import { deleteDivision } from '../../api/Division';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
-import {
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { DepartmentDTO } from '../../types/DTO/Department';
 import { DivisionDTO } from '../../types/DTO/Division';
 import DepartmentFieldset from './DepartmentFieldset';
@@ -34,41 +29,19 @@ const DepartmentsDivisionsListStyle = styled.div`
 
 interface Props {
   divisions: DivisionDTO[];
-  departments: DepartmentDTO[];
-  fetchDivisionsDepartments: () => void;
 }
 
-export const DepartmentsDivisionsList = ({
-  divisions,
-  departments,
-  fetchDivisionsDepartments,
-}: Props) => {
+export const DepartmentsDivisionsList = ({ divisions }: Props) => {
   const [editDivision, setEditDivision]: [DivisionDTO | null, Function] =
     useState(null);
   const [editDepartment, setEditDepartment]: [DepartmentDTO | null, Function] =
     useState(null);
-  const { setSnackbar } = useSnackbar();
-  const handleHttpError = useHandleHttpError();
+  const deleteDivisionMutation = useDeleteDivisionMutation();
+  const deleteDepartmentMutation = useDeleteDepartmentMutation();
+
   const handleCloseDivisionDrawer = () => setEditDivision(null);
   const handleCloseDepartmentDrawer = () => setEditDepartment(null);
-  const handleDeleteDivision = async (id: string) => {
-    try {
-      await deleteDivision(id);
-      fetchDivisionsDepartments();
-      setSnackbar(createSnackbarSuccess('usunięto pion'));
-    } catch (e) {
-      handleHttpError(e);
-    }
-  };
-  const handleDeleteDepartment = async (id: string) => {
-    try {
-      await deleteDepartment(id);
-      fetchDivisionsDepartments();
-      setSnackbar(createSnackbarSuccess('usunięto wydział'));
-    } catch (e) {
-      handleHttpError(e);
-    }
-  };
+
   return (
     <DepartmentsDivisionsListStyle>
       <Drawer
@@ -78,7 +51,6 @@ export const DepartmentsDivisionsList = ({
       >
         <DivisionFieldset
           closeDrawer={handleCloseDivisionDrawer}
-          fetchDivisionsDepartments={fetchDivisionsDepartments}
           editDivision={editDivision}
         />
       </Drawer>
@@ -89,9 +61,7 @@ export const DepartmentsDivisionsList = ({
       >
         <DepartmentFieldset
           closeDrawer={handleCloseDepartmentDrawer}
-          fetchDivisionsDepartments={fetchDivisionsDepartments}
           editDepartment={editDepartment}
-          divisions={divisions}
         />
       </Drawer>
       {divisions.map((division) => (
@@ -100,10 +70,12 @@ export const DepartmentsDivisionsList = ({
             <h3>{division.Name}</h3>
             <EditBtn onClick={() => setEditDivision(division)} />
             <DeleteBtn
-              onClick={() => handleDeleteDivision(division.IdDivision)}
+              onClick={() =>
+                deleteDivisionMutation.mutate({ id: division.IdDivision })
+              }
             />
           </div>
-          {departments
+          {division.divisionDepartments
             .filter(
               (department) => department.IdDivision === division.IdDivision
             )
@@ -113,7 +85,9 @@ export const DepartmentsDivisionsList = ({
                 <EditBtn onClick={() => setEditDepartment(department)} />
                 <DeleteBtn
                   onClick={() =>
-                    handleDeleteDepartment(department.IdDepartment)
+                    deleteDepartmentMutation.mutate({
+                      id: department.IdDepartment,
+                    })
                   }
                 />
               </div>

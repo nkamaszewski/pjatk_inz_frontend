@@ -154,7 +154,10 @@ export interface LanguageSchema {
   edit: string;
   addDepartment: string;
   addDivision: string;
+  editDivision: string;
+  deleteDivision: string;
   editDepartment: string;
+  deleteDepartment: string;
   employment: string;
   dateFrom: string;
   dateTo: string;

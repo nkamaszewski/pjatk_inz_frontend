@@ -6,24 +6,20 @@ import DivisionContent from './DivisionContent';
 
 interface Props {
   closeDrawer: () => void;
-  fetchDivisionsDepartments: () => void;
+
   editDivision: DivisionDTO | null;
 }
 
 const DivisionFieldset = ({
   closeDrawer,
-  fetchDivisionsDepartments,
+
   editDivision,
 }: Props) => {
   const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
       <HeaderFieldset title={schema.editDepartment} closeDrawer={closeDrawer} />
-      <DivisionContent
-        closeDrawer={closeDrawer}
-        fetchDivisionsDepartments={fetchDivisionsDepartments}
-        editDivision={editDivision}
-      />
+      <DivisionContent closeDrawer={closeDrawer} editDivision={editDivision} />
     </FieldsetStyled>
   );
 };

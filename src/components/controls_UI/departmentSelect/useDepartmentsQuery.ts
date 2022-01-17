@@ -1,4 +1,4 @@
-import { getDepartments } from 'api/Department';
+import { getDepartments } from 'api/department/Department';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useQuery } from 'react-query';
 import { DepartmentDTO } from 'types/DTO/Department';

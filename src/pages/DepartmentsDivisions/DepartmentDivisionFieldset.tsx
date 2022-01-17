@@ -2,7 +2,6 @@ import { Tab, Tabs } from '@material-ui/core';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { DivisionDTO } from '../../types/DTO/Division';
 import DepartmentContent from './DepartmentContent';
 import DivisionContent from './DivisionContent';
 
@@ -19,16 +18,10 @@ const DepartmentDivisionFieldsetStyle = styled.div`
 `;
 
 interface Props {
-  divisions: DivisionDTO[];
   closeDrawer: Function;
-  fetchDivisionsDepartments: Function;
 }
 
-const DepartmentDivisionFieldset = ({
-  divisions,
-  closeDrawer,
-  fetchDivisionsDepartments,
-}: Props) => {
+const DepartmentDivisionFieldset = ({ closeDrawer }: Props) => {
   const [selectedTab, setSelectedTab] = useState(PION);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -50,18 +43,9 @@ const DepartmentDivisionFieldset = ({
         <Tab label={schema.addDivision} className="tab" />
       </Tabs>
 
-      {selectedTab === PION && (
-        <DivisionContent
-          closeDrawer={closeDrawer}
-          fetchDivisionsDepartments={fetchDivisionsDepartments}
-        />
-      )}
+      {selectedTab === PION && <DivisionContent closeDrawer={closeDrawer} />}
       {selectedTab === WYDZIAL && (
-        <DepartmentContent
-          divisions={divisions}
-          closeDrawer={closeDrawer}
-          fetchDivisionsDepartments={fetchDivisionsDepartments}
-        />
+        <DepartmentContent closeDrawer={closeDrawer} />
       )}
     </DepartmentDivisionFieldsetStyle>
   );
