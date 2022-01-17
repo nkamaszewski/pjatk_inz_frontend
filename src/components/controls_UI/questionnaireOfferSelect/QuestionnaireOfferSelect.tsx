@@ -17,9 +17,10 @@ import { useLanguageSchema } from 'providers/LanguageProvider';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { QuestionnaireOfferDTO } from '../../../types/DTO/QuestionnaireOffer';
-import { useQuestionnaireOfferMutation } from './useQuestionnaireOfferMutation';
-import { useQuestionnaireOffersQuery } from './useQuestionnaireOffersQuery';
+import { useQuestionnaireOfferMutation } from '../../../api/questionnaireOffer/useQuestionnaireOfferMutation';
+
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
+import { useQuestionnaireOffersQuery } from 'api/questionnaireOffer/useQuestionnaireOffersQuery';
 
 const EmployeeSelectStyle = styled.div`
   display: grid;

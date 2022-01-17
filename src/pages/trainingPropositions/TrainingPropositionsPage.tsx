@@ -3,7 +3,7 @@ import { NoData } from 'components/NoData';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getQuestionnaireOffers } from 'api/QuestionnaireOffer';
+import { getQuestionnaireOffers } from 'api/questionnaireOffer/QuestionnaireOffer';
 import AddFab from 'components/AddFab';
 import PageHeader from 'components/PageHeader';
 import { QuestionnaireOfferDTO } from 'types/DTO/QuestionnaireOffer';

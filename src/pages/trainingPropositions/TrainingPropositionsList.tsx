@@ -4,7 +4,7 @@ import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { deleteOffer } from 'api/Offers';
-import { deleteQuestionnaireOffer } from 'api/QuestionnaireOffer';
+import { deleteQuestionnaireOffer } from 'api/questionnaireOffer/QuestionnaireOffer';
 import DeleteBtn from 'components/DeleteBtn';
 import EditBtn from 'components/EditBtn';
 import {
