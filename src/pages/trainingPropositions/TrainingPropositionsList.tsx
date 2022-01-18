@@ -92,7 +92,7 @@ export const TrainingPropositionsList = ({
       {questionnaireOffers.map((questionnaireoffer) => (
         <div key={questionnaireoffer.IdQuestionnaireOffer}>
           <div className="row-content">
-            <h3>{questionnaireoffer.Year}</h3>
+            <h3>{`${questionnaireoffer.Year} ${questionnaireoffer.person.FirstName} ${questionnaireoffer.person.LastName}`}</h3>
 
             <DeleteBtn
               onClick={() =>
