@@ -263,6 +263,7 @@ export const pl: LanguageSchema = {
   participantAdded: 'Dodano uczestnika',
   failedToAddAParticipant: 'Nie udało się dodać uczestnika!',
   participantRemoved: 'Usunięto uczestnika',
+  participantEdited: 'Edytowano uczestnika',
   theParticipantCouldNotBeRemoved: 'Nie udało się usunąć uczestnika!',
   courseAdded: 'Dodano kurs',
   editedCourse: 'Edytowano kurs',

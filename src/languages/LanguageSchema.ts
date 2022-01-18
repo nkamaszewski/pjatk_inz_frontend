@@ -263,6 +263,7 @@ export interface LanguageSchema {
   participantAdded: string;
   failedToAddAParticipant: string;
   participantRemoved: string;
+  participantEdited: string;
   theParticipantCouldNotBeRemoved: string;
   courseAdded: string;
   editedCourse: string;

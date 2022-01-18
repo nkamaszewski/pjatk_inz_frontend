@@ -6,16 +6,20 @@ import {
   DialogTitle,
 } from '@material-ui/core';
 import { useAddParticipationMutation } from 'api/participation/useAddParticipationMutation';
+import { useUpdateParticipationMutation } from 'api/participation/useUpdateParticipationMutation';
 import { EmployeeSelect } from 'components/controls_UI/employeeSelect/EmployeeSelect';
 import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { UploadFileBtn } from 'components/controls_UI/UploadFileBtn';
+import { formatDate } from 'helpers/formatDate';
 import { useLanguageSchema } from 'providers/LanguageProvider';
+import { ParticipationDTO } from 'types/DTO/Participation';
 import { useParticipationForm } from './useParticipationForm';
 
 interface ParticipationFormProps {
   open: boolean;
   close: () => void;
   IdEducation: string;
+  editedParticipation?: ParticipationDTO | null;
 }
 
 const initialValues = {
@@ -30,12 +34,35 @@ export const ParticipationForm = ({
   open,
   close,
   IdEducation,
+  editedParticipation,
 }: ParticipationFormProps) => {
   const addMutation = useAddParticipationMutation();
+  const updateMutation = useUpdateParticipationMutation();
   const participationForm = useParticipationForm()({
-    initialValues: { ...initialValues, IdEducation },
+    initialValues: editedParticipation
+      ? {
+          ...editedParticipation,
+          DateOfRegistration: formatDate(
+            editedParticipation.DateOfRegistration
+          ) as string,
+          EndDate: editedParticipation.EndDate
+            ? (formatDate(editedParticipation.EndDate) as string)
+            : '',
+          CertificateOfCompletion: '',
+        }
+      : { ...initialValues, IdEducation },
     onSubmit: async (values) => {
-      await addMutation.mutateAsync(values);
+      if (editedParticipation) {
+        await updateMutation.mutateAsync({
+          ...values,
+          CertificateOfCompletion:
+            values.CertificateOfCompletion ??
+            editedParticipation.CertificateOfCompletion,
+          IdParticipation: editedParticipation.IdParticipation,
+        });
+      } else {
+        await addMutation.mutateAsync(values);
+      }
       close();
     },
   });

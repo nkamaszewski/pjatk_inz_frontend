@@ -42,5 +42,28 @@ export const postParticipation = (
   });
 };
 
+export const updateParticipation = (participation: ParticipationDTO) => {
+  const formData = new FormData();
+
+  formData.append(
+    'CertificateOfCompletion',
+    participation.CertificateOfCompletion
+  );
+  formData.append('IdParticipation', participation.IdParticipation);
+  formData.append('IdEducation', participation.IdEducation);
+  formData.append('IdPerson', participation.IdPerson);
+  formData.append('DateOfRegistration', participation.DateOfRegistration);
+  formData.append('EndDate', participation.EndDate);
+  return axiosJWT.put<ParticipationDTO>(
+    `/participations/${participation.IdParticipation}`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+};
+
 export const deleteParticipation = ({ id }: { id: string }) =>
   axiosJWT.delete(`/participations/${id}`);

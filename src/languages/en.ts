@@ -265,6 +265,7 @@ export const en: LanguageSchema = {
   participantAdded: 'Participant added',
   failedToAddAParticipant: 'Failed to add participant!',
   participantRemoved: 'Participant removed',
+  participantEdited: 'Participant edited',
   theParticipantCouldNotBeRemoved: 'The participant could not be removed!',
   courseAdded: 'Course added',
   editedCourse: 'Edited course',

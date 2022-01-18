@@ -35,7 +35,7 @@ interface Props {
 }
 
 const CoachList = ({ coaches, fetchCoaches }: Props) => {
-  const [editCoach, setEditCoach]: [CoachDTO | null, Function] = useState(null);
+  const [editCoach, setEditCoach] = useState<CoachDTO | null>(null);
   const { setSnackbar } = useSnackbar();
   const handleHttpError = useHandleHttpError();
   const handleCloseDrawer = () => setEditCoach(null);
