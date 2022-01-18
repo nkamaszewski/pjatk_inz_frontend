@@ -89,7 +89,7 @@ const QuestionnaireOfferSelect = ({ value, onChange }: Props) => {
             <MenuItem
               key={qo.IdQuestionnaireOffer}
               value={qo.IdQuestionnaireOffer}
-            >{`${qo.Year}`}</MenuItem>
+            >{`${qo.Year} ${qo.person.FirstName} ${qo.person.LastName}`}</MenuItem>
           ))}
         </Select>
       </FormControlStyled>

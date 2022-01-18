@@ -5,4 +5,5 @@ export interface QuestionnaireOfferDTO {
   Year: number;
   IdPerson: string;
   questionnaireOfferOffer: OfferDTO[];
+  person: { FirstName: string; LastName: string };
 }
