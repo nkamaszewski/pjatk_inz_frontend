@@ -18,7 +18,7 @@ import RegisterPage from 'pages/Register/RegisterPage';
 import RestorePasswordPage from 'pages/RestorePassword/RestorePasswordPage';
 import ChangePasswordPage from 'pages/changePassword/ChangePasswordPage';
 import { PATH } from './paths';
-import { ApplicationsPage } from 'pages/Applications/ApplicationsPage';
+import { TrainingApplicationsPage } from 'pages/trainingApplications/TrainingApplicationsPage';
 import SetPasswordPage from 'pages/SetPassword/SetPasswordPage';
 import { ScoresPage } from 'pages/scores/ScoresPage';
 
@@ -37,7 +37,7 @@ export const authRoutes = [
 
 export const routes: RouteType[] = [
   { Component: Employment, path: PATH.employment },
-  { Component: ApplicationsPage, path: PATH.applicationsPage },
+  { Component: TrainingApplicationsPage, path: PATH.applicationsPage },
   { Component: DocumentsAdditional, path: PATH.documentAdditional },
   { Component: WorkshopsStudy, path: PATH.workshopStudy },
   { Component: WorkshopsTraining, path: PATH.workshopTraining },

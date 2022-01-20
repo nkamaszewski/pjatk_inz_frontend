@@ -18,7 +18,7 @@ import {
 import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
 
-const WorkshopContentStyle = styled.div`
+const TrainingApplicationsContentStyle = styled.div`
   padding: 24px 0;
   display: grid;
   grid-row-gap: 16px;
@@ -30,7 +30,7 @@ interface Props {
   editApplicationFor?: ApplicationForDTO | null;
 }
 
-const WorkshopContent = ({
+export const TrainingApplicationsContent = ({
   closeDrawer,
   fetchApplications,
   editApplicationFor,
@@ -88,7 +88,7 @@ const WorkshopContent = ({
   const schema = useLanguageSchema();
 
   return (
-    <WorkshopContentStyle>
+    <TrainingApplicationsContentStyle>
       <SwitchBtn
         value={isStudy}
         onChange={(checked) => {
@@ -128,8 +128,6 @@ const WorkshopContent = ({
       >
         {schema.save}
       </Button>
-    </WorkshopContentStyle>
+    </TrainingApplicationsContentStyle>
   );
 };
-
-export default WorkshopContent;

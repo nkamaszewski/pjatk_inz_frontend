@@ -1,7 +1,7 @@
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
-const WorkshopListHeader = () => {
+export const TrainingApplicationsListHeader = () => {
   const { dateOfSubmission, author, validationTable, status, name } =
     useLanguageSchema();
   return (
@@ -16,5 +16,3 @@ const WorkshopListHeader = () => {
     </HeaderListStyled>
   );
 };
-
-export default WorkshopListHeader;

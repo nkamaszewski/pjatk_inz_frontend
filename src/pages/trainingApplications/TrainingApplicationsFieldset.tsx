@@ -2,7 +2,7 @@ import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
-import WorkshopContent from './WorkshopContent';
+import { TrainingApplicationsContent } from './TrainingApplicationsContent';
 
 interface Props {
   closeDrawer: () => void;
@@ -10,7 +10,7 @@ interface Props {
   editApplicationFor?: ApplicationForDTO | null;
 }
 
-const WorkshopFieldset = ({
+export const TrainingApplicationsFieldset = ({
   closeDrawer,
   fetchApplications,
   editApplicationFor,
@@ -24,7 +24,7 @@ const WorkshopFieldset = ({
         }`}
         closeDrawer={closeDrawer}
       />
-      <WorkshopContent
+      <TrainingApplicationsContent
         closeDrawer={closeDrawer}
         fetchApplications={fetchApplications}
         editApplicationFor={editApplicationFor}
@@ -32,5 +32,3 @@ const WorkshopFieldset = ({
     </FieldsetStyled>
   );
 };
-
-export default WorkshopFieldset;

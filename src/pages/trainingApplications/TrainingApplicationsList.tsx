@@ -5,10 +5,10 @@ import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import { ApplicationForListDTO } from '../../types/DTO/ApplicationFor';
 import { useApplication } from './useApplication';
-import WorkshopFieldset from './WorkshopFieldset';
-import WorkshopListHeader from './WorkshopListHeader';
+import { TrainingApplicationsFieldset } from './TrainingApplicationsFieldset';
+import { TrainingApplicationsListHeader } from './TrainingApplicationsListHeader';
 
-const WorkshopListStyle = styled.div`
+const TrainingApplicationsListStyle = styled.div`
   padding: 24px;
 
   .grid-workshop {
@@ -26,7 +26,10 @@ interface Props {
   fetchApplications: Function;
 }
 
-const WorkshopList = ({ applications, fetchApplications }: Props) => {
+export const TrainingApplicationsList = ({
+  applications,
+  fetchApplications,
+}: Props) => {
   const { editApplicationFor, getForEdit, cancelEditing, deleteItem } =
     useApplication(fetchApplications);
 
@@ -39,19 +42,19 @@ const WorkshopList = ({ applications, fetchApplications }: Props) => {
   };
 
   return (
-    <WorkshopListStyle>
+    <TrainingApplicationsListStyle>
       <Drawer
         anchor="right"
         open={Boolean(editApplicationFor)}
         onClose={cancelEditing}
       >
-        <WorkshopFieldset
+        <TrainingApplicationsFieldset
           closeDrawer={cancelEditing}
           fetchApplications={fetchApplications}
           editApplicationFor={editApplicationFor}
         />
       </Drawer>
-      <WorkshopListHeader />
+      <TrainingApplicationsListHeader />
       {applications.map((application) => (
         <div key={application.IdApplicationFor}>
           <div className="grid-workshop row">
@@ -76,8 +79,6 @@ const WorkshopList = ({ applications, fetchApplications }: Props) => {
           <Divider />
         </div>
       ))}
-    </WorkshopListStyle>
+    </TrainingApplicationsListStyle>
   );
 };
-
-export default WorkshopList;
