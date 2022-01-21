@@ -65,10 +65,10 @@ const EmploymentList = ({ employments }: Props) => {
             <p>{employment.Division ? employment.Division.Name : '---'}</p>
             <p>{employment.Department.Name}</p>
             <p>{employment.Position.Name}</p>
-            {person.personEmployee?.IsActive ? (
+            {employment.IsActive ? (
               <span />
             ) : (
-              <SendInvitationBtn email={person.Email} />
+              <SendInvitationBtn email={employment.Email} />
             )}
             <EditBtn
               onClick={() =>

@@ -24,6 +24,8 @@ export interface EmploymentListDTO {
   FirstName: string;
   LastName: string;
   IdRole: string;
+  Email: string;
+  IsActive: boolean;
 }
 
 export const mapEmploymentListDTOtoEmploymentDTO = ({
