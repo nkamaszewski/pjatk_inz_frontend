@@ -42,13 +42,14 @@ export const RadioButtons = ({
         onChange={(e) => onChange(e.target.value)}
         onBlur={onBlur}
       >
-        {options.map((option) => {
+        {options.map((option) => (
           <FormControlLabel
+            key={option.value}
             value={option.value}
-            control={<Radio />}
+            control={<Radio color="primary" />}
             label={option.label}
-          />;
-        })}
+          />
+        ))}
       </RadioGroup>
       {touched && error && <ErrorHelperText text={error} />}
     </FormControl>

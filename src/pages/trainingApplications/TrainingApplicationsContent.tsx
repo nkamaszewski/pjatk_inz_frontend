@@ -1,22 +1,24 @@
 import { Button } from '@material-ui/core';
+import { useAddApplicationMutation } from 'api/application/useAddApplicationMutation';
+import { useUpdateApplicationMutation } from 'api/application/useUpdateApplicationMutation';
+import { OtherEducationSelect } from 'components/controls_UI/OtherEducationSelect';
+import { RadioButtons } from 'components/controls_UI/RadioButtons';
 import StatusSelect from 'components/controls_UI/StatusSelect';
-import { useAuth } from 'providers/AuthProvider';
+import { formatDate } from 'helpers/formatDate';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
-import {
-  postApplicationsFor,
-  updateApplicationsFor,
-} from '../../api/Application';
 import StudySelect from '../../components/controls_UI/studySelect/StudySelect';
 import SwitchBtn from '../../components/controls_UI/SwitchBtn';
 import TrainingSelect from '../../components/controls_UI/trainingSelect/TrainingSelect';
-import {
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
+import { useTrainingApplicationForm } from './useTrainingApplicationForm';
+
+const EDUCATION_TYPES = [
+  { value: 'study', label: 'Studia' },
+  { value: 'training', label: 'Kurs' },
+  { value: 'other', label: 'Inne' },
+];
 
 const TrainingApplicationsContentStyle = styled.div`
   padding: 24px 0;
@@ -24,107 +26,111 @@ const TrainingApplicationsContentStyle = styled.div`
   grid-row-gap: 16px;
 `;
 
+const initialValues = {
+  educationType: '',
+  IdEducation: '',
+  IdStatus: '',
+  Compatibility: false,
+};
 interface Props {
   closeDrawer: Function;
-  fetchApplications: Function;
   editApplicationFor?: ApplicationForDTO | null;
 }
 
 export const TrainingApplicationsContent = ({
   closeDrawer,
-  fetchApplications,
   editApplicationFor,
 }: Props) => {
-  const [isStudy, setIsStudy] = useState(
-    editApplicationFor ? editApplicationFor.IsStudy : false
+  const [educationType, setEducationType] = useState<string>(
+    editApplicationFor?.EducationType ?? 'study'
   );
-  const [idEducation, setIdEducation] = useState(
-    editApplicationFor ? editApplicationFor.IdEducation : ''
-  );
-  const [compatibility, setCompatibility] = useState(
-    editApplicationFor ? editApplicationFor.Compatibility : false
-  );
-  const [idStatus, setIdStatus] = useState(
-    editApplicationFor ? editApplicationFor.IdStatus : ''
-  );
-  const { setSnackbar } = useSnackbar();
-  const {
-    auth: { user },
-  } = useAuth();
-
-  const handleHttpError = useHandleHttpError();
-
-  const handleOnSave = async () => {
-    try {
+  const addMutation = useAddApplicationMutation();
+  const updateMutation = useUpdateApplicationMutation();
+  const trainingAppForm = useTrainingApplicationForm()({
+    initialValues: editApplicationFor ?? initialValues,
+    onSubmit: async (values) => {
       if (editApplicationFor) {
-        await updateApplicationsFor({
+        await updateMutation.mutateAsync({
+          ...values,
           IdApplicationFor: editApplicationFor.IdApplicationFor,
-          DateOfSubmission: editApplicationFor.DateOfSubmission,
-          IdEducation: idEducation,
-          IdStatus: idStatus,
-          Compatibility: compatibility,
-          IdPerson: user?.IdPerson ?? '',
+          DateOfSubmission: formatDate(new Date()) as string,
         });
-        setSnackbar(createSnackbarSuccess('Wniosek został wyedytowany'));
-        closeDrawer();
       } else {
-        await postApplicationsFor({
-          DateOfSubmission: new Date(),
-          IdEducation: idEducation,
-          IdStatus: idStatus,
-          Compatibility: compatibility,
-          IdPerson: user?.IdPerson ?? '',
+        await addMutation.mutateAsync({
+          ...values,
+          DateOfSubmission: formatDate(new Date()) as string,
         });
-        setSnackbar(createSnackbarSuccess('Wniosek został dodany'));
-        closeDrawer();
       }
-    } catch (e) {
-      console.error(e);
-      handleHttpError(e);
-    } finally {
-      fetchApplications();
-    }
-  };
+      closeDrawer();
+    },
+  });
+
   const schema = useLanguageSchema();
 
   return (
     <TrainingApplicationsContentStyle>
-      <SwitchBtn
-        value={isStudy}
-        onChange={(checked) => {
-          setIsStudy(checked);
-          setIdEducation('');
+      <RadioButtons
+        options={EDUCATION_TYPES}
+        value={educationType}
+        onChange={(v) => {
+          trainingAppForm.setFieldValue('IdEducation', '');
+          setEducationType(v);
         }}
-        label={schema.theApplicationConcernsStudies}
       />
 
-      {isStudy ? (
-        <StudySelect value={idEducation} onChange={setIdEducation} />
-      ) : (
-        <TrainingSelect value={idEducation} onChange={setIdEducation} />
+      {educationType === 'study' && (
+        <StudySelect
+          value={trainingAppForm.values.IdEducation}
+          name="IdEducation"
+          onChange={(id) => trainingAppForm.setFieldValue('IdEducation', id)}
+          onBlur={trainingAppForm.handleBlur}
+          error={trainingAppForm.errors.IdEducation}
+          touched={trainingAppForm.touched.IdEducation}
+        />
+      )}
+      {educationType === 'training' && (
+        <TrainingSelect
+          value={trainingAppForm.values.IdEducation}
+          name="IdEducation"
+          onChange={(id) => trainingAppForm.setFieldValue('IdEducation', id)}
+          onBlur={trainingAppForm.handleBlur}
+          error={trainingAppForm.errors.IdEducation}
+          touched={trainingAppForm.touched.IdEducation}
+        />
+      )}
+      {educationType === 'other' && (
+        <OtherEducationSelect
+          value={trainingAppForm.values.IdEducation}
+          name="IdEducation"
+          onChange={(id) => trainingAppForm.setFieldValue('IdEducation', id)}
+          onBlur={trainingAppForm.handleBlur}
+          error={trainingAppForm.errors.IdEducation}
+          touched={trainingAppForm.touched.IdEducation}
+        />
       )}
 
       <SwitchBtn
-        value={compatibility}
-        onChange={(checked) => setCompatibility(checked)}
+        value={trainingAppForm.values.Compatibility}
+        onChange={(checked) =>
+          trainingAppForm.setFieldValue('Compatibility', checked)
+        }
+        name="Compatibility"
         label={schema.isItInLineWithTheTermsOfReference}
       />
 
       <StatusSelect
-        value={idStatus}
-        onChange={(
-          event: React.ChangeEvent<{
-            value: unknown;
-            name?: string | undefined;
-          }>
-        ) => setIdStatus(event.target.value as string)}
+        value={trainingAppForm.values.IdStatus}
+        name="IdStatus"
+        onChange={(id) => trainingAppForm.setFieldValue('IdStatus', id)}
+        onBlur={trainingAppForm.handleBlur}
+        error={trainingAppForm.errors.IdStatus}
+        touched={trainingAppForm.touched.IdStatus}
       />
 
       <Button
-        // disabled={!Boolean(year)}
         variant="contained"
         color="primary"
-        onClick={handleOnSave}
+        onClick={() => trainingAppForm.handleSubmit()}
       >
         {schema.save}
       </Button>

@@ -1,16 +1,16 @@
 export interface ApplicationForDTO {
   IdApplicationFor: string;
-  DateOfSubmission: Date;
+  DateOfSubmission: string;
   IdEducation: string;
   IdStatus: string;
   Compatibility: boolean;
   IdPerson: string;
-  IsStudy: boolean;
+  EducationType: 'study' | 'training' | 'other';
 }
 
 export interface ApplicationForListDTO {
   IdApplicationFor: string;
-  DateOfSubmission: Date;
+  DateOfSubmission: string;
   IdEducation: string;
   IdStatus: string;
   Compatibility: boolean;

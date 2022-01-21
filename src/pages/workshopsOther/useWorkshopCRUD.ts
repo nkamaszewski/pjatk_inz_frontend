@@ -4,7 +4,7 @@ import {
   getOtherEducation,
   postOtherEducation,
   updateOtherEducation,
-} from 'api/OtherEducation';
+} from 'api/otherEducation/OtherEducation';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import {

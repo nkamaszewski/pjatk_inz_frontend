@@ -6,13 +6,11 @@ import { TrainingApplicationsContent } from './TrainingApplicationsContent';
 
 interface Props {
   closeDrawer: () => void;
-  fetchApplications: Function;
   editApplicationFor?: ApplicationForDTO | null;
 }
 
 export const TrainingApplicationsFieldset = ({
   closeDrawer,
-  fetchApplications,
   editApplicationFor,
 }: Props) => {
   const schema = useLanguageSchema();
@@ -26,7 +24,6 @@ export const TrainingApplicationsFieldset = ({
       />
       <TrainingApplicationsContent
         closeDrawer={closeDrawer}
-        fetchApplications={fetchApplications}
         editApplicationFor={editApplicationFor}
       />
     </FieldsetStyled>

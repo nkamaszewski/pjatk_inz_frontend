@@ -1,7 +1,7 @@
 import { axiosJWT } from 'helpers/tokenAxios';
 import { GraduateDegreeDTO } from 'types/DTO/GraduateDegree';
 import { StudyModeDTO } from 'types/DTO/StudyMode';
-import { StudiesListDTO, StudyDTO } from '../types/DTO/Study';
+import { StudiesListDTO, StudyDTO } from '../../types/DTO/Study';
 
 export const getStudies = () => axiosJWT.get<StudiesListDTO[]>('/studies');
 

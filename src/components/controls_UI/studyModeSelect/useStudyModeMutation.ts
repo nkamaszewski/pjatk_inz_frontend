@@ -1,4 +1,4 @@
-import { postStudyMode } from 'api/Study';
+import { postStudyMode } from 'api/study/Study';
 import { useMutation, useQueryClient } from 'react-query';
 
 export const useStudyModeMutation = () => {

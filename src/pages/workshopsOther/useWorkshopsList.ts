@@ -1,4 +1,4 @@
-import { getOtherEducations } from 'api/OtherEducation';
+import { getOtherEducations } from 'api/otherEducation/OtherEducation';
 import { useLoader } from 'providers/LoaderProvider';
 import { useCallback, useEffect, useState } from 'react';
 import { OtherEducationListDTO } from 'types/DTO/OtherEducation';

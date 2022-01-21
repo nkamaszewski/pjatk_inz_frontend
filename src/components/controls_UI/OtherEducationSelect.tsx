@@ -1,13 +1,13 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { useOtherEducationsQuery } from 'api/otherEducation/useOtherEducationsQuery';
 import { FormControlStyled } from 'components/controls_UI/FormControlStyled';
 import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import React from 'react';
 import styled from 'styled-components';
-import { ErrorHelperText } from '../ErrorHelperText';
-import { useStudiesQuery } from '../../../api/study/useStudiesQuery';
+import { ErrorHelperText } from './ErrorHelperText';
 
-const StudySelectStyle = styled.div`
+const OtherEducationSelectStyle = styled.div`
   display: grid;
   grid-template-columns: 1fr 48px;
 `;
@@ -21,7 +21,7 @@ interface Props {
   error?: string;
 }
 
-const StudySelect = ({
+export const OtherEducationSelect = ({
   value,
   onChange,
   onBlur,
@@ -29,32 +29,33 @@ const StudySelect = ({
   touched,
   error,
 }: Props) => {
-  const studiesQuery = useStudiesQuery();
+  const otherEducationsQuery = useOtherEducationsQuery();
 
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     onChange(event.target.value as string);
   };
   const schema = useLanguageSchema();
   return (
-    <StudySelectStyle>
+    <OtherEducationSelectStyle>
       <FormControlStyled>
-        <InputLabel>{capFL(schema.studies)}</InputLabel>
+        <InputLabel>{capFL(schema.otherTtrainings)}</InputLabel>
         <Select
           value={value}
           onChange={handleSelectChange}
           onBlur={onBlur}
           name={name}
         >
-          {studiesQuery.data?.data.map((study) => (
-            <MenuItem key={study.IdEducation} value={study.IdEducation}>
-              {study.FieldOfStudy}
+          {otherEducationsQuery.data?.data.map((otherEducation) => (
+            <MenuItem
+              key={otherEducation.IdEducation}
+              value={otherEducation.IdEducation}
+            >
+              {otherEducation.Name}
             </MenuItem>
           ))}
         </Select>
         {touched && error && <ErrorHelperText text={error} />}
       </FormControlStyled>
-    </StudySelectStyle>
+    </OtherEducationSelectStyle>
   );
 };
-
-export default StudySelect;

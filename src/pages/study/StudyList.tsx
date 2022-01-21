@@ -6,7 +6,7 @@ import { useDrawer } from 'hooks/useDrawer';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { deleteStudy } from '../../api/Study';
+import { deleteStudy } from '../../api/study/Study';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import {

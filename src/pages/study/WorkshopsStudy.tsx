@@ -3,7 +3,7 @@ import { NoData } from 'components/NoData';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { StudiesListDTO } from 'types/DTO/Study';
-import { getStudies } from '../../api/Study';
+import { getStudies } from '../../api/study/Study';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import StudyFieldset from './StudyFieldset';

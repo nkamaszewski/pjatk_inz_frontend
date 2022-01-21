@@ -1,9 +1,9 @@
 import { axiosJWT } from 'helpers/tokenAxios';
-import { ALL } from '../providers/FilterContext';
+import { ALL } from '../../providers/FilterContext';
 import {
   ApplicationForDTO,
   ApplicationForListDTO,
-} from '../types/DTO/ApplicationFor';
+} from '../../types/DTO/ApplicationFor';
 
 interface QueryParams {
   iddepartment: string | null;
@@ -25,12 +25,19 @@ export const getApplicationFor = (id: string) =>
   axiosJWT.get<ApplicationForDTO>(`/appfor/${id}`);
 
 export const postApplicationsFor = (
-  application: Omit<ApplicationForDTO, 'IdApplicationFor' | 'IsStudy'>
-) => axiosJWT.post('/appfor/', application);
+  application: Omit<
+    ApplicationForDTO,
+    'IdApplicationFor' | 'EducationType' | 'IdPerson'
+  >
+) => axiosJWT.post<ApplicationForDTO>('/appfor/', application);
 
 export const updateApplicationsFor = (
-  application: Omit<ApplicationForDTO, 'IsStudy'>
-) => axiosJWT.put(`/appfor/${application.IdApplicationFor}`, application);
+  application: Omit<ApplicationForDTO, 'EducationType' | 'IdPerson'>
+) =>
+  axiosJWT.put<ApplicationForDTO>(
+    `/appfor/${application.IdApplicationFor}`,
+    application
+  );
 
 export const deleteApplicationsFor = (id: string) =>
   axiosJWT.delete(`/appfor/${id}`);

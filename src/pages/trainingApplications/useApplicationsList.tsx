@@ -1,4 +1,4 @@
-import { getApplicationsFor } from 'api/Application';
+import { getApplicationsFor } from 'api/application/Application';
 import { useFilter } from 'providers/FilterContext';
 import { useCallback, useEffect, useState } from 'react';
 import { ApplicationForListDTO } from 'types/DTO/ApplicationFor';

@@ -1,4 +1,4 @@
-import { getApplicationsFor } from 'api/Application';
+import { getApplicationsFor } from 'api/application/Application';
 import { useQuery } from 'react-query';
 
 export const useAppForQuery = () => {

@@ -7,7 +7,7 @@ import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import FilterPanel from './FilterPanel';
 import { useApplicationsList } from './useApplicationsList';
-import { TrainingApplicationsContent } from './TrainingApplicationsContent';
+import { TrainingApplicationsFieldset } from './TrainingApplicationsFieldset';
 import { TrainingApplicationsList } from './TrainingApplicationsList';
 
 const TrainingApplicationsPageStyled = styled.div`
@@ -19,7 +19,7 @@ const TrainingApplicationsPageStyled = styled.div`
 
 export const TrainingApplicationsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { applications, fetchApplications } = useApplicationsList();
+  const { applications } = useApplicationsList();
   const { trainingApplications } = useLanguageSchema();
 
   return (
@@ -29,16 +29,10 @@ export const TrainingApplicationsPage = () => {
         <FilterPanel />
       </AddFab>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        <TrainingApplicationsContent
-          closeDrawer={() => setIsOpen(false)}
-          fetchApplications={fetchApplications}
-        />
+        <TrainingApplicationsFieldset closeDrawer={() => setIsOpen(false)} />
       </Drawer>
       {applications.length ? (
-        <TrainingApplicationsList
-          applications={applications}
-          fetchApplications={fetchApplications}
-        />
+        <TrainingApplicationsList applications={applications} />
       ) : (
         <NoData />
       )}

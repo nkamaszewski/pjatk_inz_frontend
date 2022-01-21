@@ -1,4 +1,4 @@
-import { postGraduateDegree } from 'api/Study';
+import { postGraduateDegree } from 'api/study/Study';
 import { useMutation, useQueryClient } from 'react-query';
 
 export const useGraduateDegreeMutation = () => {

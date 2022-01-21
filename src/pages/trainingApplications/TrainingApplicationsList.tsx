@@ -23,15 +23,11 @@ const TrainingApplicationsListStyle = styled.div`
 
 interface Props {
   applications: ApplicationForListDTO[];
-  fetchApplications: Function;
 }
 
-export const TrainingApplicationsList = ({
-  applications,
-  fetchApplications,
-}: Props) => {
+export const TrainingApplicationsList = ({ applications }: Props) => {
   const { editApplicationFor, getForEdit, cancelEditing, deleteItem } =
-    useApplication(fetchApplications);
+    useApplication();
 
   const handleDeleteItem = async (id: string) => {
     await deleteItem(id);
@@ -50,7 +46,6 @@ export const TrainingApplicationsList = ({
       >
         <TrainingApplicationsFieldset
           closeDrawer={cancelEditing}
-          fetchApplications={fetchApplications}
           editApplicationFor={editApplicationFor}
         />
       </Drawer>

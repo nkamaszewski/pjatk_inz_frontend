@@ -1,4 +1,4 @@
-import { getStudyModes } from 'api/Study';
+import { getStudyModes } from 'api/study/Study';
 import { useQuery } from 'react-query';
 
 export const useStudyModesQuery = () => {

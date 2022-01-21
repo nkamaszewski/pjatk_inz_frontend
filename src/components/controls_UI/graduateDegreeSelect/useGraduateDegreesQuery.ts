@@ -1,4 +1,4 @@
-import { getGraduateDegrees } from 'api/Study';
+import { getGraduateDegrees } from 'api/study/Study';
 import { useQuery } from 'react-query';
 
 export const useGraduateDegreesQuery = () => {

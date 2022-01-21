@@ -33,7 +33,12 @@ const FilterPanel = () => {
 
       <StatusSelect
         value={filters.idstatus}
-        onChange={handleChangefilter}
+        onChange={(status) =>
+          setFilters((prev) => ({
+            ...prev,
+            idstatus: status,
+          }))
+        }
         name="idstatus"
       />
       <DepartmentSelect

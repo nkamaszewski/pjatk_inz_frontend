@@ -1,4 +1,7 @@
-import { deleteApplicationsFor, getApplicationFor } from 'api/Application';
+import {
+  deleteApplicationsFor,
+  getApplicationFor,
+} from 'api/application/Application';
 import { useHandleHttpError } from 'hooks/useHandleHttpError';
 import {
   createSnackbarSuccess,
@@ -7,7 +10,7 @@ import {
 import { useState } from 'react';
 import { ApplicationForDTO } from 'types/DTO/ApplicationFor';
 
-export const useApplication = (cbFunction: Function) => {
+export const useApplication = () => {
   const [editApplicationFor, setEditApplicationFor] =
     useState<ApplicationForDTO | null>(null);
   const handleHttpError = useHandleHttpError();
@@ -34,7 +37,6 @@ export const useApplication = (cbFunction: Function) => {
     try {
       await deleteApplicationsFor(id);
       setSnackbar(createSnackbarSuccess('Usunięto wniosek!'));
-      cbFunction();
     } catch (e) {
       handleHttpError(e);
     }
