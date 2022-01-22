@@ -5,13 +5,9 @@ import { AddtionalApplicationsContent } from './AddtionalApplicationsContent';
 
 interface Props {
   closeDrawer: () => void;
-  fetchDocuments: () => void;
 }
 
-export const AddtionalApplicationsFieldset = ({
-  closeDrawer,
-  fetchDocuments,
-}: Props) => {
+export const AddtionalApplicationsFieldset = ({ closeDrawer }: Props) => {
   const schema = useLanguageSchema();
   return (
     <FieldsetStyled>

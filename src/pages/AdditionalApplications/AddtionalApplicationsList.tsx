@@ -1,22 +1,16 @@
 import { Divider, Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
+import { useDeleteApplicationForReasonMutation } from 'api/applicationForReason/useDeleteApplicationForReasonMutation';
+import { useDeleteApplicationForRefundMutation } from 'api/applicationForRefund/useDeleteApplicationForRefundMutation';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { deleteApplicationsForReason } from '../../api/ApplicationForReason';
-import { deleteApplicationsForRefund } from '../../api/ApplicationForRefund';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
-import { useDictionary } from '../../providers/DictionaryContext';
-import {
-  createSnackbarError,
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { formatDate } from '../../helpers/formatDate';
+import { useDictionary } from '../../providers/DictionaryContext';
 import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
 import { AddtionalApplicationsFieldset } from './AddtionalApplicationsFieldset';
 import { AddtionalApplicationsListHeader } from './AddtionalApplicationsListHeader';
-import { useLanguageSchema } from 'providers/LanguageProvider';
 
 const AddtionalApplicationsListStyle = styled.div`
   padding: 16px;
@@ -39,87 +33,75 @@ const AddtionalApplicationsListStyle = styled.div`
 `;
 
 interface Props {
-  documents: ApplicationForRefundList[];
-  fetchDocuments: () => void;
+  additionalApplications: ApplicationForRefundList[];
 }
 
 export const AddtionalApplicationsList = ({
-  documents,
-  fetchDocuments,
+  additionalApplications,
 }: Props) => {
-  const [editDocument, setEditDocument] =
+  const [editAdditionalApplication, setAdditionalApplication] =
     useState<ApplicationForRefundList | null>(null);
-  const { setSnackbar } = useSnackbar();
+  const deleteAppForRefundMutation = useDeleteApplicationForRefundMutation();
+  const deleteAppForReasonMutation = useDeleteApplicationForReasonMutation();
   const { statuses } = useDictionary();
-  const handleCloseDrawer = () => setEditDocument(null);
-  const handleDeleteItem = async (id: string) => {
-    try {
-      await deleteApplicationsForRefund(id);
-      fetchDocuments();
-      setSnackbar(createSnackbarSuccess(schema.theApplicationHasBeenDeleted));
-    } catch (e) {
-      setSnackbar(createSnackbarError(schema.theRequestCouldNotBeDeleted));
-    }
+  const handleCloseDrawer = () => setAdditionalApplication(null);
+  const handleDeleteItem = (id: string) => {
+    deleteAppForRefundMutation.mutate(id);
   };
-  const handleDeleteItemDetails = async (id: string) => {
-    try {
-      await deleteApplicationsForReason(id);
-      fetchDocuments();
-      setSnackbar(createSnackbarSuccess(schema.theApplicationHasBeenDeleted));
-    } catch (e) {
-      setSnackbar(createSnackbarError(schema.theRequestCouldNotBeDeleted));
-    }
+  const handleDeleteItemDetails = (id: string) => {
+    deleteAppForReasonMutation.mutate(id);
   };
-  console.log('statuses', statuses);
 
   const getStatusName = (id: string) =>
     statuses.find(({ IdStatus }) => IdStatus === id)?.Name ?? '';
-  const schema = useLanguageSchema();
 
   return (
     <AddtionalApplicationsListStyle>
       <Drawer
         anchor="right"
-        open={Boolean(editDocument)}
+        open={Boolean(editAdditionalApplication)}
         onClose={handleCloseDrawer}
       >
-        <AddtionalApplicationsFieldset
-          closeDrawer={handleCloseDrawer}
-          fetchDocuments={fetchDocuments}
-        />
+        <AddtionalApplicationsFieldset closeDrawer={handleCloseDrawer} />
       </Drawer>
       <AddtionalApplicationsListHeader />
-      {documents.map((doc) => (
-        <Card key={doc.IdApplicationForRefund} className="row">
+      {additionalApplications.map((additionalApp) => (
+        <Card key={additionalApp.IdApplicationForRefund} className="row">
           <header className="grid-header">
             <h4>
               {
-                doc.applicationForRefundApplicationFor.applicationForEmployee
-                  .employeePerson.FirstName
+                additionalApp.applicationForRefundApplicationFor
+                  .applicationForEmployee.employeePerson.FirstName
               }{' '}
               {
-                doc.applicationForRefundApplicationFor.applicationForEmployee
-                  .employeePerson.LastName
+                additionalApp.applicationForRefundApplicationFor
+                  .applicationForEmployee.employeePerson.LastName
               }
             </h4>
-            <h4>{formatDate(doc.DateOfSubmission)}</h4>
+            <h4>{formatDate(additionalApp.DateOfSubmission)}</h4>
             <DeleteBtn
-              onClick={() => handleDeleteItem(doc.IdApplicationForRefund)}
+              onClick={() =>
+                handleDeleteItem(additionalApp.IdApplicationForRefund)
+              }
             />
           </header>
           <Divider />
-          {doc.applicationForRefundApplicationForReasons.map((application) => (
-            <section className="grid-doc">
-              <p>{application.applicationForReasonsReasonForRefund.Name}</p>
-              <p>{getStatusName(application.IdStatus)}</p>
-              <EditBtn onClick={() => setEditDocument(doc)} />
-              <DeleteBtn
-                onClick={() =>
-                  handleDeleteItemDetails(application.IdReasonForRefund)
-                }
-              />
-            </section>
-          ))}
+          {additionalApp.applicationForRefundApplicationForReasons.map(
+            (application) => (
+              <section className="grid-doc">
+                <p>{application.applicationForReasonsReasonForRefund.Name}</p>
+                <p>{getStatusName(application.IdStatus)}</p>
+                <EditBtn
+                  onClick={() => setAdditionalApplication(additionalApp)}
+                />
+                <DeleteBtn
+                  onClick={() =>
+                    handleDeleteItemDetails(application.IdReasonForRefund)
+                  }
+                />
+              </section>
+            )
+          )}
         </Card>
       ))}
     </AddtionalApplicationsListStyle>

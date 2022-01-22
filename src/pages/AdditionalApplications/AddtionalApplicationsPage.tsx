@@ -1,48 +1,29 @@
 import { Drawer } from '@material-ui/core';
+import { useApplicationsForRefundQuery } from 'api/applicationForRefund/useApplicationsForRefundQuery';
 import { NoData } from 'components/NoData';
+import { useDrawer } from 'hooks/useDrawer';
 import { useLanguageSchema } from 'providers/LanguageProvider';
-import { useEffect, useState } from 'react';
-import { getApplicationsForRefund } from '../../api/ApplicationForRefund';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
-import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
 import { AddtionalApplicationsFieldset } from './AddtionalApplicationsFieldset';
 import { AddtionalApplicationsList } from './AddtionalApplicationsList';
 
 export const AddtionalApplicationsPage = () => {
-  const [documents, setDocuments] = useState<ApplicationForRefundList[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const fetchDocuments = () => {
-    try {
-      getApplicationsForRefund().then((res) => {
-        setDocuments(res.data);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(() => {
-    fetchDocuments();
-  }, []);
+  const additionalApplicationsQuery = useApplicationsForRefundQuery();
+  const { open, openDrawer, closeDrawer } = useDrawer();
 
   const { additionalApplications } = useLanguageSchema();
 
   return (
     <div>
       <PageHeader title={additionalApplications} />
-      <AddFab onClick={() => setIsOpen(true)} />
-      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        <AddtionalApplicationsFieldset
-          closeDrawer={() => setIsOpen(false)}
-          fetchDocuments={fetchDocuments}
-        />
+      <AddFab onClick={openDrawer} />
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
+        <AddtionalApplicationsFieldset closeDrawer={closeDrawer} />
       </Drawer>
-      {documents.length ? (
+      {additionalApplicationsQuery.data?.data.length ? (
         <AddtionalApplicationsList
-          documents={documents}
-          fetchDocuments={fetchDocuments}
+          additionalApplications={additionalApplicationsQuery.data.data}
         />
       ) : (
         <NoData />
