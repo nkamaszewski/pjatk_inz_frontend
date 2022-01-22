@@ -14,11 +14,11 @@ import {
 } from '../../providers/NotificationContext';
 import { formatDate } from '../../helpers/formatDate';
 import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
-import DocumentAdditionalFieldset from './DocumentAdditionalFieldset';
-import DocumentAdditionalListHeader from './DocumentAdditionalListHeader';
+import { AddtionalApplicationsFieldset } from './AddtionalApplicationsFieldset';
+import { AddtionalApplicationsListHeader } from './AddtionalApplicationsListHeader';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 
-const DocumentAdditionalListStyle = styled.div`
+const AddtionalApplicationsListStyle = styled.div`
   padding: 16px;
 
   .grid-header {
@@ -43,7 +43,10 @@ interface Props {
   fetchDocuments: () => void;
 }
 
-const DocumentAdditionalList = ({ documents, fetchDocuments }: Props) => {
+export const AddtionalApplicationsList = ({
+  documents,
+  fetchDocuments,
+}: Props) => {
   const [editDocument, setEditDocument] =
     useState<ApplicationForRefundList | null>(null);
   const { setSnackbar } = useSnackbar();
@@ -74,18 +77,18 @@ const DocumentAdditionalList = ({ documents, fetchDocuments }: Props) => {
   const schema = useLanguageSchema();
 
   return (
-    <DocumentAdditionalListStyle>
+    <AddtionalApplicationsListStyle>
       <Drawer
         anchor="right"
         open={Boolean(editDocument)}
         onClose={handleCloseDrawer}
       >
-        <DocumentAdditionalFieldset
+        <AddtionalApplicationsFieldset
           closeDrawer={handleCloseDrawer}
           fetchDocuments={fetchDocuments}
         />
       </Drawer>
-      <DocumentAdditionalListHeader />
+      <AddtionalApplicationsListHeader />
       {documents.map((doc) => (
         <Card key={doc.IdApplicationForRefund} className="row">
           <header className="grid-header">
@@ -119,8 +122,6 @@ const DocumentAdditionalList = ({ documents, fetchDocuments }: Props) => {
           ))}
         </Card>
       ))}
-    </DocumentAdditionalListStyle>
+    </AddtionalApplicationsListStyle>
   );
 };
-
-export default DocumentAdditionalList;

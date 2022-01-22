@@ -1,14 +1,17 @@
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
-import DocumentAdditionalContent from './DocumentAdditionalContent';
+import { AddtionalApplicationsContent } from './AddtionalApplicationsContent';
 
 interface Props {
   closeDrawer: () => void;
   fetchDocuments: () => void;
 }
 
-const DocumentAdditionalFieldset = ({ closeDrawer, fetchDocuments }: Props) => {
+export const AddtionalApplicationsFieldset = ({
+  closeDrawer,
+  fetchDocuments,
+}: Props) => {
   const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
@@ -16,12 +19,10 @@ const DocumentAdditionalFieldset = ({ closeDrawer, fetchDocuments }: Props) => {
         title={schema.addAnApplication}
         closeDrawer={closeDrawer}
       />
-      <DocumentAdditionalContent
+      <AddtionalApplicationsContent
         closeDrawer={closeDrawer}
         fetchDocuments={fetchDocuments}
       />
     </FieldsetStyled>
   );
 };
-
-export default DocumentAdditionalFieldset;
