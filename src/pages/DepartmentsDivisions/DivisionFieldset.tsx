@@ -5,23 +5,23 @@ import { DivisionDTO } from '../../types/DTO/Division';
 import DivisionContent from './DivisionContent';
 
 interface Props {
-  closeDrawer: () => void;
+	closeDrawer: () => void;
 
-  editDivision: DivisionDTO | null;
+	editDivision: DivisionDTO | null;
 }
 
 const DivisionFieldset = ({
-  closeDrawer,
+	closeDrawer,
 
-  editDivision,
+	editDivision,
 }: Props) => {
-  const schema = useLanguageSchema();
-  return (
-    <FieldsetStyled>
-      <HeaderFieldset title={schema.editDepartment} closeDrawer={closeDrawer} />
-      <DivisionContent closeDrawer={closeDrawer} editDivision={editDivision} />
-    </FieldsetStyled>
-  );
+	const schema = useLanguageSchema();
+	return (
+		<FieldsetStyled>
+			<HeaderFieldset title={schema.editDivision} closeDrawer={closeDrawer} />
+			<DivisionContent closeDrawer={closeDrawer} editDivision={editDivision} />
+		</FieldsetStyled>
+	);
 };
 
 export default DivisionFieldset;

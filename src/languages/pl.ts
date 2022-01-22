@@ -156,7 +156,7 @@ export const pl: LanguageSchema = {
 	add: 'Dodaj',
 	addDepartment: 'DODAJ WYDZIAŁ',
 	addDivision: 'DODAJ PION',
-	editDivision: 'pion usunięty',
+	editDivision: 'Edytuj pion',
 	editDepartment: 'Edytuj wydział',
 	employment: 'zatrudnienie',
 	dateFrom: 'Data od',
