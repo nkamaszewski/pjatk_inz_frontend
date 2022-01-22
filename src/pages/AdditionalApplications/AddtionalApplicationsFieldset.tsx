@@ -5,9 +5,15 @@ import { AddtionalApplicationsContent } from './AddtionalApplicationsContent';
 
 interface Props {
   closeDrawer: () => void;
+  editAdditionalApplication?: any | null;
+  IdApplicationFor?: string | undefined;
 }
 
-export const AddtionalApplicationsFieldset = ({ closeDrawer }: Props) => {
+export const AddtionalApplicationsFieldset = ({
+  closeDrawer,
+  editAdditionalApplication,
+  IdApplicationFor,
+}: Props) => {
   const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
@@ -15,7 +21,11 @@ export const AddtionalApplicationsFieldset = ({ closeDrawer }: Props) => {
         title={schema.addAnApplication}
         closeDrawer={closeDrawer}
       />
-      <AddtionalApplicationsContent closeDrawer={closeDrawer} />
+      <AddtionalApplicationsContent
+        closeDrawer={closeDrawer}
+        editAdditionalApplication={editAdditionalApplication}
+        IdApplicationFor={IdApplicationFor}
+      />
     </FieldsetStyled>
   );
 };

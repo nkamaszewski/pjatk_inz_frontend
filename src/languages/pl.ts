@@ -225,6 +225,7 @@ export const pl: LanguageSchema = {
   settingUWithoutTable: 'Ustawienie "U" bez stołu',
   uSetting: 'Ustawienie "U"',
   type: 'Rodzaj',
+  addAdditionalApplication: 'dodaj wniosek dodatkowy',
   addGroup: 'Dodaj grupę',
   editGroup: 'Edytuj grupę',
   numberOfPeople: 'Liczba osób',

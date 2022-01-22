@@ -23,16 +23,20 @@ const initialValues = {
 interface Props {
   closeDrawer: Function;
   editAdditionalApplication?: any | null;
+  IdApplicationFor?: string | undefined;
 }
 
 export const AddtionalApplicationsContent = ({
   closeDrawer,
   editAdditionalApplication,
+  IdApplicationFor,
 }: Props) => {
   const addMutation = useAddAdditionalApplicationMutation();
   const additionalApplicationForm = useAddtionalApplicationsForm()({
     // initialValues: editAdditionalApplication ?? initialValues,
-    initialValues,
+    initialValues: IdApplicationFor
+      ? { ...initialValues, IdApplicationFor }
+      : initialValues,
     onSubmit: async (values) => {
       if (editAdditionalApplication) {
       } else {
@@ -55,6 +59,7 @@ export const AddtionalApplicationsContent = ({
         onBlur={additionalApplicationForm.handleBlur}
         error={additionalApplicationForm.errors.IdApplicationFor}
         touched={additionalApplicationForm.touched.IdApplicationFor}
+        disabled={Boolean(IdApplicationFor)}
       />
       <ReasonForRefundSelect
         value={additionalApplicationForm.values.IdReasonForRefund}

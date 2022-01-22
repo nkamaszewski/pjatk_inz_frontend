@@ -226,6 +226,7 @@ export const en: LanguageSchema = {
   settingUWithoutTable: '"U" setting without table',
   uSetting: '"U" setting',
   type: 'Type',
+  addAdditionalApplication: 'add additional Application',
   addGroup: 'Add group',
   editGroup: 'Edit group',
   numberOfPeople: 'Number of people',

@@ -13,6 +13,7 @@ interface Props {
   name?: string;
   touched?: boolean;
   error?: string;
+  disabled?: boolean;
 }
 
 const ApplicationForSelect = ({
@@ -22,6 +23,7 @@ const ApplicationForSelect = ({
   name,
   touched = false,
   error,
+  disabled = false,
 }: Props) => {
   const appForQuery = useApplicationsQuery();
 
@@ -37,6 +39,7 @@ const ApplicationForSelect = ({
         onChange={handleSelectChange}
         onBlur={onBlur}
         name={name}
+        disabled={disabled}
       >
         {appForQuery.data?.data.map(
           ({

@@ -10,6 +10,7 @@ import {
   ApplicationForDTO,
   ApplicationForListDTO,
 } from '../../types/DTO/ApplicationFor';
+import { AddAdditionalBtn } from './AddAdditionalBtn';
 import { TrainingApplicationsFieldset } from './TrainingApplicationsFieldset';
 import { TrainingApplicationsListHeader } from './TrainingApplicationsListHeader';
 
@@ -18,7 +19,7 @@ const TrainingApplicationsListStyle = styled.div`
 
   .grid-workshop {
     display: grid;
-    grid-template-columns: 240px 240px 1fr 200px 200px 56px 56px;
+    grid-template-columns: 240px 240px 1fr 200px 200px 56px 56px 56px;
   }
 
   .row {
@@ -74,6 +75,13 @@ export const TrainingApplicationsList = ({ applications }: Props) => {
                 : 'wniosek niezgodny'}
             </p>
             <p>{application.Status}</p>
+            {application.Status.includes('Zatwierdzony') ? (
+              <AddAdditionalBtn
+                IdApplicationFor={application.IdApplicationFor}
+              />
+            ) : (
+              <span />
+            )}
             <EditBtn
               onClick={() => handleClickEdit(application.IdApplicationFor)}
             />

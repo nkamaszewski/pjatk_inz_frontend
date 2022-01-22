@@ -225,6 +225,7 @@ export interface LanguageSchema {
   settingUWithoutTable: string;
   uSetting: string;
   type: string;
+  addAdditionalApplication: string;
   addGroup: string;
   editGroup: string;
   numberOfPeople: string;
