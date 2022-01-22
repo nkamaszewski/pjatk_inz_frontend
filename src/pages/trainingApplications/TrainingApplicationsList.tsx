@@ -1,10 +1,15 @@
 import { Divider, Drawer } from '@material-ui/core';
+import { useDeleteApplicationMutation } from 'api/application/useDeleteApplicationMutation';
+import { useGetApplicationMutation } from 'api/application/useGetApplicationMutation';
 import { formatDate } from 'helpers/formatDate';
+import { useState } from 'react';
 import styled from 'styled-components';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
-import { ApplicationForListDTO } from '../../types/DTO/ApplicationFor';
-import { useApplication } from './useApplication';
+import {
+  ApplicationForDTO,
+  ApplicationForListDTO,
+} from '../../types/DTO/ApplicationFor';
 import { TrainingApplicationsFieldset } from './TrainingApplicationsFieldset';
 import { TrainingApplicationsListHeader } from './TrainingApplicationsListHeader';
 
@@ -26,15 +31,20 @@ interface Props {
 }
 
 export const TrainingApplicationsList = ({ applications }: Props) => {
-  const { editApplicationFor, getForEdit, cancelEditing, deleteItem } =
-    useApplication();
-
+  const [editApplicationFor, setEditApplicationFor] =
+    useState<ApplicationForDTO | null>(null);
+  const deleteMutation = useDeleteApplicationMutation();
+  const getMutation = useGetApplicationMutation();
+  const handleCloseDrawer = () => setEditApplicationFor(null);
   const handleDeleteItem = async (id: string) => {
-    await deleteItem(id);
+    await deleteMutation.mutateAsync(id);
   };
 
   const handleClickEdit = async (id: string) => {
-    await getForEdit(id);
+    const response = await getMutation.mutateAsync(id);
+    if (response.data) {
+      setEditApplicationFor(response.data);
+    }
   };
 
   return (
@@ -42,10 +52,10 @@ export const TrainingApplicationsList = ({ applications }: Props) => {
       <Drawer
         anchor="right"
         open={Boolean(editApplicationFor)}
-        onClose={cancelEditing}
+        onClose={handleCloseDrawer}
       >
         <TrainingApplicationsFieldset
-          closeDrawer={cancelEditing}
+          closeDrawer={handleCloseDrawer}
           editApplicationFor={editApplicationFor}
         />
       </Drawer>
