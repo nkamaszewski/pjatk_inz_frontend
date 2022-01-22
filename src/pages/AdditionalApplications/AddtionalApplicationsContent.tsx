@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import ApplicationForSelect from '../../components/controls_UI/applicationForSelect/ApplicationForSelect';
 import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
 
-const DocumentAdditionalContentStyle = styled.div`
+const AddtionalApplicationsContentStyle = styled.div`
   padding: 24px 0;
   display: grid;
   grid-row-gap: 16px;
@@ -24,7 +24,7 @@ interface Props {
   editDocument?: ApplicationForRefundList | null;
 }
 
-const DocumentAdditionalContent = ({
+export const AddtionalApplicationsContent = ({
   closeDrawer,
   fetchDocuments,
   editDocument,
@@ -77,7 +77,7 @@ const DocumentAdditionalContent = ({
   const schema = useLanguageSchema();
 
   return (
-    <DocumentAdditionalContentStyle>
+    <AddtionalApplicationsContentStyle>
       <ApplicationForSelect value={idAppFor} onChange={setIdAppFor} />
       <TextField
         name={name}
@@ -102,8 +102,6 @@ const DocumentAdditionalContent = ({
       <Button variant="contained" color="primary" onClick={handleOnSave}>
         {schema.save}
       </Button>
-    </DocumentAdditionalContentStyle>
+    </AddtionalApplicationsContentStyle>
   );
 };
-
-export default DocumentAdditionalContent;

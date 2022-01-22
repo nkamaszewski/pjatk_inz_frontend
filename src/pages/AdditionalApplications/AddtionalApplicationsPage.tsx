@@ -6,10 +6,10 @@ import { getApplicationsForRefund } from '../../api/ApplicationForRefund';
 import AddFab from '../../components/AddFab';
 import PageHeader from '../../components/PageHeader';
 import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
-import DocumentAdditionalFieldset from './DocumentAdditionalFieldset';
-import DocumentAdditionalList from './DocumentAdditionalList';
+import { AddtionalApplicationsFieldset } from './AddtionalApplicationsFieldset';
+import { AddtionalApplicationsList } from './AddtionalApplicationsList';
 
-const DocumentsAdditional = () => {
+export const AddtionalApplicationsPage = () => {
   const [documents, setDocuments] = useState<ApplicationForRefundList[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,13 +34,13 @@ const DocumentsAdditional = () => {
       <PageHeader title={additionalApplications} />
       <AddFab onClick={() => setIsOpen(true)} />
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        <DocumentAdditionalFieldset
+        <AddtionalApplicationsFieldset
           closeDrawer={() => setIsOpen(false)}
           fetchDocuments={fetchDocuments}
         />
       </Drawer>
       {documents.length ? (
-        <DocumentAdditionalList
+        <AddtionalApplicationsList
           documents={documents}
           fetchDocuments={fetchDocuments}
         />
@@ -50,5 +50,3 @@ const DocumentsAdditional = () => {
     </div>
   );
 };
-
-export default DocumentsAdditional;

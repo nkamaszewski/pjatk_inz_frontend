@@ -1,7 +1,7 @@
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import HeaderListStyled from '../../components/styled/HeaderListStyled';
 
-const DocumentAdditionalListHeader = () => {
+export const AddtionalApplicationsListHeader = () => {
   const { consisting, dateOfSubmission } = useLanguageSchema();
   return (
     <>
@@ -14,5 +14,3 @@ const DocumentAdditionalListHeader = () => {
     </>
   );
 };
-
-export default DocumentAdditionalListHeader;
