@@ -201,6 +201,7 @@ export const en: LanguageSchema = {
   addDegreeOfStudyToTheDatabase: 'Add degree of study to the database',
   addTheUniversityToTheDatabase: 'Add the university to the database',
   trainer: 'Trainer',
+  reason: 'Reason',
   internalTraining: 'Internal training:',
   addATrainingTopic: 'add a training topic',
   addACompany: 'add a company',

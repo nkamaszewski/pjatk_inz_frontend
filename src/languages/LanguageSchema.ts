@@ -200,6 +200,7 @@ export interface LanguageSchema {
   addDegreeOfStudyToTheDatabase: string;
   addTheUniversityToTheDatabase: string;
   trainer: string;
+  reason: string;
   internalTraining: string;
   addATrainingTopic: string;
   addACompany: string;

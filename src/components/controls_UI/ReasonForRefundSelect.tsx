@@ -26,7 +26,7 @@ export const ReasonForRefundSelect = ({
   const { reasonsForRefund } = useDictionary();
   return (
     <FormControlStyled>
-      <InputLabel>{schema.status}</InputLabel>
+      <InputLabel>{schema.reason}</InputLabel>
       <Select
         value={value}
         onChange={(event: React.ChangeEvent<{ value: unknown }>) =>
