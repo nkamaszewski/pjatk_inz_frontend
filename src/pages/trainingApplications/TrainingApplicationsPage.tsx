@@ -1,5 +1,5 @@
 import { Drawer } from '@material-ui/core';
-import { useApplicationsQuery } from 'api/application/useApplicationsQuery';
+import { useApplicationsListQuery } from 'api/application/useApplicationsListQuery';
 import { NoData } from 'components/NoData';
 import { useDrawer } from 'hooks/useDrawer';
 import { useLanguageSchema } from 'providers/LanguageProvider';
@@ -18,7 +18,7 @@ const TrainingApplicationsPageStyled = styled.div`
 `;
 
 export const TrainingApplicationsPage = () => {
-  const applicationsQuery = useApplicationsQuery();
+  const applicationsQuery = useApplicationsListQuery();
   const { open, openDrawer, closeDrawer } = useDrawer();
   const { trainingApplications } = useLanguageSchema();
 
