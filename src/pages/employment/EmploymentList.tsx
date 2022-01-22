@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Drawer, Tooltip } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import { SendInvitationBtn } from 'components/SendInvitationBtn/SendInvitationBtn';
+import { capFL } from 'helpers/capitalizeFirstLetter';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';

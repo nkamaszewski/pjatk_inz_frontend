@@ -1,3 +1,5 @@
+import { capFL } from 'helpers/capitalizeFirstLetter';
+import { useLanguage } from 'providers/LanguageProvider';
 import HeaderFieldset from '../../components/HeaderFieldset';
 import FieldsetStyled from '../../components/styled/FieldsetStyled';
 import { CoachDTO } from '../../types/DTO/Coach';
@@ -10,10 +12,13 @@ interface Props {
 }
 
 const CoachFieldset = ({ closeDrawer, fetchCoaches, editCoach }: Props) => {
+  const {
+    language: { schema },
+  } = useLanguage();
   return (
     <FieldsetStyled>
       <HeaderFieldset
-        title={`${editCoach ? 'Edytuj' : 'Dodaj'} Szkoleniowca`}
+        title={`${editCoach ? capFL(schema.edit) : schema.add} ${schema.trainerV2}`}
         closeDrawer={closeDrawer}
       />
       <CoachContent
