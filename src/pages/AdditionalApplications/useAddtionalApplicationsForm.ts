@@ -5,8 +5,9 @@ import * as Yup from 'yup';
 
 const validationSchema = (schema: LanguageSchema) =>
   Yup.object().shape({
-    Id: Yup.string().required('pole jest wymagane'),
-    Name: Yup.string().required('pole jest wymagane'),
+    IdApplicationFor: Yup.string().required('pole jest wymagane'),
+    IdReasonForRefund: Yup.string().required('pole jest wymagane'),
+    IdStatus: Yup.string().required('pole jest wymagane'),
     DateOfSubmission: Yup.date()
       .transform((value, originalValue) => {
         return originalValue ? new Date(originalValue) : null;

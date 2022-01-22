@@ -1,7 +1,7 @@
 import { axiosJWT } from 'helpers/tokenAxios';
 
 export const postAdditionalApplication = (application: {
-  Id: string;
-  Name: string;
+  IdApplicationFor: string;
+  IdReasonForRefund: string;
   DateOfSubmission: string;
 }) => axiosJWT.post('/additionalapplication/', application);

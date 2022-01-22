@@ -2,6 +2,7 @@ import { Button } from '@material-ui/core';
 import { useAddAdditionalApplicationMutation } from 'api/additionalApplication/useAddAdditionalApplicationMutation';
 import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { ReasonForRefundSelect } from 'components/controls_UI/ReasonForRefundSelect';
+import StatusSelect from 'components/controls_UI/StatusSelect';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import styled from 'styled-components';
 import ApplicationForSelect from '../../components/controls_UI/applicationForSelect/ApplicationForSelect';
@@ -14,8 +15,9 @@ const AddtionalApplicationsContentStyle = styled.div`
 `;
 
 const initialValues = {
-  Id: '',
-  Name: '',
+  IdApplicationFor: '',
+  IdReasonForRefund: '',
+  IdStatus: '',
   DateOfSubmission: '',
 };
 interface Props {
@@ -45,20 +47,34 @@ export const AddtionalApplicationsContent = ({
   return (
     <AddtionalApplicationsContentStyle>
       <ApplicationForSelect
-        value={additionalApplicationForm.values.Id}
-        onChange={(id) => additionalApplicationForm.setFieldValue('Id', id)}
-        name="Id"
+        value={additionalApplicationForm.values.IdApplicationFor}
+        onChange={(id) =>
+          additionalApplicationForm.setFieldValue('IdApplicationFor', id)
+        }
+        name="IdApplicationFor"
         onBlur={additionalApplicationForm.handleBlur}
-        error={additionalApplicationForm.errors.Id}
-        touched={additionalApplicationForm.touched.Id}
+        error={additionalApplicationForm.errors.IdApplicationFor}
+        touched={additionalApplicationForm.touched.IdApplicationFor}
       />
       <ReasonForRefundSelect
-        value={additionalApplicationForm.values.Name}
-        onChange={(id) => additionalApplicationForm.setFieldValue('Name', id)}
-        name="Name"
+        value={additionalApplicationForm.values.IdReasonForRefund}
+        onChange={(id) =>
+          additionalApplicationForm.setFieldValue('IdReasonForRefund', id)
+        }
+        name="IdReasonForRefund"
         onBlur={additionalApplicationForm.handleBlur}
-        error={additionalApplicationForm.errors.Name}
-        touched={additionalApplicationForm.touched.Name}
+        error={additionalApplicationForm.errors.IdReasonForRefund}
+        touched={additionalApplicationForm.touched.IdReasonForRefund}
+      />
+      <StatusSelect
+        value={additionalApplicationForm.values.IdStatus}
+        onChange={(id) =>
+          additionalApplicationForm.setFieldValue('IdStatus', id)
+        }
+        name="IdStatus"
+        onBlur={additionalApplicationForm.handleBlur}
+        error={additionalApplicationForm.errors.IdStatus}
+        touched={additionalApplicationForm.touched.IdStatus}
       />
       <FormikTextField
         label={schema.dateOfSubmission}
