@@ -15,10 +15,7 @@ export const AddtionalApplicationsFieldset = ({ closeDrawer }: Props) => {
         title={schema.addAnApplication}
         closeDrawer={closeDrawer}
       />
-      <AddtionalApplicationsContent
-        closeDrawer={closeDrawer}
-        fetchDocuments={fetchDocuments}
-      />
+      <AddtionalApplicationsContent closeDrawer={closeDrawer} />
     </FieldsetStyled>
   );
 };

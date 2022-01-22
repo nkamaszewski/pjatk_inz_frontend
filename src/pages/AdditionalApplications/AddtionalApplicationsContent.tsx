@@ -1,16 +1,11 @@
-import { Button, TextField } from '@material-ui/core';
-import { postAdditionalApplication } from 'api/AdditionalApplication';
-import { formatDate } from 'helpers/formatDate';
+import { Button } from '@material-ui/core';
+import { useAddAdditionalApplicationMutation } from 'api/additionalApplication/useAddAdditionalApplicationMutation';
+import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
+import { ReasonForRefundSelect } from 'components/controls_UI/ReasonForRefundSelect';
 import { useLanguageSchema } from 'providers/LanguageProvider';
-import {
-  createSnackbarError,
-  createSnackbarSuccess,
-  useSnackbar,
-} from 'providers/NotificationContext';
-import { useState } from 'react';
 import styled from 'styled-components';
 import ApplicationForSelect from '../../components/controls_UI/applicationForSelect/ApplicationForSelect';
-import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
+import { useAddtionalApplicationsForm } from './useAddtionalApplicationsForm';
 
 const AddtionalApplicationsContentStyle = styled.div`
   padding: 24px 0;
@@ -18,88 +13,69 @@ const AddtionalApplicationsContentStyle = styled.div`
   grid-row-gap: 16px;
 `;
 
+const initialValues = {
+  Id: '',
+  Name: '',
+  DateOfSubmission: '',
+};
 interface Props {
   closeDrawer: Function;
-  fetchDocuments: Function;
-  editDocument?: ApplicationForRefundList | null;
+  editAdditionalApplication?: any | null;
 }
 
 export const AddtionalApplicationsContent = ({
   closeDrawer,
-  fetchDocuments,
-  editDocument,
+  editAdditionalApplication,
 }: Props) => {
-  const [idAppFor, setIdAppFor] = useState('');
-  const [name, setName] = useState('');
-  const [dateOfSubmission, setDateOfSubmission] = useState(
-    formatDate(new Date())
-  );
-  // const [appsForReason, setAppsForReason] = useState([]);
-  const { setSnackbar } = useSnackbar();
-
-  const handleSetName = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setName(e.target.value);
-  };
-
-  const handleSetDate = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDateOfSubmission(event.target.value);
-  };
-
-  const handleOnSave = async () => {
-    if (dateOfSubmission) {
-      try {
-        // if (editRoom) {
-        //   await updateRoom({
-        //     IdRoom: editRoom.IdRoom,
-        //     ...newRoom,
-        //   });
-        // } else {
-
-        await postAdditionalApplication({
-          Id: idAppFor,
-          Name: name,
-          DateOfSubmission: dateOfSubmission,
-        });
-
-        fetchDocuments();
-        setSnackbar(createSnackbarSuccess(schema.applicationAdded));
-        // }
-      } catch (e) {
-        setSnackbar(createSnackbarError(schema.theApplicationCouldNotBeAdded));
-        console.error(e);
-      } finally {
-        closeDrawer();
+  const addMutation = useAddAdditionalApplicationMutation();
+  const additionalApplicationForm = useAddtionalApplicationsForm()({
+    // initialValues: editAdditionalApplication ?? initialValues,
+    initialValues,
+    onSubmit: async (values) => {
+      if (editAdditionalApplication) {
+      } else {
+        await addMutation.mutateAsync(values);
       }
-    }
-  };
+      closeDrawer();
+    },
+  });
+
   const schema = useLanguageSchema();
 
   return (
     <AddtionalApplicationsContentStyle>
-      <ApplicationForSelect value={idAppFor} onChange={setIdAppFor} />
-      <TextField
-        name={name}
-        type="text"
-        value={name}
-        label={schema.name}
-        onChange={handleSetName}
-        autoComplete="off"
+      <ApplicationForSelect
+        value={additionalApplicationForm.values.Id}
+        onChange={(id) => additionalApplicationForm.setFieldValue('Id', id)}
+        name="Id"
+        onBlur={additionalApplicationForm.handleBlur}
+        error={additionalApplicationForm.errors.Id}
+        touched={additionalApplicationForm.touched.Id}
       />
-      <TextField
-        label={schema.dateOfRegistration}
-        name="DateOfRegistration"
+      <ReasonForRefundSelect
+        value={additionalApplicationForm.values.Name}
+        onChange={(id) => additionalApplicationForm.setFieldValue('Name', id)}
+        name="Name"
+        onBlur={additionalApplicationForm.handleBlur}
+        error={additionalApplicationForm.errors.Name}
+        touched={additionalApplicationForm.touched.Name}
+      />
+      <FormikTextField
+        label={schema.dateOfSubmission}
+        name="DateOfSubmission"
         type="date"
-        fullWidth
-        InputLabelProps={{
-          shrink: true,
-        }}
-        value={dateOfSubmission}
-        onChange={handleSetDate}
+        value={additionalApplicationForm.values.DateOfSubmission}
+        onChange={additionalApplicationForm.handleChange}
+        onBlur={additionalApplicationForm.handleBlur}
+        error={additionalApplicationForm.errors.DateOfSubmission}
+        touched={additionalApplicationForm.touched.DateOfSubmission}
       />
 
-      <Button variant="contained" color="primary" onClick={handleOnSave}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => additionalApplicationForm.handleSubmit()}
+      >
         {schema.save}
       </Button>
     </AddtionalApplicationsContentStyle>
