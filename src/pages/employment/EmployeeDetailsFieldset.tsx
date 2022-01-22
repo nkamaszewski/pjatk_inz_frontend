@@ -24,7 +24,6 @@ import {
   useSnackbar,
 } from '../../providers/NotificationContext';
 import { EmployeeGroupDTO } from '../../types/DTO/EmployeeGroup';
-import { PersonDTO } from '../../types/DTO/Person';
 
 const EmployeeDetailsFieldsetStyle = styled.div`
   padding: 24px;
@@ -43,8 +42,8 @@ const EmployeeDetailsFieldsetStyle = styled.div`
 `;
 
 interface Props {
-  closeDrawer: Function;
-  person: PersonDTO;
+  closeDrawer: () => void;
+  person: { IdPerson: string; FirstName: string; LastName: string } | undefined;
 }
 
 const EmployeeDetailsFieldset = ({ closeDrawer, person }: Props) => {
@@ -59,7 +58,7 @@ const EmployeeDetailsFieldset = ({ closeDrawer, person }: Props) => {
       getEmployeeGroup().then((res) => {
         const newEmployeeGroup = res.data.filter(
           (eg: EmployeeGroupDTO) =>
-            eg.employeeGroupEmployee.IdPerson === person.IdPerson
+            eg.employeeGroupEmployee.IdPerson === person?.IdPerson
         );
         setEmployeeGroup(newEmployeeGroup);
       });
@@ -80,12 +79,13 @@ const EmployeeDetailsFieldset = ({ closeDrawer, person }: Props) => {
 
   const handleOnConfirm = () => {
     try {
-      postEmployeeGroup({ IdGroup: idGroup, IdPerson: person.IdPerson }).then(
-        (res) => {
-          setAddingMode(false);
-          fetchEmployeeGroup();
-        }
-      );
+      postEmployeeGroup({
+        IdGroup: idGroup,
+        IdPerson: person?.IdPerson ?? '',
+      }).then((res) => {
+        setAddingMode(false);
+        fetchEmployeeGroup();
+      });
     } catch (e) {
       console.error(e);
     } finally {
@@ -121,7 +121,8 @@ const EmployeeDetailsFieldset = ({ closeDrawer, person }: Props) => {
       </Dialog>
       <div className="header">
         <h3>
-          {schema.groupsToWhichItBelongs} {person.FirstName} {person.LastName}:
+          {schema.groupsToWhichItBelongs} {person?.FirstName} {person?.LastName}
+          :
         </h3>
         <Fab
           color="primary"

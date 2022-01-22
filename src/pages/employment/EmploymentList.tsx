@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Drawer, Tooltip } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import { SendInvitationBtn } from 'components/SendInvitationBtn/SendInvitationBtn';
+import { useDrawer } from 'hooks/useDrawer';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -13,7 +14,6 @@ import {
   EmploymentListDTO,
   mapEmploymentListDTOtoEmploymentDTO,
 } from '../../types/DTO/Employment';
-import { PersonDTO } from '../../types/DTO/Person';
 import EmployeeDetailsFieldset from './EmployeeDetailsFieldset';
 import EmploymentFieldset from './EmploymentFieldset';
 import EmploymentListHeader from './EmploymentListHeader';
@@ -38,8 +38,12 @@ interface Props {
 }
 
 const EmploymentList = ({ employments }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [person, setPerson] = useState({} as PersonDTO);
+  const { open, openDrawer, closeDrawer } = useDrawer();
+  const [person, setPerson] = useState<{
+    IdPerson: string;
+    FirstName: string;
+    LastName: string;
+  }>();
   const [editEmployee, setEditEmployee] = useState<EmploymentDTO | null>(null);
   const deleteMutation = useDeleteEmploymentMutation();
 
@@ -81,8 +85,12 @@ const EmploymentList = ({ employments }: Props) => {
             <Tooltip title={schema.group}>
               <Button
                 onClick={() => {
-                  setPerson(person);
-                  setIsOpen(true);
+                  setPerson({
+                    IdPerson: employment.IdPerson,
+                    FirstName: employment.FirstName,
+                    LastName: employment.LastName,
+                  });
+                  openDrawer();
                 }}
               >
                 <FontAwesomeIcon className="g-primary-color" icon={faSitemap} />
@@ -101,11 +109,8 @@ const EmploymentList = ({ employments }: Props) => {
           editEmployee={editEmployee}
         />
       </Drawer>
-      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        <EmployeeDetailsFieldset
-          closeDrawer={() => setIsOpen(false)}
-          person={person}
-        />
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
+        <EmployeeDetailsFieldset closeDrawer={closeDrawer} person={person} />
       </Drawer>
     </EmploymentListStyle>
   );
