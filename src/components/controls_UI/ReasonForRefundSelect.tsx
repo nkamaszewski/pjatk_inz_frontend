@@ -6,7 +6,7 @@ import { FormControlStyled } from './FormControlStyled';
 
 interface Props {
   value: string;
-  onChange: (name: string) => void;
+  onChange: (id: string) => void;
   onBlur?: (e: React.FocusEvent<any>) => void;
   name?: string;
   touched?: boolean;
@@ -36,7 +36,7 @@ export const ReasonForRefundSelect = ({
         name={name}
       >
         {reasonsForRefund.map(({ IdReasonForRefund, Name }) => (
-          <MenuItem key={IdReasonForRefund} value={Name}>
+          <MenuItem key={IdReasonForRefund} value={IdReasonForRefund}>
             {Name}
           </MenuItem>
         ))}
