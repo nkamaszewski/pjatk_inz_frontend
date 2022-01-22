@@ -284,6 +284,7 @@ export const pl: LanguageSchema = {
 	theRequestItemHasBeenAdded: 'Pozycja wniosku została dodana',
 	theRequestHasBeenDeleted: 'Usunięto wniosek!',
 	trainingProposalRemoved: 'Usunięto propozycję szkolenia!',
+	addARating: 'Dodaj ocenę',
 	validation: {
 		loginRequired: 'podanie email / login jest wymagane',
 		emailFormat: 'niepoprawny format email',

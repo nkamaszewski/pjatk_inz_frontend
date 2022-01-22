@@ -4,6 +4,7 @@ import { useUpdateApplicationMutation } from 'api/application/useUpdateApplicati
 import { OtherEducationSelect } from 'components/controls_UI/OtherEducationSelect';
 import { RadioButtons } from 'components/controls_UI/RadioButtons';
 import StatusSelect from 'components/controls_UI/StatusSelect';
+import { capFL } from 'helpers/capitalizeFirstLetter';
 import { formatDate } from 'helpers/formatDate';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
@@ -14,10 +15,10 @@ import TrainingSelect from '../../components/controls_UI/trainingSelect/Training
 import { ApplicationForDTO } from '../../types/DTO/ApplicationFor';
 import { useTrainingApplicationForm } from './useTrainingApplicationForm';
 
-const EDUCATION_TYPES = [
-  { value: 'study', label: 'Studia' },
-  { value: 'training', label: 'Kurs' },
-  { value: 'other', label: 'Inne' },
+const EDUCATION_TYPES = (schema: { studies: any; course: any; others: any }) => [
+  { value: 'study', label: capFL(schema.studies) },
+  { value: 'training', label: capFL(schema.course) },
+  { value: 'other', label: capFL(schema.others) },
 ];
 
 const TrainingApplicationsContentStyle = styled.div`
@@ -70,7 +71,7 @@ export const TrainingApplicationsContent = ({
   return (
     <TrainingApplicationsContentStyle>
       <RadioButtons
-        options={EDUCATION_TYPES}
+        options={EDUCATION_TYPES(schema)}
         value={educationType}
         onChange={(v) => {
           trainingAppForm.setFieldValue('IdEducation', '');

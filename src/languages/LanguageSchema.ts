@@ -284,6 +284,7 @@ export interface LanguageSchema {
   theRequestItemHasBeenAdded: string;
   theRequestHasBeenDeleted: string;
   trainingProposalRemoved: string;
+  addARating: string;
   validation: {
     loginRequired: string;
     emailFormat: string;

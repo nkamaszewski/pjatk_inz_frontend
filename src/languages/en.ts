@@ -286,6 +286,7 @@ export const en: LanguageSchema = {
   theRequestItemHasBeenAdded: 'The request item has been added',
   theRequestHasBeenDeleted: 'The request has been deleted!',
   trainingProposalRemoved: 'Training proposal removed!',
+  addARating: 'Add a rating',
   validation: {
     loginRequired: 'email / login is required',
     emailFormat: 'incorrect email format',
