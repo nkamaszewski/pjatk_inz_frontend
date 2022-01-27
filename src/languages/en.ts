@@ -248,6 +248,7 @@ export const en: LanguageSchema = {
   category: 'Category',
   link: 'Link',
   applicationAdded: 'Application added',
+  applicationEdited: 'Application edited',
   theApplicationCouldNotBeAdded: 'The application could not be added',
   theApplicationHasBeenDeleted: 'The application has been deleted',
   theRequestCouldNotBeDeleted: 'The request could not be deleted!',

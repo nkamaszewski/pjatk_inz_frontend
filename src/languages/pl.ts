@@ -246,6 +246,7 @@ export const pl: LanguageSchema = {
   category: 'Propozycja tematu',
   link: 'Link',
   applicationAdded: 'Dodano wniosek',
+  applicationEdited: 'Zmieniono wniosek',
   theApplicationCouldNotBeAdded: 'Nie udało się dodać wniosku',
   theApplicationHasBeenDeleted: 'Usunięto wniosek',
   theRequestCouldNotBeDeleted: 'Nie udało się usunąć wniosku!',

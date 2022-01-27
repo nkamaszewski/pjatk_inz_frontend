@@ -246,6 +246,7 @@ export interface LanguageSchema {
   category: string;
   link: string;
   applicationAdded: string;
+  applicationEdited: string;
   theApplicationCouldNotBeAdded: string;
   theApplicationHasBeenDeleted: string;
   theRequestCouldNotBeDeleted: string;

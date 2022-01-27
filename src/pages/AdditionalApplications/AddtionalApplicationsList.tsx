@@ -8,7 +8,10 @@ import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
 import { formatDate } from '../../helpers/formatDate';
 import { useDictionary } from '../../providers/DictionaryContext';
-import { ApplicationForRefundList } from '../../types/DTO/ApplicationForRefund';
+import {
+  ApplicationForRefundEditModel,
+  ApplicationForRefundList,
+} from '../../types/DTO/ApplicationForRefund';
 import { AddtionalApplicationsFieldset } from './AddtionalApplicationsFieldset';
 import { AddtionalApplicationsListHeader } from './AddtionalApplicationsListHeader';
 
@@ -39,12 +42,12 @@ interface Props {
 export const AddtionalApplicationsList = ({
   additionalApplications,
 }: Props) => {
-  const [editAdditionalApplication, setAdditionalApplication] =
-    useState<ApplicationForRefundList | null>(null);
+  const [editAdditionalApplication, setEditAdditionalApplication] =
+    useState<ApplicationForRefundEditModel | null>(null);
   const deleteAppForRefundMutation = useDeleteApplicationForRefundMutation();
   const deleteAppForReasonMutation = useDeleteApplicationForReasonMutation();
   const { statuses } = useDictionary();
-  const handleCloseDrawer = () => setAdditionalApplication(null);
+  const handleCloseDrawer = () => setEditAdditionalApplication(null);
   const handleDeleteItem = (id: string) => {
     deleteAppForRefundMutation.mutate(id);
   };
@@ -62,7 +65,10 @@ export const AddtionalApplicationsList = ({
         open={Boolean(editAdditionalApplication)}
         onClose={handleCloseDrawer}
       >
-        <AddtionalApplicationsFieldset closeDrawer={handleCloseDrawer} />
+        <AddtionalApplicationsFieldset
+          closeDrawer={handleCloseDrawer}
+          editAdditionalApplication={editAdditionalApplication}
+        />
       </Drawer>
       <AddtionalApplicationsListHeader />
       {additionalApplications.map((additionalApp) => (
@@ -87,17 +93,28 @@ export const AddtionalApplicationsList = ({
           </header>
           <Divider />
           {additionalApp.applicationForRefundApplicationForReasons.map(
-            (application) => (
+            ({
+              IdReasonForRefund,
+              IdApplicationForRefund,
+              IdStatus,
+              applicationForReasonsReasonForRefund,
+            }) => (
               <section className="grid-doc">
-                <p>{application.applicationForReasonsReasonForRefund.Name}</p>
-                <p>{getStatusName(application.IdStatus)}</p>
+                <p>{applicationForReasonsReasonForRefund.Name}</p>
+                <p>{getStatusName(IdStatus)}</p>
                 <EditBtn
-                  onClick={() => setAdditionalApplication(additionalApp)}
+                  onClick={() =>
+                    setEditAdditionalApplication({
+                      IdApplicationFor: additionalApp.IdApplicationFor,
+                      IdApplicationForRefund,
+                      IdReasonForRefund,
+                      IdStatus,
+                      DateOfSubmission: additionalApp.DateOfSubmission,
+                    })
+                  }
                 />
                 <DeleteBtn
-                  onClick={() =>
-                    handleDeleteItemDetails(application.IdReasonForRefund)
-                  }
+                  onClick={() => handleDeleteItemDetails(IdReasonForRefund)}
                 />
               </section>
             )

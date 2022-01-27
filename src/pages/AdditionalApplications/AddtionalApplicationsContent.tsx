@@ -1,10 +1,13 @@
 import { Button } from '@material-ui/core';
 import { useAddAdditionalApplicationMutation } from 'api/additionalApplication/useAddAdditionalApplicationMutation';
+import { useUpdateApplicationsForReasonMutation } from 'api/applicationForReason/useUpdateApplicationsForReasonMutation';
 import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { ReasonForRefundSelect } from 'components/controls_UI/ReasonForRefundSelect';
 import StatusSelect from 'components/controls_UI/StatusSelect';
+import { formatDate } from 'helpers/formatDate';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import styled from 'styled-components';
+import { ApplicationForRefundEditModel } from 'types/DTO/ApplicationForRefund';
 import ApplicationForSelect from '../../components/controls_UI/applicationForSelect/ApplicationForSelect';
 import { useAddtionalApplicationsForm } from './useAddtionalApplicationsForm';
 
@@ -22,7 +25,7 @@ const initialValues = {
 };
 interface Props {
   closeDrawer: Function;
-  editAdditionalApplication?: any | null;
+  editAdditionalApplication?: ApplicationForRefundEditModel | null;
   IdApplicationFor?: string | undefined;
 }
 
@@ -32,13 +35,26 @@ export const AddtionalApplicationsContent = ({
   IdApplicationFor,
 }: Props) => {
   const addMutation = useAddAdditionalApplicationMutation();
+  const editMutation = useUpdateApplicationsForReasonMutation();
   const additionalApplicationForm = useAddtionalApplicationsForm()({
-    // initialValues: editAdditionalApplication ?? initialValues,
     initialValues: IdApplicationFor
       ? { ...initialValues, IdApplicationFor }
+      : editAdditionalApplication
+      ? {
+          ...editAdditionalApplication,
+          DateOfSubmission: formatDate(
+            editAdditionalApplication.DateOfSubmission
+          ) as string,
+        }
       : initialValues,
     onSubmit: async (values) => {
       if (editAdditionalApplication) {
+        await editMutation.mutateAsync({
+          ...values,
+          IdApplicationForReasons: editAdditionalApplication.IdReasonForRefund,
+          IdApplicationForRefund:
+            editAdditionalApplication.IdApplicationForRefund,
+        });
       } else {
         await addMutation.mutateAsync(values);
       }
@@ -59,7 +75,9 @@ export const AddtionalApplicationsContent = ({
         onBlur={additionalApplicationForm.handleBlur}
         error={additionalApplicationForm.errors.IdApplicationFor}
         touched={additionalApplicationForm.touched.IdApplicationFor}
-        disabled={Boolean(IdApplicationFor)}
+        disabled={
+          Boolean(IdApplicationFor) || Boolean(editAdditionalApplication)
+        }
       />
       <ReasonForRefundSelect
         value={additionalApplicationForm.values.IdReasonForRefund}

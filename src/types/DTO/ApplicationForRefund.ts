@@ -7,8 +7,16 @@ export interface ApplicationForRefundDTO {
   IdStatus: string;
 }
 
+export interface ApplicationForRefundEditModel {
+  DateOfSubmission: string;
+  IdReasonForRefund: string;
+  IdApplicationFor: string;
+  IdStatus: string;
+  IdApplicationForRefund: string;
+}
+
 export interface ApplicationForRefundList extends ApplicationForRefundDTO {
-  DateOfSubmission: Date | string | null;
+  DateOfSubmission: string;
   applicationForRefundApplicationForReasons: ApplicationForReasonsList[];
   applicationForRefundApplicationFor: {
     IdEducation: string;
