@@ -94,6 +94,9 @@ export interface LanguageSchema {
   departmentsDivisions: string;
   positions: string;
   rooms: string;
+  roomRemoved: string;
+  roomAdded: string;
+  roomEdited: string;
   coaches: string;
   meetings: string;
   meetingsRemoved: string;

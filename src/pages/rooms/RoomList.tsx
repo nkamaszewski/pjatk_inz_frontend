@@ -1,15 +1,10 @@
 import { Drawer } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
+import { useDeleteRoomMutation } from 'api/room/useDeleteRoomMutation';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { deleteRoom } from '../../api/Room';
 import DeleteBtn from '../../components/DeleteBtn';
 import EditBtn from '../../components/EditBtn';
-import {
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { RoomDTO } from '../../types/DTO/Room';
 import RoomFieldset from './RoomFieldset';
 import RoomListHeader from './RoomListHeader';
@@ -34,23 +29,14 @@ const RoomListStyle = styled.div`
 
 interface Props {
   rooms: RoomDTO[];
-  fetchRooms: () => void;
 }
 
-const RoomList = ({ rooms, fetchRooms }: Props) => {
+const RoomList = ({ rooms }: Props) => {
   const [editRoom, setEditRoom]: [RoomDTO | null, Function] = useState(null);
-  const { setSnackbar } = useSnackbar();
-  const handleHttpError = useHandleHttpError();
+  const deleteRoom = useDeleteRoomMutation();
+
   const handleCloseDrawer = () => setEditRoom(null);
-  const handleDeleteItem = async (id: string) => {
-    try {
-      await deleteRoom(id);
-      fetchRooms();
-      setSnackbar(createSnackbarSuccess('usunięto salę'));
-    } catch (e) {
-      handleHttpError(e);
-    }
-  };
+
   return (
     <RoomListStyle>
       <Drawer
@@ -58,11 +44,7 @@ const RoomList = ({ rooms, fetchRooms }: Props) => {
         open={Boolean(editRoom)}
         onClose={handleCloseDrawer}
       >
-        <RoomFieldset
-          closeDrawer={handleCloseDrawer}
-          fetchRooms={fetchRooms}
-          editRoom={editRoom}
-        />
+        <RoomFieldset closeDrawer={handleCloseDrawer} editRoom={editRoom} />
       </Drawer>
       <RoomListHeader />
       {rooms.map((room) => (
@@ -74,7 +56,7 @@ const RoomList = ({ rooms, fetchRooms }: Props) => {
           <p className="item-centered">{room.CapacitySet3 ?? '---'}</p>
           <p className="item-centered">{room.CapacitySet4 ?? '---'}</p>
           <EditBtn onClick={() => setEditRoom(room)} />
-          <DeleteBtn onClick={() => handleDeleteItem(room.IdRoom)} />
+          <DeleteBtn onClick={() => deleteRoom.mutate(room.IdRoom)} />
         </Card>
       ))}
     </RoomListStyle>

@@ -7,11 +7,10 @@ import RoomContent from './RoomContent';
 
 interface Props {
   closeDrawer: () => void;
-  fetchRooms: Function;
   editRoom?: RoomDTO | null;
 }
 
-const RoomFieldset = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
+const RoomFieldset = ({ closeDrawer, editRoom }: Props) => {
   const schema = useLanguageSchema();
   return (
     <FieldsetStyled>
@@ -19,11 +18,7 @@ const RoomFieldset = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
         title={`${editRoom ? capFL(schema.edit) : schema.add} ${schema.roomV2}`}
         closeDrawer={closeDrawer}
       />
-      <RoomContent
-        closeDrawer={closeDrawer}
-        fetchRooms={fetchRooms}
-        editRoom={editRoom}
-      />
+      <RoomContent closeDrawer={closeDrawer} editRoom={editRoom} />
     </FieldsetStyled>
   );
 };

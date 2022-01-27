@@ -1,5 +1,5 @@
 import { axiosJWT } from 'helpers/tokenAxios';
-import { RoomDTO } from '../types/DTO/Room';
+import { RoomDTO } from '../../types/DTO/Room';
 
 export const getRooms = () => axiosJWT.get<RoomDTO[]>('/rooms/');
 

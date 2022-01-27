@@ -1,13 +1,9 @@
 import { Button, TextField } from '@material-ui/core';
-import { useHandleHttpError } from 'hooks/useHandleHttpError';
+import { useAddRoomMutation } from 'api/room/useAddRoomMutation';
+import { useUpdateRoomMutation } from 'api/room/useUpdateRoomMutation';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { postRoom, updateRoom } from '../../api/Room';
-import {
-  createSnackbarSuccess,
-  useSnackbar,
-} from '../../providers/NotificationContext';
 import { RoomDTO } from '../../types/DTO/Room';
 
 const RoomContentStyle = styled.div`
@@ -18,19 +14,18 @@ const RoomContentStyle = styled.div`
 
 interface Props {
   closeDrawer: Function;
-  fetchRooms: Function;
   editRoom?: RoomDTO | null;
 }
 
-const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
+const RoomContent = ({ closeDrawer, editRoom }: Props) => {
   const [name, setName] = useState(editRoom?.Name ?? '');
   const [area, setArea] = useState(editRoom?.Area ?? 0);
   const [capacitySet1, setCapacitySet1] = useState(editRoom?.CapacitySet1 ?? 0);
   const [capacitySet2, setCapacitySet2] = useState(editRoom?.CapacitySet2 ?? 0);
   const [capacitySet3, setCapacitySet3] = useState(editRoom?.CapacitySet3 ?? 0);
   const [capacitySet4, setCapacitySet4] = useState(editRoom?.CapacitySet4 ?? 0);
-  const { setSnackbar } = useSnackbar();
-  const handleHttpError = useHandleHttpError();
+  const updateRoom = useUpdateRoomMutation();
+  const addRoom = useAddRoomMutation();
 
   const handleOnSave = async () => {
     const newRoom = {
@@ -41,24 +36,17 @@ const RoomContent = ({ closeDrawer, fetchRooms, editRoom }: Props) => {
       CapacitySet3: capacitySet3,
       CapacitySet4: capacitySet4,
     };
-    try {
-      if (editRoom) {
-        await updateRoom({
-          IdRoom: editRoom.IdRoom,
-          ...newRoom,
-        });
-        setSnackbar(createSnackbarSuccess('Edytowano salę'));
-        closeDrawer();
-      } else {
-        await postRoom(newRoom);
-        setSnackbar(createSnackbarSuccess('Dodano salę'));
-        closeDrawer();
-      }
-      fetchRooms();
-    } catch (e) {
-      handleHttpError(e);
-      console.error(e);
+
+    if (editRoom) {
+      await updateRoom.mutateAsync({
+        IdRoom: editRoom.IdRoom,
+        ...newRoom,
+      });
+    } else {
+      await addRoom.mutateAsync(newRoom);
     }
+
+    closeDrawer();
   };
   const schema = useLanguageSchema();
 

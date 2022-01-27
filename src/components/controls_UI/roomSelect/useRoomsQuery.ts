@@ -1,4 +1,4 @@
-import { getRooms } from 'api/Room';
+import { getRooms } from 'api/room/Room';
 import { useQuery } from 'react-query';
 import { RoomDTO } from 'types/DTO/Room';
 

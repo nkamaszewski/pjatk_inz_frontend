@@ -6,7 +6,7 @@ import Employment from 'pages/employment/EmploymentPage';
 import { TrainingPropositionsPage } from 'pages/trainingPropositions/TrainingPropositionsPage';
 import UserAccount from 'pages/userAccount/UserAccountPage';
 import WorkshopsInternalGroups from 'pages/groups/GroupsPage';
-import WorkshopsInternalRoom from 'pages/rooms/WorkshopsInternalRoom';
+import { RoomsPage } from 'pages/rooms/RoomsPage';
 import { MeetingsSchedulePage } from 'pages/meetingsSchedule/MeetingsSchedulePage';
 import WorkshopsCoaches from 'pages/Coaches/WorkshopsCoaches';
 import Organizators from 'pages/organizators/Organizators';
@@ -44,7 +44,7 @@ export const routes: RouteType[] = [
   { Component: WorkshopsOthers, path: PATH.workshopOthers },
   { Component: Organizators, path: PATH.organizators },
   { Component: WorkshopsCoaches, path: PATH.workshopsCoaches },
-  { Component: WorkshopsInternalRoom, path: PATH.workshopsInternalRoom },
+  { Component: RoomsPage, path: PATH.workshopsInternalRoom },
   { Component: WorkshopsInternalGroups, path: PATH.workshopsInternalGroups },
   { Component: ScoresPage, path: PATH.scores },
   {
