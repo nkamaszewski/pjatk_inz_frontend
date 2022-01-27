@@ -9,15 +9,28 @@ import {
 
 const useCreateLoader = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loaderText, setLoaderText] = useState('');
 
-  const startLoading = useCallback(() => setIsLoading(true), [setIsLoading]);
-  const stopLoading = useCallback(() => setIsLoading(false), [setIsLoading]);
+  const startLoading = useCallback(
+    (text?: string) => {
+      setIsLoading(true);
+      if (text) {
+        setLoaderText(text);
+      }
+    },
+    [setIsLoading, setLoaderText]
+  );
+  const stopLoading = useCallback(() => {
+    setIsLoading(false);
+    setLoaderText('');
+  }, [setIsLoading]);
 
-  return { isLoading, startLoading, stopLoading };
+  return { isLoading, loaderText, startLoading, stopLoading };
 };
 
 interface LoaderCtx {
   isLoading: boolean;
+  loaderText: string;
   startLoading: () => void;
   stopLoading: () => void;
 }

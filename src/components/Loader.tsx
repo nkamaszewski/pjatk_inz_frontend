@@ -11,12 +11,13 @@ const LoaderStyled = styled.div`
 `;
 
 export const Loader = () => {
-  const { isLoading } = useLoader();
+  const { isLoading, loaderText } = useLoader();
   return (
     <>
       {isLoading && (
         <LoaderStyled>
           <CircularProgress size={60} className="progress" />
+          <h4>{loaderText}</h4>
         </LoaderStyled>
       )}
     </>
