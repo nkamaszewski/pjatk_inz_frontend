@@ -1,5 +1,8 @@
 import { axiosJWT } from 'helpers/tokenAxios';
-import { ApplicationForRefundList } from 'types/DTO/ApplicationForRefund';
+import {
+  ApplicationForRefundEditModel,
+  ApplicationForRefundList,
+} from 'types/DTO/ApplicationForRefund';
 
 export const getApplicationsForRefund = () =>
   axiosJWT.get<ApplicationForRefundList[]>('/appforrefund');
@@ -9,3 +12,7 @@ export const getApplicationForRefund = (id: string) =>
 
 export const deleteApplicationsForRefund = (id: string) =>
   axiosJWT.delete(`/appforrefund/${id}`);
+
+export const updateApplicationsForRefund = (
+  app: Omit<ApplicationForRefundEditModel, 'IdReasonForRefund'>
+) => axiosJWT.put(`/appforrefund/${app.IdApplicationForRefund}`, app);
