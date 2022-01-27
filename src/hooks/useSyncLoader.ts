@@ -11,9 +11,9 @@ export const useSyncLoader = ({ text = '', isLoading }: SyncLoader) => {
 
   useEffect(() => {
     if (isLoading) {
-      startLoading();
+      startLoading(text);
     } else {
       stopLoading();
     }
-  }, [isLoading]);
+  }, [isLoading, startLoading, stopLoading, text]);
 };

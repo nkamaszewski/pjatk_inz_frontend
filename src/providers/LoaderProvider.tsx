@@ -31,7 +31,7 @@ const useCreateLoader = () => {
 interface LoaderCtx {
   isLoading: boolean;
   loaderText: string;
-  startLoading: () => void;
+  startLoading: (text?: string) => void;
   stopLoading: () => void;
 }
 
