@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useDrawer } from 'hooks/useDrawer';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { getCompanies } from '../../api/company/Company';
@@ -9,9 +10,9 @@ import { CompanyDTO } from '../../types/DTO/Company';
 import CompaniesList from './CompanieList';
 import CompanyFieldset from './CompanyFieldset';
 
-const Organizators = () => {
+export const OrganizatorsPage = () => {
+  const { open, openDrawer, closeDrawer } = useDrawer();
   const [companies, setCompanies]: [CompanyDTO[], Function] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
 
   const fetchCompanies = () => {
     try {
@@ -31,10 +32,10 @@ const Organizators = () => {
   return (
     <div>
       <PageHeader title={trainingOrganizers} />
-      <AddFab onClick={() => setIsOpen(true)} />
-      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
+      <AddFab onClick={openDrawer} />
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
         <CompanyFieldset
-          closeDrawer={() => setIsOpen(false)}
+          closeDrawer={closeDrawer}
           fetchCompanies={fetchCompanies}
         />
       </Drawer>
@@ -46,5 +47,3 @@ const Organizators = () => {
     </div>
   );
 };
-
-export default Organizators;

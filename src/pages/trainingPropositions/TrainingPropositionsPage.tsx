@@ -9,12 +9,13 @@ import PageHeader from 'components/PageHeader';
 import { QuestionnaireOfferDTO } from 'types/DTO/QuestionnaireOffer';
 import { TrainingPropositionFieldset } from './TrainingPropositionFieldset';
 import { TrainingPropositionsList } from './TrainingPropositionsList';
+import { useDrawer } from 'hooks/useDrawer';
 
 const TrainingPropositionsPageStyle = styled.div``;
 
 export const TrainingPropositionsPage = () => {
+  const { open, openDrawer, closeDrawer } = useDrawer();
   const [polls, setPolls]: [QuestionnaireOfferDTO[], Function] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
 
   const fetchQuestionnaireOffers = () => {
     try {
@@ -35,11 +36,11 @@ export const TrainingPropositionsPage = () => {
   return (
     <TrainingPropositionsPageStyle>
       <PageHeader title={applicationsTrainingProposals} />
-      <AddFab onClick={() => setIsOpen(true)} />
+      <AddFab onClick={openDrawer} />
 
-      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
         <TrainingPropositionFieldset
-          closeDrawer={() => setIsOpen(false)}
+          closeDrawer={closeDrawer}
           fetchQuestionnaireOffers={fetchQuestionnaireOffers}
           polls={polls}
         />

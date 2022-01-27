@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useDrawer } from 'hooks/useDrawer';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { StudiesListDTO } from 'types/DTO/Study';
@@ -9,9 +10,9 @@ import PageHeader from '../../components/PageHeader';
 import StudyFieldset from './StudyFieldset';
 import StudyList from './StudyList';
 
-const WorkshopsStudy = () => {
+export const StudyPage = () => {
+  const { open, openDrawer, closeDrawer } = useDrawer();
   const [studies, setStudies] = useState<StudiesListDTO[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
 
   const fetchStudies = () => {
     try {
@@ -32,12 +33,9 @@ const WorkshopsStudy = () => {
   return (
     <div>
       <PageHeader title={study} />
-      <AddFab onClick={() => setIsOpen(true)} />
-      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        <StudyFieldset
-          closeDrawer={() => setIsOpen(false)}
-          fetchStudies={fetchStudies}
-        />
+      <AddFab onClick={openDrawer} />
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
+        <StudyFieldset closeDrawer={closeDrawer} fetchStudies={fetchStudies} />
       </Drawer>
       {studies.length ? (
         <StudyList studies={studies} fetchStudies={fetchStudies} />
@@ -47,5 +45,3 @@ const WorkshopsStudy = () => {
     </div>
   );
 };
-
-export default WorkshopsStudy;

@@ -1,8 +1,8 @@
 import { Drawer } from '@material-ui/core';
 import AddFab from 'components/AddFab';
 import { NoData } from 'components/NoData';
+import { useDrawer } from 'hooks/useDrawer';
 import { useLanguageSchema } from 'providers/LanguageProvider';
-import { useState } from 'react';
 import styled from 'styled-components';
 import PageHeader from '../../components/PageHeader';
 import { useWorkshopList } from './useWorkshopsList';
@@ -11,17 +11,17 @@ import { WorkshopsList } from './WorkshopsList';
 
 const WorkshopsOthersStyled = styled.div``;
 
-export const WorkshopsOthers = () => {
-  const [isOpen, setIsOpen] = useState(false);
+export const WorkshopsOthersPage = () => {
+  const { open, openDrawer, closeDrawer } = useDrawer();
   const { workshops, fetchWorkshops } = useWorkshopList();
   const { otherTtrainings } = useLanguageSchema();
   return (
     <WorkshopsOthersStyled>
       <PageHeader title={otherTtrainings} />
-      <AddFab onClick={() => setIsOpen(true)} />
-      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
+      <AddFab onClick={openDrawer} />
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
         <WorkshopFieldset
-          closeDrawer={() => setIsOpen(false)}
+          closeDrawer={closeDrawer}
           fetchWorkshops={fetchWorkshops}
         />
       </Drawer>

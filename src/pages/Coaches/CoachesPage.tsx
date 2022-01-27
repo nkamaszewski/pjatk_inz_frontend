@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { NoData } from 'components/NoData';
+import { useDrawer } from 'hooks/useDrawer';
 import { useLanguageSchema } from 'providers/LanguageProvider';
 import { useEffect, useState } from 'react';
 import { getCoaches } from '../../api/coach/Coach';
@@ -9,9 +10,9 @@ import { CoachDTO } from '../../types/DTO/Coach';
 import CoachFieldset from './CoachFieldset';
 import CoachList from './CoachList';
 
-const WorkshopsCoaches = () => {
+export const CoachesPage = () => {
+  const { open, openDrawer, closeDrawer } = useDrawer();
   const [coaches, setCoaches]: [CoachDTO[], Function] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
 
   const fetchCoaches = () => {
     try {
@@ -32,12 +33,9 @@ const WorkshopsCoaches = () => {
   return (
     <div>
       <PageHeader title={schema.coaches} />
-      <AddFab onClick={() => setIsOpen(true)} />
-      <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-        <CoachFieldset
-          closeDrawer={() => setIsOpen(false)}
-          fetchCoaches={fetchCoaches}
-        />
+      <AddFab onClick={openDrawer} />
+      <Drawer anchor="right" open={open} onClose={closeDrawer}>
+        <CoachFieldset closeDrawer={closeDrawer} fetchCoaches={fetchCoaches} />
       </Drawer>
       {coaches.length ? (
         <CoachList coaches={coaches} fetchCoaches={fetchCoaches} />
@@ -47,5 +45,3 @@ const WorkshopsCoaches = () => {
     </div>
   );
 };
-
-export default WorkshopsCoaches;

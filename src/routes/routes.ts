@@ -8,10 +8,10 @@ import UserAccount from 'pages/userAccount/UserAccountPage';
 import WorkshopsInternalGroups from 'pages/groups/GroupsPage';
 import { RoomsPage } from 'pages/rooms/RoomsPage';
 import { MeetingsSchedulePage } from 'pages/meetingsSchedule/MeetingsSchedulePage';
-import WorkshopsCoaches from 'pages/Coaches/WorkshopsCoaches';
-import Organizators from 'pages/organizators/Organizators';
-import { WorkshopsOthers } from 'pages/workshopsOther/WorkshopsOthers';
-import WorkshopsStudy from 'pages/study/WorkshopsStudy';
+import { CoachesPage } from 'pages/Coaches/CoachesPage';
+import { OrganizatorsPage } from 'pages/organizators/OrganizatorsPage';
+import { WorkshopsOthersPage } from 'pages/workshopsOther/WorkshopsOthersPage';
+import { StudyPage } from 'pages/study/StudyPage';
 import WorkshopsTraining from 'pages/courses_training/TrainingsPage';
 import LoginPage from 'pages/Login/LoginPage';
 import RegisterPage from 'pages/Register/RegisterPage';
@@ -39,11 +39,11 @@ export const routes: RouteType[] = [
   { Component: Employment, path: PATH.employment },
   { Component: TrainingApplicationsPage, path: PATH.applicationsPage },
   { Component: AddtionalApplicationsPage, path: PATH.documentAdditional },
-  { Component: WorkshopsStudy, path: PATH.workshopStudy },
+  { Component: StudyPage, path: PATH.workshopStudy },
   { Component: WorkshopsTraining, path: PATH.workshopTraining },
-  { Component: WorkshopsOthers, path: PATH.workshopOthers },
-  { Component: Organizators, path: PATH.organizators },
-  { Component: WorkshopsCoaches, path: PATH.workshopsCoaches },
+  { Component: WorkshopsOthersPage, path: PATH.workshopOthers },
+  { Component: OrganizatorsPage, path: PATH.organizators },
+  { Component: CoachesPage, path: PATH.workshopsCoaches },
   { Component: RoomsPage, path: PATH.workshopsInternalRoom },
   { Component: WorkshopsInternalGroups, path: PATH.workshopsInternalGroups },
   { Component: ScoresPage, path: PATH.scores },
