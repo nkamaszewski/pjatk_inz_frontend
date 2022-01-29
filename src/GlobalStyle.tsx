@@ -28,6 +28,19 @@ const GlobalStyle = styled.div`
   .success--color {
     color: #0d924f;
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 400;
+  }
+
+  .lottie-animation {
+    height: 90vh;
+  }
 `;
 
 interface Props {

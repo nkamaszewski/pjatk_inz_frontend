@@ -128,7 +128,12 @@ const RestorePasswordPage = () => {
         </form>
       </section>
       <section>
-        <Lottie loop animationData={lottieJson} play />
+        <Lottie
+          loop
+          animationData={lottieJson}
+          play
+          className="lottie-animation"
+        />
       </section>
     </RestorePasswordPageStyle>
   );

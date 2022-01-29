@@ -15,6 +15,7 @@ const LoginPageStyle = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
+
   .form-section {
     display: grid;
     place-items: center;
@@ -143,7 +144,12 @@ const LoginPage = () => {
         </form>
       </section>
       <section>
-        <Lottie loop animationData={lottieJson} play />
+        <Lottie
+          loop
+          animationData={lottieJson}
+          play
+          className="lottie-animation"
+        />
       </section>
     </LoginPageStyle>
   );

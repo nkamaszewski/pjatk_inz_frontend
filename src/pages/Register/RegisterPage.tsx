@@ -27,7 +27,7 @@ const RegisterPageStyle = styled.div`
     color: ${({ theme }) => theme.primaryBackground};
     background-color: ${({ theme }) => theme.primaryColor};
     width: 400px;
-    padding: 36px;
+    padding: 36px 36px 0 36px;
     .header-form {
       display: grid;
       grid-template-columns: auto 1fr;
@@ -177,7 +177,12 @@ const RegisterPage = () => {
         </form>
       </section>
       <section>
-        <Lottie loop animationData={lottieJson} play />
+        <Lottie
+          loop
+          animationData={lottieJson}
+          play
+          className="lottie-animation"
+        />
       </section>
     </RegisterPageStyle>
   );
