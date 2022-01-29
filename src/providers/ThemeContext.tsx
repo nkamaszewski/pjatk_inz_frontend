@@ -7,6 +7,7 @@ export interface ThemeState {
   primaryBackground: string;
   primaryColor: string;
   primaryHover: string;
+  primaryHover2: string;
   listHeaderBackground: string;
   error: string;
 }
@@ -27,16 +28,18 @@ export const dark_theme: ThemeState = {
   primaryBackground: '#023047',
   primaryColor: '#edf2f4',
   primaryHover: '#F7BF50',
+  primaryHover2: '#bd9441',
   listHeaderBackground: '#caf0f8',
   error: '#f0504a',
 };
 export const light_theme: ThemeState = {
   themeName: 'light',
   logoSrc: '/images/logoLight2.JPG',
-  primaryBackground: '#bbdefb',
+  primaryBackground: '#babfd1',
   primaryColor: '#2b2d42',
   primaryHover: '#dd1c1a',
-  listHeaderBackground: '#bbdefb',
+  primaryHover2: '#dd1c1a',
+  listHeaderBackground: '#93a8ac',
   error: '#f0504a',
 };
 

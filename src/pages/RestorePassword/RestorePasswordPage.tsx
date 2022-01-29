@@ -51,7 +51,7 @@ const RestorePasswordPageStyle = styled.div`
 
       .register-link:hover {
         cursor: pointer;
-        color: ${({ theme }) => theme.primaryHover};
+        color: ${({ theme }) => theme.primaryHover2};
       }
     }
     .submit-btn {
