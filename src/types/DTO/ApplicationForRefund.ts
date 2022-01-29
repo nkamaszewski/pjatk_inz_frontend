@@ -8,6 +8,7 @@ export interface ApplicationForRefundDTO {
 }
 
 export interface ApplicationForRefundEditModel {
+  IdApplicationForReasons: string;
   DateOfSubmission: string;
   IdReasonForRefund: string;
   IdApplicationFor: string;

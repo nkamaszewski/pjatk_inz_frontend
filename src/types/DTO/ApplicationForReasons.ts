@@ -1,4 +1,5 @@
 export interface ApplicationForReasonsDTO {
+  IdApplicationForReasons: string;
   IdReasonForRefund: string;
   IdApplicationForRefund: string;
   IdStatus: string;

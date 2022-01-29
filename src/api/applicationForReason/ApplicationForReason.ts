@@ -8,7 +8,7 @@ export const deleteApplicationsForReason = (id: string) =>
 export const updateApplicationsForReason = (application: {
   IdApplicationForReasons: string;
   DateOfSubmission: string;
-  IdApplicationForRefund: string;
+  IdReasonForRefund: string;
   IdStatus: string;
 }) =>
   axiosJWT.put(

@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core';
 import { useAddAdditionalApplicationMutation } from 'api/additionalApplication/useAddAdditionalApplicationMutation';
-import { useUpdateApplicationsForRefundMutation } from 'api/applicationForRefund/useUpdateApplicationsForRefundMutation';
+import { useUpdateApplicationsForReasonMutation } from 'api/applicationForReason/useUpdateApplicationsForReasonMutation';
 import { FormikTextField } from 'components/controls_UI/formik/FormikTextField';
 import { ReasonForRefundSelect } from 'components/controls_UI/ReasonForRefundSelect';
 import StatusSelect from 'components/controls_UI/StatusSelect';
@@ -35,7 +35,7 @@ export const AddtionalApplicationsContent = ({
   IdApplicationFor,
 }: Props) => {
   const addMutation = useAddAdditionalApplicationMutation();
-  const editMutation = useUpdateApplicationsForRefundMutation();
+  const editMutation = useUpdateApplicationsForReasonMutation();
   const additionalApplicationForm = useAddtionalApplicationsForm()({
     initialValues: IdApplicationFor
       ? { ...initialValues, IdApplicationFor }
@@ -50,9 +50,9 @@ export const AddtionalApplicationsContent = ({
     onSubmit: async (values) => {
       if (editAdditionalApplication) {
         await editMutation.mutateAsync({
-          IdApplicationForRefund:
-            editAdditionalApplication.IdApplicationForRefund,
-          IdApplicationFor: values.IdApplicationFor,
+          IdApplicationForReasons:
+            editAdditionalApplication.IdApplicationForReasons,
+          IdReasonForRefund: values.IdReasonForRefund,
           IdStatus: values.IdStatus,
           DateOfSubmission: values.DateOfSubmission,
         });

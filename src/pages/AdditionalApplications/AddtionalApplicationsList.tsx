@@ -94,6 +94,7 @@ export const AddtionalApplicationsList = ({
           <Divider />
           {additionalApp.applicationForRefundApplicationForReasons.map(
             ({
+              IdApplicationForReasons,
               IdReasonForRefund,
               IdApplicationForRefund,
               IdStatus,
@@ -105,6 +106,7 @@ export const AddtionalApplicationsList = ({
                 <EditBtn
                   onClick={() =>
                     setEditAdditionalApplication({
+                      IdApplicationForReasons,
                       IdApplicationFor: additionalApp.IdApplicationFor,
                       IdApplicationForRefund,
                       IdReasonForRefund,
@@ -114,7 +116,9 @@ export const AddtionalApplicationsList = ({
                   }
                 />
                 <DeleteBtn
-                  onClick={() => handleDeleteItemDetails(IdReasonForRefund)}
+                  onClick={() =>
+                    handleDeleteItemDetails(IdApplicationForReasons)
+                  }
                 />
               </section>
             )
